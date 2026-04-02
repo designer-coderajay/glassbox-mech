@@ -3,8 +3,8 @@
 
 **Stack**: Python 3.10+ · PyTorch · TransformerLens · Gradio · arXiv 2603.09988
 **Package**: `glassbox-mech-interp` on PyPI
-**Live demo**: [HuggingFace Space](https://huggingface.co/spaces/affaan/glassbox)
-**Website**: [glassbox-ai.vercel.app](https://glassbox-ai.vercel.app)
+**Live demo**: [HuggingFace Space](https://huggingface.co/spaces/designer-coderajay/Glassbox-AI-2.0-Mechanistic-Interpretability-tool)
+**Website**: [glassbox-ai.vercel.app](https://project-gu05p.vercel.app)
 
 ---
 
