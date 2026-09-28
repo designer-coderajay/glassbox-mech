@@ -283,6 +283,52 @@ def _run_version(_args: argparse.Namespace) -> int:
     return 0
 
 
+def _add_diff_parser(sub: "argparse._SubParsersAction") -> None:
+    p = sub.add_parser(
+        "diff", help="V6: compare two models (D_P, D_M, D_B + Control A)")
+    p.add_argument("model_a", help="TransformerLens model name, e.g. pythia-70m")
+    p.add_argument("model_b", help="TransformerLens model name")
+    p.add_argument("--task", default="ioi", choices=["ioi", "credit"])
+    p.add_argument("--checkpoint-a", type=int, default=None,
+                   help="Training step for model A (Pythia checkpoints)")
+    p.add_argument("--checkpoint-b", type=int, default=None,
+                   help="Training step for model B (Pythia checkpoints)")
+    p.add_argument("--n-prompts", type=int, default=20)
+    p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--k", type=int, default=10, help="top-k for the Jaccard D_M")
+    p.add_argument("--margin", type=float, default=0.02,
+                   help="TOST margin for D_P (PROVISIONAL, pending pre-registration)")
+    p.add_argument("--label", default="smoke", choices=["smoke", "pilot"])
+    p.add_argument("--device", default="cpu")
+    p.add_argument("--out", default="runs/v6", help="Output directory")
+
+
+def _run_diff(args: argparse.Namespace) -> int:
+    from pathlib import Path
+
+    from glassbox.v6.diff import DiffConfig, run_diff
+
+    cfg = DiffConfig(
+        model_a=args.model_a, model_b=args.model_b, task=args.task,
+        checkpoint_a=args.checkpoint_a, checkpoint_b=args.checkpoint_b,
+        n_prompts=args.n_prompts, seed=args.seed, k=args.k, margin=args.margin,
+        label=args.label, device=args.device,
+    )
+    try:
+        finding = run_diff(cfg, Path(args.out))
+    except NotImplementedError as exc:
+        print(f"{_FAIL} {exc}", file=sys.stderr)
+        return 2
+    for m in finding.measurements:
+        value = "n/a" if m.value is None else f"{m.value:.4f}"
+        print(f"  {m.name:<30} {value:>10}  [{m.status.value}]")
+    for h in finding.hypotheses:
+        print(f"  {h.hypothesis}: {h.status.value} ({h.reason})")
+    print(f"  Control A: {finding.controls['A']['status']}")
+    print(f"  Wrote {args.out}/record.json and finding.json (label: {finding.label})")
+    return 0
+
+
 # ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
@@ -353,6 +399,9 @@ def main() -> None:
     # ── version ───────────────────────────────────────────────────────────────
     sub.add_parser("version", help="Print installed Glassbox version")
 
+    # ── diff (V6) ─────────────────────────────────────────────────────────────
+    _add_diff_parser(sub)
+
     args = parser.parse_args()
 
     if args.cmd == "analyze":
@@ -363,6 +412,8 @@ def main() -> None:
         sys.exit(_run_doctor(args))
     elif args.cmd == "version":
         sys.exit(_run_version(args))
+    elif args.cmd == "diff":
+        sys.exit(_run_diff(args))
     else:
         parser.print_help()
 
