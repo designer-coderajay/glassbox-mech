@@ -27,6 +27,7 @@ __all__ = [
     "single_token_predicate",
     "evaluate_items",
     "probe_distributions",
+    "head_attribution_matrix",
     "mean_head_attribution",
 ]
 
@@ -80,11 +81,14 @@ def probe_distributions(model: HookedTransformer, probes: Sequence[Probe]) -> np
     return np.stack(rows)
 
 
-def mean_head_attribution(model: HookedTransformer,
-                          items: Sequence[IOIItem]) -> Dict[Head, float]:
-    """Mean per-head attribution over items (Taylor attribution patching, name swap)."""
+def head_attribution_matrix(model: HookedTransformer,
+                            items: Sequence[IOIItem]) -> Tuple[List[Head], np.ndarray]:
+    """Per-item, per-head attribution: ``(heads, [n_items, n_heads])``.
+
+    Taylor attribution patching with the IOI name-swap corruption. Heads are sorted.
+    """
     gb = GlassboxV2(model)
-    total: Dict[Head, float] = {}
+    rows: List[Dict[Head, float]] = []
     for it in items:
         clean = model.to_tokens(it.prompt)
         corrupted = model.to_tokens(
@@ -94,6 +98,13 @@ def mean_head_attribution(model: HookedTransformer,
         attr, _ = gb.attribution_patching(
             clean, corrupted, _tok(model, it.target), _tok(model, it.distractor),
             method="taylor")
-        for head, v in attr.items():
-            total[head] = total.get(head, 0.0) + float(v)
-    return {h: v / len(items) for h, v in total.items()}
+        rows.append({head: float(v) for head, v in attr.items()})
+    heads = sorted(rows[0])
+    return heads, np.array([[r[h] for h in heads] for r in rows], dtype=np.float64)
+
+
+def mean_head_attribution(model: HookedTransformer,
+                          items: Sequence[IOIItem]) -> Dict[Head, float]:
+    """Mean per-head attribution over items (the D_M input vector)."""
+    heads, matrix = head_attribution_matrix(model, items)
+    return dict(zip(heads, matrix.mean(axis=0).tolist()))

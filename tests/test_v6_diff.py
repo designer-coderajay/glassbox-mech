@@ -47,6 +47,9 @@ def test_end_to_end_pythia_checkpoints(tmp_path) -> None:
     assert all(h["status"] == "UNRESOLVED" for h in fnd["hypotheses"])
     assert rec["controls"]["A"]["status"] in {"PASS_BITWISE", "RECORDED_TOLERANCE_PENDING"}
     assert rec["controls"]["A"]["D_B_self"] < 1e-6
+    cb = rec["controls"]["B"]
+    assert cb["model_a"]["half_size"] == 2 and cb["pair_divergent"] in {True, False, None}
+    assert "inclusion" in rec["model_a"] and "p_value" in rec["model_b"]["inclusion"]
     assert 0.0 <= rec["distances"]["D_B"]["value"] <= 1.0
     assert rec["dataset"]["hash"] == finding.scope.dataset_hash
     assert rec["environment"]["packages"]["torch"]

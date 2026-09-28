@@ -300,6 +300,8 @@ def _add_diff_parser(sub: "argparse._SubParsersAction") -> None:
                    help="TOST margin for D_P (PROVISIONAL, pending pre-registration)")
     p.add_argument("--label", default="smoke", choices=["smoke", "pilot"])
     p.add_argument("--device", default="cpu")
+    p.add_argument("--n-splits", type=int, default=200,
+                   help="Control B: number of random disjoint half-splits")
     p.add_argument("--out", default="runs/v6", help="Output directory")
 
 
@@ -312,7 +314,7 @@ def _run_diff(args: argparse.Namespace) -> int:
         model_a=args.model_a, model_b=args.model_b, task=args.task,
         checkpoint_a=args.checkpoint_a, checkpoint_b=args.checkpoint_b,
         n_prompts=args.n_prompts, seed=args.seed, k=args.k, margin=args.margin,
-        label=args.label, device=args.device,
+        label=args.label, device=args.device, n_splits=args.n_splits,
     )
     try:
         finding = run_diff(cfg, Path(args.out))
@@ -325,6 +327,8 @@ def _run_diff(args: argparse.Namespace) -> int:
     for h in finding.hypotheses:
         print(f"  {h.hypothesis}: {h.status.value} ({h.reason})")
     print(f"  Control A: {finding.controls['A']['status']}")
+    print(f"  Control B: pair divergent = {finding.controls['B']['pair_divergent']} "
+          "(draft rule)")
     print(f"  Wrote {args.out}/record.json and finding.json (label: {finding.label})")
     return 0
 

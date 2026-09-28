@@ -1,7 +1,7 @@
-"""``glassbox-ai diff``: one model pair -> D_P, D_M, D_B, Control A, record + Finding.
+"""``glassbox-ai diff``: one model pair -> D_P, D_M, D_B, Controls A+B, record + Finding.
 
 Milestone-1 scope (experiments/v6/AUDIT.md §E): Arm A IOI only, one pair per run.
-A single pair cannot test H1-H4 (they need many pairs and the Control B null), so
+A single pair cannot test H1-H4 (they need many model pairs), so
 every hypothesis is recorded as UNRESOLVED and the run is labelled ``smoke`` or ``pilot``,
 never ``confirmatory``.
 """
@@ -18,6 +18,7 @@ from typing import Any, Dict, Optional
 
 import numpy as np
 
+from glassbox.v6 import controls
 from glassbox.v6 import distances as dist
 from glassbox.v6.claims import (
     EvidenceStatus,
@@ -66,6 +67,7 @@ class DiffConfig:
     margin: float = PROVISIONAL_MARGIN
     label: str = "smoke"
     device: str = "cpu"
+    n_splits: int = 200
 
 
 def _measure(model: Any, ds: Any) -> Dict[str, Any]:
@@ -74,9 +76,29 @@ def _measure(model: Any, ds: Any) -> Dict[str, Any]:
     t0 = time.perf_counter()
     correct, lds = measure.evaluate_items(model, ds.items)
     probes = measure.probe_distributions(model, ds.probes)
-    attr = measure.mean_head_attribution(model, ds.items)
+    heads, per_item = measure.head_attribution_matrix(model, ds.items)
+    attr = dict(zip(heads, per_item.mean(axis=0).tolist()))
     return {"correct": correct, "ld": lds, "probes": probes, "attr": attr,
-            "seconds": time.perf_counter() - t0}
+            "heads": heads, "per_item": per_item, "seconds": time.perf_counter() - t0}
+
+
+def _control_b(cfg: DiffConfig, res_a: Dict[str, Any], res_b: Dict[str, Any],
+               d_m: float) -> Dict[str, Any]:
+    null_a = controls.split_half_null(res_a["per_item"], res_a["heads"],
+                                      cfg.n_splits, cfg.seed)
+    null_b = controls.split_half_null(res_b["per_item"], res_b["heads"],
+                                      cfg.n_splits, cfg.seed + 1)
+    return {
+        "name": "Control B (resampling null: same model, disjoint item halves)",
+        "model_a": null_a,
+        "model_b": null_b,
+        "threshold": max(null_a["p95"], null_b["p95"]),
+        "rule": "divergent iff D_M > max(Control-B p95 of A, of B) [draft, "
+                "PREREGISTRATION.md §4]",
+        "pair_divergent": controls.is_divergent(d_m, [null_a["p95"], null_b["p95"]]),
+        "limitation": "halves use n/2 items; the null overstates noise at n "
+                      "(conservative)",
+    }
 
 
 def _control_a(first: Dict[str, Any], again: Dict[str, Any]) -> Dict[str, Any]:
@@ -108,7 +130,9 @@ def _serialisable(m: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "correct": m["correct"], "ld": m["ld"],
         "attribution": {f"L{l}H{h}": v for (l, h), v in sorted(m["attr"].items())},
+        "per_item_attribution_sha256": sha256_json(np.round(m["per_item"], 12).tolist()),
         "probe_dist_sha256": sha256_json(np.round(m["probes"], 12).tolist()),
+        "inclusion": controls.above_chance(m["correct"]),
         "seconds": m["seconds"],
     }
 
@@ -143,6 +167,8 @@ def run_diff(cfg: DiffConfig, out_dir: Path) -> Finding:
     model_a2 = measure.load_model(cfg.model_a, cfg.checkpoint_a, cfg.device)
     control_a = _control_a(res_a, _measure(model_a2, ds))
     del model_a2
+    distances = _distances(cfg, ds, res_a, res_b)
+    control_b = _control_b(cfg, res_a, res_b, distances["D_M"]["value"])
 
     record = {
         "run_id": uuid.uuid4().hex,
@@ -157,8 +183,8 @@ def run_diff(cfg: DiffConfig, out_dir: Path) -> Finding:
         "metrics_version": dist.METRICS_VERSION,
         "model_a": _serialisable(res_a),
         "model_b": _serialisable(res_b),
-        "distances": _distances(cfg, ds, res_a, res_b),
-        "controls": {"A": control_a},
+        "distances": distances,
+        "controls": {"A": control_a, "B": control_b},
     }
     finding = _finding(cfg, ds, record, sha256_json(record))
     _write(out_dir, record, finding)
@@ -191,6 +217,8 @@ def _write(out_dir: Path, record: Dict[str, Any], finding: Finding) -> None:
 
 def _finding(cfg: DiffConfig, ds: Any, record: Dict[str, Any], rhash: str) -> Finding:
     d = record["distances"]
+    cb = record["controls"]["B"]
+    inc_a, inc_b = record["model_a"]["inclusion"], record["model_b"]["inclusion"]
     scope = Scope(task="ioi", models=[f"{cfg.model_a}@{cfg.checkpoint_a}",
                                       f"{cfg.model_b}@{cfg.checkpoint_b}"],
                   dataset_hash=ds.dataset_hash, metric_definitions=dist.METRICS_VERSION)
@@ -202,9 +230,15 @@ def _finding(cfg: DiffConfig, ds: Any, record: Dict[str, Any], rhash: str) -> Fi
                     {"n_units": d["D_M"]["n_units"]}, reason=d["D_M"]["reason"]),
         Measurement("D_M.one_minus_topk_jaccard", d["D_M_topk"]["value"], {"k": cfg.k}),
         Measurement("D_B.mean_jsd_bits", d["D_B"]["value"], {"by_kind": d["D_B"]["by_kind"]}),
+        Measurement("control_B.divergence_threshold", cb["threshold"],
+                    {"pair_divergent": cb["pair_divergent"], "rule_status": "draft"}),
+        Measurement("inclusion.accuracy_a", inc_a["accuracy"],
+                    {"p_value": inc_a["p_value"], "above_chance": inc_a["above_chance"]}),
+        Measurement("inclusion.accuracy_b", inc_b["accuracy"],
+                    {"p_value": inc_b["p_value"], "above_chance": inc_b["above_chance"]}),
     ]
     hyps = [HypothesisResult(h, est, null, test, EvidenceStatus.UNRESOLVED,
-                             reason="single-pair run; needs many pairs and Control B null")
+                             reason="single-pair run; H1-H4 need many model pairs")
             for h, est, null, test in HYPOTHESES]
     return Finding(run_id=record["run_id"], scope=scope, measurements=measurements,
                    hypotheses=hyps, controls=record["controls"], record_hash=rhash,
