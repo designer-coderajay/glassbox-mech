@@ -305,6 +305,43 @@ def _add_diff_parser(sub: "argparse._SubParsersAction") -> None:
     p.add_argument("--out", default="runs/v6", help="Output directory")
 
 
+def _add_pilot_parser(sub: "argparse._SubParsersAction") -> None:
+    p = sub.add_parser(
+        "pilot", help="V6: measure N models once each and compare every pair")
+    p.add_argument("--models", nargs="+", required=True,
+                   help="Model specs name[@checkpoint], e.g. pythia-410m@143000")
+    p.add_argument("--n-prompts", type=int, default=200)
+    p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--k", type=int, default=10)
+    p.add_argument("--margin", type=float, default=0.02,
+                   help="TOST margin for D_P (PROVISIONAL, pending pre-registration)")
+    p.add_argument("--n-splits", type=int, default=200)
+    p.add_argument("--label", default="pilot", choices=["pilot", "smoke"])
+    p.add_argument("--device", default="cpu")
+    p.add_argument("--out", required=True, help="Output directory")
+
+
+def _run_pilot(args: argparse.Namespace) -> int:
+    from pathlib import Path
+
+    from glassbox.v6.pilot import PilotConfig, run_pilot
+
+    cfg = PilotConfig(models=args.models, n_prompts=args.n_prompts, seed=args.seed,
+                      k=args.k, margin=args.margin, n_splits=args.n_splits,
+                      device=args.device, label=args.label)
+    rec = run_pilot(cfg, Path(args.out))
+    for m in rec["models"]:
+        inc = m["inclusion"]
+        print(f"  {m['spec']:<32} acc {inc['k']}/{inc['n']}  "
+              f"ControlB p95 {m['controls']['B']['p95']:.4f}")
+    for p in rec["pairs"]:
+        print(f"  {p['a']} | {p['b']}: D_M {p['D_M']:.4f}  D_B {p['D_B']:.4f}  "
+              f"matched {p['matched']}  divergent {p['divergent']}")
+    print(f"  Wrote {args.out}/record.json and finding.json (label: {cfg.label}); "
+          "H1-H4 UNRESOLVED")
+    return 0
+
+
 def _run_diff(args: argparse.Namespace) -> int:
     from pathlib import Path
 
@@ -405,6 +442,7 @@ def main() -> None:
 
     # ── diff (V6) ─────────────────────────────────────────────────────────────
     _add_diff_parser(sub)
+    _add_pilot_parser(sub)
 
     args = parser.parse_args()
 
@@ -418,6 +456,8 @@ def main() -> None:
         sys.exit(_run_version(args))
     elif args.cmd == "diff":
         sys.exit(_run_diff(args))
+    elif args.cmd == "pilot":
+        sys.exit(_run_pilot(args))
     else:
         parser.print_help()
 
