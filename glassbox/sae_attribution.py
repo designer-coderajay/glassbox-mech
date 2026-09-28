@@ -321,7 +321,7 @@ class SAEFeatureAttributor:
             path = self._custom_path_single  # type: ignore[assignment]
 
         logger.info("Loading custom SAE from %s for layer %d", path, layer)
-        ckpt = torch.load(path, map_location=self.device)
+        ckpt = torch.load(path, map_location=self.device, weights_only=True)  # no pickle code execution
 
         required = {"encoder_weight", "encoder_bias", "decoder_weight", "decoder_bias"}
         missing  = required - set(ckpt.keys())

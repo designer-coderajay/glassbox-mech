@@ -1,0 +1,5 @@
+The font files in this directory are redistributed unmodified under the SIL Open Font
+License, Version 1.1 (https://openfontlicense.org): Schibsted Grotesk, Hanken Grotesk,
+Instrument Serif, JetBrains Mono, Inter. Copyright remains with their respective authors.
+They are self-hosted so that loading the website does not transmit visitor IP addresses
+to a third-party font CDN.

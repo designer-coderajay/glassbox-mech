@@ -99,19 +99,19 @@ class WhiteBoxRequest(BaseModel):
     White-box analysis — requires a TransformerLens-supported model name.
     """
     # Analysis parameters
-    model_name:       str   = Field(..., example="gpt2", description="HuggingFace model name, must be TransformerLens-compatible")
-    prompt:           str   = Field(..., example="When Mary and John went to the store, John gave a drink to")
-    correct_token:    str   = Field(..., example=" Mary")
-    incorrect_token:  str   = Field(..., example=" John")
-    method:           str   = Field("taylor", example="taylor", description="Attribution method: 'taylor' or 'integrated_gradients'")
+    model_name:       str   = Field(..., max_length=200, example="gpt2", description="HuggingFace model name, must be TransformerLens-compatible")
+    prompt:           str   = Field(..., max_length=4000, example="When Mary and John went to the store, John gave a drink to")
+    correct_token:    str   = Field(..., max_length=100, example=" Mary")
+    incorrect_token:  str   = Field(..., max_length=100, example=" John")
+    method:           str   = Field("taylor", max_length=40, example="taylor", description="Attribution method: 'taylor' or 'integrated_gradients'")
     include_logit_lens: bool = Field(False)
 
     # Annex IV report parameters
-    provider_name:    str   = Field(..., example="Acme Bank NV")
-    provider_address: str   = Field(..., example="1 Fintech Street, Amsterdam 1011AB")
-    system_purpose:   str   = Field(..., example="Credit risk assessment for loan applications")
-    deployment_context: str = Field("other_high_risk", example="financial_services")
-    use_case:         str   = Field("AI decision analysis")
+    provider_name:    str   = Field(..., max_length=300, example="Acme Bank NV")
+    provider_address: str   = Field(..., max_length=500, example="1 Fintech Street, Amsterdam 1011AB")
+    system_purpose:   str   = Field(..., max_length=1000, example="Credit risk assessment for loan applications")
+    deployment_context: str = Field("other_high_risk", max_length=60, example="financial_services")
+    use_case:         str   = Field("AI decision analysis", max_length=500)
     generate_pdf:     bool  = Field(True)
 
 
@@ -121,25 +121,25 @@ class BlackBoxRequest(BaseModel):
     Works on ANY model via API — no weights needed.
     """
     # Target model configuration
-    target_provider: str = Field(..., example="openai", description="'openai', 'anthropic', 'together', 'groq'")
-    target_model:    str = Field(..., example="gpt-4")
+    target_provider: str = Field(..., max_length=40, example="openai", description="'openai', 'anthropic', 'together', 'groq'")
+    target_model:    str = Field(..., max_length=200, example="gpt-4")
     # api_key is passed via X-Provider-Api-Key header — NOT in the request body.
     # This ensures it never appears in request logs, access logs, or stored reports.
 
     # Audit parameters
-    decision_prompt:   str   = Field(..., example="The loan applicant has a credit score of 620. The application should be")
-    expected_positive: str   = Field(..., example="approved")
-    expected_negative: str   = Field(..., example="denied")
+    decision_prompt:   str   = Field(..., max_length=4000, example="The loan applicant has a credit score of 620. The application should be")
+    expected_positive: str   = Field(..., max_length=100, example="approved")
+    expected_negative: str   = Field(..., max_length=100, example="denied")
     context_variables: Optional[Dict[str, Any]] = Field(None, example={"credit_score": 620, "loan_amount": 25000})
     n_rephrases:       int   = Field(3, ge=0, le=10)
     n_sensitivity_steps: int = Field(5, ge=2, le=10)
 
     # Annex IV report parameters
-    provider_name:    str = Field(..., example="Acme Bank NV")
-    provider_address: str = Field(..., example="1 Fintech Street, Amsterdam 1011AB")
-    system_purpose:   str = Field(..., example="Credit risk assessment for loan applications")
-    deployment_context: str = Field("financial_services")
-    use_case:         str = Field("AI decision analysis")
+    provider_name:    str = Field(..., max_length=300, example="Acme Bank NV")
+    provider_address: str = Field(..., max_length=500, example="1 Fintech Street, Amsterdam 1011AB")
+    system_purpose:   str = Field(..., max_length=1000, example="Credit risk assessment for loan applications")
+    deployment_context: str = Field("financial_services", max_length=60)
+    use_case:         str = Field("AI decision analysis", max_length=500)
     generate_pdf:     bool = Field(True)
 
 
@@ -188,6 +188,11 @@ def _fire_webhooks(event: str, data: Dict[str, Any]) -> None:
         X-Glassbox-Signature: sha256=<hex>
     where <hex> = HMAC-SHA256(secret, request_body_bytes).
     The receiver should validate this header to verify payload authenticity.
+
+    Replay protection (V2): X-Glassbox-Signature-V2 = HMAC-SHA256(secret,
+    f"{timestamp}.{delivery_id}." + body). Verify it with a constant-time
+    compare, reject timestamps older than 300 s, and store delivery ids to
+    reject duplicates.
     """
     import hashlib
     import hmac
@@ -217,10 +222,20 @@ def _fire_webhooks(event: str, data: Dict[str, Any]) -> None:
                 "X-Glassbox-Event": event,
                 "X-Glassbox-Webhook-Id": wh_id,
             }
+            # Replay protection: a unique delivery id plus a timestamp that is
+            # covered by the signature. Receivers should reject deliveries older
+            # than 5 minutes and any delivery id they have already seen.
+            delivery_id = str(uuid.uuid4())
+            ts = str(int(time.time()))
+            headers["X-Glassbox-Delivery"] = delivery_id
+            headers["X-Glassbox-Timestamp"] = ts
             secret = wh.get("secret", "")
             if secret:
                 sig = hmac.new(secret.encode(), body_bytes, hashlib.sha256).hexdigest()  # type: ignore[attr-defined]
-                headers["X-Glassbox-Signature"] = f"sha256={sig}"
+                headers["X-Glassbox-Signature"] = f"sha256={sig}"  # legacy, body only
+                signed = f"{ts}.{delivery_id}.".encode() + body_bytes
+                sig_v2 = hmac.new(secret.encode(), signed, hashlib.sha256).hexdigest()  # type: ignore[attr-defined]
+                headers["X-Glassbox-Signature-V2"] = f"t={ts},id={delivery_id},sha256={sig_v2}"
 
             req = _urllib_req.Request(
                 wh["url"], data=body_bytes, headers=headers, method="POST"
@@ -902,10 +917,10 @@ def create_app() -> "FastAPI":
     # ------------------------------------------------------------------
 
     class AttentionPatternRequest(BaseModel):
-        model_name: str = Field(..., description="TransformerLens-compatible model name.")
-        prompt:     str = Field(..., description="Input prompt to analyse.")
-        heads:      Optional[List[str]] = Field(None, description="List of head labels e.g. ['L9H9','L9H6']. If null, returns top_k most interesting heads.")
-        top_k:      int = Field(10, description="Number of heads to return if heads is null.")
+        model_name: str = Field(..., max_length=200, description="TransformerLens-compatible model name.")
+        prompt:     str = Field(..., max_length=4000, description="Input prompt to analyse.")
+        heads:      Optional[List[str]] = Field(None, max_length=64, description="List of head labels e.g. ['L9H9','L9H6']. If null, returns top_k most interesting heads.")
+        top_k:      int = Field(10, ge=1, le=64, description="Number of heads to return if heads is null.")
 
     @app.post("/v1/attention-patterns", summary="Extract attention patterns for circuit heads")
     def attention_patterns(req: AttentionPatternRequest):

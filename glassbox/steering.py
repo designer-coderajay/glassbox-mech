@@ -443,7 +443,7 @@ class SteeringVectorExporter:
         if not _TORCH_OK:
             raise ImportError("torch is required.")
 
-        data = torch.load(path, map_location="cpu")
+        data = torch.load(path, map_location="cpu", weights_only=True)  # no pickle code execution
         return SteeringVector(
             direction=data["direction"],
             layer=data["layer"],

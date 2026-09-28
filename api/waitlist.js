@@ -35,7 +35,9 @@ function jsonResponse(body, status = 200, extraHeaders = {}) {
 }
 
 function isValidEmail(email) {
-  return typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  // RFC 5321 caps addresses at 254 chars; checking length first bounds regex work (ReDoS).
+  return typeof email === 'string' && email.length <= 254 &&
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 }
 
 function escapeHtml(s) {

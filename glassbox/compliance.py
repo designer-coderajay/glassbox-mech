@@ -97,6 +97,7 @@ from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+from xml.sax.saxutils import escape as _xml_escape  # Paragraph markup is untrusted input
 
 logger = logging.getLogger(__name__)
 
@@ -1184,8 +1185,8 @@ See full Annex IV Section 4 — Data Governance in the [compliance report JSON].
         story.append(HRFlowable(width="100%", thickness=3, color=colors.HexColor("#0f3460")))
         story.append(Spacer(1, 6*mm))
 
-        story.append(Paragraph(f"AI System: {self.model_name}", styles["cover_sub"]))
-        story.append(Paragraph(f"Provider: {self.provider_name}", styles["cover_sub"]))
+        story.append(Paragraph(f"AI System: {_xml_escape(str(self.model_name))}", styles["cover_sub"]))
+        story.append(Paragraph(f"Provider: {_xml_escape(str(self.provider_name))}", styles["cover_sub"]))
         story.append(Paragraph(f"Report ID: GB-{self._report_id}", styles["cover_sub"]))
         story.append(Paragraph(f"Date: {self._created_at.strftime('%d %B %Y')}", styles["cover_sub"]))
         story.append(Paragraph(f"Risk Classification: {self.risk_classification.value.upper()}", styles["cover_sub"]))
@@ -1357,7 +1358,7 @@ See full Annex IV Section 4 — Data Governance in the [compliance report JSON].
     def _pdf_field(self, label, value, styles, is_warning=False):
         from reportlab.platypus import Paragraph
         style = styles["warning"] if (is_warning and "[PROVIDER TO COMPLETE" in str(value)) else styles["body"]
-        return [Paragraph(f"<b>{label}:</b> {value}", style)]
+        return [Paragraph(f"<b>{_xml_escape(str(label))}:</b> {_xml_escape(str(value))}", style)]
 
     def _pdf_section1(self, styles, colors):
         s = self._s1

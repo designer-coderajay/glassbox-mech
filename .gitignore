@@ -79,3 +79,21 @@ push_regulatory_update.sh
 .venv*/
 reports/
 external/
+
+# Personal study / strategy docs and scratch artifacts (never publish)
+INTERVIEW_PREP_GLASSBOX.*
+GLASSBOX_COMPLETE_GUIDE.*
+HOW_COMPLIANCE_REPORT_WORKS.*
+docs/PLAN_V6_*.md
+docs/PLAN_PUBLICATION.md
+docs/AAAI27_SUBMISSION_PACK.md
+.~lock.*
+**/.~lock.*
+_dcheck/
+*.tmp
+/*.jpg
+docs/*.jpg
+docs/*.pdf
+
+# TMLR submission drafts (anonymized; must not be linked to this named repo)
+paper/
