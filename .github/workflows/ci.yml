@@ -147,7 +147,7 @@ jobs:
       - name: Install MCP server deps (no torch — CPU import check only)
         run: |
           pip install --upgrade pip
-          pip install mcp fastmcp pydantic glassbox-mech-interp --quiet
+          pip install "mcp>=1.0.0,<2" "fastmcp<3" pydantic glassbox-mech-interp --quiet
 
       - name: Verify server imports and all 5 tools register cleanly
         run: |

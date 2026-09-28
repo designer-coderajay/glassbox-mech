@@ -1,5 +1,5 @@
-mcp>=1.0.0
-fastmcp>=0.1.0
+mcp>=1.0.0,<2  # mcp 2.x renamed FastMCP -> MCPServer; migrate before lifting
+fastmcp>=0.1.0,<3
 pydantic>=2.0.0
 transformer-lens>=2.0.0
 torch>=2.0.0
