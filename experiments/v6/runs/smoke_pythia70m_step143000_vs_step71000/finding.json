@@ -1,0 +1,128 @@
+{
+  "claims": [],
+  "controls": {
+    "A": {
+      "D_B_self": 0.0,
+      "D_M_self": 0.0,
+      "bitwise_identical": true,
+      "epsilon_det": null,
+      "epsilon_det_status": "PENDING: set from pilot runs, see PREREGISTRATION.md \u00a75",
+      "max_abs_diff": {
+        "attr_max_abs": 0.0,
+        "ld_max_abs": 0.0,
+        "probe_max_abs": 0.0
+      },
+      "name": "Control A (pipeline null: same model, reloaded)",
+      "status": "PASS_BITWISE"
+    }
+  },
+  "finding_hash": "1f77ca2f77f526869431917ac8cd5b41f08b0f88c72fbe5c11aa11ced4010398",
+  "hypotheses": [
+    {
+      "ci": null,
+      "control": null,
+      "effect_size": null,
+      "estimand": "median D_M over D_P-matched pairs minus median D_M under Control B",
+      "hypothesis": "H1",
+      "null": "difference <= 0 (matched pairs look like measurement noise)",
+      "p_value": null,
+      "reason": "single-pair run; needs many pairs and Control B null",
+      "status": "UNRESOLVED",
+      "test": "permutation test over model labels; model-bootstrap CI"
+    },
+    {
+      "ci": null,
+      "control": null,
+      "effect_size": null,
+      "estimand": "AUROC of D_B separating divergent pairs from Control-B null pairs",
+      "hypothesis": "H2",
+      "null": "AUROC <= pre-registered threshold",
+      "p_value": null,
+      "reason": "single-pair run; needs many pairs and Control B null",
+      "status": "UNRESOLVED",
+      "test": "AUROC; model-bootstrap CI"
+    },
+    {
+      "ci": null,
+      "control": null,
+      "effect_size": null,
+      "estimand": "Mantel r between the D_B and D_M distance matrices",
+      "hypothesis": "H3",
+      "null": "r <= 0",
+      "p_value": null,
+      "reason": "single-pair run; needs many pairs and Control B null",
+      "status": "UNRESOLVED",
+      "test": "Mantel permutation test + sensitivity set (partial | D_P, LOMO, Spearman/Pearson, alternative definitions)"
+    },
+    {
+      "ci": null,
+      "control": null,
+      "effect_size": null,
+      "estimand": "Spearman(D_B, D_M) on held-out models",
+      "hypothesis": "H4",
+      "null": "rho <= 0",
+      "p_value": null,
+      "reason": "single-pair run; needs many pairs and Control B null",
+      "status": "UNRESOLVED",
+      "test": "held-out-by-model evaluation; model-bootstrap CI"
+    }
+  ],
+  "label": "smoke",
+  "measurements": [
+    {
+      "details": {
+        "margin": 0.02,
+        "margin_status": "provisional",
+        "matched": false,
+        "tost_p": 0.7439994667999725
+      },
+      "name": "D_P.accuracy_diff",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": -0.07500000000000001
+    },
+    {
+      "details": {
+        "n_units": 48
+      },
+      "name": "D_M.one_minus_spearman",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.2901650021710812
+    },
+    {
+      "details": {
+        "k": 10
+      },
+      "name": "D_M.one_minus_topk_jaccard",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.46153846153846156
+    },
+    {
+      "details": {
+        "by_kind": {
+          "counterfactual": 0.1078611551911274,
+          "feature_swap": 0.10607408862208101,
+          "perturbation": 0.11216533236311448
+        }
+      },
+      "name": "D_B.mean_jsd_bits",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.10870019205877428
+    }
+  ],
+  "record_hash": "a5ba31bfef183caeb6be370d8cd649478a86cd8677742744bc4ec0185ef34aed",
+  "run_id": "e64cc0d6daad4fa29984ffb621992d48",
+  "schema_version": "v6.claims/1.0.0",
+  "scope": {
+    "dataset_hash": "0573d138c484f3190e8bed1515fe64353216a441aac8b037a3ea81a0d58c9ce5",
+    "metric_definitions": "v6.distances/1.0.0",
+    "models": [
+      "pythia-70m@143000",
+      "pythia-70m@71000"
+    ],
+    "task": "ioi"
+  }
+}
