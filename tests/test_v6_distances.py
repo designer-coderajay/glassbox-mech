@@ -15,9 +15,38 @@ def _attr(values):
 
 # ---- D_P: paired TOST ---------------------------------------------------------------
 
-def test_tost_identical_models_are_equivalent() -> None:
+def test_tost_zero_discordance_uses_exact_bound_not_fake_p() -> None:
+    # Regression (2026-09-28 audit): SD = 0 used to report p_tost = 0.0.
+    r = d.paired_tost([0.0] * 200, margin=0.02)
+    assert r["p_tost"] is None and r["method"] == "exact_discordance_bound"
+    assert r["discordance_upper_bound"] == pytest.approx(1 - 0.05 ** (1 / 200))
+    assert r["equivalent"]  # bound 1.49pp < 2pp
+
+
+def test_tost_zero_discordance_small_n_is_not_equivalent() -> None:
+    # 0/50 discordant only bounds the gap at ~5.8pp, which cannot establish +-2pp.
     r = d.paired_tost([0.0] * 50, margin=0.02)
-    assert r["equivalent"] and r["mean_diff"] == 0.0
+    assert not r["equivalent"] and r["discordance_upper_bound"] > 0.05
+
+
+def test_tost_all_discordant_is_not_equivalent() -> None:
+    r = d.paired_tost([1.0] * 200, margin=0.02)
+    assert not r["equivalent"] and r["discordance_upper_bound"] == 1.0
+
+
+def test_tost_constant_continuous_diffs_are_deterministic() -> None:
+    r = d.paired_tost([0.005] * 10, margin=0.02)
+    assert r["method"] == "degenerate_constant" and r["equivalent"]
+    assert not d.paired_tost([0.5] * 10, margin=0.02)["equivalent"]
+
+
+def test_tost_regular_case_reports_t_method() -> None:
+    assert d.paired_tost([0.01, -0.02, 0.0, 0.01], margin=0.05)["method"] == "paired_t_tost"
+
+
+def test_performance_distance_reports_discordant_counts() -> None:
+    r = d.performance_distance([1, 1, 0, 1], [1, 0, 1, 1], [1.0] * 4, [1.0] * 4, margin=0.02)
+    assert r["n_a_only"] == 1 and r["n_b_only"] == 1
 
 
 def test_tost_large_gap_is_not_equivalent() -> None:

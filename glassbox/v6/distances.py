@@ -16,7 +16,10 @@ from typing import Any, Dict, Hashable, Mapping, Sequence
 import numpy as np
 from scipy import stats
 
-METRICS_VERSION = "v6.distances/1.0.0"
+# 1.1.0 (2026-09-28): TOST with SD = 0 no longer reports p = 0; binary data use an
+# exact Clopper-Pearson bound on the discordance rate. Runs recorded under 1.0.0 keep
+# their stored values (see PREREGISTRATION.md amendment log).
+METRICS_VERSION = "v6.distances/1.1.0"
 
 __all__ = [
     "METRICS_VERSION",
@@ -42,9 +45,12 @@ def paired_tost(
         margin: Equivalence margin on the same scale as ``diffs`` (> 0).
         alpha: One-sided significance level of each test.
 
+    If every difference is identical (SD = 0) the t statistic is undefined: p-values are
+    None and the decision uses an exact bound (binary data) or the known constant gap.
+
     Returns:
-        Dict with ``mean_diff``, ``se``, ``df``, ``p_lower``, ``p_upper``, ``p_tost``,
-        ``equivalent`` and ``margin``.
+        Dict with ``method``, ``mean_diff``, ``se``, ``df``, ``p_lower``, ``p_upper``,
+        ``p_tost`` (None when undefined), ``discordance_upper_bound``, ``equivalent``.
     """
     if margin <= 0:
         raise ValueError("margin must be > 0")
@@ -54,29 +60,30 @@ def paired_tost(
         raise ValueError("paired_tost needs at least 2 paired observations")
     mean = float(d.mean())
     sd = float(d.std(ddof=1))
-    df = n - 1
-    if sd == 0.0:
-        # Degenerate but well-defined: every paired difference is identical.
-        inside = -margin < mean < margin
-        p_lower = p_upper = 0.0 if inside else 1.0
-        se = 0.0
-    else:
+    out: Dict[str, Any] = {"mean_diff": mean, "df": n - 1, "n": n, "margin": margin,
+                           "alpha": alpha, "discordance_upper_bound": None}
+    if not np.all(d == d[0]):  # exact test; float SD of equal values can be ~1e-18
         se = sd / math.sqrt(n)
-        p_lower = float(stats.t.sf((mean + margin) / se, df))  # H0: mean <= -margin
-        p_upper = float(stats.t.cdf((mean - margin) / se, df))  # H0: mean >= +margin
-    p_tost = max(p_lower, p_upper)
-    return {
-        "mean_diff": mean,
-        "se": se,
-        "df": df,
-        "n": n,
-        "p_lower": p_lower,
-        "p_upper": p_upper,
-        "p_tost": p_tost,
-        "equivalent": bool(p_tost < alpha),
-        "margin": margin,
-        "alpha": alpha,
-    }
+        p_lower = float(stats.t.sf((mean + margin) / se, n - 1))  # H0: mean <= -margin
+        p_upper = float(stats.t.cdf((mean - margin) / se, n - 1))  # H0: mean >= +margin
+        out.update(method="paired_t_tost", se=se, p_lower=p_lower, p_upper=p_upper,
+                   p_tost=max(p_lower, p_upper),
+                   equivalent=bool(max(p_lower, p_upper) < alpha))
+        return out
+    # SD = 0: the t statistic is undefined, so no p-value is reported.
+    out.update(se=0.0, p_lower=None, p_upper=None, p_tost=None)
+    if set(np.unique(d)) <= {-1.0, 0.0, 1.0}:
+        # Paired binary correctness: |accuracy gap| <= discordance rate. Reject
+        # H0 (|gap| >= margin) iff the exact one-sided Clopper-Pearson upper bound
+        # on the discordance rate is below the margin. Valid, conservative.
+        k = int(np.count_nonzero(d))
+        bound = 1.0 if k == n else float(stats.beta.ppf(1 - alpha, k + 1, n - k))
+        out.update(method="exact_discordance_bound", discordance_upper_bound=bound,
+                   equivalent=bool(bound < margin))
+    else:
+        # Constant continuous differences: the gap is known exactly.
+        out.update(method="degenerate_constant", equivalent=bool(abs(mean) < margin))
+    return out
 
 
 def performance_distance(
@@ -111,6 +118,8 @@ def performance_distance(
         "mean_ld_b": float(lb.mean()),
         "mean_ld_diff": float(la.mean() - lb.mean()),
         "n_items": int(ca.size),
+        "n_a_only": int(((ca == 1) & (cb == 0)).sum()),
+        "n_b_only": int(((ca == 0) & (cb == 1)).sum()),
         "tost": tost,
         "matched": tost["equivalent"],
     }
