@@ -49,6 +49,11 @@ difference.
 
 A pair is **performance-matched** iff a paired TOST on `d_i = correct_A,i − correct_B,i`
 rejects both `H0: mean(d) ≤ −δ` and `H0: mean(d) ≥ +δ`, each at α = 0.05 (one-sided t-tests).
+When every `d_i` is identical (SD = 0) the t statistic is undefined; then no p-value is
+reported and the pair is matched iff the exact one-sided (1 − α) Clopper–Pearson upper
+bound on the discordance rate is below δ (valid because |accuracy gap| ≤ discordance
+rate). With 0 discordant items this bound is `1 − α^(1/n)`: 1.49 pp at n = 200,
+5.8 pp at n = 50. (Amendment 1, §10.)
 
 - Margin δ = **±0.02 (2 accuracy points), PROVISIONAL.** Final δ is set once, from the pilot,
   before the lock, and is never changed after confirmatory results are seen.
@@ -164,6 +169,35 @@ passed.
 
 ## 9. Runs so far
 
+410M pilot (label `pilot`, n = 200 IOI items, seed 0, commit `61b7c8c`). Audited in
+`experiments/v6/audits/audit_pair.py`; audit output committed next to each run.
+
+| Pair | Acc. A / B | D_M | D_M, exact patching (20 items) | Control B threshold | Cross-model split-half D_M (min) vs within-model (max) | D_B |
+|---|---|---|---|---|---|---|
+| 410m @143k vs 410m @71k | 200/200, 200/200 | 0.170 | 0.268 | 0.169 | 0.181 vs 0.177 | 0.030 |
+| 410m @143k vs 410m-deduped @143k | 200/200, 200/200 | 0.765 | 0.782 | 0.141 | 0.736 vs 0.168 | 0.150 |
+
+Pair B record reproduced exactly on rerun (all non-volatile fields). These are pilot
+observations; they do not test H1–H4 and are excluded from confirmatory analysis.
+
+
 | Run | Label | Models | Items | Result |
 |---|---|---|---|---|
 | `runs/smoke_pythia70m_step143000_vs_step71000` | smoke | pythia-70m @ step 143000 vs @ step 71000 | 40 IOI items, 120 probes, seed 0 | Pipeline works end to end; Control A bitwise identical on CPU; reruns reproduced every distance exactly. Control B threshold 0.281 vs D_M 0.290 (flagged divergent under the draft rule). **Both checkpoints fail the inclusion check** (accuracy 0.425, p = 0.87; 0.500, p = 0.56), so the divergence flag has no scientific meaning here. Not a pilot result. |
+
+## 10. Amendment log (pre-lock changes, all disclosed)
+
+| # | Date | Change | Trigger | Effect on existing results |
+|---|---|---|---|---|
+| 1 | 2026-09-28 | D_P: SD = 0 case no longer reports p = 0.0; uses the exact discordance bound in §3.1. Metrics version 1.0.0 → 1.1.0. | Audit of the 410M pilot found `p_tost = 0.0` reported where the t statistic is undefined (reporting defect). | None on decisions: both 410M pairs (0/200 discordant) remain matched (bound 1.49 pp < 2 pp). Stored records keep their 1.0.0 values. |
+
+Open decisions raised by the 410M pilot (not yet made; to be decided on grounds that do
+not depend on which answer favours H1, and recorded here when decided):
+
+- Whether matching also requires a logit-difference criterion (all 410M models are at
+  100 % accuracy, so accuracy-only matching is trivially satisfied at ceiling).
+- Whether to add pre-specified D_M sensitivity analyses that down-weight negligible heads
+  (magnitude floor, Pearson). Motivation, disclosed: in the same-lineage pair, the primary
+  all-head D_M (0.170) drops to 0.04–0.06 when heads with |attr| ≤ 0.01 are excluded.
+- The attribution instrument is last-position-only; Taylor vs exact patching agree in
+  magnitude (Pearson 0.93–0.96) but less in rank (Spearman 0.68–0.75).
