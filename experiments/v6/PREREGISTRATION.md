@@ -97,9 +97,9 @@ The probe set is fixed before the confirmatory run and is never tuned on held-ou
 | H3 | D_B and D_M are positively associated | Mantel r (D_B, D_M matrices) | r ≤ 0 | Mantel permutation | r; model-bootstrap CI | sensitivity set, §6 |
 | H4 | H3 holds on held-out models | Spearman ρ(D_B, D_M) on held-out models | ρ ≤ 0 | held-out by model | ρ; model-bootstrap CI | — |
 
-A pair is **divergent** iff its D_M exceeds the 95th percentile of the Control B
-distribution for the same model (threshold fixed here; the percentile itself is set from
-data, the rule is not).
+A pair is **divergent** iff its D_M exceeds the larger of the two models' Control B 95th
+percentiles (draft rule, implemented in `glassbox/v6/controls.py::is_divergent`). The
+percentile values come from data; the rule does not change after data are seen.
 
 Interpretation rules: a hypothesis that is not tested, or that holds under only one
 multiverse choice, is `UNRESOLVED`, not negative. A failed H1 is written up as a negative
@@ -110,13 +110,14 @@ result (Gate 2).
 | | Construction | Tests | Pass rule |
 |---|---|---|---|
 | A Pipeline null | same model loaded and measured twice | does the pipeline invent differences? | every distance ≤ ε_det. ε_det = `PENDING`, set from repeated identical runs; exactly 0 only where bitwise determinism is shown (it was, on CPU, in §9) |
-| B Resampling null | same model, disjoint item samples | measurement noise floor | defines the null distribution for "divergent" |
+| B Resampling null | same model, disjoint item halves: D_M between the two half-mean attribution vectors, 200 random splits (`PENDING` confirmation), seeded | measurement noise floor | defines the null distribution for "divergent". Halves use n/2 items, so the null overstates noise at n (conservative) |
 | C Task null | same pair, permuted/irrelevant task | metric reacts to task structure | no divergence signal |
 | D Known-positive | Arm B X-only vs Y-only models | detects a known difference | exceeds threshold (`PENDING`) in the correct direction; valid only after the correlation-breaking test (X-model follows X and ignores Y when decorrelated, and the reverse) |
 | E Random-circuit baseline | same-size random head sets | attribution beats chance | real D_M differs from random |
 | F Experimental | performance-matched pairs | the question | measured |
 
-Implemented so far: Control A. B–E: not implemented.
+Implemented so far: Controls A and B, and the inclusion check (§2, reported, not yet
+enforced). C–E: not implemented.
 
 ## 6. Statistics
 
@@ -165,4 +166,4 @@ passed.
 
 | Run | Label | Models | Items | Result |
 |---|---|---|---|---|
-| `runs/smoke_pythia70m_step143000_vs_step71000` | smoke | pythia-70m @ step 143000 vs @ step 71000 | 40 IOI items, 120 probes, seed 0 | Pipeline works end to end; Control A bitwise identical on CPU; rerun reproduced every distance exactly. Both checkpoints near chance on IOI (accuracy 0.425 and 0.500), so the pair is not scientifically informative. Not a pilot result. |
+| `runs/smoke_pythia70m_step143000_vs_step71000` | smoke | pythia-70m @ step 143000 vs @ step 71000 | 40 IOI items, 120 probes, seed 0 | Pipeline works end to end; Control A bitwise identical on CPU; reruns reproduced every distance exactly. Control B threshold 0.281 vs D_M 0.290 (flagged divergent under the draft rule). **Both checkpoints fail the inclusion check** (accuracy 0.425, p = 0.87; 0.500, p = 0.56), so the divergence flag has no scientific meaning here. Not a pilot result. |
