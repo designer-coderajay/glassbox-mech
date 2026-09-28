@@ -1,0 +1,50 @@
+{
+  "config": {
+    "checkpoint_a": 143000,
+    "checkpoint_b": 143000,
+    "device": "cpu",
+    "k": 10,
+    "label": "pilot",
+    "margin": 0.02,
+    "model_a": "pythia-410m",
+    "model_b": "pythia-410m-deduped",
+    "n_prompts": 200,
+    "n_splits": 200,
+    "seed": 0,
+    "task": "ioi"
+  },
+  "cross_model_split_half": {
+    "between_median": 0.7755037553829982,
+    "between_min": 0.7362788647383948,
+    "n_splits": 200,
+    "splits_where_between_exceeds_within": 200,
+    "within_a_max": 0.1613562188464278,
+    "within_b_max": 0.16786879895561357
+  },
+  "dataset_hash_matches": true,
+  "mean_attribution_matches_saved": {
+    "a_max_abs_diff": 0.0,
+    "b_max_abs_diff": 0.0
+  },
+  "reproduction": {
+    "first_difference": "",
+    "identical_excluding_volatile": true,
+    "rerun_dir": "experiments/v6/runs/pilot_410m_vs_410m-deduped/audit_rerun",
+    "volatile_fields_excluded": [
+      "environment",
+      "run_id",
+      "seconds",
+      "started_utc"
+    ]
+  },
+  "run_dir": "experiments/v6/runs/pilot_410m_vs_410m-deduped",
+  "taylor_vs_exact": {
+    "D_M_exact_same_items": 0.7819955433432597,
+    "D_M_taylor_same_items": 0.8240414448475806,
+    "n_items": 20,
+    "pearson_taylor_exact_a": 0.9325522641495342,
+    "pearson_taylor_exact_b": 0.9577635548138955,
+    "spearman_taylor_exact_a": 0.739529471890232,
+    "spearman_taylor_exact_b": 0.7454840430917516
+  }
+}
