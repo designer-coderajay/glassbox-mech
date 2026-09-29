@@ -140,6 +140,11 @@ items. There is no normalisation; ranks make it scale-free. 1 means uncorrelated
 above 1 mean negatively correlated.
 
 **Construct-validity failure: head labels are arbitrary across independent runs.**
+*(Update 2026-09-29: the null below permutes attribution entries only, i.e. a
+measurement relabelling null. `head_identifiability.md` §1 verifies on pythia-70m that
+it equals a genuine function-preserving weight permutation for this instrument.
+`head_identifiability.md` §3/§5 also demotes the sorted "label-free" metric used below
+to a descriptive magnitude-distribution distance: it fails scenario E.)*
 
 - Heads within a layer are interchangeable. Permuting them leaves the model's function
   unchanged.

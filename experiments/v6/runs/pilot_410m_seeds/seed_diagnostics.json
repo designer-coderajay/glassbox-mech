@@ -1,0 +1,198 @@
+{
+  "dataset_hash_matches_pilot": true,
+  "models": {
+    "pythia-410m-seed1@143000": {
+      "behaviour": {
+        "counterfactual_correct": 200,
+        "mean_name_mass": 0.44411270305514333,
+        "mean_sentence_nll": 3.664735746383667,
+        "n_counterfactual": 200,
+        "n_items": 200,
+        "top1_is_name": 160
+      },
+      "hub": {
+        "commit": "a77e7d87906f1c77138c009121f9d6439144663c",
+        "error": null,
+        "repo": "EleutherAI/pythia-410m-seed1",
+        "revision": "step143000",
+        "weights_file": "pytorch_model.bin",
+        "weights_sha256": "b40bd3670e128927aa84b5420ce65a7f6454f5bacac2be60f692468a6187123f"
+      },
+      "ioi_correct": 198,
+      "ioi_identical_to_pilot": true,
+      "ld_max_abs_diff_vs_pilot": 0.0,
+      "tensor_check": {
+        "n_params": 405334016,
+        "n_tensors": 364,
+        "prs": {
+          "refs/pr/1": {
+            "identical": true,
+            "n_mismatched": 0,
+            "same_tensor_names": true
+          }
+        }
+      },
+      "vocab_sha256": "9f23fceff4898e6d7b9000708ff3252e3b7e9a282a2e268236e95a32c65809b2"
+    },
+    "pythia-410m-seed2@143000": {
+      "behaviour": {
+        "counterfactual_correct": 199,
+        "mean_name_mass": 0.4540968602895737,
+        "mean_sentence_nll": 3.444302201271057,
+        "n_counterfactual": 200,
+        "n_items": 200,
+        "top1_is_name": 163
+      },
+      "hub": {
+        "commit": "8f8a4fabfcd5f2504ee550cb33771760d6cec419",
+        "error": null,
+        "repo": "EleutherAI/pythia-410m-seed2",
+        "revision": "step143000",
+        "weights_file": "pytorch_model.bin",
+        "weights_sha256": "6d4a8361e3f4160cd08f843a0c16ab8d08005f2f512c525637af156c5197334a"
+      },
+      "ioi_correct": 199,
+      "ioi_identical_to_pilot": true,
+      "ld_max_abs_diff_vs_pilot": 0.0,
+      "tensor_check": {
+        "n_params": 405334016,
+        "n_tensors": 364,
+        "prs": {
+          "refs/pr/1": {
+            "identical": true,
+            "n_mismatched": 0,
+            "same_tensor_names": true
+          }
+        }
+      },
+      "vocab_sha256": "9f23fceff4898e6d7b9000708ff3252e3b7e9a282a2e268236e95a32c65809b2"
+    },
+    "pythia-410m-seed3@143000": {
+      "behaviour": {
+        "counterfactual_correct": 196,
+        "mean_name_mass": 0.3962384870275855,
+        "mean_sentence_nll": 3.558055412769318,
+        "n_counterfactual": 200,
+        "n_items": 200,
+        "top1_is_name": 155
+      },
+      "hub": {
+        "commit": "83438f87adb388fb205a83ad516e3b349b5cfcba",
+        "error": null,
+        "repo": "EleutherAI/pythia-410m-seed3",
+        "revision": "step143000",
+        "weights_file": "pytorch_model.bin",
+        "weights_sha256": "77e2110771b16b1093f886df03ade3efd0f40179261bd225d98c0e7ad9622e0d"
+      },
+      "ioi_correct": 200,
+      "ioi_identical_to_pilot": true,
+      "ld_max_abs_diff_vs_pilot": 0.0,
+      "tensor_check": {
+        "n_params": 405334016,
+        "n_tensors": 364,
+        "prs": {
+          "refs/pr/1": {
+            "identical": true,
+            "n_mismatched": 0,
+            "same_tensor_names": true
+          }
+        }
+      },
+      "vocab_sha256": "9f23fceff4898e6d7b9000708ff3252e3b7e9a282a2e268236e95a32c65809b2"
+    },
+    "pythia-410m-seed4@143000": {
+      "behaviour": {
+        "counterfactual_correct": 164,
+        "mean_name_mass": 0.04707322883754386,
+        "mean_sentence_nll": 3.858145761489868,
+        "n_counterfactual": 200,
+        "n_items": 200,
+        "top1_is_name": 8
+      },
+      "hub": {
+        "commit": "b122bdb9065e19909d34653da26e06e49fd4ded2",
+        "error": null,
+        "repo": "EleutherAI/pythia-410m-seed4",
+        "revision": "step143000",
+        "weights_file": "pytorch_model.bin",
+        "weights_sha256": "ee1cf6382571265d5fb0d1c6b860270a3d851a4b759bdeebb09271794696cb65"
+      },
+      "ioi_correct": 84,
+      "ioi_identical_to_pilot": true,
+      "ld_max_abs_diff_vs_pilot": 0.0,
+      "tensor_check": {
+        "n_params": 405334016,
+        "n_tensors": 364,
+        "prs": {
+          "refs/pr/1": {
+            "identical": true,
+            "n_mismatched": 0,
+            "same_tensor_names": true
+          }
+        }
+      },
+      "vocab_sha256": "9f23fceff4898e6d7b9000708ff3252e3b7e9a282a2e268236e95a32c65809b2"
+    },
+    "pythia-410m-seed5@143000": {
+      "behaviour": {
+        "counterfactual_correct": 200,
+        "mean_name_mass": 0.41595916358754037,
+        "mean_sentence_nll": 3.5825422525405886,
+        "n_counterfactual": 200,
+        "n_items": 200,
+        "top1_is_name": 163
+      },
+      "hub": {
+        "commit": "b9156c2847b0e50f298706af140656bbf0b7cf06",
+        "error": null,
+        "repo": "EleutherAI/pythia-410m-seed5",
+        "revision": "step143000",
+        "weights_file": "pytorch_model.bin",
+        "weights_sha256": "8714fb7a9c08688b80aa041b0f8271fe0c2a556d63823d74653e49bb8739b5d0"
+      },
+      "ioi_correct": 200,
+      "ioi_identical_to_pilot": true,
+      "ld_max_abs_diff_vs_pilot": 0.0,
+      "tensor_check": {
+        "n_params": 405334016,
+        "n_tensors": 364,
+        "prs": {
+          "refs/pr/1": {
+            "identical": true,
+            "n_mismatched": 0,
+            "same_tensor_names": true
+          },
+          "refs/pr/2": {
+            "identical": true,
+            "n_mismatched": 0,
+            "same_tensor_names": true
+          }
+        }
+      },
+      "vocab_sha256": "9f23fceff4898e6d7b9000708ff3252e3b7e9a282a2e268236e95a32c65809b2"
+    },
+    "pythia-410m@143000": {
+      "behaviour": {
+        "counterfactual_correct": 200,
+        "mean_name_mass": 0.5005436139553785,
+        "mean_sentence_nll": 3.5840095043182374,
+        "n_counterfactual": 200,
+        "n_items": 200,
+        "top1_is_name": 181
+      },
+      "hub": {
+        "commit": "bba6a464f54bbf08fc174cfb351d9794d58af21d",
+        "error": null,
+        "repo": "EleutherAI/pythia-410m",
+        "revision": "step143000",
+        "weights_file": "model.safetensors",
+        "weights_sha256": "1c88b0bf18293fae0e09c1d978b14b1adb08cb6a83154463133982fe460fcea4"
+      },
+      "ioi_correct": 200,
+      "ioi_identical_to_pilot": true,
+      "ld_max_abs_diff_vs_pilot": 0.0,
+      "vocab_sha256": "9f23fceff4898e6d7b9000708ff3252e3b7e9a282a2e268236e95a32c65809b2"
+    }
+  },
+  "run_dir": "experiments/v6/runs/pilot_410m_seeds"
+}

@@ -224,3 +224,9 @@ not depend on which answer favours H1, and recorded here when decided):
   publishes `pythia-410m-seed1` … `seed9` (Apache-2.0, 154 step branches each, same
   architecture and vocabulary as pythia-410m; weights as `pytorch_model.bin`; not in the
   TransformerLens model list). Checked 2026-09-29 on the Hub.
+- Head identifiability (2026-09-29, `experiments/v6/audits/head_identifiability.md`): the
+  pre-registered positional D_M is not invariant to function-preserving head permutations
+  (verified at weight level on pythia-70m: D_M = 1.04 between a model and its exact
+  functional twin). Proposed Amendment 3 (not approved): profile-orbit distance as the
+  cross-run D_M, cross-fitted aligned D_M as sensitivity, positional D_M only with a
+  relabelling-null percentile < 1 %. Its null/reference class and H1 wording are still open.
