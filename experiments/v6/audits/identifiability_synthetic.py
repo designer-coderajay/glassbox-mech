@@ -10,10 +10,10 @@ Scenarios (B_model compared with A_model = S + noise):
   F  same structure, fresh noise, no relabelling      (measurement floor)
   A  same structure, arbitrary within-layer relabelling
   B  same structure + small perturbation (eps), no relabelling
-  C  independent structure from the same distribution  (different mechanism, same stats)
+  C  independent structure from the same distribution  (different generator structure, same stats)
   D  C + arbitrary relabelling
   E  same per-head MEAN effects as A (relabelled), but new per-item behaviour (new W):
-     a different mechanism with an identical multiset of scalar attributions
+     a different generator structure with an identical multiset of scalar attributions
 Desired: A ~ F (low), B low/moderate, C high, D == C, E high.
 Regimes: "dense" (all heads active) and "sparse" (60 % of heads scaled by 0.01, matching
 the ~60 % near-zero heads observed in Pythia-410M).
@@ -34,13 +34,20 @@ L, H, N, K = 12, 16, 200, 8
 NOISE, EPS = 0.5, 0.25
 
 
-def structure(rng: np.random.Generator, sparse: bool = False) -> Dict[str, np.ndarray]:
+def structure(rng: np.random.Generator, sparse: bool = False,
+              twins: bool = False) -> Dict[str, np.ndarray]:
+    """twins=True (added 2026-09-29 for Gate 1): heads 2j and 2j+1 in every layer are
+    near-duplicates (difference 0.05 x scale), so the optimal matching is unstable."""
     s = np.exp(-((np.arange(L) - 0.7 * L) ** 2) / (2 * (L / 4) ** 2))[:, None]
     g = np.ones((L, H))
     if sparse:
         g[rng.random((L, H)) < 0.6] = 0.01
-    return {"m": rng.normal(size=(L, H)) * s * g,
-            "W": rng.normal(size=(L, H, K)) * g[..., None], "s": s, "g": g}
+    m = rng.normal(size=(L, H)) * s * g
+    w = rng.normal(size=(L, H, K)) * g[..., None]
+    if twins:
+        m[:, 1::2] = m[:, 0::2] + 0.05 * s * rng.normal(size=(L, H // 2))
+        w[:, 1::2] = w[:, 0::2] + 0.05 * rng.normal(size=(L, H // 2, K))
+    return {"m": m, "W": w, "s": s, "g": g}
 
 
 def observe(st: Dict[str, np.ndarray], f: np.ndarray, rng: np.random.Generator) -> np.ndarray:

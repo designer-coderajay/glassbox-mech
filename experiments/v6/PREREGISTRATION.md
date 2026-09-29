@@ -39,7 +39,7 @@ attribution-profile distance.
 
 **Model inclusion (`PENDING`, proposal):** a model enters an arm only if its task accuracy is
 above chance under a one-sided binomial test at α = 0.05 on the pilot items. Reason: the
-attribution vector of a model that cannot do the task does not describe a task mechanism.
+attribution profile of a model that cannot do the task does not describe task-relevant attribution.
 The smoke run (§9) showed pythia-70m near chance on IOI, so this criterion matters in
 practice.
 
@@ -106,11 +106,11 @@ The probe set is fixed before the confirmatory run and is never tuned on held-ou
 | | Claim | Estimand (primary endpoint) | Null | Test | Effect size + CI | Control |
 |---|---|---|---|---|---|---|
 | H1 | Among matched pairs, D_M exceeds measurement noise | median D_M (matched pairs) − median D_M (Control B) | difference ≤ 0 | permutation over model labels | difference; model-bootstrap 95 % CI | B (noise floor), A, E |
-| H2 | D_B separates divergent pairs from null pairs | AUROC of D_B | AUROC ≤ threshold (`PENDING`) | AUROC | AUROC; model-bootstrap CI | B, C |
+| H2 | D_B separates attribution-profile-divergent pairs from null pairs | AUROC of D_B | AUROC ≤ threshold (`PENDING`) | AUROC | AUROC; model-bootstrap CI | B, C |
 | H3 | D_B and D_M are positively associated | Mantel r (D_B, D_M matrices) | r ≤ 0 | Mantel permutation | r; model-bootstrap CI | sensitivity set, §6 |
 | H4 | H3 holds on held-out models | Spearman ρ(D_B, D_M) on held-out models | ρ ≤ 0 | held-out by model | ρ; model-bootstrap CI | — |
 
-A pair is **divergent** iff its D_M exceeds the larger of the two models' Control B 95th
+A pair is **attribution-profile-divergent** (record key `divergent`) iff its D_M exceeds the larger of the two models' Control B 95th
 percentiles (draft rule, implemented in `glassbox/v6/controls.py::is_divergent`). The
 percentile values come from data; the rule does not change after data are seen.
 
@@ -244,3 +244,7 @@ not depend on which answer favours H1, and recorded here when decided):
   interval (A + cross-fitting) for uncertainty, and a same-run late-checkpoint reference (B)
   as the confirmatory comparator. A revised, attribution-profile H1 is proposed there (§5).
   Not approved; H1–H4 remain UNRESOLVED.
+- Amendment 3 draft (2026-09-29): `experiments/v6/AMENDMENT3_DRAFT.md`. Gate criteria were
+  fixed beforehand in `audits/amendment3_gate_criteria.md`. Gate 1 failed as pre-declared
+  (one revision pending); Gates 3, 4 and 8 passed; Gates 2, 5 and 7 are pending on the Mac.
+  Not locked. H1–H4 remain UNRESOLVED.
