@@ -44,6 +44,37 @@ def test_tost_regular_case_reports_t_method() -> None:
     assert d.paired_tost([0.01, -0.02, 0.0, 0.01], margin=0.05)["method"] == "paired_t_tost"
 
 
+def _pair(n, a_only, b_only):
+    a = [1] * n
+    b = [1] * n
+    for i in range(a_only):
+        b[i] = 0
+    for i in range(a_only, a_only + b_only):
+        a[i] = 0
+    return a, b
+
+
+def test_t_tost_is_not_monotone_in_discordance_regression() -> None:
+    # Regression (2026-09-29 seed audit), using the observed discordance patterns:
+    # 2 discordant (2 A-only) is NOT matched, 3 discordant (1 A-only, 2 B-only) IS.
+    two = d.performance_distance(*_pair(200, 2, 0), [1.0] * 200, [1.0] * 200, margin=0.02)
+    three = d.performance_distance(*_pair(200, 1, 2), [1.0] * 200, [1.0] * 200, margin=0.02)
+    assert not two["matched"] and three["matched"]
+
+
+def test_exact_equivalence_is_monotone_in_discordance() -> None:
+    decisions = [d.exact_paired_equivalence(*_pair(1000, k, 0), margin=0.02)["equivalent"]
+                 for k in range(0, 30)]
+    assert decisions == sorted(decisions, reverse=True)  # True...True, False...False
+    assert decisions[12] and not decisions[13]  # n=1000: matched iff <= 12 discordant
+
+
+def test_exact_equivalence_matches_clopper_pearson() -> None:
+    r = d.exact_paired_equivalence(*_pair(200, 1, 0), margin=0.02)
+    assert r["n_discordant"] == 1 and not r["equivalent"]
+    assert r["discordance_upper_bound"] == pytest.approx(0.0235, abs=1e-4)
+
+
 def test_performance_distance_reports_discordant_counts() -> None:
     r = d.performance_distance([1, 1, 0, 1], [1, 0, 1, 1], [1.0] * 4, [1.0] * 4, margin=0.02)
     assert r["n_a_only"] == 1 and r["n_b_only"] == 1

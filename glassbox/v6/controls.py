@@ -18,7 +18,8 @@ from scipy import stats
 
 from glassbox.v6.distances import operational_mechanistic_distance
 
-__all__ = ["split_indices", "split_half_null", "is_divergent", "above_chance"]
+__all__ = ["split_indices", "split_half_null", "is_divergent", "above_chance",
+           "relabel_within_layers", "relabelling_null", "sorted_within_layer_dm"]
 
 
 def split_indices(n_items: int, n_splits: int,
@@ -67,6 +68,61 @@ def split_half_null(per_item: np.ndarray, heads: Sequence[Hashable], n_splits: i
         "p50": float(np.percentile(values, 50)), "p95": float(np.percentile(values, 95)),
         "n_splits": n_splits, "half_size": m.shape[0] // 2, "seed": seed,
     }
+
+
+# ── Head-relabelling diagnostics (added after the 2026-09-29 seed audit) ─────────
+# Heads within a layer are interchangeable: permuting them leaves the model's function
+# unchanged. The primary D_M compares heads by index, so it is only meaningful when two
+# models share head correspondence (e.g. checkpoints of one training run). These
+# diagnostics quantify that limitation; they do not replace the primary D_M.
+
+def _layer_index(heads: Sequence[Hashable]) -> np.ndarray:
+    return np.array([h[0] for h in heads])  # heads are (layer, head) tuples
+
+
+def relabel_within_layers(v: np.ndarray, heads: Sequence[Hashable],
+                          rng: np.random.Generator) -> np.ndarray:
+    """Randomly permute attribution values among the heads of each layer."""
+    v = np.asarray(v, dtype=float)
+    out = v.copy()
+    layers = _layer_index(heads)
+    for layer in np.unique(layers):
+        idx = np.flatnonzero(layers == layer)
+        out[idx] = v[rng.permutation(idx)]
+    return out
+
+
+def relabelling_null(v: np.ndarray, heads: Sequence[Hashable], n: int,
+                     seed: int) -> Dict[str, Any]:
+    """Distribution of primary D_M between one model and relabelled copies of itself."""
+    rng = np.random.default_rng(seed)
+    keys = list(heads)
+    base = dict(zip(keys, np.asarray(v, dtype=float)))
+    vals = [operational_mechanistic_distance(
+        base, dict(zip(keys, relabel_within_layers(v, heads, rng))))["value"]
+        for _ in range(n)]
+    vals = [x for x in vals if x == x]
+    return {"n": n, "seed": seed, "p05": float(np.percentile(vals, 5)),
+            "p50": float(np.percentile(vals, 50)), "p95": float(np.percentile(vals, 95))}
+
+
+def sorted_within_layer_dm(a: np.ndarray, b: np.ndarray,
+                           heads: Sequence[Hashable]) -> float:
+    """1 - Spearman after sorting each layer's head values (label-free diagnostic).
+
+    Sorting aligns heads optimistically by attribution value, so this approximately
+    lower-bounds any within-layer-label-invariant version of D_M. It discards which
+    head does what; it is a diagnostic, not a replacement definition.
+    """
+    layers = _layer_index(heads)
+
+    def canon(x: np.ndarray) -> np.ndarray:
+        x = np.asarray(x, dtype=float)
+        return np.concatenate([np.sort(x[layers == layer]) for layer in np.unique(layers)])
+
+    keys = list(range(len(heads)))
+    return float(operational_mechanistic_distance(
+        dict(zip(keys, canon(a))), dict(zip(keys, canon(b))))["value"])
 
 
 def is_divergent(d_m: float, null_p95s: Sequence[float]) -> Any:

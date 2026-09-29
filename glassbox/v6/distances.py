@@ -24,6 +24,7 @@ METRICS_VERSION = "v6.distances/1.1.0"
 __all__ = [
     "METRICS_VERSION",
     "paired_tost",
+    "exact_paired_equivalence",
     "performance_distance",
     "operational_mechanistic_distance",
     "topk_jaccard_distance",
@@ -84,6 +85,28 @@ def paired_tost(
         # Constant continuous differences: the gap is known exactly.
         out.update(method="degenerate_constant", equivalent=bool(abs(mean) < margin))
     return out
+
+
+def exact_paired_equivalence(
+    correct_a: Sequence[bool], correct_b: Sequence[bool], margin: float,
+    alpha: float = 0.05,
+) -> Dict[str, Any]:
+    """Exact equivalence test for paired binary correctness (candidate for Amendment 2).
+
+    |acc_A - acc_B| <= discordance rate, so H0 (|gap| >= margin) is rejected iff the
+    one-sided (1 - alpha) Clopper-Pearson upper bound on the discordance rate is below
+    the margin. Valid for any n, monotone in the number of discordant items, and
+    conservative (it ignores sign cancellation). Not yet used by ``performance_distance``.
+    """
+    a = np.asarray(list(correct_a), dtype=bool)
+    b = np.asarray(list(correct_b), dtype=bool)
+    if a.shape != b.shape or a.size == 0:
+        raise ValueError("both models must be evaluated on the same, non-empty items")
+    n, k = int(a.size), int((a != b).sum())
+    bound = 1.0 if k == n else float(stats.beta.ppf(1 - alpha, k + 1, n - k))
+    return {"n": n, "n_discordant": k, "discordance_upper_bound": bound,
+            "margin": margin, "alpha": alpha, "equivalent": bool(bound < margin),
+            "method": "exact_discordance_bound"}
 
 
 def performance_distance(
