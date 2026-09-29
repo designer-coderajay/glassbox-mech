@@ -133,7 +133,7 @@ def test_dm_identical_is_zero_and_reversed_is_two() -> None:
 
 
 def test_dm_is_rank_based() -> None:
-    # Positive control: a monotone transform keeps the mechanism ranking -> D_M = 0.
+    # Positive control: a monotone transform keeps the attribution ranking -> D_M = 0.
     a = _attr(np.linspace(-1, 1, 16))
     b = {k: v ** 3 * 10 for k, v in a.items()}
     assert d.operational_mechanistic_distance(a, b)["value"] == pytest.approx(0.0)

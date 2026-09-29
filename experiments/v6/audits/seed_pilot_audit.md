@@ -1,5 +1,7 @@
 # Post-pilot audit: Pythia-410M seed pilot
 
+*Terminology (added 2026-09-29): this audit predates the approved estimand. Where it says "mechanism" or "divergent", read "attribution profile" / "attribution-profile-divergent" under the positional D_M, which head_identifiability.md shows is not head-permutation invariant.*
+
 *Written 2026-09-29. Run audited: `experiments/v6/runs/pilot_410m_seeds` (label `pilot`,
 commit `d0cae27`, 200 IOI items, seed 0; models pythia-410m and pythia-410m-seed1…seed5, all
 at step 143000). This is an audit of a pilot. Nothing here is evidence for H1–H4, and no

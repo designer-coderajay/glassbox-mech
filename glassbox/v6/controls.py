@@ -126,7 +126,8 @@ def sorted_within_layer_dm(a: np.ndarray, b: np.ndarray,
 
 
 def is_divergent(d_m: float, null_p95s: Sequence[float]) -> Any:
-    """Draft rule: divergent iff D_M exceeds the larger of the two models' Control-B p95.
+    """Draft (positional, superseded for cross-run pairs) rule: attribution-profile-divergent
+    iff D_M exceeds the larger of the two models' Control-B p95. Record key: ``divergent``.
 
     Returns None when D_M is undefined (NaN).
     """

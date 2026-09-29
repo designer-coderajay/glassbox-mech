@@ -39,10 +39,11 @@ PROVISIONAL_MARGIN = 0.02
 
 # Estimands follow PREREGISTRATION.md §4 (= PLAN_V6_FINAL.md §5, primary endpoints).
 HYPOTHESES = [
-    ("H1", "median D_M over D_P-matched pairs minus median D_M under Control B",
-     "difference <= 0 (matched pairs look like measurement noise)",
-     "permutation test over model labels; model-bootstrap CI"),
-    ("H2", "AUROC of D_B separating divergent pairs from Control-B null pairs",
+    ("H1", "Delta = mean cross-run attribution-profile distance (step 143000) minus mean "
+     "within-training-lineage distance (Amendment 3 draft; distance modulo head permutation)",
+     "Delta <= 0",
+     "two-way (runs x prompts) bootstrap lower bound; runs are the unit"),
+    ("H2", "AUROC of D_B separating attribution-profile-divergent pairs from null pairs",
      "AUROC <= pre-registered threshold", "AUROC; model-bootstrap CI"),
     ("H3", "Mantel r between the D_B and D_M distance matrices",
      "r <= 0", "Mantel permutation test + sensitivity set (partial | D_P, LOMO, "

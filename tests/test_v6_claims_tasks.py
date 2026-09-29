@@ -139,3 +139,13 @@ def test_ioi_single_token_filter() -> None:
         tasks.build_ioi(2, single_token=lambda s: False)
     with pytest.raises(ValueError):
         tasks.build_ioi(0)
+
+
+def test_v6_code_never_claims_mechanistic_divergence() -> None:
+    # Gate 8 (Amendment 3): D* is an attribution-profile distance modulo head permutation.
+    import pathlib
+
+    root = pathlib.Path(__file__).resolve().parents[1] / "glassbox" / "v6"
+    offenders = [p.name for p in root.glob("*.py")
+                 if "mechanistic divergence" in p.read_text().lower()]
+    assert not offenders, offenders

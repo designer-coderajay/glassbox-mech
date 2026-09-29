@@ -2,7 +2,7 @@
 
 ``diff`` re-measures both models for every pair, so N models cost N(N-1) measurements.
 The pilot runner measures each model once (plus one Control A reload of the first
-model), then computes D_P, D_M, D_B and the Control B divergence rule for all pairs,
+model), then computes D_P, D_M, D_B and the (draft, positional) attribution-profile divergence flag for all pairs,
 and writes the D_M / D_B / D_P matrices needed later for H1-H4 (Mantel etc.).
 
 Pilot data are excluded from the confirmatory analysis (PREREGISTRATION.md §7), so every
