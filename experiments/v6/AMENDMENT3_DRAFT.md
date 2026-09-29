@@ -92,22 +92,23 @@ commits:
   - Implementation: `glassbox.v6.lineage.two_way_bootstrap`.
 - **Fallback, used only if the primary fails Gate 5 validity.** Leave-one-run-out jackknife
   with t_{R−1} (`lineage.jackknife`).
-- **Per-pair intervals.** Reported as confidence intervals only if Gate 1 passes; otherwise
-  as point estimates.
+- **Per-pair values.** Gate 1 failed, so every per-pair D̂ is reported as a **point estimate
+  only**, never with a confidence interval. Uncertainty statements are made only for Δ, at
+  the run level (Gate 5 validated this procedure's type-I error).
 
 ## 7. Gate status (as of this draft)
 
 | Gate | Criterion | Status |
 |---|---|---|
-| 1 Interval validity (R = 200, 9 conditions) | coverage ≥ 0.919 everywhere | **FAILED** for all pre-declared procedures (bracketed 0.915 in sparse/similar; percentile as low as 0.18). One pre-declared revision (bracketed-v2, fresh seeds) is **pending (Mac)** |
-| 2 Invariance under weight-level head permutation | D(X, X_π) ≤ 1e-4; cross check within the triangle bound (note 3) | Validated on pythia-70m (D = 7.2e-6, not a gate result); **pending on pythia-410m-deduped (Mac)** |
-| 3 Synthetic discrimination A–E | as pre-declared | **PASS** in dense, sparse and unstable regimes (200 reps each) |
+| 1 Interval validity (R = 200, 9 conditions) | coverage ≥ 0.919 everywhere | **FAILED, closed.** Original procedures and the single pre-declared revision (v2: 0.915 in sparse/similar and sparse/perturbed) both failed. Fallback: per-pair values are point estimates only |
+| 2 Invariance under weight-level head permutation | D(X, X_π) ≤ 1e-4; cross check within the triangle bound | **PASS** (410M: 1.7e-7; 1.2e-5 ≤ 2.7e-4) |
+| 3 Synthetic discrimination A–E | as pre-declared | **PASS** (dense, sparse, unstable) |
 | 4 Within-lineage reference pairs | exact pairs, branches exist | **PASS** (§3) |
-| 5 Run-level inference validity | type-I ≤ 0.081 at R = 6, 10 | Implemented and smoke-tested; **pending (Mac)** |
-| 6 Seed 4 policy | inclusion primary; retained descriptively | **Specified** (§4); the star design needs your approval |
-| 7 Controlled perturbation sensitivity | D(c = 1) = 0; strictly increasing | Validated on pythia-70m (not a gate result); **pending on 410M (Mac)** |
-| 8 Terminology | "attribution-profile divergence" throughout | **PASS** (sweep plus regression test) |
-| 9 Freeze | after 1–8 | **Blocked** |
+| 5 Run-level inference validity | type-I ≤ 0.081 at R = 6, 10 | **PASS**: bootstrap 0.045–0.065, jackknife 0.035–0.050; power 1.0 down to Δ ≈ 0.037 |
+| 6 Seed 4 policy | inclusion primary; retained descriptively | **Specified**; star design awaits approval |
+| 7 Controlled perturbation sensitivity | D(c = 1) = 0; strictly increasing | **PASS** (410M: 0 → 0.028 → 0.155 → 0.521 → 1.161) |
+| 8 Terminology | "attribution-profile divergence" throughout | **PASS** |
+| 9 Freeze | after 1–8 | **Blocked, pending owner decisions:** accept the Gate 1 fallback? approve the star design? |
 
 ## 8. Cost of the confirmatory run (estimates, not measured)
 

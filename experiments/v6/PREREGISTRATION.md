@@ -248,3 +248,6 @@ not depend on which answer favours H1, and recorded here when decided):
   fixed beforehand in `audits/amendment3_gate_criteria.md`. Gate 1 failed as pre-declared
   (one revision pending); Gates 3, 4 and 8 passed; Gates 2, 5 and 7 are pending on the Mac.
   Not locked. H1–H4 remain UNRESOLVED.
+- Gate results (2026-09-29, dated note 4 in `audits/amendment3_gate_criteria.md`): Gates 2,
+  3, 4, 5, 7 and 8 passed. Gate 1 failed and is closed; the pre-declared fallback is point
+  estimates only for per-pair distances. Amendment 3 is not locked; owner decisions pending.

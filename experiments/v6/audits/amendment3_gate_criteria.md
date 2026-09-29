@@ -180,3 +180,37 @@ H0 validity criterion and the H0 worlds are unchanged.
   2. |D(X_π,Y) − D(X,Y)| ≤ √D(X,X_π)·(√D(X,Y) + √D(X_π,Y)) + 1e-12. This checks that the
      implementation respects the metric bound.
 - **Also reported** (not gated): the Spearman correlation between π·X and X_π.
+
+## Dated note 4 (2026-09-29): gate results from the Mac runs
+
+- **Gate 1 revision (bracketed-v2; fresh seeds, offset 10,000): FAIL.**
+  - sparse/similar 0.915 and sparse/perturbed 0.915 (17 misses each, all above the upper
+    bound), against the 0.919 threshold.
+  - All other cells 0.95–1.00.
+  - Per dated note 1, **Gate 1 is closed as failed. No further revision will be tried.**
+  - Consequence: per-pair intervals are reported only as point estimates, never as
+    confidence intervals, and confirmatory inference relies solely on the run-level
+    procedure.
+- **Gate 2: PASS** (pythia-410m-deduped@143000 vs @133000, 50 prompts).
+  - D(X, X_π) = 1.7e-7.
+  - |D(X_π,Y) − D(X,Y)| = 1.2e-5 ≤ triangle bound 2.7e-4.
+  - Equivariance Spearman 0.99999.
+- **Gate 5: PASS** for the primary two-way bootstrap. Type-I error at the H0 boundary:
+
+  | Regime | R = 6 | R = 10 |
+  |---|---|---|
+  | sparse | 0.055 | 0.050 |
+  | dense | 0.045 | 0.065 |
+
+  - All are ≤ 0.081. The jackknife gave 0.035–0.050.
+  - Power was 1.0 in every H1 world, including λ = 0.15 (mean Δ ≈ 0.037).
+- **Gate 7: PASS** (pythia-410m-deduped@143000; heads chosen in @123000 on held-out
+  prompts).
+  - D = 6e-17 at c = 1, then 0.028, 0.155, 0.521 and 1.161 at c = 0.75, 0.5, 0.25 and 0.
+    Strictly increasing.
+  - Low-attribution heads (report only): 0.0019, 0.0079, 0.0196, 0.0385.
+- **Earlier results:** Gates 3, 4 and 8 PASS. Gate 6 is specified; the star-design choice
+  awaits approval.
+- **Lock status.** The approved rule ("lock only after Gates 1–8 pass") is not met, because
+  Gate 1 failed. Locking requires an explicit owner decision to accept the pre-declared
+  Gate 1 fallback. Until then Amendment 3 remains unlocked.
