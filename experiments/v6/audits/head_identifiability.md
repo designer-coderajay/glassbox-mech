@@ -1,4 +1,8 @@
-# Head identifiability of V6 mechanistic distances
+# Head identifiability of V6 attribution-profile distances
+
+*Terminology note: "mechanism" in the synthetic scenarios below means *generator
+structure*. For real models, all distances here are attribution-profile distances, not
+mechanism distances (see `orbit_baselines.md` §0).*
 
 *Written 2026-09-29, before Amendment 3. Code: `glassbox/v6/identifiability.py`; tests:
 `tests/test_v6_identifiability.py`; synthetic study:
@@ -90,7 +94,7 @@ Per-pair values are in `positional_permutation_null.json`.
   shared initialisation or strong convergence; I did not verify which. But 0.75 is not far
   below the null (median ~0.92), so correspondence is only partial.
 - **Across seeds** there is no evidence of any correspondence. Positional D_M there is
-  indistinguishable from arbitrary relabelling and carries no information about mechanism.
+  indistinguishable from arbitrary relabelling and carries no information about attribution-profile similarity.
 - One seed pair sits at the 99.6th percentile. With 15 dependent pairs this is not
   interpretable.
 
@@ -131,7 +135,7 @@ Mean ± sd over 30 replicates:
 
 - **positional:** fails A (reads a pure relabelling as maximally different) and is not
   invariant.
-- **scalar_quotient:** fails E by construction. Different mechanisms with the same magnitude
+- **scalar_quotient:** fails E by construction. Different structures with the same magnitude
   histogram look like a small perturbation. In the sparse regime it barely separates C (0.11)
   from B (0.09).
 - **crossfit_aligned** and **profile_orbit** meet every desired property. Separation of C,
@@ -151,7 +155,7 @@ Mean ± sd over 30 replicates:
 Selection criteria, in order:
 
 1. exact G-invariance;
-2. detects different mechanisms, including E (same magnitudes);
+2. detects different structures, including E (same magnitudes);
 3. robust to the observed sparsity;
 4. magnitude-aware, so negligible heads cannot dominate;
 5. interpretable range.
@@ -176,7 +180,7 @@ primary has not been run on any real pilot data.
      comparable head-profile to head-profile.
    - Candidates:
      - an item bootstrap (resample items jointly for both models) for CIs;
-     - within-run checkpoint pairs as an empirical "same-mechanism" reference class;
+     - within-run checkpoint pairs as an empirical "same-lineage" reference class;
      - a relabelling-invariant permutation test at the model level.
    - This must be chosen and written down before any H1 test.
 2. **Independent alignment signal.** Optionally, align heads by attention patterns or OV/QK

@@ -13,13 +13,19 @@ This document is self-contained: it restates every definition the analysis depen
 ## 1. Question
 
 Across pairs of models with the same architecture that perform equally well on a task
-(performance distance ≈ 0), do their mechanisms differ (mechanistic distance > noise), and
-does a black-box behavioral distance carry information about that mechanistic distance?
+(performance distance ≈ 0), do their **attribution profiles** differ (attribution-profile
+distance D_M > reference), and does a black-box behavioral distance carry information about
+that attribution-profile distance?
+
+Terminology (2026-09-29, applies throughout V6; no computation changed): D_M measures a
+distance between attribution profiles under a fixed procedure and prompt distribution
+(`audits/orbit_baselines.md` §0). It is not a distance between mechanisms. "Mechanism" is
+reserved for claims supported by an intervention experiment.
 
 Identifiability limit, stated up front: different mechanisms can produce identical
-behavior. Black-box similarity cannot prove mechanistic similarity, and black-box difference
-cannot identify a specific mechanism. V6 tests only whether behavioral distance *predicts an
-independently measured* mechanistic distance.
+behavior, and neither behavioral nor attribution similarity proves mechanistic similarity.
+V6 tests only whether behavioral distance *predicts an independently measured*
+attribution-profile distance.
 
 ## 2. Arms, tasks and models
 
@@ -62,10 +68,12 @@ rate). With 0 discordant items this bound is `1 − α^(1/n)`: 1.49 pp at n = 20
   δ = 0.02 needs roughly 700+ items per pair. The confirmatory item count must be set
   accordingly; a ±2pp margin with tens of items cannot declare equivalence.
 
-### 3.2 Mechanistic distance D_M (operational)
+### 3.2 Attribution-profile distance D_M
 
-D_M is an *operational* measurement of mechanistic difference under one attribution
-procedure. It is not a ground-truth measure of "the mechanism".
+D_M is a distance between attribution profiles under one attribution procedure and one
+prompt distribution. It is not a measure of "the mechanism". The positional definition
+below is not invariant to function-preserving head permutations
+(`audits/head_identifiability.md`); proposed Amendment 3 replaces it for cross-run pairs.
 
 - Attribution vector: per attention head (l, h), Taylor attribution patching
   `attr(l,h) = ∇_{z_lh} LD · (z_clean − z_corrupt)` (`GlassboxV2.attribution_patching`,
@@ -230,3 +238,9 @@ not depend on which answer favours H1, and recorded here when decided):
   functional twin). Proposed Amendment 3 (not approved): profile-orbit distance as the
   cross-run D_M, cross-fitted aligned D_M as sensitivity, positional D_M only with a
   relabelling-null percentile < 1 %. Its null/reference class and H1 wording are still open.
+- Baselines for the proposed cross-run D_M (2026-09-29, `audits/orbit_baselines.md`):
+  percentile prompt bootstrap is invalid for the orbit distance (synthetic coverage
+  0.25–0.45 when models differ); proposed roles are C/E2/D as gates, the bracketed prompt
+  interval (A + cross-fitting) for uncertainty, and a same-run late-checkpoint reference (B)
+  as the confirmatory comparator. A revised, attribution-profile H1 is proposed there (§5).
+  Not approved; H1–H4 remain UNRESOLVED.

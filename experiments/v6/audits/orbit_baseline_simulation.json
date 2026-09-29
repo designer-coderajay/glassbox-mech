@@ -1,0 +1,72 @@
+{
+  "dense": {
+    "N": 200,
+    "N_POP": 20000,
+    "REPS": 40,
+    "BOOT": 200,
+    "results": {
+      "A": {
+        "coverage": 0.925,
+        "coverage_basic": 0.9,
+        "coverage_bracket": 0.25,
+        "coverage_bracket_plus_sampling": 0.95,
+        "bias_insample": -9.187023430569027e-05,
+        "bias_crossfit": 0.0005675817705958043,
+        "mean_ci_width": 0.004775186508471412
+      },
+      "B": {
+        "coverage": 0.875,
+        "coverage_basic": 0.9,
+        "coverage_bracket": 0.2,
+        "coverage_bracket_plus_sampling": 0.875,
+        "bias_insample": -0.00013978897937939639,
+        "bias_crossfit": 0.0004386996728701284,
+        "mean_ci_width": 0.006168120012940007
+      },
+      "C": {
+        "coverage": 0.25,
+        "coverage_basic": 0.925,
+        "coverage_bracket": 0.875,
+        "coverage_bracket_plus_sampling": 1.0,
+        "bias_insample": -0.014538294222250716,
+        "bias_crossfit": 0.024275458231034837,
+        "mean_ci_width": 0.04098434405730262
+      }
+    }
+  },
+  "sparse": {
+    "N": 200,
+    "N_POP": 20000,
+    "REPS": 40,
+    "BOOT": 200,
+    "results": {
+      "A": {
+        "coverage": 0.375,
+        "coverage_basic": 0.725,
+        "coverage_bracket": 0.575,
+        "coverage_bracket_plus_sampling": 0.9,
+        "bias_insample": -0.004878122230173209,
+        "bias_crossfit": 0.0014307613225881595,
+        "mean_ci_width": 0.011212604541477995
+      },
+      "B": {
+        "coverage": 0.45,
+        "coverage_basic": 0.875,
+        "coverage_bracket": 0.6,
+        "coverage_bracket_plus_sampling": 0.9,
+        "bias_insample": -0.0043491432618247726,
+        "bias_crossfit": 0.0019215189408415666,
+        "mean_ci_width": 0.01363975100042431
+      },
+      "C": {
+        "coverage": 0.275,
+        "coverage_basic": 0.925,
+        "coverage_bracket": 0.85,
+        "coverage_bracket_plus_sampling": 0.975,
+        "bias_insample": -0.02057330956632092,
+        "bias_crossfit": 0.02954324245775499,
+        "mean_ci_width": 0.06100298811921343
+      }
+    }
+  }
+}
