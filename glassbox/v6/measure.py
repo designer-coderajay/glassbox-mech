@@ -26,6 +26,7 @@ logger = logging.getLogger(__name__)
 __all__ = [
     "load_model",
     "seed_variant",
+    "hub_provenance",
     "single_token_predicate",
     "evaluate_items",
     "probe_distributions",
@@ -53,6 +54,39 @@ def _hf_from_pretrained(repo: str, **kwargs: object) -> object:
     return AutoModelForCausalLM.from_pretrained(repo, **kwargs)
 
 
+def _hub_model_info(repo: str, revision: Optional[str] = None,
+                    files_metadata: bool = False) -> object:
+    """Hugging Face Hub metadata (seam for tests)."""
+    from huggingface_hub import HfApi
+
+    return HfApi().model_info(repo, revision=revision, files_metadata=files_metadata)
+
+
+def hub_provenance(name: str, checkpoint: Optional[int]) -> Dict[str, Optional[str]]:
+    """Exact Hub commit and weights-file sha256 behind a model spec.
+
+    Recorded in every pilot record. Network failures are recorded, not raised.
+    """
+    from transformer_lens.loading_from_pretrained import get_official_model_name
+
+    revision = f"step{checkpoint}" if checkpoint is not None else "main"
+    out: Dict[str, Optional[str]] = {"repo": None, "revision": revision, "commit": None,
+                                     "weights_file": None, "weights_sha256": None,
+                                     "error": None}
+    try:
+        out["repo"] = (f"EleutherAI/{name}" if seed_variant(name)
+                       else get_official_model_name(name))
+        info = _hub_model_info(out["repo"], revision=revision, files_metadata=True)
+    except Exception as exc:  # noqa: BLE001 - provenance must never abort a run
+        out["error"] = f"{type(exc).__name__}: {exc}"
+        return out
+    files = {s.rfilename: s for s in info.siblings}
+    wf = next((f for f in ("model.safetensors", "pytorch_model.bin") if f in files), None)
+    out.update(commit=info.sha, weights_file=wf,
+               weights_sha256=files[wf].lfs.sha256 if wf and files[wf].lfs else None)
+    return out
+
+
 def load_model(name: str, checkpoint: Optional[int] = None,
                device: str = "cpu") -> HookedTransformer:
     """Load a model in eval mode; ``checkpoint`` selects a Pythia training step.
@@ -71,8 +105,11 @@ def load_model(name: str, checkpoint: Optional[int] = None,
     else:
         if checkpoint is None:
             raise ValueError(f"{name}: seed variants need an explicit checkpoint step")
+        # use_safetensors=False: these revisions ship only pytorch_model.bin, and
+        # without this flag transformers silently loads an unmerged SFconvertbot
+        # conversion PR (refs/pr/N) instead of the requested revision.
         hf = _hf_from_pretrained(f"EleutherAI/{name}", revision=f"step{checkpoint}",
-                                 torch_dtype=torch.float32)
+                                 torch_dtype=torch.float32, use_safetensors=False)
         model = HookedTransformer.from_pretrained(seed[0], hf_model=hf, device=device)
     model.eval()
     return model

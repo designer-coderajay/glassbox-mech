@@ -34,6 +34,7 @@ def fakes(monkeypatch):
     monkeypatch.setattr(pilot, "_load", _fake_model)
     monkeypatch.setattr(pilot, "_predicate", lambda model: (lambda s: True))
     monkeypatch.setattr(pilot, "_measure_model", _fake_measure)
+    monkeypatch.setattr(pilot, "_provenance", lambda spec: {"repo": spec, "commit": "x"})
 
 
 def test_parse_model_spec() -> None:
@@ -66,6 +67,7 @@ def test_pilot_writes_artifacts_with_unresolved_hypotheses(fakes, tmp_path) -> N
     assert all(h["status"] == "UNRESOLVED" for h in fnd["hypotheses"])
     rec = json.loads((tmp_path / "record.json").read_text())
     assert rec["dataset"]["items_hash"] and rec["metrics_version"]
+    assert all(m["hub"]["commit"] == "x" for m in rec["models"])  # provenance recorded
 
 
 def test_pilot_resumes_from_cache_after_failure(fakes, monkeypatch, tmp_path) -> None:

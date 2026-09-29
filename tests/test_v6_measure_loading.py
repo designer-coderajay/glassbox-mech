@@ -58,6 +58,41 @@ def test_seed_variant_loads_revision_and_passes_hf_model(calls) -> None:
     # checkpoint_value must NOT be passed: TransformerLens would then ignore hf_model
     # and silently load the official checkpoint instead of the seed variant.
     assert "checkpoint_value" not in kw
+    # Regression (2026-09-29 seed audit): without use_safetensors=False, transformers
+    # silently loaded an unmerged SFconvertbot PR (refs/pr/1) instead of the requested
+    # revision's pytorch_model.bin.
+    assert hf_kw["use_safetensors"] is False
+
+
+def test_hub_provenance_resolves_exact_commit(monkeypatch) -> None:
+    class Sib:
+        def __init__(self, name, sha):
+            self.rfilename = name
+            self.lfs = SimpleNamespace(sha256=sha) if sha else None
+            self.size = 1
+
+    seen = {}
+
+    def fake_info(repo, revision=None, files_metadata=False):
+        seen["args"] = (repo, revision)
+        return SimpleNamespace(sha="c0ffee", siblings=[Sib("config.json", None),
+                                                       Sib("pytorch_model.bin", "abc")])
+
+    monkeypatch.setattr(measure, "_hub_model_info", fake_info)
+    p = measure.hub_provenance("pythia-410m-seed3", 143000)
+    assert seen["args"] == ("EleutherAI/pythia-410m-seed3", "step143000")
+    assert p == {"repo": "EleutherAI/pythia-410m-seed3", "revision": "step143000",
+                 "commit": "c0ffee", "weights_file": "pytorch_model.bin",
+                 "weights_sha256": "abc", "error": None}
+
+
+def test_hub_provenance_offline_is_recorded_not_fatal(monkeypatch) -> None:
+    def boom(*a, **k):
+        raise OSError("offline")
+
+    monkeypatch.setattr(measure, "_hub_model_info", boom)
+    p = measure.hub_provenance("pythia-410m", 143000)
+    assert p["commit"] is None and "offline" in p["error"]
 
 
 def test_seed_variant_requires_checkpoint(calls) -> None:

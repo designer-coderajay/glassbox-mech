@@ -67,6 +67,12 @@ def _predicate(model: Any) -> Callable[[str], bool]:
     return measure.single_token_predicate(model)
 
 
+def _provenance(spec: str) -> Dict[str, Any]:
+    from glassbox.v6 import measure
+
+    return measure.hub_provenance(*parse_model_spec(spec))
+
+
 def _measure_model(model: Any, ds: Any) -> Dict[str, Any]:
     return diff._measure(model, ds)
 
@@ -244,7 +250,8 @@ def run_pilot(cfg: PilotConfig, out_dir: Path) -> Dict[str, Any]:
                     "n_probes": len(ds.probes),
                     "items_hash": sha256_json([dataclasses.asdict(i) for i in ds.items])},
         "metrics_version": dist.METRICS_VERSION,
-        "models": [{"spec": r["spec"], **diff._serialisable(r["res"]),
+        "models": [{"spec": r["spec"], "hub": _provenance(r["spec"]),
+                    **diff._serialisable(r["res"]),
                     "controls": r["controls"], "from_cache": r["from_cache"]}
                    for r in results],
         "pairs": pairs,
