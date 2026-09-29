@@ -205,3 +205,36 @@ def test_weight_permutation_symmetry_on_pythia() -> None:
     # ... while the pre-registered positional D_M calls the functionally identical
     # twin maximally different (observed Spearman -0.04, D_M 1.04).
     assert idf.positional_dm(a, b) > 0.8
+
+
+# ── baseline tools ────────────────────────────────────────────────────────────
+
+def test_crossfit_orbit_brackets_and_is_invariant() -> None:
+    rng = RNG(9)
+    x, y = rng.normal(size=(60, 3, 5)), rng.normal(size=(60, 3, 5))
+    r = idf.crossfit_orbit_distance(x, y, n_splits=5, seed=0)
+    assert r["insample_half"] <= r["crossfit"] + 1e-12
+    pi = idf.random_group_element(3, 5, rng)
+    r2 = idf.crossfit_orbit_distance(x, idf.act_on(pi, y), n_splits=5, seed=0)
+    assert r2["crossfit"] == pytest.approx(r["crossfit"], abs=1e-12)
+
+
+def test_orbit_bootstrap_is_invariant_and_deterministic() -> None:
+    rng = RNG(10)
+    x, y = rng.normal(size=(40, 2, 4)), rng.normal(size=(40, 2, 4))
+    pi = idf.random_group_element(2, 4, rng)
+    b1 = idf.orbit_prompt_bootstrap(x, y, n_boot=50, seed=3)
+    b2 = idf.orbit_prompt_bootstrap(x, idf.act_on(pi, y), n_boot=50, seed=3)
+    for k in ("estimate", "boot_mean", "bias"):
+        assert b1[k] == pytest.approx(b2[k], abs=1e-12)
+    assert b1["ci_percentile"] == pytest.approx(b2["ci_percentile"], abs=1e-12)
+    assert b1["ci_percentile"][0] <= b1["ci_percentile"][1]
+
+
+def test_alignment_recovery_identity_for_near_copy() -> None:
+    rng = RNG(11)
+    x = rng.normal(size=(50, 3, 6))
+    r = idf.alignment_recovery(x, x + 0.01 * rng.normal(size=x.shape))
+    assert r["fraction_identity"] == 1.0
+    pi = idf.random_group_element(3, 6, rng)
+    assert idf.alignment_recovery(x, idf.act_on(pi, x))["fraction_identity"] < 1.0

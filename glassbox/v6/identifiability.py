@@ -1,4 +1,4 @@
-"""Head identifiability for V6 mechanistic distances.
+"""Head identifiability for V6 attribution-profile distances.
 
 Setting. Model m has a per-item, per-head attribution tensor ``X`` with shape
 ``[N items, L layers, H heads]`` and mean vector ``a = mean_i X[i]`` (shape ``[L, H]``).
@@ -22,7 +22,8 @@ Candidate distances (defined here before being applied to any seed data):
     rearrangement inequality, up to rank ties) by sorting each layer's H values: the 1-D
     optimal-transport / multiset comparison of scalar mean attributions. G-invariant, but it
     only compares per-layer *distributions of attribution magnitudes*; two different circuits
-    with the same magnitude histogram are indistinguishable. Not a mechanism distance.
+    with the same magnitude histogram are indistinguishable. Not a profile distance either;
+    only a magnitude-distribution comparison.
 
 ``profile_orbit_distance``  Represent head (l, h) by its per-item profile ``X[:, l, h]``
     (how its causal effect varies across inputs). After scaling each model's tensor to unit
@@ -51,6 +52,7 @@ __all__ = [
     "act_on", "random_group_element", "permute_heads_",
     "positional_dm", "scalar_quotient_dm", "profile_orbit_distance",
     "crossfit_aligned_dm", "positional_permutation_null",
+    "crossfit_orbit_distance", "orbit_prompt_bootstrap", "alignment_recovery",
 ]
 
 
@@ -184,3 +186,63 @@ def positional_permutation_null(a: np.ndarray, b: np.ndarray, n_perm: int = 1000
         "p95": float(np.percentile(null, 95)), "p99": float(np.percentile(null, 99)),
         "observed_percentile": float(100.0 * np.mean(null <= obs)),
     }
+
+
+# ── Baseline / uncertainty tools for profile_orbit_distance (Amendment 3 drafting) ──
+
+def _orbit_with_fixed_pi(xa: np.ndarray, xb: np.ndarray, pi: np.ndarray) -> float:
+    a, b = _unit(xa), _unit(xb)
+    return float(((a - act_on(pi, b)) ** 2).sum())
+
+
+def crossfit_orbit_distance(xa: np.ndarray, xb: np.ndarray, n_splits: int = 20,
+                            seed: int = 0) -> Dict[str, Any]:
+    """Orbit distance with the head matching fitted on held-out prompts.
+
+    Per split: pi_hat = argmin on half S1; report ||X~_A,S2 - pi_hat . X~_B,S2||^2 and the
+    in-sample minimum on S2. By construction in-sample(S2) <= cross-fitted(S2): the
+    in-sample value is biased toward similarity (selection of pi on the same prompts), the
+    cross-fitted one toward dissimilarity (matching error). Averaged over splits.
+    """
+    xa, xb = np.asarray(xa, dtype=float), np.asarray(xb, dtype=float)
+    n = xa.shape[0]
+    rng = np.random.default_rng(seed)
+    cf, ins = [], []
+    for _ in range(n_splits):
+        perm = rng.permutation(n)
+        s1, s2 = perm[: n // 2], perm[n // 2: 2 * (n // 2)]
+        pi = profile_orbit_distance(xa[s1], xb[s1])["pi"]
+        cf.append(_orbit_with_fixed_pi(xa[s2], xb[s2], pi))
+        ins.append(profile_orbit_distance(xa[s2], xb[s2])["value"])
+    return {"crossfit": float(np.mean(cf)), "insample_half": float(np.mean(ins)),
+            "n_splits": n_splits, "half_size": n // 2}
+
+
+def orbit_prompt_bootstrap(xa: np.ndarray, xb: np.ndarray, n_boot: int = 1000,
+                           seed: int = 0, alpha: float = 0.05) -> Dict[str, Any]:
+    """Paired prompt bootstrap: resample prompts jointly for both models, re-solve.
+
+    Quantifies sampling uncertainty of the plug-in estimate with respect to the prompt
+    distribution. It is not a null distribution. Whole [L, H] slices are resampled
+    together, so no independence across heads is assumed.
+    """
+    xa, xb = np.asarray(xa, dtype=float), np.asarray(xb, dtype=float)
+    n = xa.shape[0]
+    rng = np.random.default_rng(seed)
+    est = profile_orbit_distance(xa, xb)["value"]
+    boots = np.array([profile_orbit_distance(xa[i], xb[i])["value"]
+                      for i in (rng.integers(0, n, n) for _ in range(n_boot))])
+    lo, hi = np.percentile(boots, [100 * alpha / 2, 100 * (1 - alpha / 2)])
+    return {"estimate": est, "boot_mean": float(boots.mean()),
+            "bias": float(boots.mean() - est), "ci_percentile": [float(lo), float(hi)],
+            "n_boot": n_boot, "seed": seed}
+
+
+def alignment_recovery(xa: np.ndarray, xb: np.ndarray) -> Dict[str, float]:
+    """For pairs with known correspondence (same run): does the optimal matching recover
+    the identity? Reported unweighted and weighted by head magnitude."""
+    pi = profile_orbit_distance(xa, xb)["pi"]
+    ident = pi == np.arange(pi.shape[1])[None, :]
+    w = np.sqrt((_unit(xa) ** 2).sum(0))  # [L, H] head magnitude in A
+    return {"fraction_identity": float(ident.mean()),
+            "magnitude_weighted_identity": float((w * ident).sum() / w.sum())}

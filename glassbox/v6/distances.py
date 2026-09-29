@@ -4,9 +4,11 @@ Pure NumPy/SciPy, no torch. Every function here implements a definition fixed in
 ``experiments/v6/PREREGISTRATION.md`` §3; the version string below is recorded in every
 experiment record so a reproducer knows which definitions produced a number.
 
-Naming is deliberate: :func:`operational_mechanistic_distance` is *one operational
-measurement* of mechanistic divergence under a defined attribution procedure. It is not
-"the mechanistic distance" between two models.
+Terminology: :func:`operational_mechanistic_distance` keeps its original (legacy) name so
+stored records and the API stay stable, but it measures an **attribution-profile distance**
+(positional, head-indexed) under a defined attribution procedure, not a distance between
+mechanisms. It is not invariant to function-preserving head permutations; see
+``experiments/v6/audits/head_identifiability.md``.
 """
 from __future__ import annotations
 
