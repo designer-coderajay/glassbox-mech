@@ -180,6 +180,22 @@ passed.
 Pair B record reproduced exactly on rerun (all non-volatile fields). These are pilot
 observations; they do not test H1–H4 and are excluded from confirmatory analysis.
 
+6-model pilot (`runs/pilot_410m_6models`, commit `aa8afe5`, metrics 1.1.0): pythia-410m and
+pythia-410m-deduped at steps 123000/133000/143000, 200 items, 15 pairs. Models shared with
+the earlier runs reproduced bit-for-bit.
+
+| Pair type | n pairs | D_M | D_M (\|attr\| > 0.01 heads) | top-k distance | D_B | Divergent (draft rule) |
+|---|---|---|---|---|---|---|
+| Same training run, different checkpoint | 6 | 0.049–0.125 | 0.013–0.095 | 0.18–0.33 | 0.011–0.027 | 0 / 6 |
+| Different run (standard vs deduped) | 9 | 0.750–0.785 | 0.773–0.813 | 0.75–0.82 | 0.107–0.158 | 9 / 9 |
+
+Interpretation limits: the 15 pairs come from only **two training runs**, so they contain
+one independent between-run contrast, not 9. D_P matching of the 8 pairs with one
+discordant item relies on the t-based TOST (p = 0.0015–0.0026); the exact discordance
+bound for 1/200 is 2.35 pp, above the 2 pp margin, so these matching decisions are
+method-sensitive (open decision, §10). D_B tracks the logit-difference gap as well as D_M
+within the 9 cross-run pairs (descriptive Spearman 0.62 vs 0.42, n = 9).
+
 
 | Run | Label | Models | Items | Result |
 |---|---|---|---|---|
@@ -201,3 +217,10 @@ not depend on which answer favours H1, and recorded here when decided):
   all-head D_M (0.170) drops to 0.04–0.06 when heads with |attr| ≤ 0.01 are excluded.
 - The attribution instrument is last-position-only; Taylor vs exact patching agree in
   magnitude (Pearson 0.93–0.96) but less in rank (Spearman 0.68–0.75).
+- D_P method for sparse discordance: with 1 discordant item in 200 the t-based TOST
+  declares equivalence (p ≈ 0.002) while the exact discordance bound does not (2.35 pp >
+  2 pp). One exact method for all cases must be chosen before the lock.
+- Independence: the design needs several independent training runs per arm. EleutherAI
+  publishes `pythia-410m-seed1` … `seed9` (Apache-2.0, 154 step branches each, same
+  architecture and vocabulary as pythia-410m; weights as `pytorch_model.bin`; not in the
+  TransformerLens model list). Checked 2026-09-29 on the Hub.
