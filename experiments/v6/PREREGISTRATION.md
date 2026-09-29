@@ -10,6 +10,13 @@
 
 This document is self-contained: it restates every definition the analysis depends on.
 
+> **AMENDMENT 3 SUPERSEDES THIS DOCUMENT WHERE THEY CONFLICT (2026-09-29).** The confirmatory
+> experiment tests **only** the revised run-level H1 (attribution-profile divergence D\*,
+> run-level Δ, Gate 5 bootstrap with B = 200) defined in `experiments/v6/AMENDMENT3.md`.
+> Historical definitions below are **kept for the audit trail** and marked **SUPERSEDED** or
+> **NOT TESTED**. H1–H4 remain UNRESOLVED until confirmatory data exist.
+
+
 ## 1. Question
 
 Across pairs of models with the same architecture that perform equally well on a task
@@ -37,7 +44,7 @@ attribution-profile distance.
   (`experiments/decision_audit/credit_rule.py`). Not built yet (milestone 2).
 - No other tasks in v6.0.
 
-**Model inclusion (`PENDING`, proposal):** a model enters an arm only if its task accuracy is
+**Model inclusion (FINAL; the operative wording is AMENDMENT3.md §4.2: IOI accuracy above chance on the locked 1,000-prompt matching set at step 143000, one-sided binomial p < 0.05). Historical proposal text:** a model enters an arm only if its task accuracy is
 above chance under a one-sided binomial test at α = 0.05 on the pilot items. Reason: the
 attribution profile of a model that cannot do the task does not describe task-relevant attribution.
 The smoke run (§9) showed pythia-70m near chance on IOI, so this criterion matters in
@@ -69,6 +76,10 @@ rate). With 0 discordant items this bound is `1 − α^(1/n)`: 1.49 pp at n = 20
   accordingly; a ±2pp margin with tens of items cannot declare equivalence.
 
 ### 3.2 Attribution-profile distance D_M
+
+> **SUPERSEDED for the confirmatory experiment.** The positional D_M below is not invariant to
+> function-preserving head permutations and is not used. Confirmatory distance: D\* =
+> `profile_orbit_distance` (AMENDMENT3.md §1).
 
 D_M is a distance between attribution profiles under one attribution procedure and one
 prompt distribution. It is not a measure of "the mechanism". The positional definition
@@ -103,6 +114,11 @@ The probe set is fixed before the confirmatory run and is never tuned on held-ou
 
 ## 4. Hypotheses (each tested separately)
 
+> **SUPERSEDED / NOT TESTED in the confirmatory experiment.** The H1 row below (positional
+> D_M vs Control B, permutation over model labels) is replaced by the run-level H1 of
+> AMENDMENT3.md §2. **H2, H3 and H4 are not tested** in this experiment and are not
+> confirmatory endpoints. They remain UNTESTED / UNRESOLVED.
+
 | | Claim | Estimand (primary endpoint) | Null | Test | Effect size + CI | Control |
 |---|---|---|---|---|---|---|
 | H1 | Among matched pairs, D_M exceeds measurement noise | median D_M (matched pairs) − median D_M (Control B) | difference ≤ 0 | permutation over model labels | difference; model-bootstrap 95 % CI | B (noise floor), A, E |
@@ -133,6 +149,11 @@ Implemented so far: Controls A and B, and the inclusion check (§2, reported, no
 enforced). C–E: not implemented.
 
 ## 6. Statistics
+
+> **SUPERSEDED for H1.** Confirmatory inference for H1 is the Gate 5 two-way run × prompt
+> bootstrap (B = 200) of AMENDMENT3.md §7, with runs as the unit. The jackknife is a diagnostic
+> only. No pair-level confidence intervals are reported (Gate 1 failed and is closed; no
+> third attempt; per-pair D\* values are point estimates only).
 
 - Unit of analysis: the model pair. Pairs sharing a model are not independent.
 - CIs: bootstrap over **models** (resample models, rebuild all pairs among them), 10 000
@@ -251,3 +272,13 @@ not depend on which answer favours H1, and recorded here when decided):
 - Gate results (2026-09-29, dated note 4 in `audits/amendment3_gate_criteria.md`): Gates 2,
   3, 4, 5, 7 and 8 passed. Gate 1 failed and is closed; the pre-declared fallback is point
   estimates only for per-pair distances. Amendment 3 is not locked; owner decisions pending.
+- **Amendment 3, final text** (2026-09-29): `experiments/v6/AMENDMENT3.md` supersedes this
+  document and `AMENDMENT3_DRAFT.md` where they conflict. It records:
+  - B = 200, inherited from Gate 5;
+  - R_min = 4, from the pre-declared R = 4/5 extension (gate criteria notes 5 and 6);
+  - the star-design primary run set and the final inclusion rule;
+  - locked, disjoint, unique prompt files;
+  - run and checkpoint failure rules;
+  - the no-post-hoc-change clause, the perturbation wording and the claim boundary.
+
+  It is locked by tag `v6-amendment3-lock` only after the re-audit and the owner's approval.

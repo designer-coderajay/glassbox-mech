@@ -1,3 +1,7 @@
+> **SUPERSEDED by `AMENDMENT3.md` (final text, 2026-09-29). Kept unchanged below for the audit
+> trail. Known errors in this draft, corrected in the final text: the 'disjoint' prompt claim
+> was untrue (1 overlap, 2 duplicates) and B = 2,000 conflicted with the validated B = 200.**
+
 # Amendment 3 (DRAFT, NOT LOCKED)
 
 *Drafted 2026-09-29. It is locked by a dated commit and a tag `v6-amendment3-lock` only

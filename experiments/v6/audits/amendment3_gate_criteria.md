@@ -214,3 +214,57 @@ H0 validity criterion and the H0 worlds are unchanged.
 - **Lock status.** The approved rule ("lock only after Gates 1–8 pass") is not met, because
   Gate 1 failed. Locking requires an explicit owner decision to accept the pre-declared
   Gate 1 fallback. Until then Amendment 3 remains unlocked.
+
+## Dated note 5 (2026-09-29): R = 4 / R = 5 run-count validation, written BEFORE running
+
+- **Purpose.** Only to establish whether the already validated run-level procedure (Gate 5)
+  remains calibrated when fewer than 6 runs are eligible. Nothing about the estimator, the
+  bootstrap, D\* or H1 may change as a result.
+- **Design.** Identical to Gate 5 (`gate5_simulation.py`), with only the run count changed:
+  - **World:** H0 boundary only. Every checkpoint of every run is an independent
+    `perturb()` of one shared structure S0, and each run has its own random within-layer
+    relabelling. So Δ = 0 exactly.
+  - **Regimes:** sparse and dense.
+  - **Size:** 3 checkpoints per run, N = 200 prompts, L = 12, H = 16, generator
+    `identifiability_synthetic.py` (unchanged).
+  - **R** ∈ {4, 5}.
+- **Estimator.** Plug-in `profile_orbit_distance`. Within-run pairs (0,1), (0,2), (1,2);
+  cross-run pairs at the last checkpoint. Δ̂ = `lineage.delta`.
+- **Inference.** `lineage.two_way_bootstrap`, B = 200. Prompts are resampled by one multinomial
+  draw shared by all pairs; runs are resampled with replacement; self-pairs are dropped;
+  replicates with fewer than 2 distinct runs are NaN and excluded (validated behaviour). The
+  one-sided lower bound is the 5th percentile; reject iff > 0.
+- **Seeds (same formula as Gate 5).**
+  - Experiment `sim` uses `np.random.default_rng([sim, R, sum(map(ord, "H0" + regime))])`.
+  - `two_way_bootstrap(seed=sim)`.
+  - sim = 0 … 199.
+- **Replicates.** 200 simulated experiments per cell. 4 cells: {sparse, dense} × {4, 5}.
+- **Criterion (inherited unchanged from Gate 5).** Type-I error = rejection rate at H0
+  ≤ 0.05 + 2·√(0.95·0.05/200) = **0.0808**.
+- **Pass rule.**
+  - R = 4 passes iff both regimes pass. R = 5 passes iff both regimes pass.
+  - If both R = 4 and R = 5 pass, the locked minimum number of eligible runs becomes
+    **R_min = 4**.
+  - If either fails, **R_min stays 6**, the failure is reported, and the owner decides. No
+    repair or tuning.
+- **Reported, not gated.** Jackknife rejection rate; the number of NaN bootstrap replicates.
+- **Assumption, stated.** Run counts 7–9 are not simulated. Calibration between the validated
+  R = 6 and R = 10 is assumed, not shown.
+
+## Dated note 6 (2026-09-29): R = 4 / R = 5 results (criterion from note 5, unchanged)
+
+200 experiments per cell. Raw per-experiment log: `gate5_small_r.jsonl`; summary:
+`gate5_small_r_results.json`.
+
+| Cell | Bootstrap type-I (MC SE) | Jackknife (report only) | Pass (≤ 0.0808) |
+|---|---|---|---|
+| H0 sparse, R = 4 | 0.065 (0.017) | 0.050 | yes |
+| H0 dense, R = 4 | 0.030 (0.012) | 0.010 | yes |
+| H0 sparse, R = 5 | 0.045 (0.015) | 0.030 | yes |
+| H0 dense, R = 5 | 0.025 (0.011) | 0.015 | yes |
+
+- **Result.** R = 4 and R = 5 both pass, so by the pre-declared rule **R_min = 4**.
+- **Omission.** Note 5 listed the number of NaN bootstrap replicates as "reported". The reused
+  Gate 5 `_experiment` does not return it, and that code was deliberately not modified, so
+  it is not reported.
+- **Assumption still in force.** R = 7–9 remain assumed, not simulated.

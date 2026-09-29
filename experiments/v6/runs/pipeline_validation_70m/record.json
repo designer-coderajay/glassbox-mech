@@ -1,0 +1,546 @@
+{
+  "bootstrap": {
+    "alpha": 0.05,
+    "inherited_from": "Gate 5 (validated)",
+    "method": "two_way_bootstrap",
+    "n_boot": 200,
+    "n_valid": null,
+    "prompt_seed": 20260929,
+    "run_seed": 20260930
+  },
+  "claim_boundary": "The confirmatory experiment can provide evidence for attribution-profile divergence under the preregistered estimand. It does not by itself establish mechanistic divergence, different causal mechanisms, different circuits, or a causal explanation of training-induced differences. Such stronger claims require additional intervention or causal evidence.",
+  "environment": {
+    "git": {
+      "dirty": true,
+      "sha": "f3b56b7a2e950198581125950b78e93ce673206c"
+    },
+    "hardware": {
+      "cpu_count": 4,
+      "cuda": null,
+      "machine": "aarch64",
+      "platform": "Linux-6.8.0-138-generic-aarch64-with-glibc2.35",
+      "processor": "aarch64",
+      "python": "3.10.12",
+      "torch_threads": 4
+    },
+    "packages": {
+      "glassbox-mech-interp": "4.5.1",
+      "numpy": "1.26.4",
+      "scipy": "1.15.3",
+      "torch": "2.10.0+cpu",
+      "transformer_lens": "2.18.0",
+      "transformers": "4.57.6"
+    }
+  },
+  "errors": [],
+  "finished_utc": "2026-09-29T20:54:44Z",
+  "gate1_note": "Gate 1 (pair-level interval validity) FAILED and is CLOSED; no third attempt. Per-pair D* values are descriptive point estimates only; no pair-level confidence intervals are reported. H1 inference is at the training-run level only (Gate 5).",
+  "git": {
+    "dirty": true,
+    "sha": "f3b56b7a2e950198581125950b78e93ce673206c"
+  },
+  "h1": {
+    "R": 0,
+    "decision_rule": "SUPPORTED_AT_RUN_LEVEL iff one-sided 95% bootstrap lower bound of Delta > 0 (Gate 5 procedure, B = 200)",
+    "reason": "reference run fails inclusion: H1 untestable",
+    "runs": [],
+    "self_pairs": "excluded",
+    "status": "UNTESTED_UNRESOLVED"
+  },
+  "label": "PIPELINE VALIDATION ONLY \u2014 NOT CONFIRMATORY DATA",
+  "lock_tag_at_head": false,
+  "output_dir": "/tmp/pv3",
+  "pairwise_d_star": {
+    "cross": {
+      "EleutherAI/pythia-70m-seed1|EleutherAI/pythia-70m-seed2": 1.7953004868568536,
+      "EleutherAI/pythia-70m-seed1|EleutherAI/pythia-70m-seed3": 1.1660055087354673,
+      "EleutherAI/pythia-70m-seed2|EleutherAI/pythia-70m-seed3": 1.8749292430175388,
+      "EleutherAI/pythia-70m|EleutherAI/pythia-70m-seed1": 1.1774343088159585,
+      "EleutherAI/pythia-70m|EleutherAI/pythia-70m-seed2": 1.5037151145273318,
+      "EleutherAI/pythia-70m|EleutherAI/pythia-70m-seed3": 1.156034100279192
+    },
+    "note": "D* point estimates only; no pair-level confidence intervals (Gate 1 failed and is closed)",
+    "within": {
+      "EleutherAI/pythia-70m": {
+        "123000-133000": 0.5117754074798644,
+        "123000-143000": 0.37339149279969114,
+        "133000-143000": 0.6253488977926837
+      },
+      "EleutherAI/pythia-70m-seed1": {
+        "123000-133000": 0.060729123106989,
+        "123000-143000": 0.04550236592206388,
+        "133000-143000": 0.04979815926950113
+      },
+      "EleutherAI/pythia-70m-seed2": {
+        "123000-133000": 0.8235473566239658,
+        "123000-143000": 0.5138982710640434,
+        "133000-143000": 0.5322768398387774
+      },
+      "EleutherAI/pythia-70m-seed3": {
+        "123000-133000": 0.29363996523434926,
+        "123000-143000": 0.3798377685673365,
+        "133000-143000": 0.38048664545904404
+      }
+    }
+  },
+  "primary_runs": [],
+  "prompt_sets": {
+    "attribution": {
+      "n": 200,
+      "path": "experiments/v6/prompts/ioi_attribution_v1.json",
+      "sha256": "aa3e32c8ab51d4aabe96e83b51d30a947e120b68bfcbf0da1dff87868abee0d2"
+    },
+    "matching": {
+      "n": 1000,
+      "path": "experiments/v6/prompts/ioi_matching_v1.json",
+      "sha256": "0849499b8117dac405743c2b33f500545f42aa1f4faff85461feecdef475d296"
+    }
+  },
+  "protocol": {
+    "alpha": 0.05,
+    "base_model": "pythia-70m",
+    "checkpoints": [
+      123000,
+      133000,
+      143000
+    ],
+    "estimator": "plug-in",
+    "inclusion": {
+      "alpha": 0.05,
+      "checkpoint": 143000,
+      "set": "matching",
+      "test": "one-sided exact binomial vs 0.5"
+    },
+    "inference": "two_way_bootstrap",
+    "label": "PIPELINE VALIDATION ONLY \u2014 NOT CONFIRMATORY DATA",
+    "matching": {
+      "alpha": 0.05,
+      "checkpoint": 143000,
+      "design": "star",
+      "margin": 0.02,
+      "rule": "exact_paired_equivalence",
+      "set": "matching"
+    },
+    "metric": "profile_orbit_distance",
+    "n_boot": 200,
+    "prompts": {
+      "attribution": {
+        "n": 200,
+        "path": "experiments/v6/prompts/ioi_attribution_v1.json",
+        "sha256": "aa3e32c8ab51d4aabe96e83b51d30a947e120b68bfcbf0da1dff87868abee0d2"
+      },
+      "matching": {
+        "n": 1000,
+        "path": "experiments/v6/prompts/ioi_matching_v1.json",
+        "sha256": "0849499b8117dac405743c2b33f500545f42aa1f4faff85461feecdef475d296"
+      }
+    },
+    "r_min": 4,
+    "reference": "EleutherAI/pythia-70m",
+    "runs": [
+      {
+        "commits": {
+          "123000": "d91619cf1e21f4d2e2a815e76892d5b4be8218c6",
+          "133000": "1dc9e11f4b9373e1f1ce5fc04ea327ef8a551aea",
+          "143000": "de3e4e2d6cbb3b1a51f90fe153ea51fcd8c7c852"
+        },
+        "repo": "EleutherAI/pythia-70m",
+        "use_safetensors": true
+      },
+      {
+        "commits": {
+          "123000": "006a97b32976c73cb616a385ff54fdf82b3692d0",
+          "133000": "5aaf2b73af9afb87c0c0f1f39062e3109841c011",
+          "143000": "a94dc37ad8326640e664560d32a0d4a229253fce"
+        },
+        "repo": "EleutherAI/pythia-70m-seed1",
+        "use_safetensors": false
+      },
+      {
+        "commits": {
+          "123000": "f08eaeaac518c8c4c6d03236034448b5db240a24",
+          "133000": "56328564e01954f7e7fbc5d2a1a84735fee394e2",
+          "143000": "258e7aedecacc445bdc68229398e49b9e90d59e0"
+        },
+        "repo": "EleutherAI/pythia-70m-seed2",
+        "use_safetensors": false
+      },
+      {
+        "commits": {
+          "123000": "7d5b11b31de3bae319fa2251dc8e6bd7e2c8940e",
+          "133000": "6e10ee19454e4e8f624ba1ac94029333429c20b2",
+          "143000": "d6d278fb9b57ed4ce7faf49ad0aae4ee0805936b"
+        },
+        "repo": "EleutherAI/pythia-70m-seed3",
+        "use_safetensors": false
+      }
+    ],
+    "s2_exclude": "EleutherAI/pythia-70m-seed3",
+    "s3_n_splits": 20,
+    "seeds": {
+      "prompt_resample": 20260929,
+      "run_resample": 20260930,
+      "s3_crossfit": 20260931
+    },
+    "version": "v6-amendment3/1.0",
+    "within_pairs": [
+      [
+        123000,
+        133000
+      ],
+      [
+        123000,
+        143000
+      ],
+      [
+        133000,
+        143000
+      ]
+    ]
+  },
+  "protocol_sha256": "5937ba9c91b68b19c07f8507ce08909567a80938ccea5f9bcb1620af9ef302f0",
+  "r_min": 4,
+  "runner_sha256": "477953a430ba3e2aa758d3fd8baaccebe8f8f81cd1e6c4b7ab066de58faf3d5b",
+  "runs": {
+    "EleutherAI/pythia-70m": {
+      "checkpoints": {
+        "123000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": true,
+          "pinned_commit": "d91619cf1e21f4d2e2a815e76892d5b4be8218c6",
+          "resolved_commit": "d91619cf1e21f4d2e2a815e76892d5b4be8218c6",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "a15ab5ddefbeea9b39c65e3e41e903c485be7c3ac8e6cdf74cc2306ae74599ed",
+            "file": "model.safetensors",
+            "local_sha256": "a15ab5ddefbeea9b39c65e3e41e903c485be7c3ac8e6cdf74cc2306ae74599ed",
+            "ok": true
+          }
+        },
+        "133000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": true,
+          "pinned_commit": "1dc9e11f4b9373e1f1ce5fc04ea327ef8a551aea",
+          "resolved_commit": "1dc9e11f4b9373e1f1ce5fc04ea327ef8a551aea",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "bd5a17aa367b48ae052c019768ada4c85e0441656e0449ad1dc67bcbd7bc0643",
+            "file": "model.safetensors",
+            "local_sha256": "bd5a17aa367b48ae052c019768ada4c85e0441656e0449ad1dc67bcbd7bc0643",
+            "ok": true
+          }
+        },
+        "143000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": true,
+          "pinned_commit": "de3e4e2d6cbb3b1a51f90fe153ea51fcd8c7c852",
+          "resolved_commit": "de3e4e2d6cbb3b1a51f90fe153ea51fcd8c7c852",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "737de0ce1e32a9559925b452921cdea0b12d3932133b6b0b70b61a351b9f6272",
+            "file": "model.safetensors",
+            "local_sha256": "737de0ce1e32a9559925b452921cdea0b12d3932133b6b0b70b61a351b9f6272",
+            "ok": true
+          }
+        }
+      },
+      "complete": true,
+      "exclusion_reason": "fails inclusion (IOI accuracy not above chance on the matching set)",
+      "inclusion": {
+        "above_chance": false,
+        "accuracy": 0.38,
+        "chance": 0.5,
+        "k": 380,
+        "n": 1000,
+        "p_value": 0.9999999999999906
+      },
+      "matching": null,
+      "primary": false
+    },
+    "EleutherAI/pythia-70m-seed1": {
+      "checkpoints": {
+        "123000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": true,
+          "pinned_commit": "006a97b32976c73cb616a385ff54fdf82b3692d0",
+          "resolved_commit": "006a97b32976c73cb616a385ff54fdf82b3692d0",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "88416110794f5c0ddb35e64bf3d7d76947313c2c8251c0361b72d6f264bf843f",
+            "file": "pytorch_model.bin",
+            "local_sha256": "88416110794f5c0ddb35e64bf3d7d76947313c2c8251c0361b72d6f264bf843f",
+            "ok": true
+          }
+        },
+        "133000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": true,
+          "pinned_commit": "5aaf2b73af9afb87c0c0f1f39062e3109841c011",
+          "resolved_commit": "5aaf2b73af9afb87c0c0f1f39062e3109841c011",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "f46d9be0a98a399e0022a7dba229da7452b06f20546a6240fffd0e6b1a20fa03",
+            "file": "pytorch_model.bin",
+            "local_sha256": "f46d9be0a98a399e0022a7dba229da7452b06f20546a6240fffd0e6b1a20fa03",
+            "ok": true
+          }
+        },
+        "143000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": true,
+          "pinned_commit": "a94dc37ad8326640e664560d32a0d4a229253fce",
+          "resolved_commit": "a94dc37ad8326640e664560d32a0d4a229253fce",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "680344e49722e363dfd20c239783f153007993c8e388b286e4c55ea759c124a8",
+            "file": "pytorch_model.bin",
+            "local_sha256": "680344e49722e363dfd20c239783f153007993c8e388b286e4c55ea759c124a8",
+            "ok": true
+          }
+        }
+      },
+      "complete": true,
+      "exclusion_reason": "fails inclusion (IOI accuracy not above chance on the matching set)",
+      "inclusion": {
+        "above_chance": false,
+        "accuracy": 0.409,
+        "chance": 0.5,
+        "k": 409,
+        "n": 1000,
+        "p_value": 0.9999999967397266
+      },
+      "matching": {
+        "alpha": 0.05,
+        "discordance_upper_bound": 0.4794701061025062,
+        "equivalent": false,
+        "margin": 0.02,
+        "method": "exact_discordance_bound",
+        "n": 1000,
+        "n_discordant": 453
+      },
+      "primary": false
+    },
+    "EleutherAI/pythia-70m-seed2": {
+      "checkpoints": {
+        "123000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": true,
+          "pinned_commit": "f08eaeaac518c8c4c6d03236034448b5db240a24",
+          "resolved_commit": "f08eaeaac518c8c4c6d03236034448b5db240a24",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "541cb10c01effcff768ff5d10a2aefa82355d6ff09a9859a29f7e27d98500629",
+            "file": "pytorch_model.bin",
+            "local_sha256": "541cb10c01effcff768ff5d10a2aefa82355d6ff09a9859a29f7e27d98500629",
+            "ok": true
+          }
+        },
+        "133000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": true,
+          "pinned_commit": "56328564e01954f7e7fbc5d2a1a84735fee394e2",
+          "resolved_commit": "56328564e01954f7e7fbc5d2a1a84735fee394e2",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "2c99aa79452bd64679e26ba182120b6ad617bc4000abc03c88c014b44d069a64",
+            "file": "pytorch_model.bin",
+            "local_sha256": "2c99aa79452bd64679e26ba182120b6ad617bc4000abc03c88c014b44d069a64",
+            "ok": true
+          }
+        },
+        "143000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": true,
+          "pinned_commit": "258e7aedecacc445bdc68229398e49b9e90d59e0",
+          "resolved_commit": "258e7aedecacc445bdc68229398e49b9e90d59e0",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "2b2917b7387cf4526aeaa37d1e45f247be07e4de28ba065ea0aebadcb2738732",
+            "file": "pytorch_model.bin",
+            "local_sha256": "2b2917b7387cf4526aeaa37d1e45f247be07e4de28ba065ea0aebadcb2738732",
+            "ok": true
+          }
+        }
+      },
+      "complete": true,
+      "exclusion_reason": "reference run not eligible; matching not evaluable",
+      "inclusion": {
+        "above_chance": true,
+        "accuracy": 0.713,
+        "chance": 0.5,
+        "k": 713,
+        "n": 1000,
+        "p_value": 9.390206907183222e-43
+      },
+      "matching": {
+        "alpha": 0.05,
+        "discordance_upper_bound": 0.5095044290639477,
+        "equivalent": false,
+        "margin": 0.02,
+        "method": "exact_discordance_bound",
+        "n": 1000,
+        "n_discordant": 483
+      },
+      "primary": false
+    },
+    "EleutherAI/pythia-70m-seed3": {
+      "checkpoints": {
+        "123000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": true,
+          "pinned_commit": "7d5b11b31de3bae319fa2251dc8e6bd7e2c8940e",
+          "resolved_commit": "7d5b11b31de3bae319fa2251dc8e6bd7e2c8940e",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "23d71c230e8c6bb3167e1030e0c805f23b310e23f446f1b5fd8e518e5d591d42",
+            "file": "pytorch_model.bin",
+            "local_sha256": "23d71c230e8c6bb3167e1030e0c805f23b310e23f446f1b5fd8e518e5d591d42",
+            "ok": true
+          }
+        },
+        "133000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": true,
+          "pinned_commit": "6e10ee19454e4e8f624ba1ac94029333429c20b2",
+          "resolved_commit": "6e10ee19454e4e8f624ba1ac94029333429c20b2",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "6b268ada59a80d6076fb4b5559da362fdeebe6260c115b466530b7ee7bbed7af",
+            "file": "pytorch_model.bin",
+            "local_sha256": "6b268ada59a80d6076fb4b5559da362fdeebe6260c115b466530b7ee7bbed7af",
+            "ok": true
+          }
+        },
+        "143000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "d6d278fb9b57ed4ce7faf49ad0aae4ee0805936b",
+          "resolved_commit": "d6d278fb9b57ed4ce7faf49ad0aae4ee0805936b",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "3d6e3ff704641febdfe9d2c00be3e99f59818722f9a2c4b08179896b20dedb65",
+            "file": "pytorch_model.bin",
+            "local_sha256": "3d6e3ff704641febdfe9d2c00be3e99f59818722f9a2c4b08179896b20dedb65",
+            "ok": true
+          }
+        }
+      },
+      "complete": true,
+      "exclusion_reason": "fails inclusion (IOI accuracy not above chance on the matching set)",
+      "inclusion": {
+        "above_chance": false,
+        "accuracy": 0.391,
+        "chance": 0.5,
+        "k": 391,
+        "n": 1000,
+        "p_value": 0.9999999999982117
+      },
+      "matching": {
+        "alpha": 0.05,
+        "discordance_upper_bound": 0.4854845016830057,
+        "equivalent": false,
+        "margin": 0.02,
+        "method": "exact_discordance_bound",
+        "n": 1000,
+        "n_discordant": 459
+      },
+      "primary": false
+    }
+  },
+  "seeds": {
+    "model_inference": "deterministic (no RNG)",
+    "prompt_resample": 20260929,
+    "run_resample": 20260930,
+    "s3_crossfit": 20260931
+  },
+  "sensitivity": {
+    "J_jackknife": {
+      "computed": false,
+      "reason": "H1 not tested",
+      "role": "diagnostic only; never determines H1"
+    },
+    "S1_all_complete_runs": {
+      "computed": true,
+      "delta": 1.063050435942198,
+      "lower_95_descriptive": 0.7365878914813258,
+      "n_valid": 196,
+      "runs": [
+        "EleutherAI/pythia-70m",
+        "EleutherAI/pythia-70m-seed1",
+        "EleutherAI/pythia-70m-seed2",
+        "EleutherAI/pythia-70m-seed3"
+      ]
+    },
+    "S2_primary_without_pythia-70m-seed3": {
+      "computed": false,
+      "reason": "excluded run not in the primary set"
+    },
+    "S3_crossfit_delta": {
+      "computed": false,
+      "reason": "H1 not tested"
+    },
+    "note": "Descriptive only; never changes the H1 decision."
+  },
+  "started_utc": "2026-09-29T20:53:49Z",
+  "warnings": []
+}

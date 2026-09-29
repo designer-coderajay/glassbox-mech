@@ -1,0 +1,44 @@
+{
+  "R4_pass": true,
+  "R5_pass": true,
+  "R_min": 4,
+  "cells": {
+    "H0/dense/R4": {
+      "complete": true,
+      "mc_se": 0.012062338081814818,
+      "mean_delta": 8.461616216384804e-05,
+      "pass": true,
+      "reject_rate_bootstrap": 0.03,
+      "reject_rate_jackknife": 0.01,
+      "sims": 200
+    },
+    "H0/dense/R5": {
+      "complete": true,
+      "mc_se": 0.011039701082909808,
+      "mean_delta": -0.00024318122286893576,
+      "pass": true,
+      "reject_rate_bootstrap": 0.025,
+      "reject_rate_jackknife": 0.015,
+      "sims": 200
+    },
+    "H0/sparse/R4": {
+      "complete": true,
+      "mc_se": 0.017432010784760317,
+      "mean_delta": -0.0001035587260369493,
+      "pass": true,
+      "reject_rate_bootstrap": 0.065,
+      "reject_rate_jackknife": 0.05,
+      "sims": 200
+    },
+    "H0/sparse/R5": {
+      "complete": true,
+      "mc_se": 0.014658615214269049,
+      "mean_delta": -1.7332218132723455e-05,
+      "pass": true,
+      "reject_rate_bootstrap": 0.045,
+      "reject_rate_jackknife": 0.03,
+      "sims": 200
+    }
+  },
+  "criterion_type1_max": 0.08082207001484489
+}
