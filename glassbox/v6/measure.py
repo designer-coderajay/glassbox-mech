@@ -11,6 +11,7 @@ of the models.
 from __future__ import annotations
 
 import logging
+import re
 from typing import Callable, Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
@@ -24,6 +25,7 @@ logger = logging.getLogger(__name__)
 
 __all__ = [
     "load_model",
+    "seed_variant",
     "single_token_predicate",
     "evaluate_items",
     "probe_distributions",
@@ -34,11 +36,44 @@ __all__ = [
 Head = Tuple[int, int]
 
 
+_SEED_RE = re.compile(r"^(pythia-[0-9.]+[mb])-seed(\d+)$")
+
+
+def seed_variant(name: str) -> Optional[Tuple[str, int]]:
+    """``"pythia-410m-seed3"`` -> ``("pythia-410m", 3)``; None for any other name."""
+    m = _SEED_RE.match(name)
+    return (m.group(1), int(m.group(2))) if m else None
+
+
+def _hf_from_pretrained(repo: str, **kwargs: object) -> object:
+    """transformers loader (seam for tests). For ``.bin`` files transformers uses
+    ``torch.load(weights_only=True)`` and requires torch >= 2.6."""
+    from transformers import AutoModelForCausalLM
+
+    return AutoModelForCausalLM.from_pretrained(repo, **kwargs)
+
+
 def load_model(name: str, checkpoint: Optional[int] = None,
                device: str = "cpu") -> HookedTransformer:
-    """Load a model in eval mode; ``checkpoint`` selects a Pythia training step."""
-    kwargs = {"checkpoint_value": checkpoint} if checkpoint is not None else {}
-    model = HookedTransformer.from_pretrained(name, device=device, **kwargs)
+    """Load a model in eval mode; ``checkpoint`` selects a Pythia training step.
+
+    Pythia seed variants (``pythia-410m-seed1`` ... ``seed9``, EleutherAI, Apache-2.0)
+    are not in the TransformerLens model list. They are loaded with transformers at
+    revision ``step{checkpoint}`` and converted by TransformerLens as the base
+    architecture (same config and vocabulary). ``checkpoint_value`` is deliberately not
+    passed in that case: TransformerLens would ignore ``hf_model`` and load the official
+    base checkpoint instead.
+    """
+    seed = seed_variant(name)
+    if seed is None:
+        kwargs = {"checkpoint_value": checkpoint} if checkpoint is not None else {}
+        model = HookedTransformer.from_pretrained(name, device=device, **kwargs)
+    else:
+        if checkpoint is None:
+            raise ValueError(f"{name}: seed variants need an explicit checkpoint step")
+        hf = _hf_from_pretrained(f"EleutherAI/{name}", revision=f"step{checkpoint}",
+                                 torch_dtype=torch.float32)
+        model = HookedTransformer.from_pretrained(seed[0], hf_model=hf, device=device)
     model.eval()
     return model
 

@@ -42,18 +42,21 @@ def sha256_of(path: Path) -> str:
     return h.hexdigest()
 
 
-def expected_sha(repo: str, revision: Optional[str]) -> Tuple[str, int]:
+def expected_sha(repo: str, revision: Optional[str]) -> Tuple[str, str, int]:
+    """(weights filename, sha256, size). Prefers safetensors; seed repos ship .bin only."""
     info = HfApi().model_info(repo, revision=revision, files_metadata=True)
-    s = next(x for x in info.siblings if x.rfilename == FILE)
-    return s.lfs.sha256, s.size
+    by_name = {x.rfilename: x for x in info.siblings}
+    fname = FILE if FILE in by_name else "pytorch_model.bin"
+    s = by_name[fname]
+    return fname, s.lfs.sha256, s.size
 
 
 def check(spec: str) -> Tuple[str, Optional[Path]]:
     """Return (status, cached_path). Status: OK, MISSING, SIZE_MISMATCH, HASH_MISMATCH."""
     repo, rev = repo_and_revision(spec)
-    want_sha, want_size = expected_sha(repo, rev)
+    fname, want_sha, want_size = expected_sha(repo, rev)
     try:
-        path = Path(hf_hub_download(repo, FILE, revision=rev, local_files_only=True))
+        path = Path(hf_hub_download(repo, fname, revision=rev, local_files_only=True))
     except LocalEntryNotFoundError:
         return "MISSING", None
     if path.stat().st_size != want_size:
@@ -64,11 +67,12 @@ def check(spec: str) -> Tuple[str, Optional[Path]]:
 def repair(spec: str, path: Optional[Path]) -> None:
     """Delete the bad blob and its snapshot link, then download again."""
     repo, rev = repo_and_revision(spec)
+    fname = expected_sha(repo, rev)[0]
     if path is not None:
         blob = path.resolve()
         path.unlink(missing_ok=True)
         blob.unlink(missing_ok=True)
-    hf_hub_download(repo, FILE, revision=rev, force_download=True)
+    hf_hub_download(repo, fname, revision=rev, force_download=True)
 
 
 def main() -> int:
