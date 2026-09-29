@@ -1,0 +1,481 @@
+{
+  "claims": [],
+  "controls": {
+    "see": "record.json models[*].controls"
+  },
+  "finding_hash": "e2021b91b4c85783da5f08e7ed5190eb2ad7ba18dcc0cb7ab6de28fb91825010",
+  "hypotheses": [
+    {
+      "ci": null,
+      "control": null,
+      "effect_size": null,
+      "estimand": "median D_M over D_P-matched pairs minus median D_M under Control B",
+      "hypothesis": "H1",
+      "null": "difference <= 0 (matched pairs look like measurement noise)",
+      "p_value": null,
+      "reason": "pilot data; excluded from confirmatory analysis (PREREGISTRATION.md \u00a77)",
+      "status": "UNRESOLVED",
+      "test": "permutation test over model labels; model-bootstrap CI"
+    },
+    {
+      "ci": null,
+      "control": null,
+      "effect_size": null,
+      "estimand": "AUROC of D_B separating divergent pairs from Control-B null pairs",
+      "hypothesis": "H2",
+      "null": "AUROC <= pre-registered threshold",
+      "p_value": null,
+      "reason": "pilot data; excluded from confirmatory analysis (PREREGISTRATION.md \u00a77)",
+      "status": "UNRESOLVED",
+      "test": "AUROC; model-bootstrap CI"
+    },
+    {
+      "ci": null,
+      "control": null,
+      "effect_size": null,
+      "estimand": "Mantel r between the D_B and D_M distance matrices",
+      "hypothesis": "H3",
+      "null": "r <= 0",
+      "p_value": null,
+      "reason": "pilot data; excluded from confirmatory analysis (PREREGISTRATION.md \u00a77)",
+      "status": "UNRESOLVED",
+      "test": "Mantel permutation test + sensitivity set (partial | D_P, LOMO, Spearman/Pearson, alternative definitions)"
+    },
+    {
+      "ci": null,
+      "control": null,
+      "effect_size": null,
+      "estimand": "Spearman(D_B, D_M) on held-out models",
+      "hypothesis": "H4",
+      "null": "rho <= 0",
+      "p_value": null,
+      "reason": "pilot data; excluded from confirmatory analysis (PREREGISTRATION.md \u00a77)",
+      "status": "UNRESOLVED",
+      "test": "held-out-by-model evaluation; model-bootstrap CI"
+    }
+  ],
+  "label": "pilot",
+  "measurements": [
+    {
+      "details": {
+        "margin_status": "provisional",
+        "matched": false
+      },
+      "name": "pythia-410m@143000|pythia-410m-seed1@143000.D_P.accuracy_diff",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.010000000000000009
+    },
+    {
+      "details": {
+        "divergent": true,
+        "rule_status": "draft"
+      },
+      "name": "pythia-410m@143000|pythia-410m-seed1@143000.D_M.one_minus_spearman",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 1.0014822318673493
+    },
+    {
+      "details": {},
+      "name": "pythia-410m@143000|pythia-410m-seed1@143000.D_B.mean_jsd_bits",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.07955812782690432
+    },
+    {
+      "details": {
+        "margin_status": "provisional",
+        "matched": true
+      },
+      "name": "pythia-410m@143000|pythia-410m-seed2@143000.D_P.accuracy_diff",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.0050000000000000044
+    },
+    {
+      "details": {
+        "divergent": true,
+        "rule_status": "draft"
+      },
+      "name": "pythia-410m@143000|pythia-410m-seed2@143000.D_M.one_minus_spearman",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 1.0410858397477196
+    },
+    {
+      "details": {},
+      "name": "pythia-410m@143000|pythia-410m-seed2@143000.D_B.mean_jsd_bits",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.10896202936899016
+    },
+    {
+      "details": {
+        "margin_status": "provisional",
+        "matched": true
+      },
+      "name": "pythia-410m@143000|pythia-410m-seed3@143000.D_P.accuracy_diff",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.0
+    },
+    {
+      "details": {
+        "divergent": true,
+        "rule_status": "draft"
+      },
+      "name": "pythia-410m@143000|pythia-410m-seed3@143000.D_M.one_minus_spearman",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.9854883693330169
+    },
+    {
+      "details": {},
+      "name": "pythia-410m@143000|pythia-410m-seed3@143000.D_B.mean_jsd_bits",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.12684760615349291
+    },
+    {
+      "details": {
+        "margin_status": "provisional",
+        "matched": false
+      },
+      "name": "pythia-410m@143000|pythia-410m-seed4@143000.D_P.accuracy_diff",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.5800000000000001
+    },
+    {
+      "details": {
+        "divergent": true,
+        "rule_status": "draft"
+      },
+      "name": "pythia-410m@143000|pythia-410m-seed4@143000.D_M.one_minus_spearman",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.9131241310908413
+    },
+    {
+      "details": {},
+      "name": "pythia-410m@143000|pythia-410m-seed4@143000.D_B.mean_jsd_bits",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.3715243548591207
+    },
+    {
+      "details": {
+        "margin_status": "provisional",
+        "matched": true
+      },
+      "name": "pythia-410m@143000|pythia-410m-seed5@143000.D_P.accuracy_diff",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.0
+    },
+    {
+      "details": {
+        "divergent": true,
+        "rule_status": "draft"
+      },
+      "name": "pythia-410m@143000|pythia-410m-seed5@143000.D_M.one_minus_spearman",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.9887516530466922
+    },
+    {
+      "details": {},
+      "name": "pythia-410m@143000|pythia-410m-seed5@143000.D_B.mean_jsd_bits",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.08849783973450555
+    },
+    {
+      "details": {
+        "margin_status": "provisional",
+        "matched": true
+      },
+      "name": "pythia-410m-seed1@143000|pythia-410m-seed2@143000.D_P.accuracy_diff",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": -0.0050000000000000044
+    },
+    {
+      "details": {
+        "divergent": true,
+        "rule_status": "draft"
+      },
+      "name": "pythia-410m-seed1@143000|pythia-410m-seed2@143000.D_M.one_minus_spearman",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.9364352683869656
+    },
+    {
+      "details": {},
+      "name": "pythia-410m-seed1@143000|pythia-410m-seed2@143000.D_B.mean_jsd_bits",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.10666228064763665
+    },
+    {
+      "details": {
+        "margin_status": "provisional",
+        "matched": false
+      },
+      "name": "pythia-410m-seed1@143000|pythia-410m-seed3@143000.D_P.accuracy_diff",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": -0.010000000000000009
+    },
+    {
+      "details": {
+        "divergent": true,
+        "rule_status": "draft"
+      },
+      "name": "pythia-410m-seed1@143000|pythia-410m-seed3@143000.D_M.one_minus_spearman",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.9625790495405377
+    },
+    {
+      "details": {},
+      "name": "pythia-410m-seed1@143000|pythia-410m-seed3@143000.D_B.mean_jsd_bits",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.12083632903647783
+    },
+    {
+      "details": {
+        "margin_status": "provisional",
+        "matched": false
+      },
+      "name": "pythia-410m-seed1@143000|pythia-410m-seed4@143000.D_P.accuracy_diff",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.5700000000000001
+    },
+    {
+      "details": {
+        "divergent": true,
+        "rule_status": "draft"
+      },
+      "name": "pythia-410m-seed1@143000|pythia-410m-seed4@143000.D_M.one_minus_spearman",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.9834347767115391
+    },
+    {
+      "details": {},
+      "name": "pythia-410m-seed1@143000|pythia-410m-seed4@143000.D_B.mean_jsd_bits",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.3380439815593624
+    },
+    {
+      "details": {
+        "margin_status": "provisional",
+        "matched": false
+      },
+      "name": "pythia-410m-seed1@143000|pythia-410m-seed5@143000.D_P.accuracy_diff",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": -0.010000000000000009
+    },
+    {
+      "details": {
+        "divergent": true,
+        "rule_status": "draft"
+      },
+      "name": "pythia-410m-seed1@143000|pythia-410m-seed5@143000.D_M.one_minus_spearman",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 1.0871240378420535
+    },
+    {
+      "details": {},
+      "name": "pythia-410m-seed1@143000|pythia-410m-seed5@143000.D_B.mean_jsd_bits",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.08212659561671375
+    },
+    {
+      "details": {
+        "margin_status": "provisional",
+        "matched": true
+      },
+      "name": "pythia-410m-seed2@143000|pythia-410m-seed3@143000.D_P.accuracy_diff",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": -0.0050000000000000044
+    },
+    {
+      "details": {
+        "divergent": true,
+        "rule_status": "draft"
+      },
+      "name": "pythia-410m-seed2@143000|pythia-410m-seed3@143000.D_M.one_minus_spearman",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.979794895052728
+    },
+    {
+      "details": {},
+      "name": "pythia-410m-seed2@143000|pythia-410m-seed3@143000.D_B.mean_jsd_bits",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.105471325108474
+    },
+    {
+      "details": {
+        "margin_status": "provisional",
+        "matched": false
+      },
+      "name": "pythia-410m-seed2@143000|pythia-410m-seed4@143000.D_P.accuracy_diff",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.575
+    },
+    {
+      "details": {
+        "divergent": true,
+        "rule_status": "draft"
+      },
+      "name": "pythia-410m-seed2@143000|pythia-410m-seed4@143000.D_M.one_minus_spearman",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.9296143314909633
+    },
+    {
+      "details": {},
+      "name": "pythia-410m-seed2@143000|pythia-410m-seed4@143000.D_B.mean_jsd_bits",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.27533844898136955
+    },
+    {
+      "details": {
+        "margin_status": "provisional",
+        "matched": true
+      },
+      "name": "pythia-410m-seed2@143000|pythia-410m-seed5@143000.D_P.accuracy_diff",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": -0.0050000000000000044
+    },
+    {
+      "details": {
+        "divergent": true,
+        "rule_status": "draft"
+      },
+      "name": "pythia-410m-seed2@143000|pythia-410m-seed5@143000.D_M.one_minus_spearman",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 1.1116762317317148
+    },
+    {
+      "details": {},
+      "name": "pythia-410m-seed2@143000|pythia-410m-seed5@143000.D_B.mean_jsd_bits",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.09426955911943198
+    },
+    {
+      "details": {
+        "margin_status": "provisional",
+        "matched": false
+      },
+      "name": "pythia-410m-seed3@143000|pythia-410m-seed4@143000.D_P.accuracy_diff",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.5800000000000001
+    },
+    {
+      "details": {
+        "divergent": true,
+        "rule_status": "draft"
+      },
+      "name": "pythia-410m-seed3@143000|pythia-410m-seed4@143000.D_M.one_minus_spearman",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.8043572615374182
+    },
+    {
+      "details": {},
+      "name": "pythia-410m-seed3@143000|pythia-410m-seed4@143000.D_B.mean_jsd_bits",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.27008221346472
+    },
+    {
+      "details": {
+        "margin_status": "provisional",
+        "matched": true
+      },
+      "name": "pythia-410m-seed3@143000|pythia-410m-seed5@143000.D_P.accuracy_diff",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.0
+    },
+    {
+      "details": {
+        "divergent": true,
+        "rule_status": "draft"
+      },
+      "name": "pythia-410m-seed3@143000|pythia-410m-seed5@143000.D_M.one_minus_spearman",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.9962253314570547
+    },
+    {
+      "details": {},
+      "name": "pythia-410m-seed3@143000|pythia-410m-seed5@143000.D_B.mean_jsd_bits",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.10736288965959538
+    },
+    {
+      "details": {
+        "margin_status": "provisional",
+        "matched": false
+      },
+      "name": "pythia-410m-seed4@143000|pythia-410m-seed5@143000.D_P.accuracy_diff",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": -0.5800000000000001
+    },
+    {
+      "details": {
+        "divergent": true,
+        "rule_status": "draft"
+      },
+      "name": "pythia-410m-seed4@143000|pythia-410m-seed5@143000.D_M.one_minus_spearman",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.9162053677393103
+    },
+    {
+      "details": {},
+      "name": "pythia-410m-seed4@143000|pythia-410m-seed5@143000.D_B.mean_jsd_bits",
+      "reason": null,
+      "status": "OBSERVED",
+      "value": 0.2903450243646363
+    }
+  ],
+  "record_hash": "cecf4ba06df1f274c921180d0020350479270b5f013457e81904c7c4ebafcbe9",
+  "run_id": "d5fd201ab242485fad152aad97213dff",
+  "schema_version": "v6.claims/1.0.0",
+  "scope": {
+    "dataset_hash": "6402b2f1b2bebdb1c9efef00cfa68ad3528c89e1942d0169b92c1c1825ebf14d",
+    "metric_definitions": "v6.distances/1.1.0",
+    "models": [
+      "pythia-410m@143000",
+      "pythia-410m-seed1@143000",
+      "pythia-410m-seed2@143000",
+      "pythia-410m-seed3@143000",
+      "pythia-410m-seed4@143000",
+      "pythia-410m-seed5@143000"
+    ],
+    "task": "ioi"
+  }
+}
