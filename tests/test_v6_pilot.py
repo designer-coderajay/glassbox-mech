@@ -68,6 +68,53 @@ def test_pilot_writes_artifacts_with_unresolved_hypotheses(fakes, tmp_path) -> N
     assert rec["dataset"]["items_hash"] and rec["metrics_version"]
 
 
+def test_pilot_resumes_from_cache_after_failure(fakes, monkeypatch, tmp_path) -> None:
+    # Regression (2026-09-29): a download failure at model 3 lost models 1-2.
+    calls = []
+
+    def counting(model, ds):
+        calls.append(model.name)
+        return _fake_measure(model, ds)
+
+    def flaky(name, ckpt, device):
+        if name == "m2":
+            raise OSError("simulated download failure")
+        return _fake_model(name, ckpt, device)
+
+    cfg = pilot.PilotConfig(models=["m0", "m1", "m2"], n_prompts=20, k=4, n_splits=20)
+    monkeypatch.setattr(pilot, "_measure_model", counting)
+    monkeypatch.setattr(pilot, "_load", flaky)
+    with pytest.raises(OSError):
+        pilot.run_pilot(cfg, tmp_path)
+    assert calls == ["m0", "m0", "m1"]  # m0 measured twice (Control A)
+
+    calls.clear()
+    monkeypatch.setattr(pilot, "_load", _fake_model)
+    rec = pilot.run_pilot(cfg, tmp_path)
+    assert calls == ["m2"]  # m0 (incl. Control A) and m1 came from the cache
+    assert [m["from_cache"] for m in rec["models"]] == [True, True, False]
+    assert (tmp_path / "_cache" / ".gitignore").read_text().strip() == "*"
+
+
+def test_pilot_cache_is_invalidated_by_different_data(fakes, monkeypatch, tmp_path) -> None:
+    calls = []
+    monkeypatch.setattr(pilot, "_measure_model",
+                        lambda m, ds: calls.append(m.name) or _fake_measure(m, ds))
+    pilot.run_pilot(pilot.PilotConfig(models=["m0", "m1"], n_prompts=20, k=4,
+                                      n_splits=20), tmp_path)
+    calls.clear()
+    pilot.run_pilot(pilot.PilotConfig(models=["m0", "m1"], n_prompts=20, seed=1, k=4,
+                                      n_splits=20), tmp_path)
+    assert calls == ["m0", "m0", "m1"]  # new seed -> new dataset -> nothing reused
+
+
+def test_cached_results_equal_fresh_results(fakes, tmp_path) -> None:
+    cfg = pilot.PilotConfig(models=["m0", "m2"], n_prompts=20, k=4, n_splits=20)
+    fresh = pilot.run_pilot(cfg, tmp_path)
+    again = pilot.run_pilot(cfg, tmp_path)
+    assert fresh["pairs"] == again["pairs"] and fresh["matrices"] == again["matrices"]
+
+
 def test_pilot_rejects_bad_configs(fakes, monkeypatch, tmp_path) -> None:
     with pytest.raises(ValueError):
         pilot.run_pilot(pilot.PilotConfig(models=["m0"]), tmp_path)
