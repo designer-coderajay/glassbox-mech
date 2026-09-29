@@ -53,6 +53,7 @@ __all__ = [
     "positional_dm", "scalar_quotient_dm", "profile_orbit_distance",
     "crossfit_aligned_dm", "positional_permutation_null",
     "crossfit_orbit_distance", "orbit_prompt_bootstrap", "alignment_recovery",
+    "orbit_distance_weighted", "crossfit_bootstrap", "bracketed_v2_interval",
 ]
 
 
@@ -112,6 +113,37 @@ def _unit(x: np.ndarray) -> np.ndarray:
     return x / n
 
 
+def orbit_distance_weighted(xa: np.ndarray, xb: np.ndarray,
+                            weights: np.ndarray) -> np.ndarray:
+    """Orbit distance under per-prompt weights, for many weight vectors at once.
+
+    ``weights`` has shape ``[B, N]``. Row b with integer counts gives exactly the orbit
+    distance on the prompt multiset those counts describe (a bootstrap replicate). Uses
+    ||p - q||^2 = ||p||^2 + ||q||^2 - 2 p.q with weighted sums; normalisation is per model
+    and per weight vector. Returns ``[B]``.
+    """
+    xa, xb = np.asarray(xa, dtype=float), np.asarray(xb, dtype=float)
+    w = np.atleast_2d(np.asarray(weights, dtype=float))
+    if xa.shape != xb.shape or w.shape[1] != xa.shape[0]:
+        raise ValueError("tensors must share [N, L, H] and weights must be [B, N]")
+    na = w @ (xa ** 2).sum((1, 2))  # [B]
+    nb = w @ (xb ** 2).sum((1, 2))
+    if np.any(na <= 0) or np.any(nb <= 0):
+        raise ValueError("attribution tensor is all zeros under these weights")
+    saa = np.einsum("bn,nlh->blh", w, xa ** 2) / na[:, None, None]
+    sbb = np.einsum("bn,nlh->blh", w, xb ** 2) / nb[:, None, None]
+    scale = 1.0 / np.sqrt(na * nb)
+    out = np.zeros(w.shape[0])
+    for layer in range(xa.shape[1]):
+        sab = np.einsum("bn,nh,nk->bhk", w, xa[:, layer, :], xb[:, layer, :])
+        cost = (saa[:, layer, :, None] + sbb[:, layer, None, :]
+                - 2.0 * scale[:, None, None] * sab)
+        for b in range(w.shape[0]):
+            r, c = linear_sum_assignment(cost[b])
+            out[b] += cost[b][r, c].sum()
+    return out
+
+
 def profile_orbit_distance(xa: np.ndarray, xb: np.ndarray) -> Dict[str, Any]:
     """Orbit distance between unit-normalised profile tensors ``[N, L, H]``."""
     a, b = _unit(xa), _unit(xb)
@@ -119,8 +151,9 @@ def profile_orbit_distance(xa: np.ndarray, xb: np.ndarray) -> Dict[str, Any]:
         raise ValueError("tensors must share [N, L, H]")
     total, pi = 0.0, np.zeros(a.shape[1:], dtype=int)
     for layer in range(a.shape[1]):
-        pa, pb = a[:, layer, :].T, b[:, layer, :].T  # [H, N]
-        cost = ((pa[:, None, :] - pb[None, :, :]) ** 2).sum(-1)
+        pa, pb = a[:, layer, :], b[:, layer, :]  # [N, H]
+        cost = ((pa ** 2).sum(0)[:, None] + (pb ** 2).sum(0)[None, :]
+                - 2.0 * pa.T @ pb)
         r, c = linear_sum_assignment(cost)
         pi[layer, r] = c
         total += float(cost[r, c].sum())
@@ -230,8 +263,8 @@ def orbit_prompt_bootstrap(xa: np.ndarray, xb: np.ndarray, n_boot: int = 1000,
     n = xa.shape[0]
     rng = np.random.default_rng(seed)
     est = profile_orbit_distance(xa, xb)["value"]
-    boots = np.array([profile_orbit_distance(xa[i], xb[i])["value"]
-                      for i in (rng.integers(0, n, n) for _ in range(n_boot))])
+    counts = rng.multinomial(n, np.full(n, 1.0 / n), size=n_boot)
+    boots = orbit_distance_weighted(xa, xb, counts)
     lo, hi = np.percentile(boots, [100 * alpha / 2, 100 * (1 - alpha / 2)])
     return {"estimate": est, "boot_mean": float(boots.mean()),
             "bias": float(boots.mean() - est), "ci_percentile": [float(lo), float(hi)],
@@ -246,3 +279,29 @@ def alignment_recovery(xa: np.ndarray, xb: np.ndarray) -> Dict[str, float]:
     w = np.sqrt((_unit(xa) ** 2).sum(0))  # [L, H] head magnitude in A
     return {"fraction_identity": float(ident.mean()),
             "magnitude_weighted_identity": float((w * ident).sum() / w.sum())}
+
+
+def crossfit_bootstrap(xa: np.ndarray, xb: np.ndarray, n_boot: int = 200,
+                       n_splits: int = 10, seed: int = 0) -> np.ndarray:
+    """Bootstrap distribution of the cross-fitted orbit distance (paired prompts)."""
+    xa, xb = np.asarray(xa, dtype=float), np.asarray(xb, dtype=float)
+    n = xa.shape[0]
+    rng = np.random.default_rng(seed)
+    out = np.empty(n_boot)
+    for b in range(n_boot):
+        idx = rng.integers(0, n, n)
+        out[b] = crossfit_orbit_distance(xa[idx], xb[idx], n_splits=n_splits,
+                                         seed=int(rng.integers(2**31)))["crossfit"]
+    return out
+
+
+def bracketed_v2_interval(xa: np.ndarray, xb: np.ndarray, n_boot: int = 200,
+                          n_splits: int = 10, seed: int = 0,
+                          alpha: float = 0.05) -> Dict[str, Any]:
+    """Gate-1 revision (declared in amendment3_gate_criteria.md, dated note 1):
+    [q_{alpha/2}(bootstrap of plug-in), q_{1-alpha/2}(bootstrap of cross-fitted)]."""
+    b = orbit_prompt_bootstrap(xa, xb, n_boot=n_boot, seed=seed, alpha=alpha)
+    cf = crossfit_bootstrap(xa, xb, n_boot=n_boot, n_splits=n_splits, seed=seed + 1)
+    return {"estimate": b["estimate"], "lower": b["ci_percentile"][0],
+            "upper": float(np.percentile(cf, 100 * (1 - alpha / 2))),
+            "n_boot": n_boot, "n_splits": n_splits, "seed": seed}

@@ -209,6 +209,37 @@ def test_weight_permutation_symmetry_on_pythia() -> None:
 
 # ── baseline tools ────────────────────────────────────────────────────────────
 
+def _orbit_reference(xa, xb):
+    """Direct (slow) definition: unit-normalise, explicit squared-distance assignment."""
+    from scipy.optimize import linear_sum_assignment
+
+    a, b = xa / np.linalg.norm(xa), xb / np.linalg.norm(xb)
+    total = 0.0
+    for layer in range(a.shape[1]):
+        c = ((a[:, layer, :].T[:, None, :] - b[:, layer, :].T[None]) ** 2).sum(-1)
+        r, k = linear_sum_assignment(c)
+        total += c[r, k].sum()
+    return total
+
+
+def test_orbit_distance_matches_direct_definition() -> None:
+    rng = RNG(12)
+    for _ in range(10):
+        x, y = rng.normal(size=(30, 4, 6)), rng.normal(size=(30, 4, 6))
+        assert idf.profile_orbit_distance(x, y)["value"] == pytest.approx(
+            _orbit_reference(x, y), abs=1e-10)
+
+
+def test_weighted_orbit_equals_resampled_orbit() -> None:
+    # A bootstrap replicate is the same statistic with prompts weighted by their counts.
+    rng = RNG(13)
+    x, y = rng.normal(size=(25, 3, 5)), rng.normal(size=(25, 3, 5))
+    idx = rng.integers(0, 25, size=(6, 25))
+    w = np.stack([np.bincount(i, minlength=25) for i in idx]).astype(float)
+    fast = idf.orbit_distance_weighted(x, y, w)
+    slow = [_orbit_reference(x[i], y[i]) for i in idx]
+    assert fast == pytest.approx(slow, abs=1e-10)
+
 def test_crossfit_orbit_brackets_and_is_invariant() -> None:
     rng = RNG(9)
     x, y = rng.normal(size=(60, 3, 5)), rng.normal(size=(60, 3, 5))
@@ -238,3 +269,21 @@ def test_alignment_recovery_identity_for_near_copy() -> None:
     assert r["fraction_identity"] == 1.0
     pi = idf.random_group_element(3, 6, rng)
     assert idf.alignment_recovery(x, idf.act_on(pi, x))["fraction_identity"] < 1.0
+
+
+def test_crossfit_bootstrap_is_invariant_and_deterministic() -> None:
+    rng = RNG(14)
+    x, y = rng.normal(size=(40, 3, 4)), rng.normal(size=(40, 3, 4))
+    pi = idf.random_group_element(3, 4, rng)
+    a = idf.crossfit_bootstrap(x, y, n_boot=20, n_splits=3, seed=5)
+    b = idf.crossfit_bootstrap(x, idf.act_on(pi, y), n_boot=20, n_splits=3, seed=5)
+    assert a == pytest.approx(b, abs=1e-12)
+    assert a.shape == (20,)
+    assert np.array_equal(a, idf.crossfit_bootstrap(x, y, n_boot=20, n_splits=3, seed=5))
+
+
+def test_bracketed_v2_interval_orders_bounds() -> None:
+    rng = RNG(15)
+    x, y = rng.normal(size=(40, 3, 4)), rng.normal(size=(40, 3, 4))
+    r = idf.bracketed_v2_interval(x, y, n_boot=30, n_splits=3, seed=0)
+    assert r["lower"] <= r["estimate"] <= r["upper"]
