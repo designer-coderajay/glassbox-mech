@@ -1,0 +1,1170 @@
+{
+  "bootstrap": {
+    "alpha": 0.05,
+    "inherited_from": "Gate 5 (validated)",
+    "method": "two_way_bootstrap",
+    "n_boot": 200,
+    "n_valid": 200,
+    "prompt_seed": 20260929,
+    "run_seed": 20260930
+  },
+  "claim_boundary": "The confirmatory experiment can provide evidence for attribution-profile divergence under the preregistered estimand. It does not by itself establish mechanistic divergence, different causal mechanisms, different circuits, or a causal explanation of training-induced differences. Such stronger claims require additional intervention or causal evidence.",
+  "environment": {
+    "git": {
+      "dirty": false,
+      "sha": "116035c575a770700432241bb7acc23c65876b34"
+    },
+    "hardware": {
+      "cpu_count": 8,
+      "cuda": null,
+      "machine": "arm64",
+      "platform": "macOS-27.0-arm64-arm-64bit",
+      "processor": "arm",
+      "python": "3.11.9",
+      "torch_threads": 1
+    },
+    "packages": {
+      "glassbox-mech-interp": "4.5.1",
+      "numpy": "1.26.4",
+      "scipy": "1.17.1",
+      "torch": "2.10.0",
+      "transformer_lens": "2.17.0",
+      "transformers": "4.57.6"
+    }
+  },
+  "errors": [
+    "EleutherAI/pythia-410m-seed8@143000: ChunkedEncodingError: ('Connection broken: IncompleteRead(8302356 bytes read, 777317737 more expected)', IncompleteRead(8302356 bytes read, 777317737 more expected))"
+  ],
+  "finished_utc": "2026-09-30T01:33:56Z",
+  "gate1_note": "Gate 1 (pair-level interval validity) FAILED and is CLOSED; no third attempt. Per-pair D* values are descriptive point estimates only; no pair-level confidence intervals are reported. H1 inference is at the training-run level only (Gate 5).",
+  "git": {
+    "dirty": false,
+    "sha": "116035c575a770700432241bb7acc23c65876b34"
+  },
+  "h1": {
+    "R": 7,
+    "decision_rule": "SUPPORTED_AT_RUN_LEVEL iff one-sided 95% bootstrap lower bound of Delta > 0 (Gate 5 procedure, B = 200)",
+    "delta": 1.4956684432868828,
+    "lower_95": 1.269157942978685,
+    "n_boot": 200,
+    "n_valid": 200,
+    "reason": null,
+    "runs": [
+      "EleutherAI/pythia-410m",
+      "EleutherAI/pythia-410m-seed1",
+      "EleutherAI/pythia-410m-seed2",
+      "EleutherAI/pythia-410m-seed3",
+      "EleutherAI/pythia-410m-seed5",
+      "EleutherAI/pythia-410m-seed6",
+      "EleutherAI/pythia-410m-seed9"
+    ],
+    "self_pairs": "excluded",
+    "status": "SUPPORTED_AT_RUN_LEVEL"
+  },
+  "label": "CONFIRMATORY",
+  "lock_tag_at_head": true,
+  "output_dir": "experiments/v6/runs/confirmatory_v1",
+  "pairwise_d_star": {
+    "cross": {
+      "EleutherAI/pythia-410m-seed1|EleutherAI/pythia-410m-seed2": 1.6643883416249936,
+      "EleutherAI/pythia-410m-seed1|EleutherAI/pythia-410m-seed3": 1.893374155626029,
+      "EleutherAI/pythia-410m-seed1|EleutherAI/pythia-410m-seed4": 1.7498328727197576,
+      "EleutherAI/pythia-410m-seed1|EleutherAI/pythia-410m-seed5": 0.5365003649558691,
+      "EleutherAI/pythia-410m-seed1|EleutherAI/pythia-410m-seed6": 1.6939995740566585,
+      "EleutherAI/pythia-410m-seed1|EleutherAI/pythia-410m-seed7": 1.2991611477457667,
+      "EleutherAI/pythia-410m-seed1|EleutherAI/pythia-410m-seed9": 1.3743647951184248,
+      "EleutherAI/pythia-410m-seed2|EleutherAI/pythia-410m-seed3": 1.746282866618018,
+      "EleutherAI/pythia-410m-seed2|EleutherAI/pythia-410m-seed4": 1.7026361822655671,
+      "EleutherAI/pythia-410m-seed2|EleutherAI/pythia-410m-seed5": 1.5314483891707784,
+      "EleutherAI/pythia-410m-seed2|EleutherAI/pythia-410m-seed6": 1.6135886242448279,
+      "EleutherAI/pythia-410m-seed2|EleutherAI/pythia-410m-seed7": 1.429242420980697,
+      "EleutherAI/pythia-410m-seed2|EleutherAI/pythia-410m-seed9": 1.2564350453144932,
+      "EleutherAI/pythia-410m-seed3|EleutherAI/pythia-410m-seed4": 1.8473546873377977,
+      "EleutherAI/pythia-410m-seed3|EleutherAI/pythia-410m-seed5": 1.9349866283103219,
+      "EleutherAI/pythia-410m-seed3|EleutherAI/pythia-410m-seed6": 1.4222262634263145,
+      "EleutherAI/pythia-410m-seed3|EleutherAI/pythia-410m-seed7": 1.8945003356808872,
+      "EleutherAI/pythia-410m-seed3|EleutherAI/pythia-410m-seed9": 1.8004326825771444,
+      "EleutherAI/pythia-410m-seed4|EleutherAI/pythia-410m-seed5": 1.6915623136596831,
+      "EleutherAI/pythia-410m-seed4|EleutherAI/pythia-410m-seed6": 1.5101899719884588,
+      "EleutherAI/pythia-410m-seed4|EleutherAI/pythia-410m-seed7": 1.8498329611981705,
+      "EleutherAI/pythia-410m-seed4|EleutherAI/pythia-410m-seed9": 1.72578143949662,
+      "EleutherAI/pythia-410m-seed5|EleutherAI/pythia-410m-seed6": 1.5184472792027166,
+      "EleutherAI/pythia-410m-seed5|EleutherAI/pythia-410m-seed7": 1.3987431993311388,
+      "EleutherAI/pythia-410m-seed5|EleutherAI/pythia-410m-seed9": 1.3201103586276137,
+      "EleutherAI/pythia-410m-seed6|EleutherAI/pythia-410m-seed7": 1.8392962137741495,
+      "EleutherAI/pythia-410m-seed6|EleutherAI/pythia-410m-seed9": 1.495760937950106,
+      "EleutherAI/pythia-410m-seed7|EleutherAI/pythia-410m-seed9": 0.8203953433786487,
+      "EleutherAI/pythia-410m|EleutherAI/pythia-410m-seed1": 1.8199451524381975,
+      "EleutherAI/pythia-410m|EleutherAI/pythia-410m-seed2": 1.5938379316896834,
+      "EleutherAI/pythia-410m|EleutherAI/pythia-410m-seed3": 1.7159910324013905,
+      "EleutherAI/pythia-410m|EleutherAI/pythia-410m-seed4": 1.51260428635167,
+      "EleutherAI/pythia-410m|EleutherAI/pythia-410m-seed5": 1.6749308488447672,
+      "EleutherAI/pythia-410m|EleutherAI/pythia-410m-seed6": 1.6693490805626838,
+      "EleutherAI/pythia-410m|EleutherAI/pythia-410m-seed7": 1.6074372631788219,
+      "EleutherAI/pythia-410m|EleutherAI/pythia-410m-seed9": 1.4884688014286025
+    },
+    "note": "D* point estimates only; no pair-level confidence intervals (Gate 1 failed and is closed)",
+    "within": {
+      "EleutherAI/pythia-410m": {
+        "123000-133000": 0.017115237320938836,
+        "123000-143000": 0.026990117568589475,
+        "133000-143000": 0.025015311895333094
+      },
+      "EleutherAI/pythia-410m-seed1": {
+        "123000-133000": 0.037458239611096976,
+        "123000-143000": 0.045564177516822714,
+        "133000-143000": 0.03459471411596604
+      },
+      "EleutherAI/pythia-410m-seed2": {
+        "123000-133000": 0.05347900850951052,
+        "123000-143000": 0.05104753419991445,
+        "133000-143000": 0.05442562197367206
+      },
+      "EleutherAI/pythia-410m-seed3": {
+        "123000-133000": 0.018330172670535865,
+        "123000-143000": 0.020943046149152284,
+        "133000-143000": 0.016767233063514575
+      },
+      "EleutherAI/pythia-410m-seed4": {
+        "123000-133000": 1.8685330275012044,
+        "123000-143000": 1.8734325868709512,
+        "133000-143000": 1.1201823302182659
+      },
+      "EleutherAI/pythia-410m-seed5": {
+        "123000-133000": 0.04450450397228363,
+        "123000-143000": 0.05383218151826635,
+        "133000-143000": 0.032729700447514096
+      },
+      "EleutherAI/pythia-410m-seed6": {
+        "123000-133000": 0.09670842473513923,
+        "123000-143000": 0.22208410446378596,
+        "133000-143000": 0.2209094319459386
+      },
+      "EleutherAI/pythia-410m-seed7": {
+        "123000-133000": 0.044154961900797256,
+        "123000-143000": 0.07601586070301737,
+        "133000-143000": 0.02381325618721917
+      },
+      "EleutherAI/pythia-410m-seed9": {
+        "123000-133000": 0.06693154815173333,
+        "123000-143000": 0.10408961409255595,
+        "133000-143000": 0.11231192124283615
+      }
+    }
+  },
+  "primary_runs": [
+    "EleutherAI/pythia-410m",
+    "EleutherAI/pythia-410m-seed1",
+    "EleutherAI/pythia-410m-seed2",
+    "EleutherAI/pythia-410m-seed3",
+    "EleutherAI/pythia-410m-seed5",
+    "EleutherAI/pythia-410m-seed6",
+    "EleutherAI/pythia-410m-seed9"
+  ],
+  "prompt_sets": {
+    "attribution": {
+      "n": 200,
+      "path": "experiments/v6/prompts/ioi_attribution_v1.json",
+      "sha256": "aa3e32c8ab51d4aabe96e83b51d30a947e120b68bfcbf0da1dff87868abee0d2"
+    },
+    "matching": {
+      "n": 1000,
+      "path": "experiments/v6/prompts/ioi_matching_v1.json",
+      "sha256": "0849499b8117dac405743c2b33f500545f42aa1f4faff85461feecdef475d296"
+    }
+  },
+  "protocol": {
+    "alpha": 0.05,
+    "base_model": "pythia-410m",
+    "checkpoints": [
+      123000,
+      133000,
+      143000
+    ],
+    "estimator": "plug-in",
+    "inclusion": {
+      "alpha": 0.05,
+      "checkpoint": 143000,
+      "set": "matching",
+      "test": "one-sided exact binomial vs 0.5"
+    },
+    "inference": "two_way_bootstrap",
+    "label": "CONFIRMATORY",
+    "matching": {
+      "alpha": 0.05,
+      "checkpoint": 143000,
+      "design": "star",
+      "margin": 0.02,
+      "rule": "exact_paired_equivalence",
+      "set": "matching"
+    },
+    "metric": "profile_orbit_distance",
+    "n_boot": 200,
+    "prompts": {
+      "attribution": {
+        "n": 200,
+        "path": "experiments/v6/prompts/ioi_attribution_v1.json",
+        "sha256": "aa3e32c8ab51d4aabe96e83b51d30a947e120b68bfcbf0da1dff87868abee0d2"
+      },
+      "matching": {
+        "n": 1000,
+        "path": "experiments/v6/prompts/ioi_matching_v1.json",
+        "sha256": "0849499b8117dac405743c2b33f500545f42aa1f4faff85461feecdef475d296"
+      }
+    },
+    "r_min": 4,
+    "reference": "EleutherAI/pythia-410m",
+    "runs": [
+      {
+        "commits": {
+          "123000": "51cabaff46863a0421bf3b44194431cc94d3466e",
+          "133000": "45c291dfb81b96ad2522eabf89eb953045cd537a",
+          "143000": "bba6a464f54bbf08fc174cfb351d9794d58af21d"
+        },
+        "repo": "EleutherAI/pythia-410m",
+        "use_safetensors": true
+      },
+      {
+        "commits": {
+          "123000": "3a55097f9efd407b7e7f780c1860d7514ec7bd86",
+          "133000": "2c44de039f189452fc0a3c90a17916b223c1b1b4",
+          "143000": "a77e7d87906f1c77138c009121f9d6439144663c"
+        },
+        "repo": "EleutherAI/pythia-410m-seed1",
+        "use_safetensors": false
+      },
+      {
+        "commits": {
+          "123000": "319875fb868a5cd6636423c0b5ff95f786c5cd18",
+          "133000": "59534882c2c34c7d7b8a41bb9e251164477de8a1",
+          "143000": "8f8a4fabfcd5f2504ee550cb33771760d6cec419"
+        },
+        "repo": "EleutherAI/pythia-410m-seed2",
+        "use_safetensors": false
+      },
+      {
+        "commits": {
+          "123000": "1cb2ac3dd2b729f33a208c0c9ed4da16ebd066b8",
+          "133000": "a2a1327db3a383c0f77c4b53ea483ddd4c6d4ae5",
+          "143000": "83438f87adb388fb205a83ad516e3b349b5cfcba"
+        },
+        "repo": "EleutherAI/pythia-410m-seed3",
+        "use_safetensors": false
+      },
+      {
+        "commits": {
+          "123000": "b884f27285abb230c4503db0a0c7f0a108651fae",
+          "133000": "f1dee9051011ae3b7bd191a82db07bb8c71cb702",
+          "143000": "b122bdb9065e19909d34653da26e06e49fd4ded2"
+        },
+        "repo": "EleutherAI/pythia-410m-seed4",
+        "use_safetensors": false
+      },
+      {
+        "commits": {
+          "123000": "e48b7a7fe656ffc0886b83de9af62a877ccb68bc",
+          "133000": "8b6f55ae443381e65968483290be8d0c2557db43",
+          "143000": "b9156c2847b0e50f298706af140656bbf0b7cf06"
+        },
+        "repo": "EleutherAI/pythia-410m-seed5",
+        "use_safetensors": false
+      },
+      {
+        "commits": {
+          "123000": "ce6bdbca13fe93cb6b142721a0801fb7b9ae8611",
+          "133000": "eba0d2f483d7163dfeac5e89e258af476a1afee2",
+          "143000": "36a33e1487d89429085aec228a9ccfe831271243"
+        },
+        "repo": "EleutherAI/pythia-410m-seed6",
+        "use_safetensors": false
+      },
+      {
+        "commits": {
+          "123000": "a12420095e08c46806901446f76a01927973fa70",
+          "133000": "fbad49e4aced1398fab8d94b531c63cbfa60c70a",
+          "143000": "4c83aca7bf06be6061797566759d4cf370307b7b"
+        },
+        "repo": "EleutherAI/pythia-410m-seed7",
+        "use_safetensors": false
+      },
+      {
+        "commits": {
+          "123000": "52449162281639c3cf5000d31ac5959fa4ec32a8",
+          "133000": "453deb67190a41b3f4a65080df130480fb62b5a4",
+          "143000": "b3d0ef9e3205c5f235e44c7b8e8791ce04301452"
+        },
+        "repo": "EleutherAI/pythia-410m-seed8",
+        "use_safetensors": false
+      },
+      {
+        "commits": {
+          "123000": "1933c5b650555211652330d6864ecf50ae7a8bc5",
+          "133000": "582bc5e55e7535ebb395c0fccefe7c87aa16db88",
+          "143000": "6155dcb7e1a9080a5cb61d0ef1f8041e91b5cc7a"
+        },
+        "repo": "EleutherAI/pythia-410m-seed9",
+        "use_safetensors": false
+      }
+    ],
+    "s2_exclude": "EleutherAI/pythia-410m-seed3",
+    "s3_n_splits": 20,
+    "seeds": {
+      "prompt_resample": 20260929,
+      "run_resample": 20260930,
+      "s3_crossfit": 20260931
+    },
+    "version": "v6-amendment3/1.0",
+    "within_pairs": [
+      [
+        123000,
+        133000
+      ],
+      [
+        123000,
+        143000
+      ],
+      [
+        133000,
+        143000
+      ]
+    ]
+  },
+  "protocol_sha256": "b3d55e106aaf584c3a2dda3b9ced43607f96b76aa98abf4339ba7ca56c5bd706",
+  "r_min": 4,
+  "runner_sha256": "477953a430ba3e2aa758d3fd8baaccebe8f8f81cd1e6c4b7ab066de58faf3d5b",
+  "runs": {
+    "EleutherAI/pythia-410m": {
+      "checkpoints": {
+        "123000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "51cabaff46863a0421bf3b44194431cc94d3466e",
+          "resolved_commit": "51cabaff46863a0421bf3b44194431cc94d3466e",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "e2e14ed434a448127440fb072e3013cc54387738493469eeb5b58ecb58aedec9",
+            "file": "model.safetensors",
+            "local_sha256": "e2e14ed434a448127440fb072e3013cc54387738493469eeb5b58ecb58aedec9",
+            "ok": true
+          }
+        },
+        "133000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "45c291dfb81b96ad2522eabf89eb953045cd537a",
+          "resolved_commit": "45c291dfb81b96ad2522eabf89eb953045cd537a",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "dd788b3f14ab853a5a103c3aea5a8c3da4e6388490c538516887646b77d450f8",
+            "file": "model.safetensors",
+            "local_sha256": "dd788b3f14ab853a5a103c3aea5a8c3da4e6388490c538516887646b77d450f8",
+            "ok": true
+          }
+        },
+        "143000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "bba6a464f54bbf08fc174cfb351d9794d58af21d",
+          "resolved_commit": "bba6a464f54bbf08fc174cfb351d9794d58af21d",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "1c88b0bf18293fae0e09c1d978b14b1adb08cb6a83154463133982fe460fcea4",
+            "file": "model.safetensors",
+            "local_sha256": "1c88b0bf18293fae0e09c1d978b14b1adb08cb6a83154463133982fe460fcea4",
+            "ok": true
+          }
+        }
+      },
+      "complete": true,
+      "exclusion_reason": null,
+      "inclusion": {
+        "above_chance": true,
+        "accuracy": 0.999,
+        "chance": 0.5,
+        "k": 999,
+        "n": 1000,
+        "p_value": 9.341968821217221e-299
+      },
+      "matching": null,
+      "primary": true
+    },
+    "EleutherAI/pythia-410m-seed1": {
+      "checkpoints": {
+        "123000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "3a55097f9efd407b7e7f780c1860d7514ec7bd86",
+          "resolved_commit": "3a55097f9efd407b7e7f780c1860d7514ec7bd86",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "253697a98e6e7224fc3c5b18ae42b2ba82f5928214e72078011c9375460dd25d",
+            "file": "pytorch_model.bin",
+            "local_sha256": "253697a98e6e7224fc3c5b18ae42b2ba82f5928214e72078011c9375460dd25d",
+            "ok": true
+          }
+        },
+        "133000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "2c44de039f189452fc0a3c90a17916b223c1b1b4",
+          "resolved_commit": "2c44de039f189452fc0a3c90a17916b223c1b1b4",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "2902845ff7274e455a2b37c3cdc44a61f2ba147f67674c0ed85a60052e9fb478",
+            "file": "pytorch_model.bin",
+            "local_sha256": "2902845ff7274e455a2b37c3cdc44a61f2ba147f67674c0ed85a60052e9fb478",
+            "ok": true
+          }
+        },
+        "143000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "a77e7d87906f1c77138c009121f9d6439144663c",
+          "resolved_commit": "a77e7d87906f1c77138c009121f9d6439144663c",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "b40bd3670e128927aa84b5420ce65a7f6454f5bacac2be60f692468a6187123f",
+            "file": "pytorch_model.bin",
+            "local_sha256": "b40bd3670e128927aa84b5420ce65a7f6454f5bacac2be60f692468a6187123f",
+            "ok": true
+          }
+        }
+      },
+      "complete": true,
+      "exclusion_reason": null,
+      "inclusion": {
+        "above_chance": true,
+        "accuracy": 0.991,
+        "chance": 0.5,
+        "k": 991,
+        "n": 1000,
+        "p_value": 2.5033196038827973e-280
+      },
+      "matching": {
+        "alpha": 0.05,
+        "discordance_upper_bound": 0.0143882249520919,
+        "equivalent": true,
+        "margin": 0.02,
+        "method": "exact_discordance_bound",
+        "n": 1000,
+        "n_discordant": 8
+      },
+      "primary": true
+    },
+    "EleutherAI/pythia-410m-seed2": {
+      "checkpoints": {
+        "123000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "319875fb868a5cd6636423c0b5ff95f786c5cd18",
+          "resolved_commit": "319875fb868a5cd6636423c0b5ff95f786c5cd18",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "6d927033194c4ad1bacb9f593b5ca4e32ba2d21541abc905176b6592c2c82709",
+            "file": "pytorch_model.bin",
+            "local_sha256": "6d927033194c4ad1bacb9f593b5ca4e32ba2d21541abc905176b6592c2c82709",
+            "ok": true
+          }
+        },
+        "133000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "error": "ChunkedEncodingError: ('Connection broken: IncompleteRead(421368025 bytes read, 490081188 more expected)', IncompleteRead(421368025 bytes read, 490081188 more expected))",
+              "ok": false
+            },
+            {
+              "attempt": 2,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "59534882c2c34c7d7b8a41bb9e251164477de8a1",
+          "resolved_commit": "59534882c2c34c7d7b8a41bb9e251164477de8a1",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "70e7c29a8e70e5705ffab62bce466f1dfc26471dfc3cc5f44c17c84953564e43",
+            "file": "pytorch_model.bin",
+            "local_sha256": "70e7c29a8e70e5705ffab62bce466f1dfc26471dfc3cc5f44c17c84953564e43",
+            "ok": true
+          }
+        },
+        "143000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "8f8a4fabfcd5f2504ee550cb33771760d6cec419",
+          "resolved_commit": "8f8a4fabfcd5f2504ee550cb33771760d6cec419",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "6d4a8361e3f4160cd08f843a0c16ab8d08005f2f512c525637af156c5197334a",
+            "file": "pytorch_model.bin",
+            "local_sha256": "6d4a8361e3f4160cd08f843a0c16ab8d08005f2f512c525637af156c5197334a",
+            "ok": true
+          }
+        }
+      },
+      "complete": true,
+      "exclusion_reason": null,
+      "inclusion": {
+        "above_chance": true,
+        "accuracy": 0.995,
+        "chance": 0.5,
+        "k": 995,
+        "n": 1000,
+        "p_value": 7.738505306294352e-289
+      },
+      "matching": {
+        "alpha": 0.05,
+        "discordance_upper_bound": 0.011807823003840638,
+        "equivalent": true,
+        "margin": 0.02,
+        "method": "exact_discordance_bound",
+        "n": 1000,
+        "n_discordant": 6
+      },
+      "primary": true
+    },
+    "EleutherAI/pythia-410m-seed3": {
+      "checkpoints": {
+        "123000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "1cb2ac3dd2b729f33a208c0c9ed4da16ebd066b8",
+          "resolved_commit": "1cb2ac3dd2b729f33a208c0c9ed4da16ebd066b8",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "64e553fef8139197d3362b0e5d7414c109da5617d815885ccbe24595e31cfdda",
+            "file": "pytorch_model.bin",
+            "local_sha256": "64e553fef8139197d3362b0e5d7414c109da5617d815885ccbe24595e31cfdda",
+            "ok": true
+          }
+        },
+        "133000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "a2a1327db3a383c0f77c4b53ea483ddd4c6d4ae5",
+          "resolved_commit": "a2a1327db3a383c0f77c4b53ea483ddd4c6d4ae5",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "3a1a89ce3cd72e78330672a3d783007ef59a9547473eb789173c8ac39af08651",
+            "file": "pytorch_model.bin",
+            "local_sha256": "3a1a89ce3cd72e78330672a3d783007ef59a9547473eb789173c8ac39af08651",
+            "ok": true
+          }
+        },
+        "143000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "83438f87adb388fb205a83ad516e3b349b5cfcba",
+          "resolved_commit": "83438f87adb388fb205a83ad516e3b349b5cfcba",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "77e2110771b16b1093f886df03ade3efd0f40179261bd225d98c0e7ad9622e0d",
+            "file": "pytorch_model.bin",
+            "local_sha256": "77e2110771b16b1093f886df03ade3efd0f40179261bd225d98c0e7ad9622e0d",
+            "ok": true
+          }
+        }
+      },
+      "complete": true,
+      "exclusion_reason": null,
+      "inclusion": {
+        "above_chance": true,
+        "accuracy": 0.997,
+        "chance": 0.5,
+        "k": 997,
+        "n": 1000,
+        "p_value": 1.5554471507014885e-293
+      },
+      "matching": {
+        "alpha": 0.05,
+        "discordance_upper_bound": 0.009129952563871467,
+        "equivalent": true,
+        "margin": 0.02,
+        "method": "exact_discordance_bound",
+        "n": 1000,
+        "n_discordant": 4
+      },
+      "primary": true
+    },
+    "EleutherAI/pythia-410m-seed4": {
+      "checkpoints": {
+        "123000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "error": "OSError: We couldn't connect to 'https://huggingface.co' to load the files, and couldn't find them in the cached files.\nCheck your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.",
+              "ok": false
+            },
+            {
+              "attempt": 2,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "b884f27285abb230c4503db0a0c7f0a108651fae",
+          "resolved_commit": "b884f27285abb230c4503db0a0c7f0a108651fae",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "aa916580029e8b15f0641a2b61b6da9c4859b91469f898c481a31e9330b25217",
+            "file": "pytorch_model.bin",
+            "local_sha256": "aa916580029e8b15f0641a2b61b6da9c4859b91469f898c481a31e9330b25217",
+            "ok": true
+          }
+        },
+        "133000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "f1dee9051011ae3b7bd191a82db07bb8c71cb702",
+          "resolved_commit": "f1dee9051011ae3b7bd191a82db07bb8c71cb702",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "39234f222d7665ec26a65090d7a01bda785d60098fec811102af10631a87b798",
+            "file": "pytorch_model.bin",
+            "local_sha256": "39234f222d7665ec26a65090d7a01bda785d60098fec811102af10631a87b798",
+            "ok": true
+          }
+        },
+        "143000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "b122bdb9065e19909d34653da26e06e49fd4ded2",
+          "resolved_commit": "b122bdb9065e19909d34653da26e06e49fd4ded2",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "ee1cf6382571265d5fb0d1c6b860270a3d851a4b759bdeebb09271794696cb65",
+            "file": "pytorch_model.bin",
+            "local_sha256": "ee1cf6382571265d5fb0d1c6b860270a3d851a4b759bdeebb09271794696cb65",
+            "ok": true
+          }
+        }
+      },
+      "complete": true,
+      "exclusion_reason": "fails inclusion (IOI accuracy not above chance on the matching set)",
+      "inclusion": {
+        "above_chance": false,
+        "accuracy": 0.473,
+        "chance": 0.5,
+        "k": 473,
+        "n": 1000,
+        "p_value": 0.9590306491055932
+      },
+      "matching": {
+        "alpha": 0.05,
+        "discordance_upper_bound": 0.5543803193001923,
+        "equivalent": false,
+        "margin": 0.02,
+        "method": "exact_discordance_bound",
+        "n": 1000,
+        "n_discordant": 528
+      },
+      "primary": false
+    },
+    "EleutherAI/pythia-410m-seed5": {
+      "checkpoints": {
+        "123000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "e48b7a7fe656ffc0886b83de9af62a877ccb68bc",
+          "resolved_commit": "e48b7a7fe656ffc0886b83de9af62a877ccb68bc",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "13c77f62804f1a368a6e12f19ae75d878c6320d145f8d63e618df228e5c88e67",
+            "file": "pytorch_model.bin",
+            "local_sha256": "13c77f62804f1a368a6e12f19ae75d878c6320d145f8d63e618df228e5c88e67",
+            "ok": true
+          }
+        },
+        "133000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "8b6f55ae443381e65968483290be8d0c2557db43",
+          "resolved_commit": "8b6f55ae443381e65968483290be8d0c2557db43",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "5e3b4d8c8dead4a29427868372d7070dc07b2d6d45669a0ad7e55e3103ef3fa8",
+            "file": "pytorch_model.bin",
+            "local_sha256": "5e3b4d8c8dead4a29427868372d7070dc07b2d6d45669a0ad7e55e3103ef3fa8",
+            "ok": true
+          }
+        },
+        "143000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "b9156c2847b0e50f298706af140656bbf0b7cf06",
+          "resolved_commit": "b9156c2847b0e50f298706af140656bbf0b7cf06",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "8714fb7a9c08688b80aa041b0f8271fe0c2a556d63823d74653e49bb8739b5d0",
+            "file": "pytorch_model.bin",
+            "local_sha256": "8714fb7a9c08688b80aa041b0f8271fe0c2a556d63823d74653e49bb8739b5d0",
+            "ok": true
+          }
+        }
+      },
+      "complete": true,
+      "exclusion_reason": null,
+      "inclusion": {
+        "above_chance": true,
+        "accuracy": 1.0,
+        "chance": 0.5,
+        "k": 1000,
+        "n": 1000,
+        "p_value": 9.332636185032189e-302
+      },
+      "matching": {
+        "alpha": 0.05,
+        "discordance_upper_bound": 0.004734993575499777,
+        "equivalent": true,
+        "margin": 0.02,
+        "method": "exact_discordance_bound",
+        "n": 1000,
+        "n_discordant": 1
+      },
+      "primary": true
+    },
+    "EleutherAI/pythia-410m-seed6": {
+      "checkpoints": {
+        "123000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "ce6bdbca13fe93cb6b142721a0801fb7b9ae8611",
+          "resolved_commit": "ce6bdbca13fe93cb6b142721a0801fb7b9ae8611",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "53297801cb15129edbb91c129dd259c248e61a8ae2b2c9e37c9c063fe2e6124c",
+            "file": "pytorch_model.bin",
+            "local_sha256": "53297801cb15129edbb91c129dd259c248e61a8ae2b2c9e37c9c063fe2e6124c",
+            "ok": true
+          }
+        },
+        "133000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "eba0d2f483d7163dfeac5e89e258af476a1afee2",
+          "resolved_commit": "eba0d2f483d7163dfeac5e89e258af476a1afee2",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "047a817aee5f38d20c47d84e569150fd30fef1759ce7390423a8eaf73069f0da",
+            "file": "pytorch_model.bin",
+            "local_sha256": "047a817aee5f38d20c47d84e569150fd30fef1759ce7390423a8eaf73069f0da",
+            "ok": true
+          }
+        },
+        "143000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "36a33e1487d89429085aec228a9ccfe831271243",
+          "resolved_commit": "36a33e1487d89429085aec228a9ccfe831271243",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "0fd62a1f8f5e2f0eba4b05b132efac0aacafd5e2f66dacf3697f03e6926c9ee2",
+            "file": "pytorch_model.bin",
+            "local_sha256": "0fd62a1f8f5e2f0eba4b05b132efac0aacafd5e2f66dacf3697f03e6926c9ee2",
+            "ok": true
+          }
+        }
+      },
+      "complete": true,
+      "exclusion_reason": null,
+      "inclusion": {
+        "above_chance": true,
+        "accuracy": 1.0,
+        "chance": 0.5,
+        "k": 1000,
+        "n": 1000,
+        "p_value": 9.332636185032189e-302
+      },
+      "matching": {
+        "alpha": 0.05,
+        "discordance_upper_bound": 0.004734993575499777,
+        "equivalent": true,
+        "margin": 0.02,
+        "method": "exact_discordance_bound",
+        "n": 1000,
+        "n_discordant": 1
+      },
+      "primary": true
+    },
+    "EleutherAI/pythia-410m-seed7": {
+      "checkpoints": {
+        "123000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "a12420095e08c46806901446f76a01927973fa70",
+          "resolved_commit": "a12420095e08c46806901446f76a01927973fa70",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "6ceb9be3d2d2e38742837243fe6b700d671ede40413ca31687ee29b41c42c5b4",
+            "file": "pytorch_model.bin",
+            "local_sha256": "6ceb9be3d2d2e38742837243fe6b700d671ede40413ca31687ee29b41c42c5b4",
+            "ok": true
+          }
+        },
+        "133000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "fbad49e4aced1398fab8d94b531c63cbfa60c70a",
+          "resolved_commit": "fbad49e4aced1398fab8d94b531c63cbfa60c70a",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "a8a7928f37cb12875bbbe0c158e1bf45e720dd65e11024fe874f3b35dedaf97e",
+            "file": "pytorch_model.bin",
+            "local_sha256": "a8a7928f37cb12875bbbe0c158e1bf45e720dd65e11024fe874f3b35dedaf97e",
+            "ok": true
+          }
+        },
+        "143000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "4c83aca7bf06be6061797566759d4cf370307b7b",
+          "resolved_commit": "4c83aca7bf06be6061797566759d4cf370307b7b",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "756fcba3b987f0d27aae84f33135bdccced89b72beb941c7e6315b39428bb3d3",
+            "file": "pytorch_model.bin",
+            "local_sha256": "756fcba3b987f0d27aae84f33135bdccced89b72beb941c7e6315b39428bb3d3",
+            "ok": true
+          }
+        }
+      },
+      "complete": true,
+      "exclusion_reason": "not matched to the reference (exact discordance bound >= 0.02)",
+      "inclusion": {
+        "above_chance": true,
+        "accuracy": 0.983,
+        "chance": 0.5,
+        "k": 983,
+        "n": 1000,
+        "p_value": 2.3286532948443704e-265
+      },
+      "matching": {
+        "alpha": 0.05,
+        "discordance_upper_bound": 0.02420022583124934,
+        "equivalent": false,
+        "margin": 0.02,
+        "method": "exact_discordance_bound",
+        "n": 1000,
+        "n_discordant": 16
+      },
+      "primary": false
+    },
+    "EleutherAI/pythia-410m-seed8": {
+      "checkpoints": {
+        "123000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "52449162281639c3cf5000d31ac5959fa4ec32a8",
+          "resolved_commit": "52449162281639c3cf5000d31ac5959fa4ec32a8",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "123d2a3c697a1fb14d5555f211d68f1c6171c0fb4488b737f0f5afe39640359b",
+            "file": "pytorch_model.bin",
+            "local_sha256": "123d2a3c697a1fb14d5555f211d68f1c6171c0fb4488b737f0f5afe39640359b",
+            "ok": true
+          }
+        },
+        "133000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "453deb67190a41b3f4a65080df130480fb62b5a4",
+          "resolved_commit": "453deb67190a41b3f4a65080df130480fb62b5a4",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "e804e5d63dfcde1091d8e355fc831bdd8b269f48937fda8bc4658ebba85c1da0",
+            "file": "pytorch_model.bin",
+            "local_sha256": "e804e5d63dfcde1091d8e355fc831bdd8b269f48937fda8bc4658ebba85c1da0",
+            "ok": true
+          }
+        },
+        "143000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "error": "ChunkedEncodingError: ('Connection broken: IncompleteRead(130992241 bytes read, 780456972 more expected)', IncompleteRead(130992241 bytes read, 780456972 more expected))",
+              "ok": false
+            },
+            {
+              "attempt": 2,
+              "error": "ChunkedEncodingError: ('Connection broken: IncompleteRead(8302356 bytes read, 777317737 more expected)', IncompleteRead(8302356 bytes read, 777317737 more expected))",
+              "ok": false
+            }
+          ],
+          "error": "ChunkedEncodingError: ('Connection broken: IncompleteRead(8302356 bytes read, 777317737 more expected)', IncompleteRead(8302356 bytes read, 777317737 more expected))",
+          "from_cache": false,
+          "pinned_commit": "b3d0ef9e3205c5f235e44c7b8e8791ce04301452",
+          "resolved_commit": null,
+          "status": "failed",
+          "weights": null
+        }
+      },
+      "complete": false,
+      "exclusion_reason": "incomplete: checkpoint(s) 143000 (ChunkedEncodingError: ('Connection broken: IncompleteRead(8302356 bytes read, 777317737 more expected)', IncompleteRead(8302356 bytes read, 777317737 more expected)))",
+      "inclusion": null,
+      "matching": null,
+      "primary": false
+    },
+    "EleutherAI/pythia-410m-seed9": {
+      "checkpoints": {
+        "123000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "error": "ChunkedEncodingError: ('Connection broken: IncompleteRead(105925589 bytes read, 805523624 more expected)', IncompleteRead(105925589 bytes read, 805523624 more expected))",
+              "ok": false
+            },
+            {
+              "attempt": 2,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "1933c5b650555211652330d6864ecf50ae7a8bc5",
+          "resolved_commit": "1933c5b650555211652330d6864ecf50ae7a8bc5",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "bd6c2c676672d52115c41119ff33ed437c62a32223567d1bcc156041f5ccd014",
+            "file": "pytorch_model.bin",
+            "local_sha256": "bd6c2c676672d52115c41119ff33ed437c62a32223567d1bcc156041f5ccd014",
+            "ok": true
+          }
+        },
+        "133000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "582bc5e55e7535ebb395c0fccefe7c87aa16db88",
+          "resolved_commit": "582bc5e55e7535ebb395c0fccefe7c87aa16db88",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "b912b7ff3aa3e584a464e7faa9b8eb8ae624533d0bd391061e172aaf5c93e24a",
+            "file": "pytorch_model.bin",
+            "local_sha256": "b912b7ff3aa3e584a464e7faa9b8eb8ae624533d0bd391061e172aaf5c93e24a",
+            "ok": true
+          }
+        },
+        "143000": {
+          "attempts": [
+            {
+              "attempt": 1,
+              "ok": true
+            }
+          ],
+          "from_cache": false,
+          "pinned_commit": "6155dcb7e1a9080a5cb61d0ef1f8041e91b5cc7a",
+          "resolved_commit": "6155dcb7e1a9080a5cb61d0ef1f8041e91b5cc7a",
+          "status": "ok",
+          "weights": {
+            "expected_sha256": "9b146525f3af954e2668f54cf3b6f444579be1b5127d8bcbc604201732107b10",
+            "file": "pytorch_model.bin",
+            "local_sha256": "9b146525f3af954e2668f54cf3b6f444579be1b5127d8bcbc604201732107b10",
+            "ok": true
+          }
+        }
+      },
+      "complete": true,
+      "exclusion_reason": null,
+      "inclusion": {
+        "above_chance": true,
+        "accuracy": 0.994,
+        "chance": 0.5,
+        "k": 994,
+        "n": 1000,
+        "p_value": 1.284604869062588e-286
+      },
+      "matching": {
+        "alpha": 0.05,
+        "discordance_upper_bound": 0.010484076911415651,
+        "equivalent": true,
+        "margin": 0.02,
+        "method": "exact_discordance_bound",
+        "n": 1000,
+        "n_discordant": 5
+      },
+      "primary": true
+    }
+  },
+  "seeds": {
+    "model_inference": "deterministic (no RNG)",
+    "prompt_resample": 20260929,
+    "run_resample": 20260930,
+    "s3_crossfit": 20260931
+  },
+  "sensitivity": {
+    "J_jackknife": {
+      "computed": true,
+      "delta": 1.4956684432868828,
+      "df": 6,
+      "p_one_sided": 5.893386633773346e-06,
+      "reject_h0": true,
+      "role": "diagnostic only; never determines H1",
+      "se": 0.11349413282022479,
+      "t": 13.1783767682161
+    },
+    "S1_all_complete_runs": {
+      "computed": true,
+      "delta": 1.3378005917189464,
+      "lower_95_descriptive": 1.0286346897635283,
+      "n_valid": 200,
+      "runs": [
+        "EleutherAI/pythia-410m",
+        "EleutherAI/pythia-410m-seed1",
+        "EleutherAI/pythia-410m-seed2",
+        "EleutherAI/pythia-410m-seed3",
+        "EleutherAI/pythia-410m-seed4",
+        "EleutherAI/pythia-410m-seed5",
+        "EleutherAI/pythia-410m-seed6",
+        "EleutherAI/pythia-410m-seed7",
+        "EleutherAI/pythia-410m-seed9"
+      ]
+    },
+    "S2_primary_without_pythia-410m-seed3": {
+      "computed": true,
+      "delta": 1.411227735388589,
+      "lower_95_descriptive": 1.168175420131808,
+      "n_valid": 200,
+      "runs": [
+        "EleutherAI/pythia-410m",
+        "EleutherAI/pythia-410m-seed1",
+        "EleutherAI/pythia-410m-seed2",
+        "EleutherAI/pythia-410m-seed5",
+        "EleutherAI/pythia-410m-seed6",
+        "EleutherAI/pythia-410m-seed9"
+      ]
+    },
+    "S3_crossfit_delta": {
+      "computed": true,
+      "delta": 1.5009103142228553,
+      "note": "point estimate only"
+    },
+    "note": "Descriptive only; never changes the H1 decision."
+  },
+  "started_utc": "2026-09-29T21:03:58Z",
+  "warnings": [
+    "R in 7-9: calibration assumed between validated R = 6 and R = 10"
+  ]
+}
