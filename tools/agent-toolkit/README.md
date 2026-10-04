@@ -10,6 +10,8 @@ bash tools/agent-toolkit/install.sh                       # everything
 bash tools/agent-toolkit/install.sh --only Agent-Reach    # one tool
 bash tools/agent-toolkit/install.sh --agency-divisions engineering,product,marketing,sales,strategy,testing
 bash tools/agent-toolkit/install.sh --only MiroFish --setup-mirofish
+bash tools/agent-toolkit/install.sh --lab                 # + Python research env (~8 GB with CUDA torch)
+python3 tools/agent-toolkit/package-skills.py             # zip skills for Cowork / claude.ai
 ```
 
 Cloud sessions are ephemeral: `~/.claude` and `.agent-tools/` disappear with the
@@ -26,6 +28,57 @@ afterwards so Claude Code loads the new agents and skills.
 | [Panniantong/Agent-Reach](https://github.com/Panniantong/Agent-Reach) | MIT | `agent-reach` CLI + `agent-reach` skill | Reading web pages, RSS, GitHub, YouTube, Reddit, X for market and user research |
 | [Mahanaicoach/google-maps-scraper-kit](https://github.com/Mahanaicoach/google-maps-scraper-kit) | MIT | `google-maps-scraper` skill + `/scrape*` commands | Local-business lead lists (needs Docker, see below) |
 | [666ghj/MiroFish](https://github.com/666ghj/MiroFish) | **AGPL-3.0** | Clone only (deps with `--setup-mirofish`) | Multi-agent scenario simulation, run as a separate app |
+
+Also installed:
+
+| Tool | License | Lands as |
+|---|---|---|
+| [github/spec-kit](https://github.com/github/spec-kit) | MIT | `specify` CLI (pinned commit in `install.sh`) |
+| Glassbox skills (this folder, `skills/`) | same as this repo | 7 skills symlinked into `~/.claude/skills/` |
+
+## Lab environment (`--lab`)
+
+A separate virtualenv at `.agent-tools/lab` with Glassbox (editable) plus the research
+libraries, pinned in `lab.lock.txt` (compiled from `lab.in` with `uv pip compile`). It keeps
+Glassbox's own ceilings (numpy<2, torch<2.11, transformer_lens<3).
+
+| Library | Version | Why |
+|---|---|---|
+| [nnsight](https://github.com/ndif-team/nnsight) | 0.7.0 | Interventions on any HF model, locally or remotely on NDIF |
+| [circuit-tracer](https://github.com/safety-research/circuit-tracer) | 0.5.0 (PyPI; GitHub main is newer) | Transcoder attribution graphs |
+| [inspect-ai](https://github.com/UKGovernmentBEIS/inspect_ai) | 0.3.276 | UK AISI evaluation framework |
+| [lm-eval](https://github.com/EleutherAI/lm-evaluation-harness) | 0.4.13 | Standard benchmarks |
+| [fairlearn](https://github.com/fairlearn/fairlearn) / [aif360](https://github.com/Trusted-AI/AIF360) | 0.14.0 / 0.6.1 | Fairness metrics and mitigation |
+| [compliance-trestle](https://github.com/oscal-compass/compliance-trestle) | 5.1.0 | NIST OSCAL models and validation |
+
+In the lab env, Glassbox's own test suite gives 942 passed, 0 failed. 124 more tests error
+in a cloud session only because their setup downloads models from Hugging Face, which that
+session's network policy blocked.
+
+## Glassbox skills
+
+| Skill | Does | Tested how |
+|---|---|---|
+| `glassbox-toolkit-guide` | Routes a task to the right tool or skill | n/a (instructions) |
+| `glassbox-fairness-evidence` | fairlearn metrics → Annex IV vault entries | synthetic predictions |
+| `glassbox-eval-evidence` | lm-eval / Inspect results → vault entries | lm-eval result file and a schema-valid Inspect log |
+| `glassbox-oscal-export` | vault JSON → OSCAL Assessment Results | output re-read through trestle's OSCAL model |
+| `glassbox-large-model-patching` | layer × position activation patching via nnsight / NDIF | tiny random GPT-2 and Llama: final-layer last-position patch restores 1.0, pre-diff positions 0 |
+| `glassbox-grade-attribution-graph` | grades circuit-tracer graphs with suff / comp / F1 | tiny random model + random transcoders; not yet run on Gemma/Llama |
+| `glassbox-spec-feature` | spec-kit workflow with a Glassbox constitution | `specify init` in a scratch project |
+
+Every evidence skill writes `{"entries": [...]}` in Glassbox's `VaultEntry` format, so the
+outputs merge with `AnnexIVEvidenceVault(...).build_vault(custom_entries=...)`.
+
+### Using the skills in Cowork or the Claude apps
+
+`package-skills.py` writes one zip per skill to `dist/cowork-skills/` (git-ignored), with
+the folder layout claude.ai's skill upload uses. It also packages the Agent-Reach and
+google-maps-scraper skills with their MIT licenses. Upload the zips under your Claude
+settings (Capabilities → Skills at the time of writing; see
+[Using skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude)
+if the menu has moved). Each skill's Setup section lists the `pip install` it needs, because
+Cowork runs in its own environment, not in this container.
 
 ## Caveats
 

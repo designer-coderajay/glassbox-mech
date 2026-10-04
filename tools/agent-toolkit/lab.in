@@ -1,0 +1,19 @@
+# Research "lab" environment used alongside Glassbox (not a Glassbox dependency).
+# Compile: uv pip compile tools/agent-toolkit/lab.in -o tools/agent-toolkit/lab.lock.txt --python-version 3.11
+# Glassbox's own ceilings (pyproject.toml) so the editable install keeps working:
+torch>=2.0,<2.11
+transformer_lens>=2.16,<3.0
+numpy>=1.24,<2.0
+scipy>=1.9
+einops>=0.6
+# Interpretability
+nnsight
+circuit-tracer
+# Annex IV evidence: evaluations
+inspect-ai
+lm-eval
+# Annex IV evidence: fairness / bias
+fairlearn
+aif360
+# Machine-readable compliance (NIST OSCAL)
+compliance-trestle

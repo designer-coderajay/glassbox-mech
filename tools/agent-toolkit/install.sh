@@ -15,6 +15,9 @@
 #   --setup-mirofish        Also install MiroFish backend + frontend deps (uv, npm)
 #   --reach-channels a,b    Also run `agent-reach install --channels a,b`
 #                           (installs extra global CLIs via pipx/npm)
+#   --lab                   Also build the Python "lab" env (.agent-tools/lab) from
+#                           lab.lock.txt: Glassbox + nnsight, circuit-tracer,
+#                           inspect-ai, lm-eval, fairlearn, aif360, compliance-trestle
 #   --clone-only            Clone/check out pinned commits, wire nothing
 #   -h, --help              Show this help
 #
@@ -35,8 +38,11 @@ AGENCY_DIVISIONS=""
 SETUP_MIROFISH=0
 REACH_CHANNELS=""
 CLONE_ONLY=0
+LAB=0
+# github/spec-kit is installed as a CLI (uv tool), not cloned; pinned here.
+SPEC_KIT_SHA="ae5ade7234be5cb1d975f736c4e06dd46d1326d6"
 
-usage() { sed -n '2,24p' "$0" | sed 's/^# \{0,1\}//'; }
+usage() { sed -n '2,27p' "$0" | sed 's/^# \{0,1\}//'; }
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -45,6 +51,7 @@ while [[ $# -gt 0 ]]; do
     --setup-mirofish) SETUP_MIROFISH=1; shift ;;
     --reach-channels) REACH_CHANNELS="$2"; shift 2 ;;
     --clone-only) CLONE_ONLY=1; shift ;;
+    --lab) LAB=1; shift ;;
     -h|--help) usage; exit 0 ;;
     *) echo "unknown option: $1" >&2; usage >&2; exit 2 ;;
   esac
@@ -156,6 +163,29 @@ install_mirofish() {
   fi
 }
 
+install_glassbox_skills() {
+  local n=0 d
+  for d in "$SCRIPT_DIR/skills"/*/; do
+    [[ -f "$d/SKILL.md" ]] || continue
+    link_into "${d%/}" "$CLAUDE_HOME/skills" && n=$((n + 1))
+  done
+  ok "glassbox skills: $n linked into $CLAUDE_HOME/skills"
+}
+
+install_spec_kit() {
+  uv tool install --force specify-cli --from "git+https://github.com/github/spec-kit.git@$SPEC_KIT_SHA" >/dev/null
+  ok "spec-kit installed ($(command -v specify || echo "$HOME/.local/bin/specify"))"
+}
+
+install_lab() {
+  local venv="$TOOLS_HOME/lab"
+  [[ -x "$venv/bin/python" ]] || uv venv -q -p 3.11 "$venv"
+  uv pip install -q -p "$venv" -r "$SCRIPT_DIR/lab.lock.txt"
+  uv pip install -q -p "$venv" -e "$REPO_ROOT[compliance]" pytest
+  "$venv/bin/python" -c "import glassbox, nnsight, circuit_tracer, inspect_ai, lm_eval, fairlearn, aif360, trestle"
+  ok "lab env ready: source $venv/bin/activate"
+}
+
 mkdir -p "$TOOLS_HOME"
 log "Cloning pinned repos into $TOOLS_HOME"
 while read -r name url sha _license; do
@@ -166,10 +196,18 @@ done < "$LOCK"
 
 if [[ "$CLONE_ONLY" == 0 ]]; then
   log "Wiring into $CLAUDE_HOME"
-  for name in agency-agents agent-scripts CLI-Anything Agent-Reach google-maps-scraper-kit MiroFish; do
+  for name in agency-agents agent-scripts CLI-Anything Agent-Reach google-maps-scraper-kit MiroFish \
+              glassbox-skills spec-kit lab; do
     selected "$name" || continue
-    [[ -d "$TOOLS_HOME/$name" ]] || continue
     case "$name" in
+      glassbox-skills|spec-kit) ;;
+      lab) [[ "$LAB" == 1 ]] || continue ;;
+      *) [[ -d "$TOOLS_HOME/$name" ]] || continue ;;
+    esac
+    case "$name" in
+      glassbox-skills)         fn=install_glassbox_skills ;;
+      spec-kit)                fn=install_spec_kit ;;
+      lab)                     fn=install_lab ;;
       agency-agents)           fn=install_agency_agents ;;
       agent-scripts)           fn=install_agent_scripts ;;
       CLI-Anything)            fn=install_cli_anything ;;
