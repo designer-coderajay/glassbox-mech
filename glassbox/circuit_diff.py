@@ -212,7 +212,7 @@ class CircuitDiffResult:
 |------|---------------------|
 {drift_rows}
 
-*Stability score (Jaccard): {self.stability_score:.3f} — Article 72 / Annex IV §6 post-market monitoring*
+*Stability score (Jaccard): {self.stability_score:.3f} — Article 72 post-market monitoring (Annex IV §9) and lifecycle changes (Annex IV §6)*
 """
 
 

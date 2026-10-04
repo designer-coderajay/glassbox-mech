@@ -6,6 +6,26 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [Unreleased]
+
+### Changed — Annex IV section labels in the evidence vault follow the regulation
+
+- **`AnnexIVEvidenceVault` now numbers sections by the nine points of Annex IV**
+  (Regulation (EU) 2024/1689), the numbering `AnnexIVReport` already used. The vault
+  previously had its own seven-section scheme. Renumbered labels, same content:
+  risk management (Article 9) entries — F1, steering vectors, SAE features,
+  multi-agent audits — move from `§4` to `§5`; standards from `§6` to `§7`; the
+  declaration-of-conformity placeholder from `§7` to `§8`. `§1`–`§3` are unchanged.
+  The catalogue gains `§4` (appropriateness of performance metrics) and `§9`
+  (post-market monitoring, Article 72) for custom entries.
+  **Consumers that key on `section` in vault JSON must update their mapping.**
+- `CircuitDiff` markdown footer now labels post-market monitoring as Annex IV §9
+  (lifecycle changes §6) instead of calling §6 post-market monitoring.
+- USER_GUIDE vault example: fixed `sections_covered` (a top-level key of
+  `vault.to_dict()`, not of `compliance_summary`) and the covered-sections note.
+
+---
+
 ## [4.5.1] — 2026-06-27
 
 ### Fixed — benchmark-number reconciliation (single canonical set, measured on current build)

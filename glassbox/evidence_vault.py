@@ -12,15 +12,18 @@ features, faithfulness metrics, steering vector results) directly to the
 Annex IV sections and underlying Articles they satisfy.  Everything is
 rule-based — no LLM required.
 
-EU AI Act Annex IV sections covered
-------------------------------------
+EU AI Act Annex IV sections
+---------------------------
+Section labels follow the nine numbered points of Annex IV (the same numbering
+as glassbox.compliance). Entries the vault builds itself land in:
   § 1   General description of the AI system
   § 2   Detailed description of elements and development process
   § 3   Information on monitoring, functioning, and control
-  § 4   Description of the risk management system (Article 9)
-  § 5   Changes to the system through its lifecycle
-  § 6   List of harmonised standards applied (or technical specs)
-  § 7   Declaration of conformity certificate reference
+  § 5   Risk management system (Article 9)
+  § 7   Harmonised standards / other standards and specifications applied
+  § 8   EU declaration of conformity (placeholder; the provider signs it)
+§ 4 (performance-metric appropriateness), § 6 (lifecycle changes) and § 9
+(post-market monitoring, Article 72) are in the catalogue for custom entries.
 
 Supporting Articles surfaced per finding
 -----------------------------------------
@@ -66,13 +69,17 @@ def _esc(value: Any) -> str:
 # Annex IV section catalogue
 # ---------------------------------------------------------------------------
 _ANNEX_IV_SECTIONS = {
+    # Keys follow the nine numbered points of Annex IV, Regulation (EU) 2024/1689,
+    # the same numbering glassbox.compliance uses for the Annex IV report.
     "§1": "General description of the AI system and its intended purpose",
-    "§2": "Detailed description of system elements, training data, and development process",
-    "§3": "Information on monitoring, functioning, and control mechanisms",
-    "§4": "Description of the risk management system and measures per Article 9",
-    "§5": "Changes to the system through its lifecycle",
-    "§6": "List of harmonised standards or technical specifications applied",
-    "§7": "Declaration of conformity (or reference to it)",
+    "§2": "Detailed description of the system elements and of the process for its development",
+    "§3": "Detailed information about the monitoring, functioning and control of the AI system",
+    "§4": "Description of the appropriateness of the performance metrics",
+    "§5": "Detailed description of the risk management system in accordance with Article 9",
+    "§6": "Description of relevant changes made to the system through its lifecycle",
+    "§7": "Harmonised standards applied, or other solutions, standards and specifications used",
+    "§8": "Copy of the EU declaration of conformity (Article 47)",
+    "§9": "Post-market performance evaluation system and monitoring plan (Article 72)",
 }
 
 # ---------------------------------------------------------------------------
@@ -104,7 +111,7 @@ class VaultEntry:
 
     Attributes
     ----------
-    section        : Annex IV section reference (e.g. "§4")
+    section        : Annex IV point, "§1" to "§9" (e.g. "§5" for risk management)
     article_refs   : list of EU AI Act article references
     title          : short human-readable title
     description    : one-paragraph plain-English description
@@ -240,22 +247,22 @@ class AnnexIVEvidenceVault:
         if stability_result is not None:
             self._add_stability_entries(stability_result)
 
-        # § 4 — Risk management: steering vectors
+        # § 5 — Risk management: steering vectors
         if steering_vectors is not None:
             self._add_steering_entries(steering_vectors, steering_test_results or {})
 
-        # § 4 — Risk management: SAE features
+        # § 5 — Risk management: SAE features
         if sae_features is not None:
             self._add_sae_entries(sae_features)
 
-        # § 4 — Risk management: multi-agent
+        # § 5 — Risk management: multi-agent
         if multiagent_report is not None:
             self._add_multiagent_entries(multiagent_report)
 
-        # § 6 — Standards alignment
+        # § 7 — Standards alignment
         self._add_standards_entry()
 
-        # § 7 — Conformity placeholder
+        # § 8 — Declaration of conformity placeholder
         self._add_conformity_entry()
 
         # Custom additions
@@ -527,9 +534,9 @@ class AnnexIVEvidenceVault:
             raw={"n_heads": n_heads, "circuit": self._truncate_circuit(circuit)},
         ))
 
-        # §4 — f1 score
+        # §5 — f1 score (risk management)
         self.entries.append(VaultEntry(
-            section="§4",
+            section="§5",
             article_refs=["Article 9", "Article 15(1)"],
             title="Faithfulness F1 score",
             description=(
@@ -604,7 +611,7 @@ class AnnexIVEvidenceVault:
             passed = test.get("passed_threshold", None) if test else None
 
             self.entries.append(VaultEntry(
-                section="§4",
+                section="§5",
                 article_refs=["Article 9(2)(b)", "Article 9(5)", "Article 15(1)"],
                 title=f"Steering vector — {concept}",
                 description=(
@@ -656,7 +663,7 @@ class AnnexIVEvidenceVault:
             articles = _RISK_TO_ARTICLES.get(risk_cat, ["Article 9"])
 
             self.entries.append(VaultEntry(
-                section="§4",
+                section="§5",
                 article_refs=articles,
                 title=f"SAE feature {fid} — {risk_cat}",
                 description=(
@@ -702,7 +709,7 @@ class AnnexIVEvidenceVault:
         passed = risk_level in ("LOW", "MEDIUM")
 
         self.entries.append(VaultEntry(
-            section="§4",
+            section="§5",
             article_refs=articles,
             title=f"Multi-agent chain audit — risk level {risk_level}",
             description=(
@@ -723,7 +730,7 @@ class AnnexIVEvidenceVault:
 
         if annex_text:
             self.entries.append(VaultEntry(
-                section="§4",
+                section="§5",
                 article_refs=["Article 9", "Article 13(1)"],
                 title="Multi-agent Annex IV risk narrative",
                 description=annex_text[:500] + ("..." if len(annex_text) > 500 else ""),
@@ -733,7 +740,7 @@ class AnnexIVEvidenceVault:
 
     def _add_standards_entry(self) -> None:
         self.entries.append(VaultEntry(
-            section="§6",
+            section="§7",
             article_refs=["Article 11"],
             title="Technical standards and methodologies applied",
             description=(
@@ -760,7 +767,7 @@ class AnnexIVEvidenceVault:
 
     def _add_conformity_entry(self) -> None:
         self.entries.append(VaultEntry(
-            section="§7",
+            section="§8",
             article_refs=["Article 11"],
             title="EU Declaration of Conformity (placeholder)",
             description=(
