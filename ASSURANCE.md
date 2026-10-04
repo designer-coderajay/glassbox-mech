@@ -113,6 +113,19 @@ procedure and thresholds.
   - **Resolved 2026-10-05:** the README now says 15–37×.
 - **O6 (open).** Two `xfail` tests in `tests/test_engine.py` now pass. Check whether the
   underlying issue was fixed, and remove the markers if so.
+  - **Findings 2026-10-05 (static analysis only):**
+    - The markers were added in baa821c (2026-06-14) for "L9H9 attribution inverts only
+      when test_core_coverage.py runs earlier".
+    - In the full run of 2026-10-05, that file did run earlier (alphabetical order), and
+      both tests passed.
+    - No module-level caches, global RNG use or global torch settings were found in
+      `glassbox/core.py`. Each test module loads its own GPT-2 instance.
+    - Later commits touched `core.py` (78e2c1d, 0666f6e, 09d3f97, c79ca01). Whether one
+      of them fixed this is **not established**.
+  - **Resolution rule:**
+    - Run the trigger order (`test_core_coverage.py` then `test_engine.py`) several
+      times.
+    - Remove the markers only if every run passes. Otherwise keep them and investigate.
 
 ## Update rule
 
