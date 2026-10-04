@@ -70,7 +70,8 @@ EU AI Act Annex III (credit scoring) and Article 9 risk management.
 
 **Measured on the current build** via `benchmarks/run_decision_functional.py`
 (`--model gpt2 --method taylor`, V5 verbalizer sets, exact-ablation faithfulness;
-reproduce → `reports/credit_current.json`):
+raw output committed at `benchmarks/results/decision_functional_2026-10-05.json`; re-run
+2026-10-05 reproduced every row below exactly):
 
 | Task | Model-correct? | Sufficiency | Comprehensiveness | F1_faith | Concentration | Tier |
 |------|----------------|-------------|-------------------|----------|---------------|------|

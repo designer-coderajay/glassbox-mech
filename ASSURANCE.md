@@ -47,7 +47,7 @@ procedure and thresholds.
 | L4 | Confidence and explanation faithfulness are essentially uncorrelated (r = 0.009) | `EXPERIMENTALLY_SUPPORTED` | `BENCHMARKS.md` | IOI on GPT-2 Small, as disclosed in the paper's limitations. Not shown to generalise. |
 | L5 | r = 0.009 shows that Glassbox explanations are "mechanistically grounded" / "driven by causal circuit structure" | `NOT_SUPPORTED` | `BENCHMARKS.md` | A near-zero correlation shows only that confidence does not predict faithfulness. Says nothing about how explanations are produced. See open issue O1. |
 | L6 | `analyze()` takes 3 forward/backward passes; 1.8 s on M1 Pro and 4.2 s on an 8-core CPU (GPT-2 Small); 15–37× faster than ACDC | `EXPERIMENTALLY_SUPPORTED` | `BENCHMARKS.md` | Hardware-specific timings. Not re-run in this audit. |
-| L7 | On raw GPT-2 decision prompts (credit etc.) Glassbox reports low faithfulness and Grade C rather than a clean explanation | `EXPERIMENTALLY_SUPPORTED` | `BENCHMARKS.md`, `benchmarks/run_decision_functional.py` | The credit_approval (F1 0.000) and credit_denial (F1 0.083) figures also match a local, gitignored run file from 2026-06-13. The fraud_flag figures do not (O2). The raw output is not committed: re-run pending (Step 3). |
+| L7 | On raw GPT-2 decision prompts (credit etc.) Glassbox reports low faithfulness and Grade C rather than a clean explanation | `EXPERIMENTALLY_SUPPORTED` | `BENCHMARKS.md`, `benchmarks/run_decision_functional.py`, `benchmarks/results/decision_functional_2026-10-05.json` | Re-run on 2026-10-05 (gpt2, taylor, single prompt per task) reproduced all five BENCHMARKS rows to 3 decimals. Single-prompt tiers are underpowered by design. |
 | L8 | Generates EU AI Act Annex IV technical-documentation structure (9 sections, §8 human sign-off) | `IMPLEMENTED` | `glassbox/compliance.py`, `tests/test_compliance.py` | Produces documentation; it is not legal advice. |
 | L9 | A Glassbox report makes a system legally compliant / conformity-assessed under the EU AI Act | `NOT_SUPPORTED` | `docs/METHODOLOGY_AND_ASSURANCE.md` | Legal conformity needs the provider's own assessment and, where applicable, notified bodies. |
 | L10 | Modules with no direct test import found: alignment, causal_scrubbing, circuit_diff, corruption, hessian, hf_integration, large_model, layernorm_correction, mlflow_integration, polysemanticity, sae_attribution | `PRELIMINARY` | `glassbox/circuit_diff.py`, `glassbox/hessian.py`, `glassbox/sae_attribution.py` | Found by grep for direct imports in `tests/` on 2026-10-05; they may be tested indirectly. Not claimed as validated until a test cites them. |
@@ -93,10 +93,16 @@ procedure and thresholds.
     later run that was not kept.
   - That is an inference, not verified. Resolution: re-run and commit the raw output to
     a tracked path.
+  - **Resolved 2026-10-05:** a fresh run, committed at
+    `benchmarks/results/decision_functional_2026-10-05.json`, reproduces the BENCHMARKS
+    values exactly, including fraud_flag 0.851 / 0.077 / 0.141 / 2.26×.
+    - The gitignored 2026-06-13 file was therefore an earlier, superseded run. Its mean F1
+      was 0.2124; the current run's is 0.2008. No published document quotes a mean F1.
   - (Corrected 2026-10-05: an earlier version of this file cited the gitignored file as
     evidence. `tests/test_assurance.py` now requires evidence files to be git-tracked.)
 - **O3 (broken reference).** `BENCHMARKS.md` says to reproduce into
   `reports/credit_current.json`, which does not exist in the repository.
+  - **Resolved 2026-10-05:** the reference now points to the committed results file.
 - **O4 (unverified number).** "932 tests / 71% coverage" is not re-checked (row L11).
 
 ## Update rule
