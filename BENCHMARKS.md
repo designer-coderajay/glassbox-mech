@@ -208,10 +208,13 @@ F1 = 0.64   (full 26-head circuit; harmonic mean of S=1.00 and Comp=0.47)
 essentially uncorrelated — high confidence does not imply a faithful explanation, and
 vice versa. This is a core finding of the paper, not a performance score.
 
-The `r=0.009` figure is cited in the Glassbox marketing as evidence that Glassbox's
-circuit-based approach provides mechanistically grounded explanations that operate
-independently of the model's output confidence — i.e., the explainability is driven
-by causal circuit structure, not by surface-level prediction strength.
+**What r = 0.009 does *not* show (corrected 2026-10-05).**
+- An earlier version of this section said that r = 0.009 shows Glassbox explanations
+  are "mechanistically grounded" and "driven by causal circuit structure".
+- A near-zero correlation supports only the narrower point above: confidence does not
+  predict faithfulness, so faithfulness has to be measured.
+- It says nothing about how the explanations are produced, and it is not evidence of
+  their quality. See `ASSURANCE.md` row L5.
 
 ### Limitations Disclosed in Paper
 

@@ -8,6 +8,8 @@ evidence path it cites exists in the repository.
 from __future__ import annotations
 
 import re
+import shutil
+import subprocess
 from pathlib import Path
 from typing import Dict, List
 
@@ -92,6 +94,30 @@ def test_supported_claims_cite_existing_evidence(rows):
             if not (REPO_ROOT / p).exists():
                 problems.append((r["id"], f"missing {p}"))
     assert problems == []
+
+
+def _tracked(rel: str) -> bool:
+    result = subprocess.run(
+        ["git", "--no-optional-locks", "ls-files", "--error-unmatch", rel],
+        cwd=REPO_ROOT,
+        capture_output=True,
+    )
+    return result.returncode == 0
+
+
+@pytest.mark.skipif(
+    shutil.which("git") is None or not (REPO_ROOT / ".git").exists(),
+    reason="needs the git checkout",
+)
+def test_evidence_files_are_git_tracked(rows):
+    """Evidence must survive a fresh clone: no gitignored or local-only files."""
+    untracked = [
+        (r["id"], p)
+        for r in rows
+        for p in PATH.findall(r["evidence"])
+        if not _tracked(p)
+    ]
+    assert untracked == []
 
 
 def test_no_independent_reproduction_is_claimed(rows):

@@ -47,7 +47,7 @@ procedure and thresholds.
 | L4 | Confidence and explanation faithfulness are essentially uncorrelated (r = 0.009) | `EXPERIMENTALLY_SUPPORTED` | `BENCHMARKS.md` | IOI on GPT-2 Small, as disclosed in the paper's limitations. Not shown to generalise. |
 | L5 | r = 0.009 shows that Glassbox explanations are "mechanistically grounded" / "driven by causal circuit structure" | `NOT_SUPPORTED` | `BENCHMARKS.md` | A near-zero correlation shows only that confidence does not predict faithfulness. Says nothing about how explanations are produced. See open issue O1. |
 | L6 | `analyze()` takes 3 forward/backward passes; 1.8 s on M1 Pro and 4.2 s on an 8-core CPU (GPT-2 Small); 15–37× faster than ACDC | `EXPERIMENTALLY_SUPPORTED` | `BENCHMARKS.md` | Hardware-specific timings. Not re-run in this audit. |
-| L7 | On raw GPT-2 decision prompts (credit etc.) Glassbox reports low faithfulness and Grade C rather than a clean explanation | `EXPERIMENTALLY_SUPPORTED` | `BENCHMARKS.md`, `reports/decision_functional.json`, `benchmarks/run_decision_functional.py` | credit_approval F1 0.000, credit_denial F1 0.083 match the report file. Discrepancy for fraud_flag: see O2. |
+| L7 | On raw GPT-2 decision prompts (credit etc.) Glassbox reports low faithfulness and Grade C rather than a clean explanation | `EXPERIMENTALLY_SUPPORTED` | `BENCHMARKS.md`, `benchmarks/run_decision_functional.py` | The credit_approval (F1 0.000) and credit_denial (F1 0.083) figures also match a local, gitignored run file from 2026-06-13. The fraud_flag figures do not (O2). The raw output is not committed: re-run pending (Step 3). |
 | L8 | Generates EU AI Act Annex IV technical-documentation structure (9 sections, §8 human sign-off) | `IMPLEMENTED` | `glassbox/compliance.py`, `tests/test_compliance.py` | Produces documentation; it is not legal advice. |
 | L9 | A Glassbox report makes a system legally compliant / conformity-assessed under the EU AI Act | `NOT_SUPPORTED` | `docs/METHODOLOGY_AND_ASSURANCE.md` | Legal conformity needs the provider's own assessment and, where applicable, notified bodies. |
 | L10 | Modules with no direct test import found: alignment, causal_scrubbing, circuit_diff, corruption, hessian, hf_integration, large_model, layernorm_correction, mlflow_integration, polysemanticity, sae_attribution | `PRELIMINARY` | `glassbox/circuit_diff.py`, `glassbox/hessian.py`, `glassbox/sae_attribution.py` | Found by grep for direct imports in `tests/` on 2026-10-05; they may be tested indirectly. Not claimed as validated until a test cites them. |
@@ -82,14 +82,19 @@ procedure and thresholds.
 - **O1 (over-claim).** `BENCHMARKS.md` "Confidence–Faithfulness Orthogonality" interprets
   r = 0.009 as showing that explanations are "mechanistically grounded" and "driven by
   causal circuit structure". That interpretation is not supported (row L5).
-  - Suggested fix: keep the finding, delete the interpretation paragraph.
-  - Per the project rule, numbers and claims change in BENCHMARKS.md first.
+  - **Resolved 2026-10-05:** the BENCHMARKS paragraph was replaced by an explicit
+    "does not show" statement. No number changed.
+  - A grep found the phrase nowhere else in the README, docs or site.
 - **O2 (discrepancy).** For `fraud_flag`, `BENCHMARKS.md` reports comprehensiveness
-  0.077 / F1 0.141, but `reports/decision_functional.json` has 0.098 / 0.176. Sufficiency
-  agrees (0.851 vs 0.8501).
-  - It is not known which run is authoritative.
-  - Re-run `benchmarks/run_decision_functional.py`, then update both files.
-  - The credit rows quoted in L7 agree.
+  0.077 / F1 0.141. The local file `reports/decision_functional.json` has 0.098 / 0.176.
+  Sufficiency agrees (0.851 vs 0.8501).
+  - That file is gitignored and dated 2026-06-13, two days before the BENCHMARKS
+    rewrite (commit d2b0dcb, 2026-06-15). The BENCHMARKS figures probably come from a
+    later run that was not kept.
+  - That is an inference, not verified. Resolution: re-run and commit the raw output to
+    a tracked path.
+  - (Corrected 2026-10-05: an earlier version of this file cited the gitignored file as
+    evidence. `tests/test_assurance.py` now requires evidence files to be git-tracked.)
 - **O3 (broken reference).** `BENCHMARKS.md` says to reproduce into
   `reports/credit_current.json`, which does not exist in the repository.
 - **O4 (unverified number).** "932 tests / 71% coverage" is not re-checked (row L11).
