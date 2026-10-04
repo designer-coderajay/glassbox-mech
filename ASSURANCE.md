@@ -70,7 +70,8 @@ procedure and thresholds.
 
 | ID | Claim | Status | Evidence | Scope / limits |
 |---|---|---|---|---|
-| V1 | A standard trace format for AI-system runs (OpenTelemetry GenAI-compatible) | `PLANNED` | `docs/PLAN_V7_FINAL_UNIFIED.md`, `docs/v7/TRACE_SPEC.md` | The spec draft v0.1 exists (2026-10-05), but no recorder is built. The OTel GenAI conventions it builds on are marked Development (unstable) upstream. |
+| V1 | Local trace recorder and reader for AI-system runs (spec v0.1): nested GenAI spans, hashes-only content by default, redacted/full opt-in, error capture, integrity-checked JSONL | `IMPLEMENTED` | `docs/v7/TRACE_SPEC.md`, `glassbox/v7/trace.py`, `tests/test_v7_trace.py` | 20 tests, 100% line coverage of `trace.py`. The recorder must be called manually: no framework adapter yet. Redaction is best-effort, with two rules (email, API keys); it is not a guarantee. Environment capture covers Python version and platform only. |
+| V1.1 | Glassbox traces are OpenTelemetry-compatible (exportable to an OTLP collector) | `HYPOTHESIS` | `docs/v7/TRACE_SPEC.md` | Field names follow OTLP JSON, but no export test against a real collector exists. The OTel GenAI conventions used are marked Development (unstable) upstream. |
 | V2 | Framework-independent behavioural / trajectory diff with first-divergence detection | `PLANNED` | `docs/PLAN_V7_FINAL_UNIFIED.md` | The existing `glassbox/v6/diff.py` is a V6 model-pair attribution diff, not a system-trace diff. |
 | V3 | Hypothesis → controlled experiment → intervention → reproduction loop | `PLANNED` | `docs/PLAN_V7_FINAL_UNIFIED.md` | Not built. |
 | V4 | Glassbox certifies causal explanations automatically | `NOT_SUPPORTED` | `docs/PLAN_V7_FINAL_UNIFIED.md` | Causal claims need a specified intervention experiment, case by case. |
