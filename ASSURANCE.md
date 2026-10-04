@@ -51,7 +51,7 @@ procedure and thresholds.
 | L8 | Generates EU AI Act Annex IV technical-documentation structure (9 sections, §8 human sign-off) | `IMPLEMENTED` | `glassbox/compliance.py`, `tests/test_compliance.py` | Produces documentation; it is not legal advice. |
 | L9 | A Glassbox report makes a system legally compliant / conformity-assessed under the EU AI Act | `NOT_SUPPORTED` | `docs/METHODOLOGY_AND_ASSURANCE.md` | Legal conformity needs the provider's own assessment and, where applicable, notified bodies. |
 | L10 | Modules with no direct test import found: alignment, causal_scrubbing, circuit_diff, corruption, hessian, hf_integration, large_model, layernorm_correction, mlflow_integration, polysemanticity, sae_attribution | `PRELIMINARY` | `glassbox/circuit_diff.py`, `glassbox/hessian.py`, `glassbox/sae_attribution.py` | Found by grep for direct imports in `tests/` on 2026-10-05; they may be tested indirectly. Not claimed as validated until a test cites them. |
-| L11 | 932 tests pass in CI with 71% coverage | `PRELIMINARY` | (project notes, 2026-06-12; not re-run) | Re-run CI and update this row before quoting the number publicly. |
+| L11 | Full test suite: 1080 passed, 12 skipped, 2 xpassed; 72.99% line coverage (gate 58%) | `VERIFIED` | `docs/VALIDATION_LOG.md` | Local run on 2026-10-05 at commit b84f599, not CI. Supersedes "932 tests / 71%". Coverage measures lines executed, not correctness. |
 
 ## S — V6 scientific study (frozen)
 
@@ -104,6 +104,15 @@ procedure and thresholds.
   `reports/credit_current.json`, which does not exist in the repository.
   - **Resolved 2026-10-05:** the reference now points to the committed results file.
 - **O4 (unverified number).** "932 tests / 71% coverage" is not re-checked (row L11).
+  - **Resolved 2026-10-05:** the full local run gives 1080 passed / 72.99% (VALIDATION_LOG
+    Run 13). Public surfaces were updated to "1,080 tests, 73% coverage" without the
+    "in CI" wording, because CI was not re-checked.
+- **O5 (number mismatch).** The README speed row said "~37× faster than ACDC".
+  `BENCHMARKS.md` gives 15–37× depending on circuit size and hardware, so ~37× is the
+  upper end.
+  - **Resolved 2026-10-05:** the README now says 15–37×.
+- **O6 (open).** Two `xfail` tests in `tests/test_engine.py` now pass. Check whether the
+  underlying issue was fixed, and remove the markers if so.
 
 ## Update rule
 

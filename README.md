@@ -80,11 +80,11 @@ When a model genuinely *can't* do a task, Glassbox says so instead of inventing 
 | | Value |
 |---|---|
 | **Method** | Attribution patching (activation diff × gradient) — **3 forward passes**, not a search |
-| **Speed** | ~**1.8 s** for GPT-2 on an Apple M1 Pro; ~**37× faster** than ACDC (~65 s) |
+| **Speed** | ~**1.8 s** for GPT-2 on an Apple M1 Pro; **15–37× faster** than ACDC, depending on circuit size and hardware (see `BENCHMARKS.md`) |
 | **IOI benchmark** (GPT-2) | suff 1.00 · comp 0.543 · **F1 0.704 · Grade B** |
 | **Key finding** | confidence ↔ faithfulness correlation **r = 0.009** (orthogonal) |
 | **Validated scale** | **82M → 12B** across **9 architecture families** (10 model series) |
-| **Quality** | **932 tests** passing in CI, 71% coverage |
+| **Quality** | **1,080 tests** passing, 73% coverage (full run 2026-10-05; see `docs/VALIDATION_LOG.md`) |
 
 Full methodology and raw data: [`BENCHMARKS.md`](BENCHMARKS.md) · reproduce with `scripts/benchmark.py`.
 

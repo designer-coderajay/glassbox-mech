@@ -182,7 +182,7 @@ decision model for a meaningful audit.
 ---
 
 *All figures are from the reconciled benchmark set (`BENCHMARKS.md`) and the test
-suite (932 passing, 71% coverage as of 4.5.1). Regulatory statements reflect a
+suite (1,080 passing, 73% coverage; full run 2026-10-05, 4.5.1). Regulatory statements reflect a
 reading of the EU AI Act and the pending Digital Omnibus as of June 2026 and
 should be confirmed with qualified counsel. Citations name the established methods
 this tool builds on; verify them against the primary sources before relying on

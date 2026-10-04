@@ -298,6 +298,19 @@ ceiling**, reached cleanly.
   representative-token resolution — comp 1.0 vs random 0.0.
 - **Single-GPU ceiling reached at 12B.** Larger needs multi-GPU.
 
+## Run 13 — full test suite with coverage (V7 Step 4)
+
+- **Date:** 2026-10-05
+- **Hardware:** Apple Silicon Mac (owner's machine). This was a **local run, not CI**.
+- **Code:** commit `b84f599` (glassbox-mech-interp 4.5.1).
+- **Command:** `python3 -m pytest --cov=glassbox -q`
+- **Result:** **1080 passed, 12 skipped, 2 xpassed**, 1 warning, 143 s.
+- **Coverage:** total 72.99% (7612 statements, 2056 missed). The configured gate is 58%.
+- **Supersedes:** the earlier "932 tests in CI / 71% coverage" figure.
+- **Note:** 2 tests marked `xfail` in `tests/test_engine.py` now pass (xpassed). Either
+  the underlying issue was fixed or the markers are stale. Not yet investigated.
+- **Not verified here:** whether CI on GitHub currently runs the same set and passes.
+
 ## What is NOT yet validated (no claims made here)
 
 - **13B–200B scale** — needs **more than a single GPU**. A 200B model is ~400 GB
