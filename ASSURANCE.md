@@ -126,6 +126,13 @@ procedure and thresholds.
     - Run the trigger order (`test_core_coverage.py` then `test_engine.py`) several
       times.
     - Remove the markers only if every run passes. Otherwise keep them and investigate.
+  - **Resolved 2026-10-05:** 3 of 3 dedicated runs in the trigger order passed, plus the
+    full-suite run, so 4 of 4 runs showed no inversion. The two `xfail` markers were
+    removed, and the tests are now strict again.
+    - Caveat: the original root cause was never identified. It may have been fixed
+      incidentally by a later `core.py` commit, or it may be rare and intermittent.
+    - If the inversion ever recurs, these tests will now fail loudly, which is the
+      intended behaviour.
 
 ## Update rule
 
