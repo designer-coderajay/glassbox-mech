@@ -1,0 +1,105 @@
+# Glassbox — Assurance: what is built, what is evidenced, what is only planned
+
+*Created 2026-10-05 (V7 Step 2). Package version `glassbox-mech-interp` 4.5.1.*
+
+This file prevents claims from running ahead of evidence. Every public statement
+about Glassbox should trace to a row here. If a claim has no row, it is not yet a
+claim. `tests/test_assurance.py` enforces the table's structure:
+- statuses must come from the taxonomy below;
+- IDs must be unique;
+- cited evidence files must exist;
+- no row may claim independent reproduction until one has happened.
+
+Implementation status and scientific evidence are separate axes. A feature can be
+`IMPLEMENTED` (the code exists and is tested) while the scientific claim it supports
+is only a `HYPOTHESIS`.
+
+**Integrity is not truth.** Hashes (e.g. the V6 freeze manifest) show only that an
+artefact has not changed since it was hashed. They do not show that the experiment
+was correct.
+
+## Status taxonomy (from the V7 plan, §18)
+
+| Status | Meaning in this file |
+|---|---|
+| `VERIFIED` | Checked by an automated test or bitwise recomputation inside this repository. |
+| `EXPERIMENTALLY_SUPPORTED` | Supported by a reported experiment, only under its stated conditions. Not checked by an independent party. |
+| `REPRODUCED` | Reproduced by someone other than the author. **No row has this status yet.** |
+| `PRELIMINARY` | Exploratory, pilot, or not re-checked since it was reported. |
+| `IMPLEMENTED` | The code exists with tests. Says nothing about scientific validity. |
+| `HYPOTHESIS` | Believed or intended, not yet tested. |
+| `UNRESOLVED` | Tested or posed, with no conclusion reached. A valid result. |
+| `REFUTED` | Tested and failed. |
+| `PLANNED` | Not built. |
+| `NOT_SUPPORTED` | Must not be claimed with the current evidence. |
+
+## L — Legacy toolkit (v1–v5, pre-V6 standard)
+
+These claims predate V6's stricter discipline and were not re-audited against it (V7
+plan §70). A "faithful circuit" means a *candidate* circuit under the stated
+procedure and thresholds.
+
+| ID | Claim | Status | Evidence | Scope / limits |
+|---|---|---|---|---|
+| L1 | `analyze()` ranks attention heads by attribution patching (activation difference × gradient) and returns a candidate circuit | `IMPLEMENTED` | `glassbox/core.py`, `tests/test_core_coverage.py` | First-order Taylor approximation; the circuit is a ranked hypothesis, not the model's "true reason" (`docs/METHODOLOGY_AND_ASSURANCE.md` §1). |
+| L2 | Sufficiency / comprehensiveness / F1 faithfulness metrics are computed by re-running the model with ablations | `IMPLEMENTED` | `glassbox/core.py`, `tests/test_compliance.py` | Exact vs approximate sufficiency is flagged (`suff_is_approx`). |
+| L3 | IOI, GPT-2 Small, default circuit: suff 1.00, comp 0.543, F1 0.704, Grade B (1 head) | `EXPERIMENTALLY_SUPPORTED` | `BENCHMARKS.md`, `benchmarks/run_ioi.py` | One task, one model. The grade uses Glassbox's own thresholds, not an external standard. |
+| L4 | Confidence and explanation faithfulness are essentially uncorrelated (r = 0.009) | `EXPERIMENTALLY_SUPPORTED` | `BENCHMARKS.md` | IOI on GPT-2 Small, as disclosed in the paper's limitations. Not shown to generalise. |
+| L5 | r = 0.009 shows that Glassbox explanations are "mechanistically grounded" / "driven by causal circuit structure" | `NOT_SUPPORTED` | `BENCHMARKS.md` | A near-zero correlation shows only that confidence does not predict faithfulness. Says nothing about how explanations are produced. See open issue O1. |
+| L6 | `analyze()` takes 3 forward/backward passes; 1.8 s on M1 Pro and 4.2 s on an 8-core CPU (GPT-2 Small); 15–37× faster than ACDC | `EXPERIMENTALLY_SUPPORTED` | `BENCHMARKS.md` | Hardware-specific timings. Not re-run in this audit. |
+| L7 | On raw GPT-2 decision prompts (credit etc.) Glassbox reports low faithfulness and Grade C rather than a clean explanation | `EXPERIMENTALLY_SUPPORTED` | `BENCHMARKS.md`, `reports/decision_functional.json`, `benchmarks/run_decision_functional.py` | credit_approval F1 0.000, credit_denial F1 0.083 match the report file. Discrepancy for fraud_flag: see O2. |
+| L8 | Generates EU AI Act Annex IV technical-documentation structure (9 sections, §8 human sign-off) | `IMPLEMENTED` | `glassbox/compliance.py`, `tests/test_compliance.py` | Produces documentation; it is not legal advice. |
+| L9 | A Glassbox report makes a system legally compliant / conformity-assessed under the EU AI Act | `NOT_SUPPORTED` | `docs/METHODOLOGY_AND_ASSURANCE.md` | Legal conformity needs the provider's own assessment and, where applicable, notified bodies. |
+| L10 | Modules with no direct test import found: alignment, causal_scrubbing, circuit_diff, corruption, hessian, hf_integration, large_model, layernorm_correction, mlflow_integration, polysemanticity, sae_attribution | `PRELIMINARY` | `glassbox/circuit_diff.py`, `glassbox/hessian.py`, `glassbox/sae_attribution.py` | Found by grep for direct imports in `tests/` on 2026-10-05; they may be tested indirectly. Not claimed as validated until a test cites them. |
+| L11 | 932 tests pass in CI with 71% coverage | `PRELIMINARY` | (project notes, 2026-06-12; not re-run) | Re-run CI and update this row before quoting the number publicly. |
+
+## S — V6 scientific study (frozen)
+
+| ID | Claim | Status | Evidence | Scope / limits |
+|---|---|---|---|---|
+| S1 | Head-indexed (positional) attribution distance is not invariant to function-preserving head relabelling: an exact functional twin of pythia-70m scores positional D_M = 1.04 | `VERIFIED` | `experiments/v6/audits/head_identifiability.md`, `tests/test_v6_identifiability.py` | One model (pythia-70m@143000), one attribution procedure. Shows that the metric is not identifiable. It does not show how large real cross-run differences are. |
+| S2 | D\* (distance modulo within-layer head permutation, per-layer Hungarian) is invariant under weight-level head permutation | `VERIFIED` | `experiments/v6/audits/amendment3_gate_criteria.md`, `tests/test_v6_identifiability.py` | Gate 2 ran on pythia-410m-deduped. √D\* is the quantity with metric properties on orbits. |
+| S3 | Per-pair D\* confidence intervals are calibrated | `REFUTED` | `experiments/v6/audits/amendment3_gate_criteria.md` | Gate 1 failed and is closed. Per-pair D\* values are point estimates only. |
+| S4 | Run-level inference on Δ keeps type-I error ≤ 0.081 at R = 4, 5, 6, 10 (synthetic) | `VERIFIED` | `experiments/v6/audits/gate5_results.json`, `experiments/v6/audits/gate5_small_r_results.json` | R = 7–9 not simulated; calibration at R = 7 is assumed. |
+| S5 | H1: independently trained, performance-matched Pythia-410M runs show greater attribution-profile distance than late checkpoints within a lineage (Δ = 1.50, one-sided 95% lower bound 1.27, R = 7) | `EXPERIMENTALLY_SUPPORTED` | `experiments/v6/RESULTS_confirmatory_v1.md`, `experiments/v6/runs/confirmatory_v1/record.json` | Preregistered; reproduced bitwise by the author from the stored cache (not independent). One size, one task, one attribution method. Training steps are confounded with lineage. |
+| S6 | The V6 result shows different mechanisms or circuits across runs | `NOT_SUPPORTED` | `experiments/v6/RESULTS_confirmatory_v1.md` | Attribution-profile divergence ≠ mechanistic or circuit divergence (RESULTS §10). |
+| S7 | Original hypotheses H2–H4 | `UNRESOLVED` | `experiments/v6/PREREGISTRATION.md` | Not tested. The original positional-D_M H1 was superseded before confirmatory data existed. |
+| S8 | V6 artefacts are unchanged since the freeze (119 files) | `VERIFIED` | `experiments/V6_FROZEN.md`, `scripts/check_v6_frozen.py`, `tests/test_v6_frozen.py` | Integrity only, not correctness. |
+
+## V — V7 investigation infrastructure
+
+| ID | Claim | Status | Evidence | Scope / limits |
+|---|---|---|---|---|
+| V1 | A standard trace format for AI-system runs (OpenTelemetry GenAI-compatible) | `PLANNED` | `docs/PLAN_V7_FINAL_UNIFIED.md` | Not built. |
+| V2 | Framework-independent behavioural / trajectory diff with first-divergence detection | `PLANNED` | `docs/PLAN_V7_FINAL_UNIFIED.md` | The existing `glassbox/v6/diff.py` is a V6 model-pair attribution diff, not a system-trace diff. |
+| V3 | Hypothesis → controlled experiment → intervention → reproduction loop | `PLANNED` | `docs/PLAN_V7_FINAL_UNIFIED.md` | Not built. |
+| V4 | Glassbox certifies causal explanations automatically | `NOT_SUPPORTED` | `docs/PLAN_V7_FINAL_UNIFIED.md` | Causal claims need a specified intervention experiment, case by case. |
+| V5 | Glassbox saves skilled engineers meaningful time when an AI system behaves unexpectedly | `HYPOTHESIS` | `docs/PLAN_V7_FINAL_UNIFIED.md` | Zero external users so far. Test: five-user experiment (plan §77). |
+| V6 | Investigation Benchmark of known-cause failures | `PLANNED` | `docs/PLAN_V7_FINAL_UNIFIED.md` | Not built. |
+
+## O — Open issues found while writing this file (not fixed here)
+
+- **O1 (over-claim).** `BENCHMARKS.md` "Confidence–Faithfulness Orthogonality" interprets
+  r = 0.009 as showing that explanations are "mechanistically grounded" and "driven by
+  causal circuit structure". That interpretation is not supported (row L5).
+  - Suggested fix: keep the finding, delete the interpretation paragraph.
+  - Per the project rule, numbers and claims change in BENCHMARKS.md first.
+- **O2 (discrepancy).** For `fraud_flag`, `BENCHMARKS.md` reports comprehensiveness
+  0.077 / F1 0.141, but `reports/decision_functional.json` has 0.098 / 0.176. Sufficiency
+  agrees (0.851 vs 0.8501).
+  - It is not known which run is authoritative.
+  - Re-run `benchmarks/run_decision_functional.py`, then update both files.
+  - The credit rows quoted in L7 agree.
+- **O3 (broken reference).** `BENCHMARKS.md` says to reproduce into
+  `reports/credit_current.json`, which does not exist in the repository.
+- **O4 (unverified number).** "932 tests / 71% coverage" is not re-checked (row L11).
+
+## Update rule
+
+1. When a capability ships or a result changes, update its row in the same commit, with
+   the evidence path.
+2. Never promote a status without new evidence. `PLANNED → IMPLEMENTED` needs tests.
+   `IMPLEMENTED → EXPERIMENTALLY_SUPPORTED` needs an experiment with stated conditions.
+3. Use `REPRODUCED` only when someone other than the author reproduces a result.
+4. Marketing, README and website copy may only restate rows with status `VERIFIED`,
+   `EXPERIMENTALLY_SUPPORTED` or `IMPLEMENTED`, with their scope.
