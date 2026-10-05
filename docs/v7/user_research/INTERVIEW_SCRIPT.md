@@ -1,6 +1,6 @@
-# Five-user problem interviews: script v1.1 (V7 plan §77)
+# Five-user problem interviews: script v1.2 (V7 plan §77)
 
-*v1.0 2026-10-05. v1.1 2026-10-05 (+Q17 blind-case ask, same day), revised before any interview after a method review
+*v1.0 2026-10-05. v1.2 2026-10-05: +Q17 blind-case ask; +Q9b/Q9c and plain-language Q16 after a SIMULATED rehearsal (simulations/SIM_2026-10-05_SYNTHESIS.md). v1.1 2026-10-05, revised before any interview after a method review
 using the UX Researcher and Discovery Coach personas (agency-agents). The decision rule
 at the end is unchanged from v1.0.*
 
@@ -87,6 +87,9 @@ not talk about?"
    show them?
 9. *(Implication)* While it was unresolved, what was affected downstream: users,
    decisions, other teams?
+9b. Looking back, how could it have been noticed earlier? What would have had to exist?
+9c. How many things changed around that time (model, prompt, data, library, config)?
+    How did you separate their effects?
 10. What was the riskiest part of that situation for you or the team?
 
 **What they have tried (5 min)**
@@ -102,8 +105,11 @@ not talk about?"
 
 **Close (2 min)**
 15. Is there anyone else who has had this problem whom I should talk to?
-16. *(Only now, if they ask what you are building:)* describe Glassbox in two sentences
-    and ask: "Would that have helped in the incident you described, and if so, which
+16. *(Only now, if they ask what you are building:)* describe Glassbox in plain
+    behaviour, without jargon. For example: "It records each step of a run on your own
+    machine, compares a good run with a bad one to show where they first differ, and
+    re-runs it changing one thing at a time to check which change caused the
+    difference." Then ask: "Would that have helped in the incident you described, and if so, which
     part?" Record the answer, but weight it least: it is an opinion about the future.
 17. *(Optional, for V7 Hard Gate 3 — blind test.)* "Would you be willing to give me a
     reproducible case of a behaviour change, from public or synthetic data only, without
