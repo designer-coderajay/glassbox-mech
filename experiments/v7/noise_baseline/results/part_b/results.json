@@ -1,0 +1,5341 @@
+{
+  "protocol": "experiments/v7/noise_baseline/PROTOCOL.md v1.0 (Part B)",
+  "model": "gpt2",
+  "settings": {
+    "seeds": {
+      "baseline": [
+        0,
+        19
+      ],
+      "baseline_more": [
+        100,
+        119
+      ],
+      "fault": [
+        200,
+        219
+      ]
+    },
+    "n_perm": 1999,
+    "alpha": 0.05,
+    "max_new_tokens": 8,
+    "temperature": 1.0,
+    "fault_excluded_docs": [
+      "d1",
+      "d2",
+      "d3",
+      "d4"
+    ]
+  },
+  "criteria": {
+    "B1_real_null": {
+      "per_question": {
+        "q1": true,
+        "q2": true,
+        "q3": true,
+        "q4": true,
+        "q5": true,
+        "q6": true,
+        "q7": true,
+        "q8": true
+      },
+      "rule": ">= 7/8",
+      "pass": true
+    },
+    "B2_real_localisation": {
+      "per_question": {
+        "q1": true,
+        "q2": true,
+        "q3": true,
+        "q4": true
+      },
+      "rule": "4/4",
+      "pass": true
+    },
+    "B3_real_specificity": {
+      "per_question": {
+        "q5": true,
+        "q6": true,
+        "q7": true,
+        "q8": true
+      },
+      "rule": "4/4",
+      "pass": true
+    },
+    "B4_descriptive": {
+      "pairwise_divergence_rate_baseline_vs_more": 1.0,
+      "contains_correct_rate": {
+        "baseline": {
+          "q1": 0.1,
+          "q2": 0.45,
+          "q3": 0.2,
+          "q4": 0.05,
+          "q5": 0.35,
+          "q6": 0.15,
+          "q7": 0.15,
+          "q8": 0.0
+        },
+        "baseline_more": {
+          "q1": 0.2,
+          "q2": 0.5,
+          "q3": 0.1,
+          "q4": 0.05,
+          "q5": 0.2,
+          "q6": 0.35,
+          "q7": 0.15,
+          "q8": 0.0
+        },
+        "fault": {
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.05,
+          "q4": 0.0,
+          "q5": 0.25,
+          "q6": 0.25,
+          "q7": 0.05,
+          "q8": 0.05
+        }
+      },
+      "descriptive": true
+    },
+    "_reports": {
+      "null": {
+        "q1": {
+          "n_a": 20,
+          "n_b": 20,
+          "alpha": 0.05,
+          "n_perm": 1999,
+          "first_beyond_noise": null,
+          "significant": [],
+          "untestable": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "noisy_in_baseline": [
+            [
+              "chat#0",
+              "glassbox.answer.contains_correct"
+            ],
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "fields": [
+            {
+              "step": "retrieval#0",
+              "field": "present",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.data_source.id",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "kb": 20
+              },
+              "dist_b": {
+                "kb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.retrieval.top_k",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "8ddfe9bc5904": 20
+              },
+              "dist_b": {
+                "8ddfe9bc5904": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "33": 20
+              },
+              "dist_b": {
+                "33": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "ac3534649e82": 20
+              },
+              "dist_b": {
+                "ac3534649e82": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "status",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "present",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.model",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "gpt2": 20
+              },
+              "dist_b": {
+                "gpt2": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.temperature",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1.0": 20
+              },
+              "dist_b": {
+                "1.0": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": true,
+              "tvd": 0.09999999999999999,
+              "p_value": 0.671,
+              "significant": false,
+              "n_distinct": 2,
+              "dist_a": {
+                "False": 18,
+                "True": 2
+              },
+              "dist_b": {
+                "False": 16,
+                "True": 4
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "444b01b55a2f": 20
+              },
+              "dist_b": {
+                "444b01b55a2f": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.sha256",
+              "position": 2.0,
+              "classification": "untestable",
+              "varies_in_baseline": true,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 40,
+              "dist_a": {},
+              "dist_b": {}
+            },
+            {
+              "step": "chat#0",
+              "field": "status",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            }
+          ],
+          "environment": {}
+        },
+        "q2": {
+          "n_a": 20,
+          "n_b": 20,
+          "alpha": 0.05,
+          "n_perm": 1999,
+          "first_beyond_noise": null,
+          "significant": [],
+          "untestable": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "noisy_in_baseline": [
+            [
+              "chat#0",
+              "glassbox.answer.contains_correct"
+            ],
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "fields": [
+            {
+              "step": "retrieval#0",
+              "field": "present",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.data_source.id",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "kb": 20
+              },
+              "dist_b": {
+                "kb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.retrieval.top_k",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "3080b0b8d216": 20
+              },
+              "dist_b": {
+                "3080b0b8d216": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "50": 20
+              },
+              "dist_b": {
+                "50": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "8d599ade57c7": 20
+              },
+              "dist_b": {
+                "8d599ade57c7": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "status",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "present",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.model",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "gpt2": 20
+              },
+              "dist_b": {
+                "gpt2": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.temperature",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1.0": 20
+              },
+              "dist_b": {
+                "1.0": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": true,
+              "tvd": 0.05000000000000002,
+              "p_value": 1.0,
+              "significant": false,
+              "n_distinct": 2,
+              "dist_a": {
+                "False": 11,
+                "True": 9
+              },
+              "dist_b": {
+                "False": 10,
+                "True": 10
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "a064d42dd59c": 20
+              },
+              "dist_b": {
+                "a064d42dd59c": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.sha256",
+              "position": 2.0,
+              "classification": "untestable",
+              "varies_in_baseline": true,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 39,
+              "dist_a": {},
+              "dist_b": {}
+            },
+            {
+              "step": "chat#0",
+              "field": "status",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            }
+          ],
+          "environment": {}
+        },
+        "q3": {
+          "n_a": 20,
+          "n_b": 20,
+          "alpha": 0.05,
+          "n_perm": 1999,
+          "first_beyond_noise": null,
+          "significant": [],
+          "untestable": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "noisy_in_baseline": [
+            [
+              "chat#0",
+              "glassbox.answer.contains_correct"
+            ],
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "fields": [
+            {
+              "step": "retrieval#0",
+              "field": "present",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.data_source.id",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "kb": 20
+              },
+              "dist_b": {
+                "kb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.retrieval.top_k",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "241da149bf45": 20
+              },
+              "dist_b": {
+                "241da149bf45": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "55": 20
+              },
+              "dist_b": {
+                "55": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "955d462d1591": 20
+              },
+              "dist_b": {
+                "955d462d1591": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "status",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "present",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.model",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "gpt2": 20
+              },
+              "dist_b": {
+                "gpt2": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.temperature",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1.0": 20
+              },
+              "dist_b": {
+                "1.0": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": true,
+              "tvd": 0.09999999999999999,
+              "p_value": 0.6485,
+              "significant": false,
+              "n_distinct": 2,
+              "dist_a": {
+                "False": 16,
+                "True": 4
+              },
+              "dist_b": {
+                "False": 18,
+                "True": 2
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "d7ad9ec70d01": 20
+              },
+              "dist_b": {
+                "d7ad9ec70d01": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.sha256",
+              "position": 2.0,
+              "classification": "untestable",
+              "varies_in_baseline": true,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 40,
+              "dist_a": {},
+              "dist_b": {}
+            },
+            {
+              "step": "chat#0",
+              "field": "status",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            }
+          ],
+          "environment": {}
+        },
+        "q4": {
+          "n_a": 20,
+          "n_b": 20,
+          "alpha": 0.05,
+          "n_perm": 1999,
+          "first_beyond_noise": null,
+          "significant": [],
+          "untestable": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "noisy_in_baseline": [
+            [
+              "chat#0",
+              "glassbox.answer.contains_correct"
+            ],
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "fields": [
+            {
+              "step": "retrieval#0",
+              "field": "present",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.data_source.id",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "kb": 20
+              },
+              "dist_b": {
+                "kb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.retrieval.top_k",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "42518ba0f002": 20
+              },
+              "dist_b": {
+                "42518ba0f002": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "42": 20
+              },
+              "dist_b": {
+                "42": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "4bfc4c46a807": 20
+              },
+              "dist_b": {
+                "4bfc4c46a807": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "status",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "present",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.model",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "gpt2": 20
+              },
+              "dist_b": {
+                "gpt2": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.temperature",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1.0": 20
+              },
+              "dist_b": {
+                "1.0": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": true,
+              "tvd": 0.0,
+              "p_value": 1.0,
+              "significant": false,
+              "n_distinct": 2,
+              "dist_a": {
+                "False": 19,
+                "True": 1
+              },
+              "dist_b": {
+                "False": 19,
+                "True": 1
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "92e7fa551009": 20
+              },
+              "dist_b": {
+                "92e7fa551009": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.sha256",
+              "position": 2.0,
+              "classification": "untestable",
+              "varies_in_baseline": true,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 40,
+              "dist_a": {},
+              "dist_b": {}
+            },
+            {
+              "step": "chat#0",
+              "field": "status",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            }
+          ],
+          "environment": {}
+        },
+        "q5": {
+          "n_a": 20,
+          "n_b": 20,
+          "alpha": 0.05,
+          "n_perm": 1999,
+          "first_beyond_noise": null,
+          "significant": [],
+          "untestable": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "noisy_in_baseline": [
+            [
+              "chat#0",
+              "glassbox.answer.contains_correct"
+            ],
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "fields": [
+            {
+              "step": "retrieval#0",
+              "field": "present",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.data_source.id",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "kb": 20
+              },
+              "dist_b": {
+                "kb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.retrieval.top_k",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "89c990ea45ac": 20
+              },
+              "dist_b": {
+                "89c990ea45ac": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "33": 20
+              },
+              "dist_b": {
+                "33": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "fb31bde8b9eb": 20
+              },
+              "dist_b": {
+                "fb31bde8b9eb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "status",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "present",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.model",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "gpt2": 20
+              },
+              "dist_b": {
+                "gpt2": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.temperature",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1.0": 20
+              },
+              "dist_b": {
+                "1.0": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": true,
+              "tvd": 0.15,
+              "p_value": 0.496,
+              "significant": false,
+              "n_distinct": 2,
+              "dist_a": {
+                "False": 13,
+                "True": 7
+              },
+              "dist_b": {
+                "False": 16,
+                "True": 4
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "ad1970b46ced": 20
+              },
+              "dist_b": {
+                "ad1970b46ced": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.sha256",
+              "position": 2.0,
+              "classification": "untestable",
+              "varies_in_baseline": true,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 40,
+              "dist_a": {},
+              "dist_b": {}
+            },
+            {
+              "step": "chat#0",
+              "field": "status",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            }
+          ],
+          "environment": {}
+        },
+        "q6": {
+          "n_a": 20,
+          "n_b": 20,
+          "alpha": 0.05,
+          "n_perm": 1999,
+          "first_beyond_noise": null,
+          "significant": [],
+          "untestable": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "noisy_in_baseline": [
+            [
+              "chat#0",
+              "glassbox.answer.contains_correct"
+            ],
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "fields": [
+            {
+              "step": "retrieval#0",
+              "field": "present",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.data_source.id",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "kb": 20
+              },
+              "dist_b": {
+                "kb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.retrieval.top_k",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "e9cf5f3bbebb": 20
+              },
+              "dist_b": {
+                "e9cf5f3bbebb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "50": 20
+              },
+              "dist_b": {
+                "50": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1c692789d011": 20
+              },
+              "dist_b": {
+                "1c692789d011": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "status",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "present",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.model",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "gpt2": 20
+              },
+              "dist_b": {
+                "gpt2": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.temperature",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1.0": 20
+              },
+              "dist_b": {
+                "1.0": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": true,
+              "tvd": 0.19999999999999996,
+              "p_value": 0.271,
+              "significant": false,
+              "n_distinct": 2,
+              "dist_a": {
+                "False": 17,
+                "True": 3
+              },
+              "dist_b": {
+                "False": 13,
+                "True": 7
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "31274c4dbe68": 20
+              },
+              "dist_b": {
+                "31274c4dbe68": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.sha256",
+              "position": 2.0,
+              "classification": "untestable",
+              "varies_in_baseline": true,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 40,
+              "dist_a": {},
+              "dist_b": {}
+            },
+            {
+              "step": "chat#0",
+              "field": "status",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            }
+          ],
+          "environment": {}
+        },
+        "q7": {
+          "n_a": 20,
+          "n_b": 20,
+          "alpha": 0.05,
+          "n_perm": 1999,
+          "first_beyond_noise": null,
+          "significant": [],
+          "untestable": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "noisy_in_baseline": [
+            [
+              "chat#0",
+              "glassbox.answer.contains_correct"
+            ],
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "fields": [
+            {
+              "step": "retrieval#0",
+              "field": "present",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.data_source.id",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "kb": 20
+              },
+              "dist_b": {
+                "kb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.retrieval.top_k",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "38abae2c373f": 20
+              },
+              "dist_b": {
+                "38abae2c373f": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "48": 20
+              },
+              "dist_b": {
+                "48": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "96212a426f62": 20
+              },
+              "dist_b": {
+                "96212a426f62": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "status",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "present",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.model",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "gpt2": 20
+              },
+              "dist_b": {
+                "gpt2": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.temperature",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1.0": 20
+              },
+              "dist_b": {
+                "1.0": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": true,
+              "tvd": 0.0,
+              "p_value": 1.0,
+              "significant": false,
+              "n_distinct": 2,
+              "dist_a": {
+                "False": 17,
+                "True": 3
+              },
+              "dist_b": {
+                "False": 17,
+                "True": 3
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "de81f078869e": 20
+              },
+              "dist_b": {
+                "de81f078869e": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.sha256",
+              "position": 2.0,
+              "classification": "untestable",
+              "varies_in_baseline": true,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 40,
+              "dist_a": {},
+              "dist_b": {}
+            },
+            {
+              "step": "chat#0",
+              "field": "status",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            }
+          ],
+          "environment": {}
+        },
+        "q8": {
+          "n_a": 20,
+          "n_b": 20,
+          "alpha": 0.05,
+          "n_perm": 1999,
+          "first_beyond_noise": null,
+          "significant": [],
+          "untestable": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "noisy_in_baseline": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "fields": [
+            {
+              "step": "retrieval#0",
+              "field": "present",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.data_source.id",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "kb": 20
+              },
+              "dist_b": {
+                "kb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.retrieval.top_k",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "b4de2c59df03": 20
+              },
+              "dist_b": {
+                "b4de2c59df03": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "44": 20
+              },
+              "dist_b": {
+                "44": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "a027d7c5096f": 20
+              },
+              "dist_b": {
+                "a027d7c5096f": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "status",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "present",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.model",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "gpt2": 20
+              },
+              "dist_b": {
+                "gpt2": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.temperature",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1.0": 20
+              },
+              "dist_b": {
+                "1.0": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "False": 20
+              },
+              "dist_b": {
+                "False": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "6cee8e58c429": 20
+              },
+              "dist_b": {
+                "6cee8e58c429": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.sha256",
+              "position": 2.0,
+              "classification": "untestable",
+              "varies_in_baseline": true,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 40,
+              "dist_a": {},
+              "dist_b": {}
+            },
+            {
+              "step": "chat#0",
+              "field": "status",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            }
+          ],
+          "environment": {}
+        }
+      },
+      "fault": {
+        "q1": {
+          "n_a": 20,
+          "n_b": 20,
+          "alpha": 0.05,
+          "n_perm": 1999,
+          "first_beyond_noise": {
+            "step": "retrieval#0",
+            "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+            "position": 1.0,
+            "classification": "tested",
+            "varies_in_baseline": false,
+            "tvd": 1.0,
+            "p_value": 0.0005,
+            "significant": true,
+            "n_distinct": 2,
+            "dist_a": {
+              "8ddfe9bc5904": 20
+            },
+            "dist_b": {
+              "7d323f7a2d1f": 20
+            }
+          },
+          "significant": [
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 1.0,
+              "p_value": 0.0005,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "8ddfe9bc5904": 20
+              },
+              "dist_b": {
+                "7d323f7a2d1f": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 1.0,
+              "p_value": 0.0005,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "444b01b55a2f": 20
+              },
+              "dist_b": {
+                "b8ea0c8cd3ec": 20
+              }
+            }
+          ],
+          "untestable": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "noisy_in_baseline": [
+            [
+              "chat#0",
+              "glassbox.answer.contains_correct"
+            ],
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "fields": [
+            {
+              "step": "retrieval#0",
+              "field": "present",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.data_source.id",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "kb": 20
+              },
+              "dist_b": {
+                "kb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.retrieval.top_k",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 1.0,
+              "p_value": 0.0005,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "8ddfe9bc5904": 20
+              },
+              "dist_b": {
+                "7d323f7a2d1f": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "33": 20
+              },
+              "dist_b": {
+                "33": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "ac3534649e82": 20
+              },
+              "dist_b": {
+                "ac3534649e82": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "status",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "present",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.model",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "gpt2": 20
+              },
+              "dist_b": {
+                "gpt2": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.temperature",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1.0": 20
+              },
+              "dist_b": {
+                "1.0": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": true,
+              "tvd": 0.09999999999999999,
+              "p_value": 0.485,
+              "significant": false,
+              "n_distinct": 2,
+              "dist_a": {
+                "False": 18,
+                "True": 2
+              },
+              "dist_b": {
+                "False": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 1.0,
+              "p_value": 0.0005,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "444b01b55a2f": 20
+              },
+              "dist_b": {
+                "b8ea0c8cd3ec": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.sha256",
+              "position": 2.0,
+              "classification": "untestable",
+              "varies_in_baseline": true,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 40,
+              "dist_a": {},
+              "dist_b": {}
+            },
+            {
+              "step": "chat#0",
+              "field": "status",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            }
+          ],
+          "environment": {}
+        },
+        "q2": {
+          "n_a": 20,
+          "n_b": 20,
+          "alpha": 0.05,
+          "n_perm": 1999,
+          "first_beyond_noise": {
+            "step": "retrieval#0",
+            "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+            "position": 1.0,
+            "classification": "tested",
+            "varies_in_baseline": false,
+            "tvd": 1.0,
+            "p_value": 0.0005,
+            "significant": true,
+            "n_distinct": 2,
+            "dist_a": {
+              "3080b0b8d216": 20
+            },
+            "dist_b": {
+              "ef79b9e77f1b": 20
+            }
+          },
+          "significant": [
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 1.0,
+              "p_value": 0.0005,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "3080b0b8d216": 20
+              },
+              "dist_b": {
+                "ef79b9e77f1b": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": true,
+              "tvd": 0.44999999999999996,
+              "p_value": 0.0035,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "False": 11,
+                "True": 9
+              },
+              "dist_b": {
+                "False": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 1.0,
+              "p_value": 0.0005,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "a064d42dd59c": 20
+              },
+              "dist_b": {
+                "57ad44259f0b": 20
+              }
+            }
+          ],
+          "untestable": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "noisy_in_baseline": [
+            [
+              "chat#0",
+              "glassbox.answer.contains_correct"
+            ],
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "fields": [
+            {
+              "step": "retrieval#0",
+              "field": "present",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.data_source.id",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "kb": 20
+              },
+              "dist_b": {
+                "kb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.retrieval.top_k",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 1.0,
+              "p_value": 0.0005,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "3080b0b8d216": 20
+              },
+              "dist_b": {
+                "ef79b9e77f1b": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "50": 20
+              },
+              "dist_b": {
+                "50": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "8d599ade57c7": 20
+              },
+              "dist_b": {
+                "8d599ade57c7": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "status",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "present",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.model",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "gpt2": 20
+              },
+              "dist_b": {
+                "gpt2": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.temperature",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1.0": 20
+              },
+              "dist_b": {
+                "1.0": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": true,
+              "tvd": 0.44999999999999996,
+              "p_value": 0.0035,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "False": 11,
+                "True": 9
+              },
+              "dist_b": {
+                "False": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 1.0,
+              "p_value": 0.0005,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "a064d42dd59c": 20
+              },
+              "dist_b": {
+                "57ad44259f0b": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.sha256",
+              "position": 2.0,
+              "classification": "untestable",
+              "varies_in_baseline": true,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 39,
+              "dist_a": {},
+              "dist_b": {}
+            },
+            {
+              "step": "chat#0",
+              "field": "status",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            }
+          ],
+          "environment": {}
+        },
+        "q3": {
+          "n_a": 20,
+          "n_b": 20,
+          "alpha": 0.05,
+          "n_perm": 1999,
+          "first_beyond_noise": {
+            "step": "retrieval#0",
+            "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+            "position": 1.0,
+            "classification": "tested",
+            "varies_in_baseline": false,
+            "tvd": 1.0,
+            "p_value": 0.0005,
+            "significant": true,
+            "n_distinct": 2,
+            "dist_a": {
+              "241da149bf45": 20
+            },
+            "dist_b": {
+              "08677ba495ad": 20
+            }
+          },
+          "significant": [
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 1.0,
+              "p_value": 0.0005,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "241da149bf45": 20
+              },
+              "dist_b": {
+                "08677ba495ad": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 1.0,
+              "p_value": 0.0005,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "d7ad9ec70d01": 20
+              },
+              "dist_b": {
+                "67e8238b4d86": 20
+              }
+            }
+          ],
+          "untestable": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "noisy_in_baseline": [
+            [
+              "chat#0",
+              "glassbox.answer.contains_correct"
+            ],
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "fields": [
+            {
+              "step": "retrieval#0",
+              "field": "present",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.data_source.id",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "kb": 20
+              },
+              "dist_b": {
+                "kb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.retrieval.top_k",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 1.0,
+              "p_value": 0.0005,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "241da149bf45": 20
+              },
+              "dist_b": {
+                "08677ba495ad": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "55": 20
+              },
+              "dist_b": {
+                "55": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "955d462d1591": 20
+              },
+              "dist_b": {
+                "955d462d1591": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "status",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "present",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.model",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "gpt2": 20
+              },
+              "dist_b": {
+                "gpt2": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.temperature",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1.0": 20
+              },
+              "dist_b": {
+                "1.0": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": true,
+              "tvd": 0.14999999999999997,
+              "p_value": 0.3305,
+              "significant": false,
+              "n_distinct": 2,
+              "dist_a": {
+                "False": 16,
+                "True": 4
+              },
+              "dist_b": {
+                "False": 19,
+                "True": 1
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 1.0,
+              "p_value": 0.0005,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "d7ad9ec70d01": 20
+              },
+              "dist_b": {
+                "67e8238b4d86": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.sha256",
+              "position": 2.0,
+              "classification": "untestable",
+              "varies_in_baseline": true,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 40,
+              "dist_a": {},
+              "dist_b": {}
+            },
+            {
+              "step": "chat#0",
+              "field": "status",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            }
+          ],
+          "environment": {}
+        },
+        "q4": {
+          "n_a": 20,
+          "n_b": 20,
+          "alpha": 0.05,
+          "n_perm": 1999,
+          "first_beyond_noise": {
+            "step": "retrieval#0",
+            "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+            "position": 1.0,
+            "classification": "tested",
+            "varies_in_baseline": false,
+            "tvd": 1.0,
+            "p_value": 0.0005,
+            "significant": true,
+            "n_distinct": 2,
+            "dist_a": {
+              "42518ba0f002": 20
+            },
+            "dist_b": {
+              "25b74855a3e8": 20
+            }
+          },
+          "significant": [
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 1.0,
+              "p_value": 0.0005,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "42518ba0f002": 20
+              },
+              "dist_b": {
+                "25b74855a3e8": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 1.0,
+              "p_value": 0.0005,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "92e7fa551009": 20
+              },
+              "dist_b": {
+                "6e1bbcd4aff8": 20
+              }
+            }
+          ],
+          "untestable": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "noisy_in_baseline": [
+            [
+              "chat#0",
+              "glassbox.answer.contains_correct"
+            ],
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "fields": [
+            {
+              "step": "retrieval#0",
+              "field": "present",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.data_source.id",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "kb": 20
+              },
+              "dist_b": {
+                "kb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.retrieval.top_k",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 1.0,
+              "p_value": 0.0005,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "42518ba0f002": 20
+              },
+              "dist_b": {
+                "25b74855a3e8": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "42": 20
+              },
+              "dist_b": {
+                "42": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "4bfc4c46a807": 20
+              },
+              "dist_b": {
+                "4bfc4c46a807": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "status",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "present",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.model",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "gpt2": 20
+              },
+              "dist_b": {
+                "gpt2": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.temperature",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1.0": 20
+              },
+              "dist_b": {
+                "1.0": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": true,
+              "tvd": 0.050000000000000024,
+              "p_value": 1.0,
+              "significant": false,
+              "n_distinct": 2,
+              "dist_a": {
+                "False": 19,
+                "True": 1
+              },
+              "dist_b": {
+                "False": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 1.0,
+              "p_value": 0.0005,
+              "significant": true,
+              "n_distinct": 2,
+              "dist_a": {
+                "92e7fa551009": 20
+              },
+              "dist_b": {
+                "6e1bbcd4aff8": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.sha256",
+              "position": 2.0,
+              "classification": "untestable",
+              "varies_in_baseline": true,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 40,
+              "dist_a": {},
+              "dist_b": {}
+            },
+            {
+              "step": "chat#0",
+              "field": "status",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            }
+          ],
+          "environment": {}
+        },
+        "q5": {
+          "n_a": 20,
+          "n_b": 20,
+          "alpha": 0.05,
+          "n_perm": 1999,
+          "first_beyond_noise": null,
+          "significant": [],
+          "untestable": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "noisy_in_baseline": [
+            [
+              "chat#0",
+              "glassbox.answer.contains_correct"
+            ],
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "fields": [
+            {
+              "step": "retrieval#0",
+              "field": "present",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.data_source.id",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "kb": 20
+              },
+              "dist_b": {
+                "kb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.retrieval.top_k",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "89c990ea45ac": 20
+              },
+              "dist_b": {
+                "89c990ea45ac": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "33": 20
+              },
+              "dist_b": {
+                "33": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "fb31bde8b9eb": 20
+              },
+              "dist_b": {
+                "fb31bde8b9eb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "status",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "present",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.model",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "gpt2": 20
+              },
+              "dist_b": {
+                "gpt2": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.temperature",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1.0": 20
+              },
+              "dist_b": {
+                "1.0": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": true,
+              "tvd": 0.09999999999999998,
+              "p_value": 0.727,
+              "significant": false,
+              "n_distinct": 2,
+              "dist_a": {
+                "False": 13,
+                "True": 7
+              },
+              "dist_b": {
+                "False": 15,
+                "True": 5
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "ad1970b46ced": 20
+              },
+              "dist_b": {
+                "ad1970b46ced": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.sha256",
+              "position": 2.0,
+              "classification": "untestable",
+              "varies_in_baseline": true,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 40,
+              "dist_a": {},
+              "dist_b": {}
+            },
+            {
+              "step": "chat#0",
+              "field": "status",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            }
+          ],
+          "environment": {}
+        },
+        "q6": {
+          "n_a": 20,
+          "n_b": 20,
+          "alpha": 0.05,
+          "n_perm": 1999,
+          "first_beyond_noise": null,
+          "significant": [],
+          "untestable": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "noisy_in_baseline": [
+            [
+              "chat#0",
+              "glassbox.answer.contains_correct"
+            ],
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "fields": [
+            {
+              "step": "retrieval#0",
+              "field": "present",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.data_source.id",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "kb": 20
+              },
+              "dist_b": {
+                "kb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.retrieval.top_k",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "e9cf5f3bbebb": 20
+              },
+              "dist_b": {
+                "e9cf5f3bbebb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "50": 20
+              },
+              "dist_b": {
+                "50": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1c692789d011": 20
+              },
+              "dist_b": {
+                "1c692789d011": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "status",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "present",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.model",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "gpt2": 20
+              },
+              "dist_b": {
+                "gpt2": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.temperature",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1.0": 20
+              },
+              "dist_b": {
+                "1.0": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": true,
+              "tvd": 0.09999999999999999,
+              "p_value": 0.7135,
+              "significant": false,
+              "n_distinct": 2,
+              "dist_a": {
+                "False": 17,
+                "True": 3
+              },
+              "dist_b": {
+                "False": 15,
+                "True": 5
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "31274c4dbe68": 20
+              },
+              "dist_b": {
+                "31274c4dbe68": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.sha256",
+              "position": 2.0,
+              "classification": "untestable",
+              "varies_in_baseline": true,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 40,
+              "dist_a": {},
+              "dist_b": {}
+            },
+            {
+              "step": "chat#0",
+              "field": "status",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            }
+          ],
+          "environment": {}
+        },
+        "q7": {
+          "n_a": 20,
+          "n_b": 20,
+          "alpha": 0.05,
+          "n_perm": 1999,
+          "first_beyond_noise": null,
+          "significant": [],
+          "untestable": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "noisy_in_baseline": [
+            [
+              "chat#0",
+              "glassbox.answer.contains_correct"
+            ],
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "fields": [
+            {
+              "step": "retrieval#0",
+              "field": "present",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.data_source.id",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "kb": 20
+              },
+              "dist_b": {
+                "kb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.retrieval.top_k",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "38abae2c373f": 20
+              },
+              "dist_b": {
+                "38abae2c373f": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "48": 20
+              },
+              "dist_b": {
+                "48": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "96212a426f62": 20
+              },
+              "dist_b": {
+                "96212a426f62": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "status",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "present",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.model",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "gpt2": 20
+              },
+              "dist_b": {
+                "gpt2": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.temperature",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1.0": 20
+              },
+              "dist_b": {
+                "1.0": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": true,
+              "tvd": 0.09999999999999998,
+              "p_value": 0.598,
+              "significant": false,
+              "n_distinct": 2,
+              "dist_a": {
+                "False": 17,
+                "True": 3
+              },
+              "dist_b": {
+                "False": 19,
+                "True": 1
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "de81f078869e": 20
+              },
+              "dist_b": {
+                "de81f078869e": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.sha256",
+              "position": 2.0,
+              "classification": "untestable",
+              "varies_in_baseline": true,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 40,
+              "dist_a": {},
+              "dist_b": {}
+            },
+            {
+              "step": "chat#0",
+              "field": "status",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            }
+          ],
+          "environment": {}
+        },
+        "q8": {
+          "n_a": 20,
+          "n_b": 20,
+          "alpha": 0.05,
+          "n_perm": 1999,
+          "first_beyond_noise": null,
+          "significant": [],
+          "untestable": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "noisy_in_baseline": [
+            [
+              "chat#0",
+              "glassbox.content.gen_ai.output.messages.sha256"
+            ]
+          ],
+          "fields": [
+            {
+              "step": "retrieval#0",
+              "field": "present",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.data_source.id",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "kb": 20
+              },
+              "dist_b": {
+                "kb": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "gen_ai.retrieval.top_k",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.documents.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "b4de2c59df03": 20
+              },
+              "dist_b": {
+                "b4de2c59df03": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.length",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "44": 20
+              },
+              "dist_b": {
+                "44": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "glassbox.content.gen_ai.retrieval.query.text.sha256",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "a027d7c5096f": 20
+              },
+              "dist_b": {
+                "a027d7c5096f": 20
+              }
+            },
+            {
+              "step": "retrieval#0",
+              "field": "status",
+              "position": 1.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "present",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "True": 20
+              },
+              "dist_b": {
+                "True": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.model",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "gpt2": 20
+              },
+              "dist_b": {
+                "gpt2": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "gen_ai.request.temperature",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1.0": 20
+              },
+              "dist_b": {
+                "1.0": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.answer.contains_correct",
+              "position": 2.0,
+              "classification": "tested",
+              "varies_in_baseline": false,
+              "tvd": 0.050000000000000024,
+              "p_value": 1.0,
+              "significant": false,
+              "n_distinct": 2,
+              "dist_a": {
+                "False": 20
+              },
+              "dist_b": {
+                "False": 19,
+                "True": 1
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.input.messages.sha256",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "6cee8e58c429": 20
+              },
+              "dist_b": {
+                "6cee8e58c429": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.length",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "1": 20
+              },
+              "dist_b": {
+                "1": 20
+              }
+            },
+            {
+              "step": "chat#0",
+              "field": "glassbox.content.gen_ai.output.messages.sha256",
+              "position": 2.0,
+              "classification": "untestable",
+              "varies_in_baseline": true,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 40,
+              "dist_a": {},
+              "dist_b": {}
+            },
+            {
+              "step": "chat#0",
+              "field": "status",
+              "position": 2.0,
+              "classification": "constant",
+              "varies_in_baseline": false,
+              "tvd": null,
+              "p_value": null,
+              "significant": false,
+              "n_distinct": 1,
+              "dist_a": {
+                "OK": 20
+              },
+              "dist_b": {
+                "OK": 20
+              }
+            }
+          ],
+          "environment": {}
+        }
+      }
+    }
+  },
+  "overall": "PASS"
+}
