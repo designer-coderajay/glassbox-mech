@@ -233,3 +233,16 @@ def test_empty_or_summaryless_file_fails_integrity(tmp_path):
     nosum.write_text('{"span_id": "x"}\n', encoding="utf-8")
     with pytest.raises(TraceIntegrityError):
         read_trace(nosum)
+
+
+def test_add_content_applies_policy_to_an_open_span(tmp_path):
+    docs = [{"id": "d1", "score": 0.9}]
+    with Recorder(out_dir=tmp_path, run_id="r") as rec:
+        with rec.span("retrieval", "kb") as s:
+            rec.add_content(s, {"gen_ai.retrieval.documents": docs})
+    spans, _ = read_trace(rec.path)
+    attrs = spans[1]["attributes"]
+    assert "gen_ai.retrieval.documents" not in attrs  # hash_only default
+    assert attrs["glassbox.content.gen_ai.retrieval.documents.length"] == 1
+    with pytest.raises(ValueError, match="not content attributes"):
+        rec.add_content(s, {"x": 1})

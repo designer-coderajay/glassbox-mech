@@ -255,6 +255,16 @@ class Recorder:
         self._stack.pop()
         self._close(s, None)
 
+    def add_content(self, span: _Span, content: Dict[str, Any]) -> None:
+        """Attach content to an open span under the run's content policy.
+
+        For content known only after a span starts (e.g. retrieved documents).
+
+        Raises:
+            ValueError: If a key is not an OTel GenAI content attribute.
+        """
+        span.attributes.update(self._apply_policy(content))
+
     def _apply_policy(self, content: Dict[str, Any]) -> Dict[str, Any]:
         unknown = set(content) - CONTENT_ATTRIBUTES
         if unknown:
