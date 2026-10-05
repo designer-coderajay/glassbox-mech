@@ -12,4 +12,4 @@ its code into this repo.
 `--lab` adds a research virtualenv (`.agent-tools/lab`: nnsight, circuit-tracer, inspect-ai,
 lm-eval, fairlearn, aif360, compliance-trestle) pinned in `tools/agent-toolkit/lab.lock.txt`.
 Glassbox-specific skills (Annex IV evidence, OSCAL export, large-model patching, attribution-graph
-grading, spec-kit) live in `tools/agent-toolkit/skills/`; `package-skills.py` zips them for Cowork.
+grading, spec-kit, MiroFish simulation) live in `tools/agent-toolkit/skills/`; `package-skills.py` zips them for Cowork.

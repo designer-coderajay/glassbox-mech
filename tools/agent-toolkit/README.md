@@ -34,7 +34,7 @@ Also installed:
 | Tool | License | Lands as |
 |---|---|---|
 | [github/spec-kit](https://github.com/github/spec-kit) | MIT | `specify` CLI (pinned commit in `install.sh`) |
-| Glassbox skills (this folder, `skills/`) | same as this repo | 7 skills symlinked into `~/.claude/skills/` |
+| Glassbox skills (this folder, `skills/`) | same as this repo | 8 skills symlinked into `~/.claude/skills/` |
 
 ## Lab environment (`--lab`)
 
@@ -66,6 +66,7 @@ session's network policy blocked.
 | `glassbox-large-model-patching` | layer × position activation patching via nnsight / NDIF | tiny random GPT-2 and Llama: final-layer last-position patch restores 1.0, pre-diff positions 0 |
 | `glassbox-grade-attribution-graph` | grades circuit-tracer graphs with suff / comp / F1 | tiny random model + random transcoders; not yet run on Gemma/Llama |
 | `glassbox-spec-feature` | spec-kit workflow with a Glassbox constitution | `specify init` in a scratch project |
+| `mirofish-simulation` | runs a MiroFish scenario simulation (setup, Glassbox seed template, API retrieval, guardrails) | endpoints and `.env` keys checked against the pinned source; no live run (needs LLM + Zep keys) |
 
 Every evidence skill writes `{"entries": [...]}` in Glassbox's `VaultEntry` format, so the
 outputs merge with `AnnexIVEvidenceVault(...).build_vault(custom_entries=...)`.

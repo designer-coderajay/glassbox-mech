@@ -18,7 +18,7 @@ description: "Router for the tools and skills used to build and sell Glassbox (m
 | Plan a new feature before coding | skill `glassbox-spec-feature` (spec-kit) |
 | Research the web, Reddit, X, YouTube, GitHub, RSS (market, competitors, users) | skill `agent-reach` (if installed) |
 | Build local-business lead lists | skill `google-maps-scraper` (needs Docker; check Google's terms and GDPR/anti-spam rules first) |
-| Simulate how a market or group might react to a scenario | MiroFish (separate app; AGPL-3.0, keep its code out of Glassbox) |
+| Simulate how a market or group might react to a scenario | skill `mirofish-simulation` (separate app; AGPL-3.0, keep its code out of Glassbox; outputs are hypotheses, not market data) |
 | Wrap a desktop app as an agent-usable CLI | CLI-Anything (`cli-hub list`, `/cli-anything`) |
 | A specialist role (sales engineer, pricing analyst, compliance auditor...) | agency-agents subagents (Claude Code only) |
 
