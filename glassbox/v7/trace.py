@@ -161,6 +161,9 @@ class Recorder:
         self._trace_id = uuid.uuid4().hex
         self._spans: List[_Span] = []
         self._stack: List[_Span] = []
+        #: Extra reproduction context (spec §7), e.g. package versions. Keys must
+        #: start with ``glassbox.env.``; set before entering the context manager.
+        self.environment: Dict[str, Any] = {}
 
     # -- lifecycle ---------------------------------------------------------------
 
@@ -194,6 +197,10 @@ class Recorder:
         if self.policy == "redacted":
             attrs["glassbox.redaction.rules"] = sorted(REDACTION_RULES)
         attrs.update(environment_attributes())
+        bad = [k for k in self.environment if not k.startswith("glassbox.env.")]
+        if bad:
+            raise ValueError(f"environment keys must start with 'glassbox.env.': {bad}")
+        attrs.update(self.environment)
         return attrs
 
     # -- spans -------------------------------------------------------------------

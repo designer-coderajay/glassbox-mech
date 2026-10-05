@@ -246,3 +246,41 @@ def test_add_content_applies_policy_to_an_open_span(tmp_path):
     assert attrs["glassbox.content.gen_ai.retrieval.documents.length"] == 1
     with pytest.raises(ValueError, match="not content attributes"):
         rec.add_content(s, {"x": 1})
+
+
+def test_extra_environment_is_recorded_on_root(tmp_path):
+    rec = Recorder(out_dir=tmp_path, run_id="r")
+    rec.environment["glassbox.env.packages"] = ["llama-index-core==0.14.17"]
+    with rec:
+        pass
+    spans, _ = read_trace(rec.path)
+    assert spans[0]["attributes"]["glassbox.env.packages"] == [
+        "llama-index-core==0.14.17"
+    ]
+
+
+def test_extra_environment_keys_must_use_env_namespace(tmp_path):
+    rec = Recorder(out_dir=tmp_path, run_id="r")
+    rec.environment["gen_ai.request.model"] = "sneaky"
+    with pytest.raises(ValueError, match="glassbox.env."):
+        with rec:
+            pass
+
+
+def test_trace_module_imports_with_stdlib_only():
+    """Experiment subjects load trace.py by path in a venv without glassbox/torch."""
+    import ast
+    from pathlib import Path
+
+    src = Path(__file__).resolve().parent.parent / "glassbox" / "v7" / "trace.py"
+    tree = ast.parse(src.read_text(encoding="utf-8"))
+    roots = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            roots |= {a.name.split(".")[0] for a in node.names}
+        elif isinstance(node, ast.ImportFrom) and node.module and node.level == 0:
+            roots.add(node.module.split(".")[0])
+    import sys
+
+    stdlib = set(sys.stdlib_module_names) | {"__future__"}
+    assert roots <= stdlib, roots - stdlib
