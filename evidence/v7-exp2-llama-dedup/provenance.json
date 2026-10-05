@@ -1,0 +1,8 @@
+{
+  "assurance_row": "V2.5",
+  "issue": "https://github.com/run-llama/llama_index/issues/21033",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "protocol_commit": "d866eea",
+  "python": "3.11.9",
+  "versions": "llama-index-core 0.14.17 (bug), 0.14.19 (fixed)"
+}

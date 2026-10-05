@@ -1,0 +1,9 @@
+{
+  "claim": "On a real pre-existing bug in llama-index-core (issue #21033), Glassbox traces and diff placed the sync-vs-async behavioural difference at the retrieval step under 0.14.17, showed no difference under 0.14.19, showed the version change altered the sync path's retrieval but not the async path's, and were deterministic on re-run.",
+  "created_utc": "2026-10-05T09:56:41+00:00",
+  "integrity_note": "Integrity is not truth: a verifying manifest shows these files are unchanged since packaging; it does not show the experiment or the claim is correct.",
+  "package_id": "v7-exp2-llama-dedup",
+  "schema": "glassbox.evidence/0.1",
+  "scope": "Pre-registered (protocol commit d866eea) with a disclosed sandbox dry run (Addendum 1). Not blind: the cause was known from the issue. Minimal repro from the issue, no LLM, two pinned versions. Retrieved-document hashes agreed across macOS and Linux runs by the same author; not independently reproduced.",
+  "status": "EXPERIMENTALLY_SUPPORTED"
+}

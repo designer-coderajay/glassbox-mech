@@ -1,0 +1,48 @@
+{
+  "protocol": "experiments/v7/llama_dedup/PROTOCOL.md v1.0",
+  "issue": "https://github.com/run-llama/llama_index/issues/21033",
+  "versions": {
+    "bug": "0.14.17",
+    "fix": "0.14.19"
+  },
+  "criteria": {
+    "C1_localisation_bug": {
+      "pass": true
+    },
+    "C2_fix_confirmed": {
+      "pass": true
+    },
+    "C3a_intervention_sync": {
+      "pass": true
+    },
+    "C3b_specificity_async": {
+      "pass": true
+    },
+    "C4_determinism": {
+      "per_condition": {
+        "0.14.17/sync": true,
+        "0.14.17/async": true,
+        "0.14.19/sync": true,
+        "0.14.19/async": true
+      },
+      "pass": true
+    },
+    "C5_n_documents": {
+      "0.14.17/sync": 1,
+      "0.14.17/async": 2,
+      "0.14.19/sync": 2,
+      "0.14.19/async": 2
+    }
+  },
+  "environment_differences_bug_vs_fix": {
+    "glassbox.env.packages": [
+      [
+        "llama-index-core==0.14.17"
+      ],
+      [
+        "llama-index-core==0.14.19"
+      ]
+    ]
+  },
+  "overall": "PASS"
+}
