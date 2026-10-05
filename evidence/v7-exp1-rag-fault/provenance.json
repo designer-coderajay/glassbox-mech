@@ -1,0 +1,8 @@
+{
+  "assurance_row": "V2.3",
+  "model": "gpt2 (TransformerLens)",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "protocol_commit": "0e70405",
+  "python": "3.11.9",
+  "results_commit": "aedfebf"
+}

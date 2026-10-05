@@ -1,0 +1,308 @@
+{
+  "protocol": "experiments/v7/rag_fault/PROTOCOL.md v1.0",
+  "model": "gpt2",
+  "fault_excluded_docs": [
+    "d1",
+    "d2",
+    "d3",
+    "d4"
+  ],
+  "outcomes": {
+    "baseline": {
+      "q1": {
+        "retrieved": [
+          "d1"
+        ],
+        "margin": 10.164773,
+        "correct": true
+      },
+      "q2": {
+        "retrieved": [
+          "d2"
+        ],
+        "margin": 24.49906,
+        "correct": true
+      },
+      "q3": {
+        "retrieved": [
+          "d3"
+        ],
+        "margin": 1.951275,
+        "correct": true
+      },
+      "q4": {
+        "retrieved": [
+          "d4"
+        ],
+        "margin": 7.639112,
+        "correct": true
+      },
+      "q5": {
+        "retrieved": [
+          "d5"
+        ],
+        "margin": 10.399915,
+        "correct": true
+      },
+      "q6": {
+        "retrieved": [
+          "d6"
+        ],
+        "margin": 14.138637,
+        "correct": true
+      },
+      "q7": {
+        "retrieved": [
+          "d7"
+        ],
+        "margin": 1.302931,
+        "correct": true
+      },
+      "q8": {
+        "retrieved": [
+          "d8"
+        ],
+        "margin": 11.420383,
+        "correct": true
+      }
+    },
+    "baseline_repeat": {
+      "q1": {
+        "retrieved": [
+          "d1"
+        ],
+        "margin": 10.164773,
+        "correct": true
+      },
+      "q2": {
+        "retrieved": [
+          "d2"
+        ],
+        "margin": 24.49906,
+        "correct": true
+      },
+      "q3": {
+        "retrieved": [
+          "d3"
+        ],
+        "margin": 1.951275,
+        "correct": true
+      },
+      "q4": {
+        "retrieved": [
+          "d4"
+        ],
+        "margin": 7.639112,
+        "correct": true
+      },
+      "q5": {
+        "retrieved": [
+          "d5"
+        ],
+        "margin": 10.399915,
+        "correct": true
+      },
+      "q6": {
+        "retrieved": [
+          "d6"
+        ],
+        "margin": 14.138637,
+        "correct": true
+      },
+      "q7": {
+        "retrieved": [
+          "d7"
+        ],
+        "margin": 1.302931,
+        "correct": true
+      },
+      "q8": {
+        "retrieved": [
+          "d8"
+        ],
+        "margin": 11.420383,
+        "correct": true
+      }
+    },
+    "fault": {
+      "q1": {
+        "retrieved": [
+          "d5"
+        ],
+        "margin": -9.804378,
+        "correct": false
+      },
+      "q2": {
+        "retrieved": [
+          "d6"
+        ],
+        "margin": -11.891836,
+        "correct": false
+      },
+      "q3": {
+        "retrieved": [
+          "d7"
+        ],
+        "margin": -0.724412,
+        "correct": false
+      },
+      "q4": {
+        "retrieved": [
+          "d8"
+        ],
+        "margin": -10.70374,
+        "correct": false
+      },
+      "q5": {
+        "retrieved": [
+          "d5"
+        ],
+        "margin": 10.399915,
+        "correct": true
+      },
+      "q6": {
+        "retrieved": [
+          "d6"
+        ],
+        "margin": 14.138637,
+        "correct": true
+      },
+      "q7": {
+        "retrieved": [
+          "d7"
+        ],
+        "margin": 1.302931,
+        "correct": true
+      },
+      "q8": {
+        "retrieved": [
+          "d8"
+        ],
+        "margin": 11.420383,
+        "correct": true
+      }
+    },
+    "restored": {
+      "q1": {
+        "retrieved": [
+          "d1"
+        ],
+        "margin": 10.164773,
+        "correct": true
+      },
+      "q2": {
+        "retrieved": [
+          "d2"
+        ],
+        "margin": 24.49906,
+        "correct": true
+      },
+      "q3": {
+        "retrieved": [
+          "d3"
+        ],
+        "margin": 1.951275,
+        "correct": true
+      },
+      "q4": {
+        "retrieved": [
+          "d4"
+        ],
+        "margin": 7.639112,
+        "correct": true
+      },
+      "q5": {
+        "retrieved": [
+          "d5"
+        ],
+        "margin": 10.399915,
+        "correct": true
+      },
+      "q6": {
+        "retrieved": [
+          "d6"
+        ],
+        "margin": 14.138637,
+        "correct": true
+      },
+      "q7": {
+        "retrieved": [
+          "d7"
+        ],
+        "margin": 1.302931,
+        "correct": true
+      },
+      "q8": {
+        "retrieved": [
+          "d8"
+        ],
+        "margin": 11.420383,
+        "correct": true
+      }
+    }
+  },
+  "criteria": {
+    "C1_localisation": {
+      "per_question": {
+        "q1": true,
+        "q2": true,
+        "q3": true,
+        "q4": true
+      },
+      "pass": true
+    },
+    "C2_specificity": {
+      "per_question": {
+        "q5": {
+          "retrieval_unchanged": true,
+          "pass": true
+        },
+        "q6": {
+          "retrieval_unchanged": true,
+          "pass": true
+        },
+        "q7": {
+          "retrieval_unchanged": true,
+          "pass": true
+        },
+        "q8": {
+          "retrieval_unchanged": true,
+          "pass": true
+        }
+      },
+      "pass": true
+    },
+    "C3_intervention": {
+      "per_question": {
+        "q1": true,
+        "q2": true,
+        "q3": true,
+        "q4": true,
+        "q5": true,
+        "q6": true,
+        "q7": true,
+        "q8": true
+      },
+      "pass": true
+    },
+    "C4_determinism": {
+      "per_question": {
+        "q1": true,
+        "q2": true,
+        "q3": true,
+        "q4": true,
+        "q5": true,
+        "q6": true,
+        "q7": true,
+        "q8": true
+      },
+      "pass": true
+    },
+    "C5_effect": {
+      "baseline_correct_affected": 4,
+      "fault_correct_affected": 0,
+      "n_affected": 4
+    }
+  },
+  "overall": "PASS"
+}

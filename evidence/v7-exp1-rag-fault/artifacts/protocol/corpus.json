@@ -1,0 +1,24 @@
+{
+  "version": "rag_fault/corpus/1.0",
+  "note": "All entities are fictional. Pairs (d1,d5) (d2,d6) (d3,d7) (d4,d8) share an answer type; each question's distractor is its pair's answer.",
+  "documents": [
+    {"id": "d1", "text": "Order 4417 from Brindle Tools was shipped by Kestrel Freight on Monday."},
+    {"id": "d2", "text": "The Vellmar research lab is located in the city of Oberstadt."},
+    {"id": "d3", "text": "The Aldwyn project review meeting is held every Tuesday."},
+    {"id": "d4", "text": "The support team at Pellan Labs is led by Marisol Venn."},
+    {"id": "d5", "text": "Order 9023 from Mossgate Supplies was shipped by Halcyon Couriers on Friday."},
+    {"id": "d6", "text": "The Tarrow design studio is located in the city of Quillport."},
+    {"id": "d7", "text": "The Corvane budget meeting is held every Thursday."},
+    {"id": "d8", "text": "The finance team at Rookwell Bank is led by Dorian Hale."}
+  ],
+  "questions": [
+    {"id": "q1", "doc": "d1", "question": "Which company shipped order 4417?", "correct": " Kestrel", "distractor": " Halcyon"},
+    {"id": "q2", "doc": "d2", "question": "In which city is the Vellmar research lab located?", "correct": " Oberstadt", "distractor": " Quillport"},
+    {"id": "q3", "doc": "d3", "question": "On which day is the Aldwyn project review meeting held?", "correct": " Tuesday", "distractor": " Thursday"},
+    {"id": "q4", "doc": "d4", "question": "Who leads the support team at Pellan Labs?", "correct": " Marisol", "distractor": " Dorian"},
+    {"id": "q5", "doc": "d5", "question": "Which company shipped order 9023?", "correct": " Halcyon", "distractor": " Kestrel"},
+    {"id": "q6", "doc": "d6", "question": "In which city is the Tarrow design studio located?", "correct": " Quillport", "distractor": " Oberstadt"},
+    {"id": "q7", "doc": "d7", "question": "On which day is the Corvane budget meeting held?", "correct": " Thursday", "distractor": " Tuesday"},
+    {"id": "q8", "doc": "d8", "question": "Who leads the finance team at Rookwell Bank?", "correct": " Dorian", "distractor": " Marisol"}
+  ]
+}

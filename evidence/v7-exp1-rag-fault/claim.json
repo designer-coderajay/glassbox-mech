@@ -1,0 +1,9 @@
+{
+  "claim": "In a controlled RAG pipeline with one injected cause (a stale index missing four documents), the Glassbox trace diff placed the first divergence at the retrieval step for 4/4 affected questions, reported no divergence for 4/4 unaffected questions, confirmed identical behaviour after the fault was undone (8/8) and was deterministic on re-run (8/8).",
+  "created_utc": "2026-10-05T08:24:33+00:00",
+  "integrity_note": "Integrity is not truth: a verifying manifest shows these files are unchanged since packaging; it does not show the experiment or the claim is correct.",
+  "package_id": "v7-exp1-rag-fault",
+  "schema": "glassbox.evidence/0.1",
+  "scope": "Pre-registered (protocol commit 0e70405, before the run). GPT-2 small, teacher-forced two-option scoring, 8 fictional questions, bag-of-words retriever (top_k=1), no sampling, single machine (CPU). The cause was known by construction; this does not show Glassbox localises unknown causes in real systems (V7 Hard Gate 3, open). Criteria recomputed from the traces by the author; not independently reproduced.",
+  "status": "EXPERIMENTALLY_SUPPORTED"
+}
