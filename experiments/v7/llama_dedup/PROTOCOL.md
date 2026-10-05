@@ -97,3 +97,15 @@ The exact commands are in `RUN.md`:
 
 ---
 *(Addenda, if any, go below this line, with dates.)*
+
+**Addendum 1 (2026-10-05, after registration in d866eea, before the official run):**
+- **What was run.** A mechanical dry run in the assistant's Linux sandbox (Python 3.10;
+  venvs in `/tmp`; output in `/tmp`, nothing written to the repo). Its purpose was to
+  catch environment or API breakage before the owner's official run.
+- **Result.** The subject ran on both versions. Documents returned: 0.14.17 sync 1,
+  async 2; 0.14.19 sync 2, async 2. The evaluator reported C1–C4 PASS.
+- **What did not change.** Code, criteria and versions were not altered after the dry
+  run.
+- **Official result.** Only the owner's run (§7), committed with its traces, is
+  official. The dry run is disclosed here so that the official run is not presented as
+  the first look at the outcome.

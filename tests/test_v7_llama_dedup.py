@@ -121,3 +121,14 @@ def test_subject_describes_nodes_without_random_ids(subj):
 def test_subject_loads_trace_module_standalone(subj):
     mod = subj.load_trace_module()
     assert hasattr(mod, "Recorder") and mod.SCHEMA.startswith("glassbox.trace/")
+
+
+def test_experiment2_package_builds_and_verifies(tmp_path):
+    from glassbox.v7.evidence import build_package, verify_package
+
+    pkg_mod = _load("package")
+    if not (EXP / "results" / "results.json").exists():
+        pytest.skip("official results not present")
+    pkg = build_package(tmp_path, pkg_mod.PACKAGE_ID, pkg_mod.spec())
+    assert verify_package(pkg) == []
+    assert len(list((pkg / "artifacts").glob("traces_*/*.trace.jsonl"))) == 8
