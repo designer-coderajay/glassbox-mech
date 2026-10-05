@@ -1,6 +1,6 @@
 # Five-user problem interviews: script v1.1 (V7 plan §77)
 
-*v1.0 2026-10-05. v1.1 2026-10-05, revised before any interview after a method review
+*v1.0 2026-10-05. v1.1 2026-10-05 (+Q17 blind-case ask, same day), revised before any interview after a method review
 using the UX Researcher and Discovery Coach personas (agency-agents). The decision rule
 at the end is unchanged from v1.0.*
 
@@ -105,6 +105,11 @@ not talk about?"
 16. *(Only now, if they ask what you are building:)* describe Glassbox in two sentences
     and ask: "Would that have helped in the incident you described, and if so, which
     part?" Record the answer, but weight it least: it is an opinion about the future.
+17. *(Optional, for V7 Hard Gate 3 — blind test.)* "Would you be willing to give me a
+    reproducible case of a behaviour change, from public or synthetic data only, without
+    telling me the cause? I'd try to diagnose it and show you how I got there." Only
+    accept cases with no personal or confidential data. Record the cause only in their
+    sealed note: they write it down first, and you see it only after your diagnosis.
 
 ## Analysis plan (after each interview, same day)
 
