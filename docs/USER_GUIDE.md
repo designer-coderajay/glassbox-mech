@@ -893,11 +893,11 @@ vault = build_annex_iv_vault(
 summary = vault.to_dict()["compliance_summary"]
 print(summary["overall_status"])    # "COMPLIANT"
 print(summary["pass_rate"])         # 0.875
-print(summary["sections_covered"])  # ["§1", "§2", "§3", "§4", "§6", "§7"]
-print(summary["articles_covered"])  # ["Article 9", "Article 10", "Article 11", ...]
+print(vault.to_dict()["sections_covered"])  # ["§1", "§2", "§3", "§5", "§7", "§8"]
+print(vault.to_dict()["articles_covered"])  # ["Article 9", "Article 10", "Article 11", ...]
 ```
 
-Covers Annex IV **§1–§7**, maps to Articles **9, 10, 11, 13, 15, 72**. Every entry carries article references, metric values, pass/fail thresholds, and provenance metadata. HTML report is suitable for regulatory submission or attachment to a conformity declaration.
+Section labels follow the nine numbered points of Annex IV (§1–§9, the same numbering as `AnnexIVReport`). The vault's own entries fill **§1, §2, §3, §5 (risk management), §7 (standards) and §8 (declaration placeholder)**; add §4, §6 or §9 evidence through `build_vault(custom_entries=...)`. Maps to Articles **9, 10, 11, 13, 15, 72**. Every entry carries article references, metric values, pass/fail thresholds, and provenance metadata. HTML report is suitable for regulatory submission or attachment to a conformity declaration.
 
 ---
 

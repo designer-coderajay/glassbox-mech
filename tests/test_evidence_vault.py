@@ -2,6 +2,7 @@
 import json
 
 from glassbox.evidence_vault import (
+    _ANNEX_IV_SECTIONS,
     AnnexIVEvidenceVault,
     VaultEntry,
     build_annex_iv_vault,
@@ -91,6 +92,45 @@ def test_custom_entries_appended():
                     description="d", evidence_type="general")
     v = AnnexIVEvidenceVault().build_vault(custom_entries=[ce])
     assert any(e.title == "Custom item" for e in v.entries)
+
+
+# ── Annex IV section numbering (Regulation (EU) 2024/1689, Annex IV points 1-9) ──
+def test_section_catalogue_follows_annex_iv_points():
+    assert list(_ANNEX_IV_SECTIONS) == [f"§{i}" for i in range(1, 10)]
+    assert "performance metrics" in _ANNEX_IV_SECTIONS["§4"]
+    assert "Article 9" in _ANNEX_IV_SECTIONS["§5"]
+    assert "lifecycle" in _ANNEX_IV_SECTIONS["§6"]
+    assert "standards" in _ANNEX_IV_SECTIONS["§7"].lower()
+    assert "declaration of conformity" in _ANNEX_IV_SECTIONS["§8"]
+    assert "Article 72" in _ANNEX_IV_SECTIONS["§9"]
+
+
+def test_builder_entries_land_in_regulation_sections():
+    v = AnnexIVEvidenceVault().build_vault(
+        gb_result=GB,
+        stability_result={"jaccard": 0.9},
+        sae_features=[{"feature_id": 7, "activation": 1.2, "legal_risk_category": "gender_bias"}],
+        multiagent_report={"chain_id": "c1", "chain_risk_level": "LOW", "annex_iv_text": "narrative"},
+    )
+    section_of = {}
+    for e in v.entries:
+        section_of.setdefault(e.evidence_type, set()).add(e.section)
+    assert section_of["stability"] == {"§3"}
+    assert section_of["sae_feature"] == {"§5"}       # risk management (Article 9)
+    assert section_of["bias"] == {"§5"}              # multi-agent risk entries
+    by_metric = {e.metric_name: e.section for e in v.entries if e.metric_name}
+    assert by_metric["sufficiency"] == "§2"
+    assert by_metric["f1"] == "§5"
+    by_title = {e.title: e.section for e in v.entries}
+    assert by_title["Technical standards and methodologies applied"] == "§7"
+    assert by_title["EU Declaration of Conformity (placeholder)"] == "§8"
+    assert v.to_dict()["sections_covered"] == ["§1", "§2", "§3", "§5", "§7", "§8"]
+
+
+def test_html_section_titles_match_catalogue():
+    html = AnnexIVEvidenceVault().build_vault(gb_result=GB).to_html()
+    assert "§8 &mdash; Copy of the EU declaration of conformity (Article 47)" in html
+    assert "§5 &mdash; Detailed description of the risk management system" in html
 
 
 # ── serialisation ──────────────────────────────────────────────────────────

@@ -1,0 +1,12 @@
+# Third-party agent tooling used while building Glassbox.
+# These repos are NOT part of the Glassbox package and are never vendored into it.
+# install.sh clones each one at the pinned commit into .agent-tools/ (git-ignored).
+# Bump a pin deliberately: review the upstream diff, then edit the SHA here.
+#
+# name                     url                                                   commit                                    license
+agency-agents              https://github.com/msitarzewski/agency-agents.git     59635e0008a9a06866e3988fd0c21b1dbcaf92a7  MIT
+agent-scripts              https://github.com/steipete/agent-scripts.git         79150cfac4a6ba4df13cf30176bf2db85170ae6c  MIT
+CLI-Anything               https://github.com/HKUDS/CLI-Anything.git             34f519533bc175d2fe287ab8316b0dd99bb9cc43  Apache-2.0
+Agent-Reach                https://github.com/Panniantong/Agent-Reach.git        a19a171fa980a0785849596492e0af4db800c82f  MIT
+google-maps-scraper-kit    https://github.com/Mahanaicoach/google-maps-scraper-kit.git  eff2c200d1c235c91f7b6bf1ca67d860a083cf8a  MIT
+MiroFish                   https://github.com/666ghj/MiroFish.git                7657031ac01184afe2cb220f5ee3545573b5e843  AGPL-3.0

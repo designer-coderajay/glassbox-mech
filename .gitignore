@@ -97,3 +97,6 @@ docs/*.pdf
 
 # TMLR submission drafts (anonymized; must not be linked to this named repo)
 paper/
+
+# Third-party agent toolkit clones (tools/agent-toolkit/install.sh)
+.agent-tools/
