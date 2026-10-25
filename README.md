@@ -180,11 +180,94 @@ Each experiment was pre-registered: the protocol was committed before the code a
 
 A first divergence shows *where* runs differ, not *why*. Causal statements need the controlled interventions above, case by case.
 
-## How it works (circuit analysis)
+## How it works, start to finish
 
-1. **Discover:** rank every attention head by causal effect (attribution patching, 3 passes).
-2. **Verify:** keep the minimal circuit, then measure sufficiency and comprehensiveness against full ablation.
-3. **Document:** grade the result and draft the Annex IV file, with provider-only fields marked.
+### The whole system in one picture
+
+```mermaid
+flowchart LR
+    A["You give Glassbox<br/>a model + a prompt +<br/>correct vs. wrong answer"] --> B["1. DISCOVER<br/>rank every attention head<br/>by causal effect"]
+    B --> C["2. VERIFY<br/>keep the smallest circuit,<br/>then test it by ablation"]
+    C --> D["3. DOCUMENT<br/>grade it and draft<br/>EU AI Act Annex IV"]
+    D --> E[("You get: circuit,<br/>faithfulness grade,<br/>plain-English explanation,<br/>Annex IV draft")]
+
+    F["Something changed in<br/>your AI system?"] -.-> G["INVESTIGATE (research stage)<br/>record runs, diff them,<br/>test each change alone"]
+    G -.-> H[("Evidence bundle<br/>with sha256 manifest")]
+
+    classDef core fill:#e8f1ff,stroke:#2b5fd9,color:#111;
+    classDef out fill:#e9f8ec,stroke:#2e8b57,color:#111;
+    classDef research fill:#fff4e0,stroke:#d98a1f,color:#111;
+    class B,C,D core;
+    class E,H out;
+    class F,G research;
+```
+
+Solid path: released and on PyPI. Dotted path: the investigation layer, research stage (see [above](#investigating-why-an-ai-system-changed)).
+
+### Path 1: explain one decision (`GlassboxV2.analyze`)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as You
+    participant G as GlassboxV2
+    participant M as Model (open weights)
+    U->>G: analyze(prompt, correct, incorrect)
+    G->>G: Build a corrupted prompt (auto-picked strategy)
+    G->>M: Clean run, corrupted run, gradient pass (3 passes)
+    M-->>G: Per-head effect on logit(correct) - logit(wrong)
+    G->>G: Greedy forward selection until sufficiency target is met
+    G->>M: Backward pruning, 2 passes per head tried
+    G->>G: Counterfactual gate checks the corrupted prompt is a valid contrast
+    G->>M: Patch activations to test the circuit alone and its removal
+    M-->>G: Sufficiency and comprehensiveness
+    G-->>U: circuit, F1, grade A-D, evidence tier, explanation
+```
+
+| Step | What happens | Why it matters |
+|---|---|---|
+| **1. Frame the decision** | You pass a prompt plus the token the model *should* output and a distractor (for example ` Approved` vs ` Denied`). | Attribution needs a contrast between two outcomes, so this is the question being asked. |
+| **2. Corrupt the prompt** | Glassbox builds a counterfactual prompt (`name_swap`, `antonym`, `semantic_negation` or `random_token`, chosen automatically). | The difference between clean and corrupted runs is what each head gets credit for. |
+| **3. Rank every head** | Attribution patching (activation difference × gradient) scores all heads in **3 forward passes**. | Fast, so it can run on every audit instead of searching exhaustively. |
+| **4. Shrink to a circuit** | Greedy forward selection adds top heads until approximate sufficiency is reached (default target 0.85), then backward pruning drops heads that are not needed. | The smallest set of heads that still carries the decision. |
+| **5. Check the counterfactual** | A gate checks that the corrupted prompt really changes the decision by more than noise. Failures are reported, never hidden. | A bad contrast makes every later number meaningless. |
+| **6. Measure faithfulness** | **Sufficiency**: does the circuit alone reproduce the decision? (a Taylor approximation by default) **Comprehensiveness**: does removing it break the decision? (exact, by activation patching) **F1** combines the two. | These are computed by re-running the model, not asserted. |
+| **7. Grade and label** | Letter grade A to D, a self-assigned evidence tier, and a category such as `faithful`, `backup_mechanisms` or `incomplete`. | Tells an auditor how far to trust the explanation. |
+| **8. Draft Annex IV** | `AnnexIVReport` lays out all 9 sections, fills the fields the analysis can measure, and marks provider-only fields `[PROVIDER TO COMPLETE]`. | Documentation, not a conformity declaration. |
+
+### Path 2: find out why an AI system changed (`glassbox.v7`)
+
+```mermaid
+flowchart TD
+    S["Incident: a system changed in several ways at once<br/>(index, prompt, framework version, ...)"] --> R["1. RECORD<br/>each run becomes a local trace:<br/>nested spans, tool calls, hashed content"]
+    R --> D["2. COMPARE<br/>group diff of runs before vs. after,<br/>separating real differences from run-to-run noise"]
+    D --> W["Result: WHERE runs first differ"]
+    W --> I["3. INTERVENE<br/>switch each change on alone,<br/>and revert each alone"]
+    I --> Y["Result: WHICH change moved the outcome"]
+    Y --> P["4. PACKAGE<br/>REPORT.md + evidence bundle<br/>with sha256 manifest"]
+    P --> V{{"Anyone can verify<br/>the manifest"}}
+
+    N["Limit: 'where' is not 'why'.<br/>Causal claims come only from step 3."]:::note
+    W -.- N
+
+    classDef note fill:#fff4e0,stroke:#d98a1f,color:#111;
+```
+
+Run the built-in demo, a small RAG incident with three simultaneous changes:
+
+```bash
+python -m glassbox.v7.investigate demo --out demo_out --scorer gpt2
+```
+
+### Which entry point should I use?
+
+| I want to... | Use | Needs weights? |
+|---|---|---|
+| Explain one decision from Python | `GlassboxV2(model).analyze(...)` | Yes |
+| Do the same from a terminal | `glassbox-ai analyze ...` (also `glassbox-ai doctor` to check your install) | Yes |
+| Use it from Claude Desktop or another MCP client | `pip install glassbox-mcp`, see [`mcp/README.md`](mcp/README.md) | Yes |
+| Just look around | The [live demo](https://huggingface.co/spaces/designer-coderajay/Glassbox-AI-2.0-Mechanistic-Interpretability-tool) | No |
+| Investigate a changed RAG or agent system | `python -m glassbox.v7.investigate` | No (it needs traces, not weights) |
 
 ## Documentation
 
@@ -209,6 +292,17 @@ A first divergence shows *where* runs differ, not *why*. Causal statements need 
   - small effects (about 0.16 and below at 30 runs per configuration) can be missed;
   - redaction of trace content is best-effort;
   - a hash manifest proves integrity, not truth.
+
+## Developer tooling: diagram and illustration skills
+
+Two optional [Agent Skills](https://agentskills.io) are set up under `.claude/skills/` for people who work on this repo with Claude Code. `.claude/` is git-ignored here, so they live in your checkout and are not shipped with the package.
+
+| Skill | Use it for | Source |
+|---|---|---|
+| `anatomy` | Interactive isometric SVG/WebGL figures that explain an idea as a working object. Needs Node 20.10+. | [wheresryan22/anatomy](https://github.com/wheresryan22/anatomy) (MIT) |
+| `ian-xiaohei-illustrations` | Hand-drawn 16:9 article illustrations in Ian's "Xiaohei" style, for Chinese-language text. It writes image prompts, so it needs an image-generation model. | [helloianneo/ian-xiaohei-illustrations](https://github.com/helloianneo/ian-xiaohei-illustrations) (MIT; keep attribution per its `NOTICE.md`) |
+
+Re-install either with `git clone <source> .claude/skills/<name>`.
 
 ## Contributing
 
