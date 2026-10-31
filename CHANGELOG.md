@@ -21,7 +21,10 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **`python -m glassbox.v7.investigate demo --device ... --dtype ...`.** The
   environment record is written into the evidence package provenance.
 - **GPU sanity check runner** (`experiments/v7/gpu_check/run.py`, pre-registered in
-  its `PROTOCOL.md`) and the Colab runbook `docs/v7/COLAB_GPU.md`. Not yet run.
+  its `PROTOCOL.md`) and the Colab runbook `docs/v7/COLAB_GPU.md`, which uses an
+  isolated Python 3.11 venv.
+  - Result: **PASS**. On a Colab T4 in float32 the investigation reached the same
+    decisions as on CPU (`experiments/v7/gpu_check/RESULTS.md`, ASSURANCE V3.9).
 
 ### Added — agent investigation demo (2026-10-14)
 
