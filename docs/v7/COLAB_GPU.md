@@ -100,3 +100,40 @@ On your Mac, unzip it into `experiments/v7/gpu_check/` so that
 `experiments/v7/gpu_check/attempt2/results.json` and `run.log` exist. (A later
 attempt uses the next free name, `attempt3`, and so on, everywhere above.) Do not edit them.
 They are committed unchanged, and `RESULTS.md` is written afterwards.
+
+## 7. Long runs: survive a disconnect
+
+Colab can disconnect, and a free session ends when the runtime is recycled. For a run
+longer than a few minutes, two things protect the work:
+
+1. **Write to Google Drive, not to `/content`.** Mount Drive once per session. Colab
+   asks you to approve access in a pop-up, and you do that yourself. Then pass an
+   output directory on Drive:
+
+   ```
+   from google.colab import drive
+   drive.mount("/content/drive")
+   ```
+   ```
+   !/content/gbenv/bin/python experiments/v7/<experiment>/run.py --out /content/drive/MyDrive/glassbox_runs/<experiment>/attemptN
+   ```
+
+2. **Experiment runners save each finished unit as it completes.** They use
+   `glassbox.v7.checkpoint.Checkpoint`:
+   - each finished case, model or configuration is one JSON file, written atomically
+     and never overwritten;
+   - a fingerprint of the settings is stored alongside, and reopening the folder with
+     different settings is refused.
+
+   After a disconnect, run steps 1–4 again in a new session and repeat the **same**
+   command with the **same** `--out`. Finished units are loaded, not re-run.
+
+   - Resuming is only allowed if the protocol of that experiment says so.
+   - The resume is disclosed in its RESULTS.md, with the units completed before and
+     after.
+
+Experiments whose code is already committed (all of `experiments/v7/` up to and
+including `gpu_check`) are not changed to add checkpoints. Their code is hashed into
+evidence packages. New runners (phase E onwards) use `Checkpoint` from the start, and
+load models through `glassbox.v7.demo_rag.GPT2Scorer(model_name, compute=...)`, which
+accepts any TransformerLens model name together with `--device` / `--dtype`.
