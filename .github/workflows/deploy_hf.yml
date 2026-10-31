@@ -83,7 +83,7 @@ jobs:
           transformers==4.57.6
           pyarrow==23.0.0
           datasets==4.5.0
-          glassbox-mech-interp==4.6.0
+          glassbox-mech-interp==4.6.1
           REQS
 
           cat > hf_payload/README.md << RDME
@@ -127,7 +127,7 @@ jobs:
           [What is proven](https://github.com/designer-coderajay/glassbox-mech/blob/main/ASSURANCE.md)
 
           Licence: core MIT; compliance engine and investigation layer BSL 1.1 (see NOTICE in the repository).
-          Version 4.6.0 · deployed from GitHub @ ${SHORT_SHA}
+          Version 4.6.1 · deployed from GitHub @ ${SHORT_SHA}
           RDME
 
           echo "Payload built — files:"

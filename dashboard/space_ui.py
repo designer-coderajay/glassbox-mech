@@ -13,7 +13,7 @@ from __future__ import annotations
 import html
 from typing import Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
-VERSION = "4.6.0"
+VERSION = "4.6.1"
 MODEL_NAME = "GPT-2 small"
 MAX_PROMPT_CHARS = 600
 MAX_ATTENTION_TOKENS = 48

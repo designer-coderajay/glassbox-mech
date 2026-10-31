@@ -388,3 +388,31 @@ python scripts/validate_models_matrix.py --models EleutherAI/pythia-1b --device 
   - `tests/test_packaging.py`.
 
   The per-commit split was not measured.
+
+## Run 17 — full test suite with coverage (release 4.6.1)
+
+- **Date:** 2026-10-31
+- **Hardware:** Apple Silicon Mac (the owner's machine), Python 3.11.9. This was a
+  **local run, not CI**.
+- **Code:** the uncommitted 4.6.1 working tree on top of `2e0e721`, committed
+  immediately afterwards as the 4.6.1 release commits. `glassbox.__version__` printed
+  `4.6.1` from the repository checkout.
+- **Command:** `pytest --cov=glassbox --cov-report=term -q`
+- **Result:** **1478 passed, 11 skipped**, 1 warning, 161.62 s.
+- **Coverage:** total **80.09%** (9051 statements, 1802 missed). The gate is 58%, and
+  the repository's own standard is 80%.
+- **reportlab:** installed (5.1.0) for this run. A first run without it on the same day
+  gave 1474 passed, 12 skipped, 76.93%. The difference is the Annex IV PDF path
+  (`compliance.py` 55% → 97%), which only runs when reportlab is present. Earlier runs
+  were made without it.
+- **Supersedes:** Run 16 (1357 passed / 76.26%).
+- **Where the new tests came from:**
+  - the GPU sanity check runner;
+  - compute selection;
+  - checkpoint and resume;
+  - the investigate timing log;
+  - compliance-document accuracy (model card, oversight fields, vault numbering, PDF
+    wording);
+  - the licence audit;
+  - the Python-version packaging test.
+

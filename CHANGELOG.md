@@ -6,7 +6,56 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## [Unreleased]
+## [4.6.1] — 2026-10-31
+
+### Security and supply chain (V8 B2, 2026-10-31)
+
+- **PyPI publishing:** now uses Trusted Publishing (OIDC) with attestations. No API
+  token is used. The one-time PyPI setup is in `.github/workflows/publish.yml`.
+- **Licence audit:** `scripts/license_audit.py` runs in CI and fails on GPL, AGPL or
+  SSPL, or on any unreviewed package without licence information.
+  - Result on the pinned stack: 68 packages, 0 denied, 4 reviewed by hand.
+  - Details in `docs/SUPPLY_CHAIN.md`.
+- **Secret scan:** tree and full git history scanned, 0 findings
+  (`docs/SUPPLY_CHAIN.md`).
+- **`requires-python` raised from `>=3.8` to `>=3.10`.** The classifiers now list 3.10
+  and 3.11, the versions the suite actually runs on (CI uses 3.11). Users on 3.8 or 3.9
+  keep getting 4.6.0 from pip.
+
+### Fixed — compliance document accuracy (V8 B2, 2026-10-31)
+
+- **`AnnexIVReport.to_model_card()`:**
+  - It crashed on every call (`ExplainabilityGrade.D` does not exist). Fixed.
+  - It read misnamed fields, so every metric printed as 0.000. It now shows the
+    measured values and the computed status.
+  - Overclaims removed: "Complete (all 9 sections)", "has been audited", "authorised",
+    and ✅ marks on sections only the provider can write. The card now says it
+    summarises a draft and is not a conformity assessment.
+  - The unverified citation "Nanda et al. 2023" was removed.
+- **Human oversight in the Annex IV draft:** the draft no longer states the provider's
+  oversight and override arrangements as facts. Both fields are now
+  `[PROVIDER TO COMPLETE]`, with an example.
+- **`AnnexIVEvidenceVault`:**
+  - Numbering now follows Annex IV points 1–9, checked against EUR-Lex: §4 is
+    performance metrics, §5 risk management, §7 standards, §8 the declaration of
+    conformity (Article 47) and §9 post-market monitoring. Risk evidence moves from §4
+    to §5, standards from §6 to §7 and the conformity placeholder from §7 to §8.
+  - The conformity entry no longer says the provider "confirms" anything.
+  - The standards entry no longer calls ISO/IEC 42001 an AI Act harmonised standard,
+    and no longer credits attribution patching to the ACDC paper.
+  - The HTML badge reads "Glassbox checks passed", not "COMPLIANT".
+- **Annex IV PDF and JSON wording:**
+  - The cover badge now reads "Draft status (Glassbox checks): …, not a determination
+    of compliance with the Regulation". It no longer reads "Documentation Status:
+    CONDITIONALLY COMPLIANT".
+  - The report calls itself a draft of Annex IV technical documentation, not a
+    "compliance report".
+  - `generated_by` no longer says "Compliance Audit Platform".
+- **Known, planned for 4.7.0:**
+  - `AnnexIVReport` §4 is still labelled "Data governance"; Annex IV point 4 is the
+    appropriateness of the performance metrics.
+  - The JSON status values still use the word "COMPLIANT".
+  - Both are breaking changes, so they are deferred.
 
 ### Added — GPU option for V7 scorers (V8 phase B, 2026-10-30)
 
@@ -25,6 +74,17 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   isolated Python 3.11 venv.
   - Result: **PASS**. On a Colab T4 in float32 the investigation reached the same
     decisions as on CPU (`experiments/v7/gpu_check/RESULTS.md`, ASSURANCE V3.9).
+- **`glassbox.v7.checkpoint.Checkpoint`**: checkpoint and resume for long runs.
+  - Each finished unit is one JSON file, written atomically and never overwritten.
+  - A settings fingerprint is stored, and resuming with different settings is
+    refused.
+  - The Colab runbook has a section on long runs (output to Drive, resume).
+- **Timing log for `python -m glassbox.v7.investigate demo`.**
+  - It writes `timing.json`: wall-clock seconds for setup, runs, analysis, report and
+    total, per case and overall.
+  - `Investigation.timings` holds the per-case values.
+  - Timings stay out of `investigation.json` and the evidence package, so reports
+    remain identical across machines. Human time is recorded by hand in protocols.
 
 ### Added — agent investigation demo (2026-10-14)
 
