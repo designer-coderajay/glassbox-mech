@@ -13,7 +13,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/designer-coderajay/glassbox-mech)](https://github.com/designer-coderajay/glassbox-mech/issues)
 [![Live Analytics](https://img.shields.io/badge/Live%20Analytics-ClickHouse-FFCC01?logo=clickhouse&logoColor=black)](https://clickpy.clickhouse.com/dashboard/glassbox-mech-interp)
 [![License: MIT](https://img.shields.io/badge/Core-MIT-green.svg)](../LICENSE) [![License: BSL 1.1](https://img.shields.io/badge/Compliance%20Engine-BSL%201.1-orange.svg)](../LICENSE-COMMERCIAL)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
 [![HuggingFace Space](https://img.shields.io/badge/🤗%20HuggingFace-Live%20Demo-yellow)](https://huggingface.co/spaces/designer-coderajay/Glassbox-AI-2.0-Mechanistic-Interpretability-tool)
 [![Website](https://img.shields.io/badge/Website-glassbox--ai-blue)](https://repo-ashen-psi.vercel.app)
 [![arXiv](https://img.shields.io/badge/arXiv-2603.09988-b31b1b?logo=arxiv)](https://arxiv.org/abs/2603.09988)
@@ -885,13 +885,13 @@ vault = build_annex_iv_vault(
 )
 
 summary = vault.to_dict()["compliance_summary"]
-print(summary["overall_status"])    # "COMPLIANT"
-print(summary["pass_rate"])         # 0.875
-print(summary["sections_covered"])  # ["§1", "§2", "§3", "§4", "§6", "§7"]
+print(summary["overall_status"])    # "COMPLIANT", "MARGINAL" or "NON-COMPLIANT" (Glassbox checks only)
+print(summary["pass_rate"])         # share of Glassbox checks passed, 0.0 to 1.0
+print(summary["sections_covered"])  # e.g. ["§1", "§2", "§3", "§5", "§7", "§8"]
 print(summary["articles_covered"])  # ["Article 9", "Article 10", "Article 11", ...]
 ```
 
-Covers Annex IV **§1–§7**, maps to Articles **9, 10, 11, 13, 15, 72**. Every entry carries article references, metric values, pass/fail thresholds, and provenance metadata. HTML report is suitable for regulatory submission or attachment to a conformity declaration.
+Adds evidence to Annex IV points **§1, §2, §3, §5, §7 and §8** (numbering as in the Regulation's Annex IV). §8, the declaration of conformity, is a provider-only placeholder. Every entry carries article references, metric values, pass/fail thresholds against Glassbox's own thresholds, and provenance metadata. The `overall_status` value summarises Glassbox checks only. It is not a determination of compliance with the Regulation.
 
 ---
 
@@ -2081,7 +2081,7 @@ Full documentation is in [`METHODOLOGY.md`](METHODOLOGY.md). Key claims:
 
 **Steering vector as Article 9(2)(b) evidence.** Representation Engineering vectors (Zou et al. 2023) are formalised as documented risk mitigation measures with provenance metadata and quantified suppression tests — converting an ad-hoc patch into an auditable compliance artifact.
 
-**Evidence Vault architecture.** Every interpretability finding maps to an Annex IV section (§1–§7) and specific Articles. This structure is the proprietary IP — not the underlying math.
+**Evidence Vault architecture.** Every interpretability finding maps to an Annex IV point (numbered §1–§9 as in the Regulation since 4.6.1) and specific Articles. This structure is the proprietary IP — not the underlying math.
 
 All threshold values, grade mappings, section assignments, and article citations are original contributions of Ajay Pravin Mahale and are documented with timestamps in `METHODOLOGY.md`.
 

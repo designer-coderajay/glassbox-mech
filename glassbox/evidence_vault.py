@@ -3,24 +3,27 @@ glassbox/evidence_vault.py
 ===========================
 Annex IV Evidence Vault
 
-Builds a machine-readable, human-auditable evidence package that satisfies
-Regulation (EU) 2024/1689 (EU AI Act) Annex IV documentation requirements for
-high-risk AI systems.
+Builds a machine-readable, human-auditable evidence package that supports the
+technical documentation of Regulation (EU) 2024/1689 (EU AI Act) Annex IV for
+high-risk AI systems. It does not by itself satisfy Annex IV: points only the
+provider can supply are marked ``[PROVIDER TO COMPLETE]``.
 
 The vault maps mechanistic-interpretability findings (circuit heads, SAE
 features, faithfulness metrics, steering vector results) directly to the
-Annex IV sections and underlying Articles they satisfy.  Everything is
+Annex IV points and underlying Articles they relate to.  Everything is
 rule-based — no LLM required.
 
-EU AI Act Annex IV sections covered
-------------------------------------
+EU AI Act Annex IV points (numbering as in Regulation (EU) 2024/1689, Annex IV)
+------------------------------------------------------------------------------
   § 1   General description of the AI system
-  § 2   Detailed description of elements and development process
-  § 3   Information on monitoring, functioning, and control
-  § 4   Description of the risk management system (Article 9)
-  § 5   Changes to the system through its lifecycle
-  § 6   List of harmonised standards applied (or technical specs)
-  § 7   Declaration of conformity certificate reference
+  § 2   Detailed description of the elements and the development process
+  § 3   Monitoring, functioning and control
+  § 4   Appropriateness of the performance metrics
+  § 5   Risk management system (Article 9)
+  § 6   Relevant changes through the lifecycle
+  § 7   Harmonised standards applied, or other solutions and specifications
+  § 8   EU declaration of conformity (Article 47) — provider only
+  § 9   Post-market performance evaluation and monitoring plan (Article 72)
 
 Supporting Articles surfaced per finding
 -----------------------------------------
@@ -66,13 +69,15 @@ def _esc(value: Any) -> str:
 # Annex IV section catalogue
 # ---------------------------------------------------------------------------
 _ANNEX_IV_SECTIONS = {
-    "§1": "General description of the AI system and its intended purpose",
-    "§2": "Detailed description of system elements, training data, and development process",
-    "§3": "Information on monitoring, functioning, and control mechanisms",
-    "§4": "Description of the risk management system and measures per Article 9",
-    "§5": "Changes to the system through its lifecycle",
-    "§6": "List of harmonised standards or technical specifications applied",
-    "§7": "Declaration of conformity (or reference to it)",
+    "§1": "General description of the AI system",
+    "§2": "Detailed description of the elements of the AI system and of the process for its development",
+    "§3": "Detailed information about the monitoring, functioning and control of the AI system",
+    "§4": "Description of the appropriateness of the performance metrics for the specific AI system",
+    "§5": "Detailed description of the risk management system in accordance with Article 9",
+    "§6": "Description of relevant changes made by the provider to the system through its lifecycle",
+    "§7": "List of the harmonised standards applied, or the solutions adopted where none were applied",
+    "§8": "Copy of the EU declaration of conformity referred to in Article 47",
+    "§9": "System to evaluate performance in the post-market phase (Article 72), incl. the post-market monitoring plan",
 }
 
 # ---------------------------------------------------------------------------
@@ -240,22 +245,22 @@ class AnnexIVEvidenceVault:
         if stability_result is not None:
             self._add_stability_entries(stability_result)
 
-        # § 4 — Risk management: steering vectors
+        # § 5 — Risk management: steering vectors
         if steering_vectors is not None:
             self._add_steering_entries(steering_vectors, steering_test_results or {})
 
-        # § 4 — Risk management: SAE features
+        # § 5 — Risk management: SAE features
         if sae_features is not None:
             self._add_sae_entries(sae_features)
 
-        # § 4 — Risk management: multi-agent
+        # § 5 — Risk management: multi-agent
         if multiagent_report is not None:
             self._add_multiagent_entries(multiagent_report)
 
-        # § 6 — Standards alignment
+        # § 7 — Standards and specifications
         self._add_standards_entry()
 
-        # § 7 — Conformity placeholder
+        # § 8 — Declaration of conformity (provider only)
         self._add_conformity_entry()
 
         # Custom additions
@@ -301,8 +306,9 @@ class AnnexIVEvidenceVault:
     def to_html(self) -> str:
         """
         Render a self-contained HTML Evidence Vault report.
-        Styled to be suitable for regulatory submission or attachment to
-        a conformity declaration.
+
+        The badge reports how many Glassbox checks passed. It is not a
+        determination of compliance with the Regulation.
         """
         vault_dict = self.to_dict()
         summary = vault_dict["compliance_summary"]
@@ -396,7 +402,7 @@ class AnnexIVEvidenceVault:
       Commit: <code>{_esc(str(self.commit_sha)[:8])}</code> &nbsp;|&nbsp;
       Generated: {_esc(self._created_at)}
     </div>
-    <div class="overall-badge">{overall_txt} &mdash; {pct:.0%} pass rate</div>
+    <div class="overall-badge">Glassbox checks passed: {pct:.0%} ({overall_txt}) &mdash; not a determination of compliance with the Regulation</div>
   </div>
 
   <div class="cards">
@@ -527,15 +533,15 @@ class AnnexIVEvidenceVault:
             raw={"n_heads": n_heads, "circuit": self._truncate_circuit(circuit)},
         ))
 
-        # §4 — f1 score
+        # §5 — f1 score (risk signal)
         self.entries.append(VaultEntry(
-            section="§4",
+            section="§5",
             article_refs=["Article 9", "Article 15(1)"],
             title="Faithfulness F1 score",
             description=(
                 f"The harmonic mean of sufficiency and comprehensiveness is "
-                f"{f1:.1%}. This combined score is used as the primary compliance "
-                "gate in the CI/CD audit pipeline per Article 9 risk management."
+                f"{f1:.1%}. Glassbox treats F1 below 0.65 (below Grade B) as an "
+                "explainability risk to be addressed in the risk management system."
             ),
             evidence_type="faithfulness",
             metric_name="f1",
@@ -604,7 +610,7 @@ class AnnexIVEvidenceVault:
             passed = test.get("passed_threshold", None) if test else None
 
             self.entries.append(VaultEntry(
-                section="§4",
+                section="§5",
                 article_refs=["Article 9(2)(b)", "Article 9(5)", "Article 15(1)"],
                 title=f"Steering vector — {concept}",
                 description=(
@@ -656,7 +662,7 @@ class AnnexIVEvidenceVault:
             articles = _RISK_TO_ARTICLES.get(risk_cat, ["Article 9"])
 
             self.entries.append(VaultEntry(
-                section="§4",
+                section="§5",
                 article_refs=articles,
                 title=f"SAE feature {fid} — {risk_cat}",
                 description=(
@@ -702,7 +708,7 @@ class AnnexIVEvidenceVault:
         passed = risk_level in ("LOW", "MEDIUM")
 
         self.entries.append(VaultEntry(
-            section="§4",
+            section="§5",
             article_refs=articles,
             title=f"Multi-agent chain audit — risk level {risk_level}",
             description=(
@@ -723,7 +729,7 @@ class AnnexIVEvidenceVault:
 
         if annex_text:
             self.entries.append(VaultEntry(
-                section="§4",
+                section="§5",
                 article_refs=["Article 9", "Article 13(1)"],
                 title="Multi-agent Annex IV risk narrative",
                 description=annex_text[:500] + ("..." if len(annex_text) > 500 else ""),
@@ -733,43 +739,38 @@ class AnnexIVEvidenceVault:
 
     def _add_standards_entry(self) -> None:
         self.entries.append(VaultEntry(
-            section="§6",
-            article_refs=["Article 11"],
-            title="Technical standards and methodologies applied",
+            section="§7",
+            article_refs=["Article 11", "Article 40"],
+            title="Standards applied, or other solutions and specifications",
             description=(
-                "The following technical methodologies and references are applied: "
-                "(1) Attribution patching — Conmy et al., 2023, NeurIPS; "
-                "(2) Representation Engineering — Zou et al., 2023, arXiv:2310.01405; "
-                "(3) Inference-Time Intervention — Li et al., 2023, arXiv:2306.03341; "
-                "(4) Sparse Autoencoders for mechanistic interpretability — Elhage et al., 2022; "
-                "(5) EU AI Act harmonised standard ISO/IEC 42001:2023 (AI Management Systems). "
-                "No harmonised standard has been formally adopted for mechanistic interpretability; "
-                "these references constitute applicable technical specifications."
+                "[PROVIDER TO COMPLETE — list the harmonised standards applied, or, "
+                "where none were applied, describe the solutions adopted to meet "
+                "Chapter III, Section 2.] Glassbox applies no harmonised standard. "
+                "The methods behind the evidence in this vault are attribution "
+                "patching (activation difference × gradient) for circuit discovery, "
+                "and ablation-based sufficiency and comprehensiveness for "
+                "faithfulness, as documented in the Glassbox methodology."
             ),
             evidence_type="general",
             raw={
-                "references": [
-                    "Conmy et al. 2023 — Towards Automated Circuit Discovery for Mechanistic Interpretability",
-                    "Zou et al. 2023 — Representation Engineering",
-                    "Li et al. 2023 — Inference-Time Intervention",
-                    "Elhage et al. 2022 — Toy Models of Superposition",
-                    "ISO/IEC 42001:2023",
-                ]
+                "harmonised_standards_applied_by_glassbox": [],
+                "methods": [
+                    "attribution patching (activation difference x gradient)",
+                    "ablation-based sufficiency and comprehensiveness",
+                ],
             },
         ))
 
     def _add_conformity_entry(self) -> None:
         self.entries.append(VaultEntry(
-            section="§7",
-            article_refs=["Article 11"],
-            title="EU Declaration of Conformity (placeholder)",
+            section="§8",
+            article_refs=["Article 47"],
+            title="EU Declaration of Conformity",
             description=(
-                f"Provider '{self.provider}' confirms that this technical "
-                "documentation constitutes part of the EU Declaration of "
-                f"Conformity for AI system '{self.model_name}' v{self.version} "
-                f"(commit {self.commit_sha[:8]}), per Article 11 and Annex IV. "
-                "The full signed declaration must be completed by an authorised "
-                "representative before market placement."
+                "[PROVIDER TO COMPLETE — attach a copy of the EU declaration of "
+                "conformity (Article 47) drawn up and signed by the provider.] "
+                f"Glassbox cannot draw it up. This vault covers AI system "
+                f"'{self.model_name}' v{self.version} (commit {self.commit_sha[:8]})."
             ),
             evidence_type="general",
             raw={
@@ -777,7 +778,7 @@ class AnnexIVEvidenceVault:
                 "model_name": self.model_name,
                 "version": self.version,
                 "commit_sha": self.commit_sha,
-                "status": "PLACEHOLDER — requires signed declaration",
+                "status": "PROVIDER TO COMPLETE",
             },
         ))
 

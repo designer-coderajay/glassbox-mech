@@ -208,19 +208,21 @@ Glassbox AI.
 
 ### 3.6 Annex IV Evidence Vault Structure
 
-The `AnnexIVEvidenceVault` implements a specific mapping from interpretability
-findings to the 7 sections of Annex IV:
+The `AnnexIVEvidenceVault` maps interpretability findings to the points of Annex IV
+(numbering as in Regulation (EU) 2024/1689, Annex IV, points 1–9; corrected in 4.6.1):
 
-| Vault Evidence Type | Annex IV Section | Articles |
+| Vault Evidence Type | Annex IV point | Articles |
 |--------------------|-----------------|---------|
-| faithfulness metrics | §2 (system description) | Art. 11, 15(1) |
-| circuit heads | §2 (development process) | Art. 11, 13(1) |
-| stability metrics | §3 (monitoring) | Art. 15(1), 72 |
-| steering vectors | §4 (risk management) | Art. 9(2)(b), 9(5) |
-| SAE feature activations | §4 (risk management) | Art. 10(2)(f), 10(5) |
-| multi-agent liability | §4 (risk management) | Art. 9, 10(2)(f) |
-| technical references | §6 (standards applied) | Art. 11 |
-| conformity declaration | §7 (declaration of conformity) | Art. 11 |
+| faithfulness metrics (sufficiency, comprehensiveness, circuit size) | §2 (elements and development process) | Art. 11, 15(1) |
+| circuit heads | §2 (elements and development process) | Art. 11, 13(1) |
+| stability metrics | §3 (monitoring, functioning and control) | Art. 15(1), 72 |
+| F1 risk signal, steering vectors, SAE features, multi-agent liability | §5 (risk management system) | Art. 9, 10 |
+| methods used; standards field for the provider | §7 (standards or other solutions) | Art. 11, 40 |
+| declaration of conformity: provider only, placeholder | §8 (EU declaration of conformity) | Art. 47 |
+
+Points §4 (appropriateness of the performance metrics), §6 (changes through the
+lifecycle) and §9 (post-market monitoring) receive no automatic evidence. They are for
+the provider.
 
 The logic that decides which evidence goes into which section and which
 articles are cited is the original proprietary contribution of Glassbox AI.
