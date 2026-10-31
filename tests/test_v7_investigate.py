@@ -177,3 +177,29 @@ def test_cli_demo_gpt2_passes_compute_and_records_it(tmp_path, monkeypatch):
         (out / "evidence" / "investigation" / "provenance.json").read_text()
     )
     assert json.loads(prov["environment"]) == {"device": "auto", "dtype": "bfloat16"}
+
+
+# --- timing log (V8 B2, PLAN §2 item 5) ---------------------------------------------
+
+
+def test_investigation_records_per_case_timings(toy_investigation):
+    t = toy_investigation.timings
+    assert set(t) == set(demo_rag.QUESTIONS)
+    for case in t.values():
+        assert set(case) == {"runs_s", "analysis_s"}
+        assert all(v >= 0 for v in case.values())
+
+
+def test_timings_are_not_in_investigation_json(toy_investigation):
+    assert "timings" not in json.dumps(toy_investigation.to_dict())
+
+
+def test_cli_writes_timing_log(tmp_path):
+    out = tmp_path / "o"
+    assert main(["demo", "--out", str(out), "--scorer", "toy", "--runs", "6"]) == 0
+    t = json.loads((out / "timing.json").read_text())
+    for key in ("setup_s", "runs_s", "analysis_s", "report_s", "total_s"):
+        assert t[key] >= 0
+    assert t["total_s"] + 0.01 >= t["runs_s"] + t["analysis_s"]  # rounding
+    assert t["unit"] == "seconds, wall clock" and t["started_utc"].endswith("Z")
+    assert set(t["cases"]) == set(demo_rag.QUESTIONS)

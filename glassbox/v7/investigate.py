@@ -33,9 +33,11 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from dataclasses import dataclass
+import time
+from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional, Sequence
+from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
 from glassbox.v7 import compute
 from glassbox.v7.evidence import PackageSpec, build_package
@@ -93,6 +95,9 @@ class Investigation:
     settings: InterventionSettings
     findings: List[CaseFinding]
     trace_dir: Path
+    timings: Dict[str, Dict[str, float]] = field(default_factory=dict)
+    """Per case wall-clock seconds for ``runs_s`` and ``analysis_s``. Kept out of
+    :meth:`to_dict` so reports and evidence stay identical across machines."""
 
     def factor_summary(self) -> Dict[str, Dict[str, List[str]]]:
         """Per factor: cases where switching alone / reverting alone mattered."""
@@ -171,7 +176,8 @@ class Investigation:
 
 def _investigate_case(
     incident: Incident, case: str, out_dir: Path, settings: InterventionSettings
-) -> CaseFinding:
+) -> Tuple[CaseFinding, Dict[str, float]]:
+    start = time.perf_counter()
     case_settings = InterventionSettings(
         settings.n_per_cell, settings.n_perm, settings.alpha, f"{settings.seed}:{case}"
     )
@@ -182,6 +188,7 @@ def _investigate_case(
         out_dir / case,
         case_settings,
     )
+    ran = time.perf_counter()
     gd = group_diff(
         report.paths["baseline"],
         report.paths["candidate"],
@@ -190,7 +197,7 @@ def _investigate_case(
         0,
     )
     first = gd.first_beyond_noise
-    return CaseFinding(
+    finding = CaseFinding(
         case=case,
         first_beyond_noise=[first.step, first.field] if first else None,
         flagged_steps=sorted({f.step for f in gd.significant}),
@@ -201,6 +208,11 @@ def _investigate_case(
         outcome_counts={k: v.counts for k, v in report.cells.items()},
         intervention=report.to_dict(),
     )
+    timing = {
+        "runs_s": round(ran - start, 3),
+        "analysis_s": round(time.perf_counter() - ran, 3),
+    }
+    return finding, timing
 
 
 def investigate(
@@ -208,11 +220,12 @@ def investigate(
 ) -> Investigation:
     """Run the diff and the interventions for every case of ``incident``."""
     trace_dir = Path(out_dir) / "traces"
-    findings = [
-        _investigate_case(incident, case, trace_dir, settings)
-        for case in incident.cases
-    ]
-    return Investigation(incident, settings, findings, trace_dir)
+    findings: List[CaseFinding] = []
+    timings: Dict[str, Dict[str, float]] = {}
+    for case in incident.cases:
+        finding, timings[case] = _investigate_case(incident, case, trace_dir, settings)
+        findings.append(finding)
+    return Investigation(incident, settings, findings, trace_dir, timings)
 
 
 # --- report ---------------------------------------------------------------------
@@ -324,6 +337,35 @@ def render_report(inv: Investigation) -> str:
 # --- CLI ------------------------------------------------------------------------
 
 
+def _write_timing(
+    out: Path,
+    started_utc: str,
+    t0: float,
+    t_setup: float,
+    t_runs: float,
+    cases: Dict[str, Dict[str, float]],
+) -> None:
+    """Write ``timing.json`` (PLAN §2 item 5): machine time per phase.
+
+    Human time is not measured here; protocols record it by hand.
+    """
+    runs = sum(c["runs_s"] for c in cases.values())
+    analysis = sum(c["analysis_s"] for c in cases.values())
+    record = {
+        "unit": "seconds, wall clock",
+        "started_utc": started_utc,
+        "setup_s": round(t_setup - t0, 3),
+        "runs_s": round(runs, 3),
+        "analysis_s": round(analysis, 3),
+        "report_s": round(time.perf_counter() - t_runs, 3),
+        "total_s": round(time.perf_counter() - t0, 3),
+        "cases": cases,
+    }
+    (out / "timing.json").write_text(
+        json.dumps(record, indent=1) + "\n", encoding="utf-8"
+    )
+
+
 def main(argv: Optional[Sequence[str]] = None) -> int:
     """CLI: ``demo`` runs the GPT-2 RAG incident and writes report + evidence."""
     parser = argparse.ArgumentParser(description="Glassbox V7 investigation")
@@ -340,17 +382,23 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     out: Path = args.out
     if out.exists() and any(out.iterdir()):
         raise FileExistsError(f"{out} is not empty; choose a new directory")
+    started_utc = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    t0 = time.perf_counter()
     environment = None
     if args.scorer == "gpt2":
         scorer = demo_rag.make_scorer("gpt2", compute.from_args(args))
-        environment = compute.environment_record(scorer.compute)
+        resolved: compute.ComputeConfig = getattr(scorer, "compute")
+        environment = compute.environment_record(resolved)
     else:
         scorer = demo_rag.make_scorer(args.scorer)
     incident = demo_rag.make_incident(scorer)
     settings = InterventionSettings(args.runs, 999, 0.05, args.seed)
+    t_setup = time.perf_counter()
     inv = investigate(incident, out / "work", settings)
+    t_runs = time.perf_counter()
     pkg = inv.export_evidence(out / "evidence", "investigation", environment)
     (out / "REPORT.md").write_text(inv.report_markdown(), encoding="utf-8")
+    _write_timing(out, started_utc, t0, t_setup, t_runs, inv.timings)
     sys.stdout.write(inv.report_markdown())
     sys.stdout.write(f"\nEvidence package: {pkg}\n")
     if args.scorer == "toy":
