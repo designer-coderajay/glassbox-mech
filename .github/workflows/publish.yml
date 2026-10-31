@@ -1,17 +1,17 @@
 name: Publish to PyPI
 
-# Triggers on any tag that starts with "v" (e.g. v2.6.0, v3.0.0)
+# Triggers on any tag that starts with "v" (e.g. v2.6.0, v3.0.0).
 #
-# Setup required (one time):
-#   1. Go to https://pypi.org/manage/account/token/
-#   2. Click "Add API token"
-#   3. Name: "glassbox-github-actions"
-#   4. Scope: "Project: glassbox-mech-interp"
-#   5. Copy the token (starts with "pypi-")
-#   6. Go to GitHub repo → Settings → Secrets and variables → Actions
-#   7. Click "New repository secret"
-#   8. Name: PYPI_API_TOKEN  Value: <paste the token>
-#   9. Save
+# Publishing uses PyPI Trusted Publishing (OIDC): no API token is stored in GitHub, and
+# the upload carries PEP 740 attestations. One-time setup on PyPI, done by the owner:
+#   1. https://pypi.org/manage/project/glassbox-mech-interp/settings/publishing/
+#   2. Add a new publisher -> GitHub:
+#        Owner:            designer-coderajay
+#        Repository name:  glassbox-mech
+#        Workflow name:    publish.yml
+#        Environment name: pypi
+#   3. After the first successful release with it, delete the old PYPI_API_TOKEN
+#      secret in GitHub and revoke that token on PyPI.
 
 on:
   push:
@@ -59,6 +59,9 @@ jobs:
     needs: build
     runs-on: ubuntu-24.04
 
+    permissions:
+      id-token: write   # Trusted Publishing (OIDC) and attestation signing
+
     environment:
       name: pypi
       url: https://pypi.org/p/glassbox-mech-interp
@@ -70,9 +73,8 @@ jobs:
           name: dist-${{ github.ref_name }}
           path: dist/
 
-      - name: Publish to PyPI
+      - name: Publish to PyPI (Trusted Publishing, with attestations)
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          attestations: false
+          attestations: true
           skip-existing: true   # gracefully skip if this version already exists on PyPI

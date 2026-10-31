@@ -48,6 +48,7 @@ another document disagrees with it, ASSURANCE wins.
 |---|---|
 | [../LICENSE](../LICENSE), [../LICENSE-COMMERCIAL](../LICENSE-COMMERCIAL), [../NOTICE](../NOTICE) | Licenses; NOTICE is the file-by-file map |
 | [../SECURITY.md](../SECURITY.md) | Supported versions, vulnerability reporting, threat model |
+| [SUPPLY_CHAIN.md](SUPPLY_CHAIN.md) | Secret scan, dependency licence audit, trusted publishing |
 | [../PATENTS.md](../PATENTS.md) | No patents filed; methods publicly disclosed as prior art |
 | [../CONTRIBUTING.md](../CONTRIBUTING.md), [../CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md) | How to contribute |
 | [../CHANGELOG.md](../CHANGELOG.md) | Release history |

@@ -61,3 +61,17 @@ def test_every_glassbox_module_dir_has_init():
         if "__pycache__" not in d.parts and not (d / "__init__.py").exists()
     ]
     assert missing == []
+
+
+def test_python_versions_match_what_is_tested():
+    """Declare only versions the suite has run on (CI 3.11; local 3.10)."""
+    project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))[
+        "project"
+    ]
+    assert project["requires-python"] == ">=3.10"
+    declared = {
+        c.rsplit("::", 1)[-1].strip()
+        for c in project["classifiers"]
+        if c.startswith("Programming Language :: Python :: 3.")
+    }
+    assert declared == {"3.10", "3.11"}

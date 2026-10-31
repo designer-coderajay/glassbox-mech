@@ -111,6 +111,14 @@ jobs:
           python -c "import transformer_lens; print('transformer_lens import: OK')"
           python -c "import importlib.metadata as m; print('transformer_lens', m.version('transformer-lens'))" || echo "version lookup skipped (non-fatal)"
 
+      - name: Dependency licence audit
+        # Fails on GPL/AGPL/SSPL or on a package with no licence information that has
+        # not been reviewed by hand (docs/SUPPLY_CHAIN.md lists the reviewed ones).
+        run: |
+          python scripts/license_audit.py \
+            --site "$(python -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')" \
+            --accept certifi tqdm python-dateutil sentencepiece
+
       - name: Run full suite with coverage (gate at measured floor)
         # Measured real coverage: 71% locally, 932 passed + 2 xfail (2026-06-14)
         # (acdc 95%, das 83%, cross_model 66%, steering 70%, core 98%;
