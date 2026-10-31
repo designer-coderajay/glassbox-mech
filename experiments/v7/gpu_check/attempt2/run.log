@@ -1,0 +1,8 @@
+2026-10-30 15:48:32,154 INFO protocol experiments/v7/gpu_check/PROTOCOL.md v1.0, settings {'n_per_cell': 30, 'n_perm': 999, 'alpha': 0.05, 'seed': 'gpu-check'}
+2026-10-30 15:48:32,154 INFO A: start (cpu, float32)
+2026-10-30 15:48:51,858 INFO A: done in 14.1s on cpu
+2026-10-30 15:48:51,884 INFO B: start (cuda, float32)
+2026-10-30 15:48:58,047 INFO B: done in 3.9s on Tesla T4
+2026-10-30 15:48:58,056 INFO C: start (cuda, bfloat16)
+2026-10-30 15:49:03,958 INFO C: done in 3.9s on Tesla T4
+2026-10-30 15:49:04,057 INFO overall: PASS

@@ -1,0 +1,1001 @@
+{
+ "configurations": [
+  {
+   "decisions": {
+    "q1": {
+     "attributed": [
+      "index"
+     ],
+     "reverting_matters": [
+      "index"
+     ]
+    },
+    "q2": {
+     "attributed": [
+      "index"
+     ],
+     "reverting_matters": [
+      "index"
+     ]
+    },
+    "q3": {
+     "attributed": [
+      "index"
+     ],
+     "reverting_matters": [
+      "index"
+     ]
+    },
+    "q4": {
+     "attributed": [
+      "index"
+     ],
+     "reverting_matters": [
+      "index"
+     ]
+    },
+    "q5": {
+     "attributed": [],
+     "reverting_matters": []
+    },
+    "q6": {
+     "attributed": [],
+     "reverting_matters": []
+    },
+    "q7": {
+     "attributed": [],
+     "reverting_matters": [
+      "template"
+     ]
+    },
+    "q8": {
+     "attributed": [],
+     "reverting_matters": []
+    }
+   },
+   "environment": {
+    "cuda_version": null,
+    "device": "cpu",
+    "dtype": "float32",
+    "gpu_name": null,
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "python_version": "3.11.18",
+    "torch_version": "2.10.0+cu128"
+   },
+   "factor_summary": {
+    "index": {
+     "reverting_alone_changed": [
+      "q1",
+      "q2",
+      "q3",
+      "q4"
+     ],
+     "switching_alone_changed": [
+      "q1",
+      "q2",
+      "q3",
+      "q4"
+     ]
+    },
+    "log_level": {
+     "reverting_alone_changed": [],
+     "switching_alone_changed": []
+    },
+    "template": {
+     "reverting_alone_changed": [
+      "q7"
+     ],
+     "switching_alone_changed": []
+    }
+   },
+   "id": "A",
+   "outcome_counts": {
+    "q1": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "q2": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "q3": {
+     "all_but_index": {
+      "correct": 25,
+      "wrong": 5
+     },
+     "all_but_log_level": {
+      "correct": 9,
+      "wrong": 21
+     },
+     "all_but_template": {
+      "correct": 10,
+      "wrong": 20
+     },
+     "baseline": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "candidate": {
+      "correct": 5,
+      "wrong": 25
+     },
+     "only_index": {
+      "correct": 8,
+      "wrong": 22
+     },
+     "only_log_level": {
+      "correct": 28,
+      "wrong": 2
+     },
+     "only_template": {
+      "correct": 23,
+      "wrong": 7
+     }
+    },
+    "q4": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "q5": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "q6": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "q7": {
+     "all_but_index": {
+      "correct": 23,
+      "wrong": 7
+     },
+     "all_but_log_level": {
+      "correct": 21,
+      "wrong": 9
+     },
+     "all_but_template": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "baseline": {
+      "correct": 22,
+      "wrong": 8
+     },
+     "candidate": {
+      "correct": 16,
+      "wrong": 14
+     },
+     "only_index": {
+      "correct": 27,
+      "wrong": 3
+     },
+     "only_log_level": {
+      "correct": 22,
+      "wrong": 8
+     },
+     "only_template": {
+      "correct": 22,
+      "wrong": 8
+     }
+    },
+    "q8": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    }
+   },
+   "requested": {
+    "device": "cpu",
+    "dtype": "float32"
+   },
+   "runtime_s": 14.146
+  },
+  {
+   "decisions": {
+    "q1": {
+     "attributed": [
+      "index"
+     ],
+     "reverting_matters": [
+      "index"
+     ]
+    },
+    "q2": {
+     "attributed": [
+      "index"
+     ],
+     "reverting_matters": [
+      "index"
+     ]
+    },
+    "q3": {
+     "attributed": [
+      "index"
+     ],
+     "reverting_matters": [
+      "index"
+     ]
+    },
+    "q4": {
+     "attributed": [
+      "index"
+     ],
+     "reverting_matters": [
+      "index"
+     ]
+    },
+    "q5": {
+     "attributed": [],
+     "reverting_matters": []
+    },
+    "q6": {
+     "attributed": [],
+     "reverting_matters": []
+    },
+    "q7": {
+     "attributed": [],
+     "reverting_matters": [
+      "template"
+     ]
+    },
+    "q8": {
+     "attributed": [],
+     "reverting_matters": []
+    }
+   },
+   "environment": {
+    "cuda_version": "12.8",
+    "device": "cuda",
+    "dtype": "float32",
+    "gpu_name": "Tesla T4",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "python_version": "3.11.18",
+    "torch_version": "2.10.0+cu128"
+   },
+   "factor_summary": {
+    "index": {
+     "reverting_alone_changed": [
+      "q1",
+      "q2",
+      "q3",
+      "q4"
+     ],
+     "switching_alone_changed": [
+      "q1",
+      "q2",
+      "q3",
+      "q4"
+     ]
+    },
+    "log_level": {
+     "reverting_alone_changed": [],
+     "switching_alone_changed": []
+    },
+    "template": {
+     "reverting_alone_changed": [
+      "q7"
+     ],
+     "switching_alone_changed": []
+    }
+   },
+   "id": "B",
+   "outcome_counts": {
+    "q1": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "q2": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "q3": {
+     "all_but_index": {
+      "correct": 25,
+      "wrong": 5
+     },
+     "all_but_log_level": {
+      "correct": 9,
+      "wrong": 21
+     },
+     "all_but_template": {
+      "correct": 10,
+      "wrong": 20
+     },
+     "baseline": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "candidate": {
+      "correct": 5,
+      "wrong": 25
+     },
+     "only_index": {
+      "correct": 8,
+      "wrong": 22
+     },
+     "only_log_level": {
+      "correct": 28,
+      "wrong": 2
+     },
+     "only_template": {
+      "correct": 23,
+      "wrong": 7
+     }
+    },
+    "q4": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "q5": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "q6": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "q7": {
+     "all_but_index": {
+      "correct": 23,
+      "wrong": 7
+     },
+     "all_but_log_level": {
+      "correct": 21,
+      "wrong": 9
+     },
+     "all_but_template": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "baseline": {
+      "correct": 22,
+      "wrong": 8
+     },
+     "candidate": {
+      "correct": 16,
+      "wrong": 14
+     },
+     "only_index": {
+      "correct": 27,
+      "wrong": 3
+     },
+     "only_log_level": {
+      "correct": 22,
+      "wrong": 8
+     },
+     "only_template": {
+      "correct": 22,
+      "wrong": 8
+     }
+    },
+    "q8": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    }
+   },
+   "requested": {
+    "device": "cuda",
+    "dtype": "float32"
+   },
+   "runtime_s": 3.889
+  },
+  {
+   "decisions": {
+    "q1": {
+     "attributed": [
+      "index"
+     ],
+     "reverting_matters": [
+      "index"
+     ]
+    },
+    "q2": {
+     "attributed": [
+      "index"
+     ],
+     "reverting_matters": [
+      "index"
+     ]
+    },
+    "q3": {
+     "attributed": [
+      "index",
+      "template"
+     ],
+     "reverting_matters": [
+      "index"
+     ]
+    },
+    "q4": {
+     "attributed": [
+      "index"
+     ],
+     "reverting_matters": [
+      "index"
+     ]
+    },
+    "q5": {
+     "attributed": [],
+     "reverting_matters": []
+    },
+    "q6": {
+     "attributed": [],
+     "reverting_matters": []
+    },
+    "q7": {
+     "attributed": [],
+     "reverting_matters": [
+      "template"
+     ]
+    },
+    "q8": {
+     "attributed": [],
+     "reverting_matters": []
+    }
+   },
+   "environment": {
+    "cuda_version": "12.8",
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "gpu_name": "Tesla T4",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "python_version": "3.11.18",
+    "torch_version": "2.10.0+cu128"
+   },
+   "factor_summary": {
+    "index": {
+     "reverting_alone_changed": [
+      "q1",
+      "q2",
+      "q3",
+      "q4"
+     ],
+     "switching_alone_changed": [
+      "q1",
+      "q2",
+      "q3",
+      "q4"
+     ]
+    },
+    "log_level": {
+     "reverting_alone_changed": [],
+     "switching_alone_changed": []
+    },
+    "template": {
+     "reverting_alone_changed": [
+      "q7"
+     ],
+     "switching_alone_changed": [
+      "q3"
+     ]
+    }
+   },
+   "id": "C",
+   "outcome_counts": {
+    "q1": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "q2": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "q3": {
+     "all_but_index": {
+      "correct": 25,
+      "wrong": 5
+     },
+     "all_but_log_level": {
+      "correct": 9,
+      "wrong": 21
+     },
+     "all_but_template": {
+      "correct": 10,
+      "wrong": 20
+     },
+     "baseline": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "candidate": {
+      "correct": 5,
+      "wrong": 25
+     },
+     "only_index": {
+      "correct": 8,
+      "wrong": 22
+     },
+     "only_log_level": {
+      "correct": 28,
+      "wrong": 2
+     },
+     "only_template": {
+      "correct": 22,
+      "wrong": 8
+     }
+    },
+    "q4": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "q5": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "q6": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "q7": {
+     "all_but_index": {
+      "correct": 23,
+      "wrong": 7
+     },
+     "all_but_log_level": {
+      "correct": 21,
+      "wrong": 9
+     },
+     "all_but_template": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "baseline": {
+      "correct": 22,
+      "wrong": 8
+     },
+     "candidate": {
+      "correct": 16,
+      "wrong": 14
+     },
+     "only_index": {
+      "correct": 27,
+      "wrong": 3
+     },
+     "only_log_level": {
+      "correct": 22,
+      "wrong": 8
+     },
+     "only_template": {
+      "correct": 22,
+      "wrong": 8
+     }
+    },
+    "q8": {
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    }
+   },
+   "requested": {
+    "device": "cuda",
+    "dtype": "bfloat16"
+   },
+   "runtime_s": 3.884
+  }
+ ],
+ "descriptive_C": {
+  "cases": 8,
+  "matching_A": 7
+ },
+ "gates": {
+  "G1": {
+   "differing_cases": [],
+   "identical": true,
+   "pass": true,
+   "summary_equal": true
+  },
+  "G2": {
+   "pass": true
+  },
+  "overall": "PASS"
+ },
+ "protocol": "experiments/v7/gpu_check/PROTOCOL.md v1.0",
+ "settings": {
+  "alpha": 0.05,
+  "n_per_cell": 30,
+  "n_perm": 999,
+  "seed": "gpu-check"
+ },
+ "software": {
+  "git_commit": "15454531d1dabf4be9daa8b75d260c802e5770a8",
+  "glassbox-mech-interp": "4.6.0",
+  "numpy": "1.26.4",
+  "torch": "2.10.0",
+  "transformer-lens": "2.17.0",
+  "transformers": "4.57.6"
+ }
+}
