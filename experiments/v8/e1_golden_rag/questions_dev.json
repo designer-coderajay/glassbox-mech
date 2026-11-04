@@ -1,0 +1,109 @@
+[
+ {
+  "id": "u_returns_a",
+  "doc": "returns",
+  "question": "How many days do I have to return an item?",
+  "accepted": [
+   "30 days",
+   "thirty days"
+  ],
+  "stale": [
+   "14 days",
+   "fourteen days"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_returns_b",
+  "doc": "returns",
+  "question": "What is the deadline for sending back a product after it is delivered?",
+  "accepted": [
+   "30 days",
+   "thirty days"
+  ],
+  "stale": [
+   "14 days",
+   "fourteen days"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_shipping_a",
+  "doc": "shipping",
+  "question": "Above what order value is standard shipping free?",
+  "accepted": [
+   "\u20ac35",
+   "35 euro",
+   "35 eur"
+  ],
+  "stale": [
+   "\u20ac50",
+   "50 euro",
+   "50 eur"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_shipping_b",
+  "doc": "shipping",
+  "question": "How much do I need to spend to get free standard delivery?",
+  "accepted": [
+   "\u20ac35",
+   "35 euro",
+   "35 eur"
+  ],
+  "stale": [
+   "\u20ac50",
+   "50 euro",
+   "50 eur"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "n_gift_cards",
+  "doc": "gift_cards",
+  "question": "How long is a gift card valid?",
+  "accepted": [
+   "3 years",
+   "three years"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_price_match",
+  "doc": "price_match",
+  "question": "Within how many days of purchase can I ask for a price match?",
+  "accepted": [
+   "7 days",
+   "seven days"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_store_hours",
+  "doc": "store_hours",
+  "question": "What time do stores close on Saturdays?",
+  "accepted": [
+   "16:00",
+   "4 pm",
+   "4pm",
+   "4 p m"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_repairs",
+  "doc": "repairs",
+  "question": "How long does a repair usually take?",
+  "accepted": [
+   "10 working days",
+   "10 business days",
+   "ten working days"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ }
+]

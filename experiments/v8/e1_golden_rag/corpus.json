@@ -1,0 +1,146 @@
+[
+ {
+  "id": "returns",
+  "title": "Returns policy",
+  "v1": "Kestrel Supply Co. wants every customer to be happy with what they buy. Items must be unused, with tags attached and the original receipt or order number. Sale items can be returned on the same terms as full-price items. Refunds go back to the original payment method once the warehouse has checked the item, which usually takes three working days. You can return an item within 14 days of delivery.",
+  "v2": "Kestrel Supply Co. wants every customer to be happy with what they buy. Items must be unused, with tags attached and the original receipt or order number. Sale items can be returned on the same terms as full-price items. Refunds go back to the original payment method once the warehouse has checked the item, which usually takes three working days. You can return an item within 30 days of delivery."
+ },
+ {
+  "id": "shipping",
+  "title": "Standard shipping",
+  "v1": "Orders placed before noon on a working day leave our warehouse the same day. Standard delivery within the country takes two to four working days, and every parcel gets a tracking link by email. Parcels are handed to the national postal service unless a courier is chosen at checkout. Standard shipping costs \u20ac4.95, and it is free on orders over \u20ac50.",
+  "v2": "Orders placed before noon on a working day leave our warehouse the same day. Standard delivery within the country takes two to four working days, and every parcel gets a tracking link by email. Parcels are handed to the national postal service unless a courier is chosen at checkout. Standard shipping costs \u20ac4.95, and it is free on orders over \u20ac35."
+ },
+ {
+  "id": "warranty",
+  "title": "Product warranty",
+  "v1": "Kestrel tents, stoves and backpacks are tested in the field before they are sold. The warranty covers manufacturing faults in materials and workmanship, but not normal wear, misuse or damage from accidents. To make a claim, send a photo of the fault and your order number to the support team. All Kestrel-brand products carry a warranty of 1 year from the date of purchase.",
+  "v2": "Kestrel tents, stoves and backpacks are tested in the field before they are sold. The warranty covers manufacturing faults in materials and workmanship, but not normal wear, misuse or damage from accidents. To make a claim, send a photo of the fault and your order number to the support team. All Kestrel-brand products carry a warranty of 2 years from the date of purchase."
+ },
+ {
+  "id": "loyalty",
+  "title": "Loyalty programme",
+  "v1": "The Kestrel Trail Club is free to join online or in any store. Members get early access to seasonal sales and a birthday voucher every year. Points can be redeemed at checkout once you have collected at least 500, and they expire after two years without activity. Members earn 1 point per euro spent.",
+  "v2": "The Kestrel Trail Club is free to join online or in any store. Members get early access to seasonal sales and a birthday voucher every year. Points can be redeemed at checkout once you have collected at least 500, and they expire after two years without activity. Members earn 2 points per euro spent."
+ },
+ {
+  "id": "support_hours",
+  "title": "Customer support hours",
+  "v1": "Our support team answers questions about orders, products and returns by phone, chat and email. Emails are answered within one working day, and chat is usually answered within a few minutes. The phone line is closed on public holidays. On weekdays, phone and chat support is open from 08:00 until 18:00.",
+  "v2": "Our support team answers questions about orders, products and returns by phone, chat and email. Emails are answered within one working day, and chat is usually answered within a few minutes. The phone line is closed on public holidays. On weekdays, phone and chat support is open from 08:00 until 20:00."
+ },
+ {
+  "id": "membership_fee",
+  "title": "Trail Club Plus membership",
+  "v1": "Trail Club Plus is the paid tier of the loyalty programme. It adds free express shipping, free repairs labour and invitations to members-only events. Plus can be cancelled at any time and the remaining months are refunded. The Trail Club Plus fee is \u20ac20 per year.",
+  "v2": "Trail Club Plus is the paid tier of the loyalty programme. It adds free express shipping, free repairs labour and invitations to members-only events. Plus can be cancelled at any time and the remaining months are refunded. The Trail Club Plus fee is \u20ac25 per year."
+ },
+ {
+  "id": "cancellation",
+  "title": "Cancelling an order",
+  "v1": "You can cancel an order from your account page or by contacting support. Once an order has been handed to the carrier it can no longer be cancelled, but it can still be returned. Cancelled orders are refunded within five working days. Orders can be cancelled up to 2 hours after they are placed.",
+  "v2": "You can cancel an order from your account page or by contacting support. Once an order has been handed to the carrier it can no longer be cancelled, but it can still be returned. Cancelled orders are refunded within five working days. Orders can be cancelled up to 24 hours after they are placed."
+ },
+ {
+  "id": "student_discount",
+  "title": "Student discount",
+  "v1": "Students at any accredited university or college can register with their student email address. The discount works online and in stores, but it cannot be combined with other promotions or used on gift cards. Registration has to be renewed every academic year. Verified students get a discount of 10% on full-price items.",
+  "v2": "Students at any accredited university or college can register with their student email address. The discount works online and in stores, but it cannot be combined with other promotions or used on gift cards. Registration has to be renewed every academic year. Verified students get a discount of 15% on full-price items."
+ },
+ {
+  "id": "gift_cards",
+  "title": "Gift cards",
+  "v1": "Kestrel gift cards are sold in stores and online in any amount from \u20ac10 to \u20ac500. They can be used for any product, including sale items, but not to buy other gift cards. A lost card can be replaced if you still have the purchase receipt. Gift cards are valid for 3 years from the date of purchase.",
+  "v2": "Kestrel gift cards are sold in stores and online in any amount from \u20ac10 to \u20ac500. They can be used for any product, including sale items, but not to buy other gift cards. A lost card can be replaced if you still have the purchase receipt. Gift cards are valid for 3 years from the date of purchase."
+ },
+ {
+  "id": "price_match",
+  "title": "Price match",
+  "v1": "If you find the same product cheaper at another national retailer, we will match the price. The product must be identical, in stock at the other retailer and not part of a clearance or members-only offer. Show the offer to staff or send a link to support. Price matching is available within 7 days of your purchase.",
+  "v2": "If you find the same product cheaper at another national retailer, we will match the price. The product must be identical, in stock at the other retailer and not part of a clearance or members-only offer. Show the offer to staff or send a link to support. Price matching is available within 7 days of your purchase."
+ },
+ {
+  "id": "store_hours",
+  "title": "Store opening hours",
+  "v1": "Our stores are open from Monday to Saturday and closed on Sundays and public holidays. On weekdays the doors open at 09:30 and close at 19:00. Some city-centre stores have longer hours during the December holidays, which are listed on each store page. On Saturdays, stores close at 16:00.",
+  "v2": "Our stores are open from Monday to Saturday and closed on Sundays and public holidays. On weekdays the doors open at 09:30 and close at 19:00. Some city-centre stores have longer hours during the December holidays, which are listed on each store page. On Saturdays, stores close at 16:00."
+ },
+ {
+  "id": "repairs",
+  "title": "Repair service",
+  "v1": "Our workshop repairs zips, seams, tent poles and stove valves, whether or not the item is still under warranty. Bring the item to any store or send it in with the free repair label from your account. Repairs outside the warranty are charged for parts only for Trail Club Plus members. The usual repair turnaround is 10 working days.",
+  "v2": "Our workshop repairs zips, seams, tent poles and stove valves, whether or not the item is still under warranty. Bring the item to any store or send it in with the free repair label from your account. Repairs outside the warranty are charged for parts only for Trail Club Plus members. The usual repair turnaround is 10 working days."
+ },
+ {
+  "id": "rentals",
+  "title": "Equipment rental",
+  "v1": "Tents, sleeping bags and climbing gear can be rented for weekends or full weeks from selected stores. Rented items are cleaned and checked after every return. Late returns are charged at the daily rate. A refundable deposit of \u20ac100 is required for every rental.",
+  "v2": "Tents, sleeping bags and climbing gear can be rented for weekends or full weeks from selected stores. Rented items are cleaned and checked after every return. Late returns are charged at the daily rate. A refundable deposit of \u20ac100 is required for every rental."
+ },
+ {
+  "id": "data_retention",
+  "title": "Order data retention",
+  "v1": "We keep the information needed to process orders, returns and warranty claims. Payment card details are never stored by Kestrel; they are handled by our payment provider. Marketing preferences can be changed at any time in your account. Order records are kept for 6 years to meet accounting rules.",
+  "v2": "We keep the information needed to process orders, returns and warranty claims. Payment card details are never stored by Kestrel; they are handled by our payment provider. Marketing preferences can be changed at any time in your account. Order records are kept for 6 years to meet accounting rules."
+ },
+ {
+  "id": "account_deletion",
+  "title": "Deleting your account",
+  "v1": "You can ask for your customer account to be deleted from the account page or by writing to support. Deleting the account also removes your Trail Club points and saved addresses. Order records required by law are kept separately. Deletion requests are processed within 5 working days.",
+  "v2": "You can ask for your customer account to be deleted from the account page or by writing to support. Deleting the account also removes your Trail Club points and saved addresses. Order records required by law are kept separately. Deletion requests are processed within 5 working days."
+ },
+ {
+  "id": "international",
+  "title": "International shipping",
+  "v1": "We ship to every country in the European Union and to Norway, Switzerland and the United Kingdom. Delivery takes four to eight working days, and customs fees for non-EU countries are paid by the customer. International orders cannot be sent to parcel lockers. International shipping costs a flat fee of \u20ac15.",
+  "v2": "We ship to every country in the European Union and to Norway, Switzerland and the United Kingdom. Delivery takes four to eight working days, and customs fees for non-EU countries are paid by the customer. International orders cannot be sent to parcel lockers. International shipping costs a flat fee of \u20ac15."
+ },
+ {
+  "id": "bulk_orders",
+  "title": "Bulk and club orders",
+  "v1": "Outdoor clubs, schools and companies can order equipment in bulk through our business team. Bulk orders get a dedicated contact person and an invoice with 30-day payment terms. Custom logos can be added to many products for an extra charge. Orders of 50 units or more receive a discount of 8%.",
+  "v2": "Outdoor clubs, schools and companies can order equipment in bulk through our business team. Bulk orders get a dedicated contact person and an invoice with 30-day payment terms. Custom logos can be added to many products for an extra charge. Orders of 50 units or more receive a discount of 8%."
+ },
+ {
+  "id": "delivery_damage",
+  "title": "Damaged deliveries",
+  "v1": "Please check your parcel when it arrives. If the box or the product is damaged, take photos before unpacking anything else. We will send a replacement or a refund, whichever you prefer, and you do not need to pay for the return. Damage must be reported within 48 hours of delivery.",
+  "v2": "Please check your parcel when it arrives. If the box or the product is damaged, take photos before unpacking anything else. We will send a replacement or a refund, whichever you prefer, and you do not need to pay for the return. Damage must be reported within 48 hours of delivery."
+ },
+ {
+  "id": "exchanges",
+  "title": "Size exchanges",
+  "v1": "Shoes and clothing can be exchanged for a different size free of charge, online or in any store. The item must be unworn and in its original packaging. If the new size is out of stock, we refund the item instead. Size exchanges are possible within 60 days of delivery.",
+  "v2": "Shoes and clothing can be exchanged for a different size free of charge, online or in any store. The item must be unworn and in its original packaging. If the new size is out of stock, we refund the item instead. Size exchanges are possible within 60 days of delivery."
+ },
+ {
+  "id": "layaway",
+  "title": "Layaway",
+  "v1": "Layaway lets you reserve large items such as tents and bikes and pay for them in instalments. The item is kept in store until it is fully paid. Instalments can be paid in store or online, and the plan can run for up to three months. Layaway requires a deposit of 20% of the price.",
+  "v2": "Layaway lets you reserve large items such as tents and bikes and pay for them in instalments. The item is kept in store until it is fully paid. Instalments can be paid in store or online, and the plan can run for up to three months. Layaway requires a deposit of 20% of the price."
+ },
+ {
+  "id": "newsletter",
+  "title": "Newsletter",
+  "v1": "The Kestrel newsletter brings trip ideas, gear guides and early news about sales, about twice a month. You can unsubscribe with one click at the bottom of every email. We never sell your email address. New subscribers receive a voucher worth \u20ac5 off their next order.",
+  "v2": "The Kestrel newsletter brings trip ideas, gear guides and early news about sales, about twice a month. You can unsubscribe with one click at the bottom of every email. We never sell your email address. New subscribers receive a voucher worth \u20ac5 off their next order."
+ },
+ {
+  "id": "recycling",
+  "title": "Gear recycling",
+  "v1": "Bring worn-out outdoor gear of any brand to one of our stores and we will recycle it or pass it on to repair partners. Items must be clean and dry. Electrical items and gas canisters cannot be accepted. You receive store credit of \u20ac3 for every item you hand in.",
+  "v2": "Bring worn-out outdoor gear of any brand to one of our stores and we will recycle it or pass it on to repair partners. Items must be clean and dry. Electrical items and gas canisters cannot be accepted. You receive store credit of \u20ac3 for every item you hand in."
+ },
+ {
+  "id": "click_collect",
+  "title": "Click and collect",
+  "v1": "Orders can be collected free of charge from any Kestrel store. You will get an email when the order is ready, usually within one working day. Bring the email and an ID to the collection desk. Orders are held for collection for 9 days before they are returned to the warehouse.",
+  "v2": "Orders can be collected free of charge from any Kestrel store. You will get an email when the order is ready, usually within one working day. Bring the email and an ID to the collection desk. Orders are held for collection for 9 days before they are returned to the warehouse."
+ },
+ {
+  "id": "gift_wrap",
+  "title": "Gift wrapping",
+  "v1": "Most items can be gift-wrapped in recycled paper, online at checkout or at any store counter. We can add a handwritten card with your message. Large items such as tents are wrapped with a ribbon only. Gift wrapping costs \u20ac4 per item.",
+  "v2": "Most items can be gift-wrapped in recycled paper, online at checkout or at any store counter. We can add a handwritten card with your message. Large items such as tents are wrapped with a ribbon only. Gift wrapping costs \u20ac4 per item."
+ }
+]

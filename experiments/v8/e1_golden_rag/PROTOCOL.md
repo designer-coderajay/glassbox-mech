@@ -206,3 +206,65 @@ The units are (question, factor) pairs, with labels from §4.
 
 ---
 *(Addenda go below this line, with dates.)*
+
+## Addendum 1 (2026-11-04): sealed data, implementation details, toy dry run
+
+Written in the code commit, before any model run.
+
+**1. Sealed files** (sha256). These must match the run's checkout. The test split was not
+used while building the code. Only the toy backend has read it, in the dry run of item 6.
+
+| File | sha256 |
+|---|---|
+| `questions_test.json` (24) | `a6dbd869e45567a02f51dab4dc9b402bf3fa3e253275fdb60c84267657acbb09` |
+| `questions_dev.json` (8) | `d080f31cdc427b07d3a6995a188f734fbc00ea0168887d189adb38a0f07b9895` |
+| `corpus.json` (24 docs, 8 changed) | `ffe0fe2c0196d83564dee45d1e511e1cf1c8e587094b187bc1b9bd704a04fce4` |
+
+- `make_data.py` regenerates all three byte-identically, and a test checks this.
+- Documents are 42–70 words long. So at `chunk_words` 120 every document is one chunk,
+  and at 40 most become two.
+
+**2. Sampling seeds (clarifies §2 "one seed per run").**
+- Generations are drawn in **blocks of 50** per (configuration, question). Each block has
+  its own seed: sha256 of (stage master seed, canonical configuration, question id,
+  block number).
+- Run *i* uses sample *i* of its block. This keeps a model call batched, so the run fits
+  on a T4.
+- Each configuration still gets independent samples. That includes the configurations
+  that differ only in the inert `log_level`.
+- The `seed` argument that `run_interventions` passes to the runner is not used by the
+  generator.
+
+**3. Outcome matching (§2).**
+- Punctuation becomes spaces, and text is lowercased and split into tokens.
+- An answer counts as `correct` if any accepted answer appears as a **contiguous run of
+  tokens**. For example, "30 days" matches "30 days" and "thirty days" but not "300
+  days".
+- Accepted and stale answer lists are in the question files.
+
+**4. Order of stages (§8).** The run checkpoints **per question**: reference, then main,
+then recovery for each question before moving to the next. The main-run decisions never
+read the reference labels. Labels are only joined to decisions in scoring, after all
+questions are done.
+
+**5. Software** (licences checked on PyPI, 2026-11-04). These are **not pinned**; the
+versions installed are recorded in `results.json` → `software`.
+- sentence-transformers: Apache-2.0.
+- bitsandbytes: MIT. Needed for rung 2 only.
+- accelerate: Apache. Needed for rung 2's `device_map`.
+
+The rest of the stack uses the CI pins (`docs/v7/COLAB_GPU.md`).
+
+**6. Toy dry run (disclosed; not evidence).**
+- The full pipeline ran once on the toy backend: hashed bag-of-words embedder and a
+  sentence-picking "generator", **not a language model**. It covered all 24 test
+  questions at the protocol's sample sizes, on CPU, in about 42 s.
+- The toy failed the competence gate (0.338), so the gate was set to 0 for this dry run
+  only, to exercise every stage.
+- It completed, and scoring produced all six criteria. The toy numbers are not reported
+  as results, and **no threshold, setting or data file was changed after it.**
+
+**7. Known before the run.** With n = 200, a `null` label (CI upper bound ≤ 0.10) is
+reachable only when the question's accuracy is high, about 0.85 or more. On a 50%
+question with no effect, the CI upper bound is about 0.14. So G3 may turn out to be **not testable**, as §7
+allows.

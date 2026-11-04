@@ -1,0 +1,333 @@
+[
+ {
+  "id": "u_warranty_a",
+  "doc": "warranty",
+  "question": "How long is the warranty on Kestrel-brand products?",
+  "accepted": [
+   "2 years",
+   "two years",
+   "24 months"
+  ],
+  "stale": [
+   "1 year",
+   "one year",
+   "12 months"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_warranty_b",
+  "doc": "warranty",
+  "question": "For how long after purchase are manufacturing faults covered?",
+  "accepted": [
+   "2 years",
+   "two years",
+   "24 months"
+  ],
+  "stale": [
+   "1 year",
+   "one year",
+   "12 months"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_loyalty_a",
+  "doc": "loyalty",
+  "question": "How many points do Trail Club members earn per euro?",
+  "accepted": [
+   "2 points",
+   "two points"
+  ],
+  "stale": [
+   "1 point",
+   "one point"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_loyalty_b",
+  "doc": "loyalty",
+  "question": "What is the points rate for each euro a member spends?",
+  "accepted": [
+   "2 points",
+   "two points"
+  ],
+  "stale": [
+   "1 point",
+   "one point"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_support_a",
+  "doc": "support_hours",
+  "question": "Until what time is phone support open on weekdays?",
+  "accepted": [
+   "20:00",
+   "8 pm",
+   "8pm",
+   "8 p m"
+  ],
+  "stale": [
+   "18:00",
+   "6 pm",
+   "6pm",
+   "6 p m"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_support_b",
+  "doc": "support_hours",
+  "question": "When does the support chat close on a weekday?",
+  "accepted": [
+   "20:00",
+   "8 pm",
+   "8pm",
+   "8 p m"
+  ],
+  "stale": [
+   "18:00",
+   "6 pm",
+   "6pm",
+   "6 p m"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_fee_a",
+  "doc": "membership_fee",
+  "question": "How much does Trail Club Plus cost per year?",
+  "accepted": [
+   "\u20ac25",
+   "25 euro",
+   "25 eur"
+  ],
+  "stale": [
+   "\u20ac20",
+   "20 euro",
+   "20 eur"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_fee_b",
+  "doc": "membership_fee",
+  "question": "What is the annual fee for the paid loyalty tier?",
+  "accepted": [
+   "\u20ac25",
+   "25 euro",
+   "25 eur"
+  ],
+  "stale": [
+   "\u20ac20",
+   "20 euro",
+   "20 eur"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_cancel_a",
+  "doc": "cancellation",
+  "question": "How long after placing an order can I still cancel it?",
+  "accepted": [
+   "24 hours",
+   "24 hour",
+   "twenty four hours"
+  ],
+  "stale": [
+   "2 hours",
+   "two hours"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_cancel_b",
+  "doc": "cancellation",
+  "question": "What is the time limit for cancelling an order?",
+  "accepted": [
+   "24 hours",
+   "24 hour",
+   "twenty four hours"
+  ],
+  "stale": [
+   "2 hours",
+   "two hours"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_student_a",
+  "doc": "student_discount",
+  "question": "What discount do verified students get?",
+  "accepted": [
+   "15%",
+   "15 percent",
+   "fifteen percent"
+  ],
+  "stale": [
+   "10%",
+   "10 percent",
+   "ten percent"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_student_b",
+  "doc": "student_discount",
+  "question": "How big is the student discount on full-price items?",
+  "accepted": [
+   "15%",
+   "15 percent",
+   "fifteen percent"
+  ],
+  "stale": [
+   "10%",
+   "10 percent",
+   "ten percent"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "n_rentals",
+  "doc": "rentals",
+  "question": "How much is the deposit for renting equipment?",
+  "accepted": [
+   "\u20ac100",
+   "100 euro",
+   "100 eur"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_data",
+  "doc": "data_retention",
+  "question": "How long are order records kept?",
+  "accepted": [
+   "6 years",
+   "six years"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_deletion",
+  "doc": "account_deletion",
+  "question": "How quickly is an account deletion request processed?",
+  "accepted": [
+   "5 working days",
+   "5 business days",
+   "five working days"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_international",
+  "doc": "international",
+  "question": "What does international shipping cost?",
+  "accepted": [
+   "\u20ac15",
+   "15 euro",
+   "15 eur"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_bulk",
+  "doc": "bulk_orders",
+  "question": "What discount do orders of 50 units or more get?",
+  "accepted": [
+   "8%",
+   "8 percent",
+   "eight percent"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_damage",
+  "doc": "delivery_damage",
+  "question": "How soon must I report a damaged delivery?",
+  "accepted": [
+   "48 hours",
+   "48 hour",
+   "forty eight hours"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_exchanges",
+  "doc": "exchanges",
+  "question": "Within how many days can I exchange shoes for another size?",
+  "accepted": [
+   "60 days",
+   "sixty days"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_layaway",
+  "doc": "layaway",
+  "question": "How much deposit does layaway require?",
+  "accepted": [
+   "20%",
+   "20 percent",
+   "twenty percent"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_newsletter",
+  "doc": "newsletter",
+  "question": "What voucher do new newsletter subscribers receive?",
+  "accepted": [
+   "\u20ac5",
+   "5 euro",
+   "5 eur"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_recycling",
+  "doc": "recycling",
+  "question": "How much store credit do I get for each recycled item?",
+  "accepted": [
+   "\u20ac3",
+   "3 euro",
+   "3 eur"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_click_collect",
+  "doc": "click_collect",
+  "question": "How long is a click-and-collect order held at the store?",
+  "accepted": [
+   "9 days",
+   "nine days"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_gift_wrap",
+  "doc": "gift_wrap",
+  "question": "How much does gift wrapping cost?",
+  "accepted": [
+   "\u20ac4",
+   "4 euro",
+   "4 eur"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ }
+]
