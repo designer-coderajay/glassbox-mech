@@ -148,7 +148,8 @@ def _stages(
     }
     settings = InterventionSettings(N_MAIN, N_PERM, ALPHA, SEEDS["main"])
     per_q: Dict[str, Any] = {}
-    for q in test:
+    for n, q in enumerate(test, 1):
+        log.info("question %d/%d %s: reference, main, recovery", n, len(test), q["id"])
         r = cp.run(
             f"ref_{q['id']}",
             _timed(

@@ -7,8 +7,8 @@ and keep the output.
 **Start with a fresh runtime.** Runtime → Disconnect and delete runtime. Then Runtime →
 Change runtime type → T4 GPU.
 
-**Expected length:** probably 1.5–3 hours of GPU time for the 1.5B model. That is an
-estimate. Keep the tab open: free Colab disconnects idle sessions. If it disconnects,
+**Expected length:** probably 4–6 hours of GPU time for the 1.5B model (Addendum 2).
+That is an estimate. Keep the tab open: free Colab disconnects idle sessions. If it disconnects,
 step 6 resumes where it stopped.
 
 ## 1. GPU
@@ -68,7 +68,7 @@ Approve the pop-up yourself.
 ## 6. The run (repeat this exact cell after a disconnect)
 
 ```
-!cd /content/glassbox-mech && /content/gbenv/bin/python experiments/v8/e1_golden_rag/run.py --backend hf --out /content/drive/MyDrive/glassbox_runs/e1/attempt1 2>&1 | tee -a /content/drive/MyDrive/glassbox_runs/e1/attempt1_log.txt
+!mkdir -p /content/drive/MyDrive/glassbox_runs/e1 && cd /content/glassbox-mech && /content/gbenv/bin/python experiments/v8/e1_golden_rag/run.py --backend hf --out /content/drive/MyDrive/glassbox_runs/e1/attempt1 2>&1 | tee -a /content/drive/MyDrive/glassbox_runs/e1/attempt1_log.txt
 ```
 
 It ends with `overall: PASS`, `FAIL` or `INCONCLUSIVE`. All three are results. Do not
@@ -82,7 +82,7 @@ disclosed.
 
 ```
 !cd /content/drive/MyDrive/glassbox_runs/e1 && zip -r /content/e1_attempt1.zip attempt1 attempt1_log.txt
-!/content/gbenv/bin/pip freeze > /content/pip_freeze.txt
+!uv pip freeze --python /content/gbenv/bin/python > /content/pip_freeze.txt
 from google.colab import files
 files.download("/content/e1_attempt1.zip")
 files.download("/content/pip_freeze.txt")

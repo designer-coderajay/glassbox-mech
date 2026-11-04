@@ -167,7 +167,9 @@ class STEmbedder:  # pragma: no cover - needs the model; exercised on Colab
         self.model = SentenceTransformer(model_id, revision=revision, device=device)
 
     def encode(self, texts: Sequence[str]) -> np.ndarray:
-        vecs = self.model.encode(list(texts), normalize_embeddings=True)
+        vecs = self.model.encode(
+            list(texts), normalize_embeddings=True, show_progress_bar=False
+        )
         return np.asarray(vecs, dtype=np.float64)
 
 
@@ -252,6 +254,7 @@ class System:
         self.corpus = corpus if corpus is not None else load_corpus()
         self._index: Dict[Any, Any] = {}
         self._blocks: Dict[Any, List[str]] = {}
+        self._hits: Dict[Any, List[Dict[str, Any]]] = {}
 
     def _index_for(self, config: Dict[str, Any]) -> Any:
         version = "v2" if config["index"] == "fresh" else "v1"
@@ -267,12 +270,22 @@ class System:
         return self._index[key]
 
     def retrieve(self, config: Dict[str, Any], question: str) -> List[Dict[str, Any]]:
-        """Top-k chunks by cosine similarity; ties keep corpus order (deterministic)."""
-        chunks, vecs = self._index_for(config)
-        q = self.embedder.encode([question])[0]
-        scores = vecs @ q
-        order = sorted(range(len(chunks)), key=lambda j: (-float(scores[j]), j))
-        return [{**chunks[j], "score": float(scores[j])} for j in order[:TOP_K]]
+        """Top-k chunks by cosine similarity; ties keep corpus order (deterministic).
+
+        Retrieval is deterministic, so the result is cached per (index, question):
+        the question is embedded once, not once per sampled run (Addendum 2).
+        """
+        version = "v2" if config["index"] == "fresh" else "v1"
+        key = (version, int(config["chunk_words"]), question)
+        if key not in self._hits:
+            chunks, vecs = self._index_for(config)
+            q = self.embedder.encode([question])[0]
+            scores = vecs @ q
+            order = sorted(range(len(chunks)), key=lambda j: (-float(scores[j]), j))
+            self._hits[key] = [
+                {**chunks[j], "score": float(scores[j])} for j in order[:TOP_K]
+            ]
+        return [dict(h) for h in self._hits[key]]
 
     def block_seed(self, config: Dict[str, Any], qid: str, block: int) -> int:
         """Seed of one sampling block (PROTOCOL Addendum 1)."""

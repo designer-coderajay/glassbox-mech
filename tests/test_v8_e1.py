@@ -313,7 +313,9 @@ def test_run_end_to_end_with_toy_backends(tmp_path, monkeypatch):
     res = json.loads((out / "results.json").read_text())
     assert res["protocol"] == "experiments/v8/e1_golden_rag/PROTOCOL.md v1.0"
     assert res["gate"]["selected"] == "toy"
-    assert "sentence-transformers" in res["software"] and "git_commit" in res["software"]
+    assert (
+        "sentence-transformers" in res["software"] and "git_commit" in res["software"]
+    )
     assert set(res["per_question"]) and "criteria" in res
     assert (out / "checkpoint" / "_fingerprint.json").exists()
     # resume: a second call with the same settings reuses every saved unit
@@ -351,3 +353,24 @@ def test_settings_match_protocol():
         "recovery": "e1-recovery",
         "gate": "e1-gate",
     }
+
+
+def test_question_embedding_is_cached_and_retrieval_unchanged(sysm):
+    class CountingEmbedder(sysm.ToyEmbedder):
+        def __init__(self):
+            self.calls = []
+
+        def encode(self, texts):
+            self.calls.append(len(texts))
+            return super().encode(texts)
+
+    emb = CountingEmbedder()
+    s = sysm.System(emb, sysm.ToyGenerator(), "test")
+    q = sysm.load_questions("dev")[0]
+    first = s.retrieve(sysm.BASE, q["question"])
+    n_calls = len(emb.calls)
+    for _ in range(5):
+        assert s.retrieve(sysm.BASE, q["question"]) == first
+    assert len(emb.calls) == n_calls  # no re-encoding after the first call
+    plain = sysm.System(sysm.ToyEmbedder(), sysm.ToyGenerator(), "test")
+    assert plain.retrieve(sysm.BASE, q["question"]) == first

@@ -268,3 +268,40 @@ The rest of the stack uses the CI pins (`docs/v7/COLAB_GPU.md`).
 reachable only when the question's accuracy is high, about 0.85 or more. On a 50%
 question with no effect, the CI upper bound is about 0.14. So G3 may turn out to be **not testable**, as §7
 allows.
+
+## Addendum 2 (2026-11-04): attempt 1 stopped by hand during question 1; logging fixed
+
+**What happened.**
+- Attempt 1 ran on Colab (Tesla T4) at commit `63167a9`, with `--out` on Google Drive.
+- The **competence gate completed**: Qwen2.5-1.5B-Instruct (float32) scored **0.900**
+  on the dev questions (80 samples) against the 0.80 bar, so rung 2 was not needed. It
+  is saved as `checkpoint/gate.json`.
+- The run was then **stopped by hand (Ctrl+C)** during the reference stage of the first
+  test question. No reference, main or recovery unit was saved, and no test-question
+  outcome exists.
+
+**Why it was stopped, and what was wrong:**
+1. The `tee` log could not be created, because the Drive folder did not exist yet.
+   Runbook defect.
+2. Every answer re-embedded the question, and sentence-transformers printed a progress
+   bar for each one, about a thousand lines per question. Real progress was invisible.
+3. `pip freeze` does not exist in the uv venv. Runbook defect.
+
+**Changes.** None of them change any outcome.
+- The question embedding and the top-k result are now **cached** per (index,
+  question). Retrieval was already deterministic, so the results are identical; a test
+  checks this.
+- The embedder's progress bar is switched off.
+- One log line is printed per test question.
+- The runbook creates the Drive folder first, and uses `uv pip freeze`.
+
+**Resuming.**
+- The settings fingerprint is unchanged, so the run **resumes in the same `--out`**
+  (`attempt1`). It keeps the saved gate result, which was computed with the same
+  retrieval.
+- It uses the commit that adds this addendum. The resume will be disclosed in
+  RESULTS.md.
+
+**Estimate corrected.** The batches per question work out to about 38 generation
+blocks of 50, so 24 questions likely need 4–6 hours on a T4. The earlier 1.5–3 h was
+too low. This is still an estimate.
