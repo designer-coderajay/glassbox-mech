@@ -1,0 +1,11 @@
+{
+ "attributed": [],
+ "baseline_correct": 59,
+ "candidate_correct": 60,
+ "fixed": null,
+ "fixed_correct": null,
+ "n": 60,
+ "seconds": 60.275,
+ "wrong_fix": false,
+ "wrong_fix_correct": 58
+}

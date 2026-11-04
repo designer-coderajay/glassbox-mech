@@ -1,0 +1,43 @@
+{
+ "baseline_correct": 199,
+ "factors": {
+  "chunk_words": {
+   "ci": [
+    0.1,
+    0.195
+   ],
+   "label": "small",
+   "only_correct": 170,
+   "tvd": 0.145
+  },
+  "index": {
+   "ci": [
+    0.0,
+    0.015
+   ],
+   "label": "null",
+   "only_correct": 200,
+   "tvd": 0.005
+  },
+  "log_level": {
+   "ci": [
+    0.005,
+    0.06
+   ],
+   "label": "null",
+   "only_correct": 193,
+   "tvd": 0.03
+  },
+  "template": {
+   "ci": [
+    0.0,
+    0.015
+   ],
+   "label": "null",
+   "only_correct": 200,
+   "tvd": 0.005
+  }
+ },
+ "n": 200,
+ "seconds": 218.437
+}

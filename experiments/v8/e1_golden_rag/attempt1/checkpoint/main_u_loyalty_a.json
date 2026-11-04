@@ -1,0 +1,67 @@
+{
+ "B0": [
+  "index",
+  "chunk_words",
+  "template",
+  "log_level"
+ ],
+ "B1": [
+  "index",
+  "chunk_words"
+ ],
+ "B2": [
+  "index"
+ ],
+ "B2_flips": 0,
+ "GB": [
+  "index",
+  "template"
+ ],
+ "GB_reverting_matters": [
+  "index"
+ ],
+ "cells": {
+  "all_but_chunk_words": {
+   "wrong": 30
+  },
+  "all_but_index": {
+   "correct": 30
+  },
+  "all_but_log_level": {
+   "wrong": 30
+  },
+  "all_but_template": {
+   "wrong": 30
+  },
+  "baseline": {
+   "correct": 12,
+   "wrong": 18
+  },
+  "candidate": {
+   "wrong": 30
+  },
+  "only_chunk_words": {
+   "correct": 21,
+   "wrong": 9
+  },
+  "only_index": {
+   "wrong": 30
+  },
+  "only_log_level": {
+   "correct": 14,
+   "wrong": 16
+  },
+  "only_template": {
+   "correct": 30
+  }
+ },
+ "first_beyond_noise": [
+  "retrieval#0",
+  "glassbox.content.gen_ai.retrieval.documents.sha256"
+ ],
+ "seconds": 116.223,
+ "timing": {
+  "analysis_s": 0.075,
+  "runs_s": 116.145
+ }
+}

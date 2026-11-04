@@ -1,0 +1,3075 @@
+{
+ "criteria": {
+  "G1": {
+   "attributed": 15,
+   "n_large": 16,
+   "pass": true,
+   "value": 0.9375
+  },
+  "G2": {
+   "n_questions": 24,
+   "pass": true,
+   "value": 0
+  },
+  "G3": {
+   "attributed": 0,
+   "n": 16,
+   "pass": true,
+   "testable": true,
+   "value": 0.0
+  },
+  "G4": {
+   "n": 13,
+   "pass": false,
+   "testable": true,
+   "value": 0.6923,
+   "verified": 9
+  },
+  "G5": {
+   "n": 11,
+   "pass": true,
+   "rejected": 11,
+   "testable": true,
+   "value": 1.0
+  },
+  "G6": {
+   "counts": {
+    "B0": {
+     "f1": 0.3137,
+     "fn": 0,
+     "fp": 70,
+     "tp": 16
+    },
+    "B1": {
+     "f1": 0.4667,
+     "fn": 2,
+     "fp": 30,
+     "tp": 14
+    },
+    "B2": {
+     "f1": 0.8571,
+     "fn": 4,
+     "fp": 0,
+     "tp": 12
+    },
+    "GB": {
+     "f1": 0.9677,
+     "fn": 1,
+     "fp": 0,
+     "tp": 15
+    }
+   },
+   "f1": {
+    "B0": 0.3137,
+    "B1": 0.4667,
+    "B2": 0.8571,
+    "GB": 0.9677
+   },
+   "margin": 0.1106,
+   "pass": true
+  },
+  "overall": "FAIL"
+ },
+ "descriptive": {
+  "B0": {
+   "false_alarm_ci": [
+    0.948,
+    1.0
+   ],
+   "false_alarms": 70,
+   "miss_ci": [
+    0.0,
+    0.1936
+   ],
+   "misses": 0,
+   "n_large": 16,
+   "n_null": 70
+  },
+  "B1": {
+   "false_alarm_ci": [
+    0.3194,
+    0.5452
+   ],
+   "false_alarms": 30,
+   "miss_ci": [
+    0.035,
+    0.3602
+   ],
+   "misses": 2,
+   "n_large": 16,
+   "n_null": 70
+  },
+  "B2": {
+   "false_alarm_ci": [
+    0.0,
+    0.052
+   ],
+   "false_alarms": 0,
+   "miss_ci": [
+    0.1018,
+    0.495
+   ],
+   "misses": 4,
+   "n_large": 16,
+   "n_null": 70
+  },
+  "GB": {
+   "false_alarm_ci": [
+    0.0,
+    0.052
+   ],
+   "false_alarms": 0,
+   "miss_ci": [
+    0.0111,
+    0.2833
+   ],
+   "misses": 1,
+   "n_large": 16,
+   "n_null": 70
+  }
+ },
+ "embedder": "sentence-transformers/all-MiniLM-L6-v2@1110a243fdf4",
+ "environment": {
+  "cuda_version": "12.8",
+  "device": "cuda",
+  "dtype": "float32",
+  "gpu_name": "Tesla T4",
+  "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+  "python_version": "3.11.18",
+  "torch_version": "2.10.0+cu128"
+ },
+ "gate": {
+  "rungs": [
+   {
+    "accuracy": 0.9,
+    "model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "n": 80,
+    "precision": "float32",
+    "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+   }
+  ],
+  "seconds": 107.916,
+  "selected": "Qwen/Qwen2.5-1.5B-Instruct"
+ },
+ "limit": null,
+ "per_question": {
+  "n_bulk": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 106.513,
+    "timing": {
+     "analysis_s": 0.075,
+     "runs_s": 106.435
+    }
+   },
+   "recovery": {
+    "attributed": [],
+    "baseline_correct": 60,
+    "candidate_correct": 60,
+    "fixed": null,
+    "fixed_correct": null,
+    "n": 60,
+    "seconds": 59.003,
+    "wrong_fix": false,
+    "wrong_fix_correct": 60
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.015
+      ],
+      "label": "null",
+      "only_correct": 199,
+      "tvd": 0.005
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.015
+      ],
+      "label": "null",
+      "only_correct": 199,
+      "tvd": 0.005
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.035
+      ],
+      "label": "null",
+      "only_correct": 197,
+      "tvd": 0.015
+     }
+    },
+    "n": 200,
+    "seconds": 252.246
+   }
+  },
+  "n_click_collect": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 28,
+      "wrong": 2
+     },
+     "all_but_index": {
+      "correct": 26,
+      "wrong": 4
+     },
+     "all_but_log_level": {
+      "correct": 28,
+      "wrong": 2
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 28,
+      "wrong": 2
+     },
+     "only_chunk_words": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 28,
+      "wrong": 2
+     },
+     "only_template": {
+      "correct": 28,
+      "wrong": 2
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 133.332,
+    "timing": {
+     "analysis_s": 0.146,
+     "runs_s": 133.182
+    }
+   },
+   "recovery": {
+    "attributed": [],
+    "baseline_correct": 60,
+    "candidate_correct": 52,
+    "fixed": null,
+    "fixed_correct": null,
+    "n": 60,
+    "seconds": 70.393,
+    "wrong_fix": true,
+    "wrong_fix_correct": 58
+   },
+   "reference": {
+    "baseline_correct": 197,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.035
+      ],
+      "label": "null",
+      "only_correct": 195,
+      "tvd": 0.01
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.03
+      ],
+      "label": "null",
+      "only_correct": 197,
+      "tvd": 0.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.055
+      ],
+      "label": "null",
+      "only_correct": 192,
+      "tvd": 0.025
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.04
+      ],
+      "label": "null",
+      "only_correct": 195,
+      "tvd": 0.01
+     }
+    },
+    "n": 200,
+    "seconds": 299.049
+   }
+  },
+  "n_damage": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 130.625,
+    "timing": {
+     "analysis_s": 0.065,
+     "runs_s": 130.557
+    }
+   },
+   "recovery": {
+    "attributed": [],
+    "baseline_correct": 58,
+    "candidate_correct": 60,
+    "fixed": null,
+    "fixed_correct": null,
+    "n": 60,
+    "seconds": 64.651,
+    "wrong_fix": false,
+    "wrong_fix_correct": 60
+   },
+   "reference": {
+    "baseline_correct": 197,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.03
+      ],
+      "label": "null",
+      "only_correct": 199,
+      "tvd": 0.01
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.03
+      ],
+      "label": "null",
+      "only_correct": 197,
+      "tvd": 0.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.03
+      ],
+      "label": "null",
+      "only_correct": 199,
+      "tvd": 0.01
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.025
+      ],
+      "label": "null",
+      "only_correct": 198,
+      "tvd": 0.005
+     }
+    },
+    "n": 200,
+    "seconds": 315.016
+   }
+  },
+  "n_data": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 28,
+      "wrong": 2
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 105.647,
+    "timing": {
+     "analysis_s": 0.058,
+     "runs_s": 105.585
+    }
+   },
+   "recovery": {
+    "attributed": [],
+    "baseline_correct": 60,
+    "candidate_correct": 60,
+    "fixed": null,
+    "fixed_correct": null,
+    "n": 60,
+    "seconds": 46.368,
+    "wrong_fix": false,
+    "wrong_fix_correct": 59
+   },
+   "reference": {
+    "baseline_correct": 198,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.005,
+       0.06
+      ],
+      "label": "null",
+      "only_correct": 192,
+      "tvd": 0.03
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.035
+      ],
+      "label": "null",
+      "only_correct": 196,
+      "tvd": 0.01
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.025
+      ],
+      "label": "null",
+      "only_correct": 198,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.025
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.01
+     }
+    },
+    "n": 200,
+    "seconds": 250.879
+   }
+  },
+  "n_deletion": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 97.933,
+    "timing": {
+     "analysis_s": 0.056,
+     "runs_s": 97.874
+    }
+   },
+   "recovery": {
+    "attributed": [],
+    "baseline_correct": 60,
+    "candidate_correct": 60,
+    "fixed": null,
+    "fixed_correct": null,
+    "n": 60,
+    "seconds": 59.328,
+    "wrong_fix": false,
+    "wrong_fix_correct": 54
+   },
+   "reference": {
+    "baseline_correct": 197,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.04
+      ],
+      "label": "null",
+      "only_correct": 195,
+      "tvd": 0.01
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.035
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.015
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.035
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.015
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.035
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.015
+     }
+    },
+    "n": 200,
+    "seconds": 231.065
+   }
+  },
+  "n_exchanges": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_reverting_matters": [
+     "template"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 22,
+      "wrong": 8
+     },
+     "baseline": {
+      "correct": 26,
+      "wrong": 4
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 26,
+      "wrong": 4
+     },
+     "only_index": {
+      "correct": 27,
+      "wrong": 3
+     },
+     "only_log_level": {
+      "correct": 26,
+      "wrong": 4
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 133.194,
+    "timing": {
+     "analysis_s": 0.091,
+     "runs_s": 133.1
+    }
+   },
+   "recovery": {
+    "attributed": [],
+    "baseline_correct": 55,
+    "candidate_correct": 60,
+    "fixed": null,
+    "fixed_correct": null,
+    "n": 60,
+    "seconds": 77.597,
+    "wrong_fix": false,
+    "wrong_fix_correct": 40
+   },
+   "reference": {
+    "baseline_correct": 173,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.02,
+       0.17
+      ],
+      "label": "small",
+      "only_correct": 154,
+      "tvd": 0.095
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.075
+      ],
+      "label": "null",
+      "only_correct": 174,
+      "tvd": 0.005
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.085
+      ],
+      "label": "null",
+      "only_correct": 176,
+      "tvd": 0.015
+     },
+     "template": {
+      "ci": [
+       0.09,
+       0.185
+      ],
+      "label": "small",
+      "only_correct": 200,
+      "tvd": 0.135
+     }
+    },
+    "n": 200,
+    "seconds": 310.251
+   }
+  },
+  "n_gift_wrap": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 28,
+      "wrong": 2
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 25,
+      "wrong": 5
+     },
+     "only_index": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 106.45,
+    "timing": {
+     "analysis_s": 0.057,
+     "runs_s": 106.39
+    }
+   },
+   "recovery": {
+    "attributed": [],
+    "baseline_correct": 60,
+    "candidate_correct": 60,
+    "fixed": null,
+    "fixed_correct": null,
+    "n": 60,
+    "seconds": 54.981,
+    "wrong_fix": false,
+    "wrong_fix_correct": 51
+   },
+   "reference": {
+    "baseline_correct": 199,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.1,
+       0.195
+      ],
+      "label": "small",
+      "only_correct": 170,
+      "tvd": 0.145
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.015
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.005
+     },
+     "log_level": {
+      "ci": [
+       0.005,
+       0.06
+      ],
+      "label": "null",
+      "only_correct": 193,
+      "tvd": 0.03
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.015
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.005
+     }
+    },
+    "n": 200,
+    "seconds": 218.437
+   }
+  },
+  "n_international": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 112.777,
+    "timing": {
+     "analysis_s": 0.073,
+     "runs_s": 112.699
+    }
+   },
+   "recovery": {
+    "attributed": [],
+    "baseline_correct": 59,
+    "candidate_correct": 60,
+    "fixed": null,
+    "fixed_correct": null,
+    "n": 60,
+    "seconds": 60.275,
+    "wrong_fix": false,
+    "wrong_fix_correct": 58
+   },
+   "reference": {
+    "baseline_correct": 194,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.05
+      ],
+      "label": "null",
+      "only_correct": 191,
+      "tvd": 0.015
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.055
+      ],
+      "label": "null",
+      "only_correct": 191,
+      "tvd": 0.015
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.04
+      ],
+      "label": "null",
+      "only_correct": 195,
+      "tvd": 0.005
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.05
+      ],
+      "label": "null",
+      "only_correct": 199,
+      "tvd": 0.025
+     }
+    },
+    "n": 200,
+    "seconds": 232.579
+   }
+  },
+  "n_layaway": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 142.997,
+    "timing": {
+     "analysis_s": 0.058,
+     "runs_s": 142.936
+    }
+   },
+   "recovery": {
+    "attributed": [],
+    "baseline_correct": 59,
+    "candidate_correct": 60,
+    "fixed": null,
+    "fixed_correct": null,
+    "n": 60,
+    "seconds": 89.264,
+    "wrong_fix": false,
+    "wrong_fix_correct": 60
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.015
+      ],
+      "label": "null",
+      "only_correct": 199,
+      "tvd": 0.005
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.015
+      ],
+      "label": "null",
+      "only_correct": 199,
+      "tvd": 0.005
+     }
+    },
+    "n": 200,
+    "seconds": 331.5
+   }
+  },
+  "n_newsletter": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "chunk_words"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "chunk_words"
+    ],
+    "GB_reverting_matters": [
+     "chunk_words"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "wrong": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "wrong": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 122.267,
+    "timing": {
+     "analysis_s": 0.059,
+     "runs_s": 122.205
+    }
+   },
+   "recovery": {
+    "attributed": [
+     "chunk_words"
+    ],
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "fixed": true,
+    "fixed_correct": 60,
+    "n": 60,
+    "seconds": 100.124,
+    "wrong_fix": false,
+    "wrong_fix_correct": 0
+   },
+   "reference": {
+    "baseline_correct": 199,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.985,
+       1.0
+      ],
+      "label": "large",
+      "only_correct": 0,
+      "tvd": 0.995
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.025
+      ],
+      "label": "null",
+      "only_correct": 198,
+      "tvd": 0.005
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.015
+      ],
+      "label": "null",
+      "only_correct": 199,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.015
+      ],
+      "label": "null",
+      "only_correct": 199,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "seconds": 254.925
+   }
+  },
+  "n_recycling": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 28,
+      "wrong": 2
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 92.181,
+    "timing": {
+     "analysis_s": 0.103,
+     "runs_s": 92.073
+    }
+   },
+   "recovery": {
+    "attributed": [],
+    "baseline_correct": 60,
+    "candidate_correct": 60,
+    "fixed": null,
+    "fixed_correct": null,
+    "n": 60,
+    "seconds": 43.941,
+    "wrong_fix": false,
+    "wrong_fix_correct": 54
+   },
+   "reference": {
+    "baseline_correct": 197,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.035
+      ],
+      "label": "null",
+      "only_correct": 195,
+      "tvd": 0.01
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.035
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.015
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.03
+      ],
+      "label": "null",
+      "only_correct": 198,
+      "tvd": 0.005
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.035
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.015
+     }
+    },
+    "n": 200,
+    "seconds": 217.243
+   }
+  },
+  "n_rentals": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 1,
+    "GB": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "all_but_log_level": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "all_but_template": {
+      "correct": 28,
+      "wrong": 2
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 28,
+      "wrong": 2
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 111.46,
+    "timing": {
+     "analysis_s": 0.062,
+     "runs_s": 111.395
+    }
+   },
+   "recovery": {
+    "attributed": [],
+    "baseline_correct": 60,
+    "candidate_correct": 60,
+    "fixed": null,
+    "fixed_correct": null,
+    "n": 60,
+    "seconds": 63.538,
+    "wrong_fix": false,
+    "wrong_fix_correct": 60
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.025
+      ],
+      "label": "null",
+      "only_correct": 198,
+      "tvd": 0.01
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.035
+      ],
+      "label": "null",
+      "only_correct": 197,
+      "tvd": 0.015
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.015
+      ],
+      "label": "null",
+      "only_correct": 199,
+      "tvd": 0.005
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "seconds": 233.577
+   }
+  },
+  "u_cancel_a": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 1,
+    "GB": [
+     "index",
+     "template"
+    ],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 26,
+      "wrong": 4
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "only_template": {
+      "correct": 21,
+      "wrong": 9
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 145.874,
+    "timing": {
+     "analysis_s": 0.053,
+     "runs_s": 145.818
+    }
+   },
+   "recovery": {
+    "attributed": [
+     "index",
+     "template"
+    ],
+    "baseline_correct": 58,
+    "candidate_correct": 0,
+    "fixed": true,
+    "fixed_correct": 58,
+    "n": 60,
+    "seconds": 109.594,
+    "wrong_fix": false,
+    "wrong_fix_correct": 0
+   },
+   "reference": {
+    "baseline_correct": 192,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.05
+      ],
+      "label": "null",
+      "only_correct": 194,
+      "tvd": 0.01
+     },
+     "index": {
+      "ci": [
+       0.93,
+       0.985
+      ],
+      "label": "large",
+      "only_correct": 0,
+      "tvd": 0.96
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.06
+      ],
+      "label": "null",
+      "only_correct": 189,
+      "tvd": 0.015
+     },
+     "template": {
+      "ci": [
+       0.25,
+       0.39
+      ],
+      "label": "large",
+      "only_correct": 128,
+      "tvd": 0.32
+     }
+    },
+    "n": 200,
+    "seconds": 315.13
+   }
+  },
+  "u_cancel_b": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index"
+    ],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 26,
+      "wrong": 4
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 28,
+      "wrong": 2
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 20,
+      "wrong": 10
+     },
+     "only_template": {
+      "correct": 26,
+      "wrong": 4
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 146.582,
+    "timing": {
+     "analysis_s": 0.073,
+     "runs_s": 146.506
+    }
+   },
+   "recovery": {
+    "attributed": [
+     "index"
+    ],
+    "baseline_correct": 43,
+    "candidate_correct": 0,
+    "fixed": false,
+    "fixed_correct": 60,
+    "n": 60,
+    "seconds": 102.102,
+    "wrong_fix": false,
+    "wrong_fix_correct": 0
+   },
+   "reference": {
+    "baseline_correct": 157,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.145,
+       0.26
+      ],
+      "label": "small",
+      "only_correct": 197,
+      "tvd": 0.2
+     },
+     "index": {
+      "ci": [
+       0.725,
+       0.84
+      ],
+      "label": "large",
+      "only_correct": 0,
+      "tvd": 0.785
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.1
+      ],
+      "label": "null",
+      "only_correct": 153,
+      "tvd": 0.02
+     },
+     "template": {
+      "ci": [
+       0.075,
+       0.25
+      ],
+      "label": "small",
+      "only_correct": 125,
+      "tvd": 0.16
+     }
+    },
+    "n": 200,
+    "seconds": 338.567
+   }
+  },
+  "u_fee_a": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index"
+    ],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 111.786,
+    "timing": {
+     "analysis_s": 0.055,
+     "runs_s": 111.728
+    }
+   },
+   "recovery": {
+    "attributed": [
+     "index"
+    ],
+    "baseline_correct": 57,
+    "candidate_correct": 0,
+    "fixed": true,
+    "fixed_correct": 60,
+    "n": 60,
+    "seconds": 80.882,
+    "wrong_fix": false,
+    "wrong_fix_correct": 0
+   },
+   "reference": {
+    "baseline_correct": 198,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.055
+      ],
+      "label": "null",
+      "only_correct": 193,
+      "tvd": 0.025
+     },
+     "index": {
+      "ci": [
+       0.975,
+       1.0
+      ],
+      "label": "large",
+      "only_correct": 0,
+      "tvd": 0.99
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.025
+      ],
+      "label": "null",
+      "only_correct": 198,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.025
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.01
+     }
+    },
+    "n": 200,
+    "seconds": 228.467
+   }
+  },
+  "u_fee_b": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index"
+    ],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 99.174,
+    "timing": {
+     "analysis_s": 0.048,
+     "runs_s": 99.123
+    }
+   },
+   "recovery": {
+    "attributed": [
+     "index"
+    ],
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "fixed": true,
+    "fixed_correct": 60,
+    "n": 60,
+    "seconds": 67.25,
+    "wrong_fix": false,
+    "wrong_fix_correct": 0
+   },
+   "reference": {
+    "baseline_correct": 198,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.005,
+       0.07
+      ],
+      "label": "null",
+      "only_correct": 191,
+      "tvd": 0.035
+     },
+     "index": {
+      "ci": [
+       0.975,
+       1.0
+      ],
+      "label": "large",
+      "only_correct": 0,
+      "tvd": 0.99
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.025
+      ],
+      "label": "null",
+      "only_correct": 199,
+      "tvd": 0.005
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.025
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.01
+     }
+    },
+    "n": 200,
+    "seconds": 239.283
+   }
+  },
+  "u_loyalty_a": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index",
+     "template"
+    ],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 12,
+      "wrong": 18
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 21,
+      "wrong": 9
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 14,
+      "wrong": 16
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 116.223,
+    "timing": {
+     "analysis_s": 0.075,
+     "runs_s": 116.145
+    }
+   },
+   "recovery": {
+    "attributed": [
+     "index",
+     "template"
+    ],
+    "baseline_correct": 29,
+    "candidate_correct": 0,
+    "fixed": false,
+    "fixed_correct": 44,
+    "n": 60,
+    "seconds": 81.078,
+    "wrong_fix": false,
+    "wrong_fix_correct": 0
+   },
+   "reference": {
+    "baseline_correct": 84,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.205,
+       0.39
+      ],
+      "label": "large",
+      "only_correct": 144,
+      "tvd": 0.3
+     },
+     "index": {
+      "ci": [
+       0.35,
+       0.49
+      ],
+      "label": "large",
+      "only_correct": 0,
+      "tvd": 0.42
+     },
+     "log_level": {
+      "ci": [
+       0.015,
+       0.205
+      ],
+      "label": "null",
+      "only_correct": 105,
+      "tvd": 0.105
+     },
+     "template": {
+      "ci": [
+       0.515,
+       0.65
+      ],
+      "label": "large",
+      "only_correct": 200,
+      "tvd": 0.58
+     }
+    },
+    "n": 200,
+    "seconds": 238.644
+   }
+  },
+  "u_loyalty_b": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 1,
+    "GB": [
+     "index"
+    ],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 27,
+      "wrong": 3
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 27,
+      "wrong": 3
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 27,
+      "wrong": 3
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 100.003,
+    "timing": {
+     "analysis_s": 0.086,
+     "runs_s": 99.912
+    }
+   },
+   "recovery": {
+    "attributed": [
+     "index"
+    ],
+    "baseline_correct": 54,
+    "candidate_correct": 0,
+    "fixed": true,
+    "fixed_correct": 52,
+    "n": 60,
+    "seconds": 66.734,
+    "wrong_fix": false,
+    "wrong_fix_correct": 0
+   },
+   "reference": {
+    "baseline_correct": 174,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.075
+      ],
+      "label": "null",
+      "only_correct": 176,
+      "tvd": 0.01
+     },
+     "index": {
+      "ci": [
+       0.825,
+       0.915
+      ],
+      "label": "large",
+      "only_correct": 0,
+      "tvd": 0.87
+     },
+     "log_level": {
+      "ci": [
+       0.005,
+       0.12
+      ],
+      "label": "null",
+      "only_correct": 186,
+      "tvd": 0.06
+     },
+     "template": {
+      "ci": [
+       0.065,
+       0.165
+      ],
+      "label": "small",
+      "only_correct": 197,
+      "tvd": 0.115
+     }
+    },
+    "n": 200,
+    "seconds": 242.662
+   }
+  },
+  "u_student_a": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index"
+    ],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 122.287,
+    "timing": {
+     "analysis_s": 0.059,
+     "runs_s": 122.225
+    }
+   },
+   "recovery": {
+    "attributed": [
+     "index"
+    ],
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "fixed": true,
+    "fixed_correct": 60,
+    "n": 60,
+    "seconds": 86.332,
+    "wrong_fix": false,
+    "wrong_fix_correct": 0
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.015
+      ],
+      "label": "null",
+      "only_correct": 199,
+      "tvd": 0.005
+     },
+     "index": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "large",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "seconds": 256.965
+   }
+  },
+  "u_student_b": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index"
+    ],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 28,
+      "wrong": 2
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 120.891,
+    "timing": {
+     "analysis_s": 0.061,
+     "runs_s": 120.826
+    }
+   },
+   "recovery": {
+    "attributed": [
+     "index"
+    ],
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "fixed": true,
+    "fixed_correct": 60,
+    "n": 60,
+    "seconds": 85.413,
+    "wrong_fix": false,
+    "wrong_fix_correct": 0
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "large",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.015
+      ],
+      "label": "null",
+      "only_correct": 199,
+      "tvd": 0.005
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.025
+      ],
+      "label": "null",
+      "only_correct": 198,
+      "tvd": 0.01
+     }
+    },
+    "n": 200,
+    "seconds": 237.426
+   }
+  },
+  "u_support_a": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index"
+    ],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 28,
+      "wrong": 2
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 27,
+      "wrong": 3
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 28,
+      "wrong": 2
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 153.623,
+    "timing": {
+     "analysis_s": 0.074,
+     "runs_s": 153.547
+    }
+   },
+   "recovery": {
+    "attributed": [
+     "index"
+    ],
+    "baseline_correct": 56,
+    "candidate_correct": 0,
+    "fixed": true,
+    "fixed_correct": 60,
+    "n": 60,
+    "seconds": 109.918,
+    "wrong_fix": false,
+    "wrong_fix_correct": 0
+   },
+   "reference": {
+    "baseline_correct": 182,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.005,
+       0.09
+      ],
+      "label": "null",
+      "only_correct": 190,
+      "tvd": 0.04
+     },
+     "index": {
+      "ci": [
+       0.85,
+       0.935
+      ],
+      "label": "large",
+      "only_correct": 3,
+      "tvd": 0.895
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.085
+      ],
+      "label": "null",
+      "only_correct": 177,
+      "tvd": 0.025
+     },
+     "template": {
+      "ci": [
+       0.055,
+       0.135
+      ],
+      "label": "small",
+      "only_correct": 200,
+      "tvd": 0.09
+     }
+    },
+    "n": 200,
+    "seconds": 347.817
+   }
+  },
+  "u_support_b": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "chunk_words"
+    ],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 8,
+      "wrong": 22
+     },
+     "candidate": {
+      "correct": 1,
+      "wrong": 29
+     },
+     "only_chunk_words": {
+      "correct": 21,
+      "wrong": 9
+     },
+     "only_index": {
+      "correct": 2,
+      "wrong": 28
+     },
+     "only_log_level": {
+      "correct": 7,
+      "wrong": 23
+     },
+     "only_template": {
+      "correct": 3,
+      "wrong": 27
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 150.562,
+    "timing": {
+     "analysis_s": 0.052,
+     "runs_s": 150.505
+    }
+   },
+   "recovery": {
+    "attributed": [
+     "chunk_words"
+    ],
+    "baseline_correct": 15,
+    "candidate_correct": 0,
+    "fixed": false,
+    "fixed_correct": 0,
+    "n": 60,
+    "seconds": 118.109,
+    "wrong_fix": false,
+    "wrong_fix_correct": 1
+   },
+   "reference": {
+    "baseline_correct": 44,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.425,
+       0.59
+      ],
+      "label": "large",
+      "only_correct": 146,
+      "tvd": 0.51
+     },
+     "index": {
+      "ci": [
+       0.155,
+       0.27
+      ],
+      "label": "small",
+      "only_correct": 2,
+      "tvd": 0.21
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.09
+      ],
+      "label": "null",
+      "only_correct": 46,
+      "tvd": 0.01
+     },
+     "template": {
+      "ci": [
+       0.1,
+       0.235
+      ],
+      "label": "small",
+      "only_correct": 11,
+      "tvd": 0.165
+     }
+    },
+    "n": 200,
+    "seconds": 359.85
+   }
+  },
+  "u_warranty_a": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index"
+    ],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 29,
+      "wrong": 1
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 27,
+      "wrong": 3
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 148.599,
+    "timing": {
+     "analysis_s": 0.136,
+     "runs_s": 148.458
+    }
+   },
+   "recovery": {
+    "attributed": [
+     "index"
+    ],
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "fixed": true,
+    "fixed_correct": 60,
+    "n": 60,
+    "seconds": 112.021,
+    "wrong_fix": false,
+    "wrong_fix_correct": 0
+   },
+   "reference": {
+    "baseline_correct": 194,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.055
+      ],
+      "label": "null",
+      "only_correct": 191,
+      "tvd": 0.015
+     },
+     "index": {
+      "ci": [
+       0.945,
+       0.99
+      ],
+      "label": "large",
+      "only_correct": 0,
+      "tvd": 0.97
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.04
+      ],
+      "label": "null",
+      "only_correct": 195,
+      "tvd": 0.005
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.045
+      ],
+      "label": "null",
+      "only_correct": 198,
+      "tvd": 0.02
+     }
+    },
+    "n": 200,
+    "seconds": 320.003
+   }
+  },
+  "u_warranty_b": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 1,
+    "GB": [
+     "index"
+    ],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 19,
+      "wrong": 11
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 24,
+      "wrong": 6
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 131.948,
+    "timing": {
+     "analysis_s": 0.103,
+     "runs_s": 131.841
+    }
+   },
+   "recovery": {
+    "attributed": [
+     "index"
+    ],
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "fixed": false,
+    "fixed_correct": 32,
+    "n": 60,
+    "seconds": 96.971,
+    "wrong_fix": false,
+    "wrong_fix_correct": 0
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "large",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.015
+      ],
+      "label": "null",
+      "only_correct": 199,
+      "tvd": 0.005
+     },
+     "template": {
+      "ci": [
+       0.19,
+       0.31
+      ],
+      "label": "small",
+      "only_correct": 150,
+      "tvd": 0.25
+     }
+    },
+    "n": 200,
+    "seconds": 316.986
+   }
+  }
+ },
+ "protocol": "experiments/v8/e1_golden_rag/PROTOCOL.md v1.0",
+ "software": {
+  "accelerate": "1.15.0",
+  "bitsandbytes": "0.50.2",
+  "git_commit": "fd071070ad08f7831a99aefefa45f0b28b04d964",
+  "glassbox-mech-interp": "4.6.1",
+  "numpy": "1.26.4",
+  "sentence-transformers": "5.7.0",
+  "torch": "2.10.0",
+  "transformers": "4.57.6"
+ }
+}

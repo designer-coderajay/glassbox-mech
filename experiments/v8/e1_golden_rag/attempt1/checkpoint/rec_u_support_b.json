@@ -1,0 +1,13 @@
+{
+ "attributed": [
+  "chunk_words"
+ ],
+ "baseline_correct": 15,
+ "candidate_correct": 0,
+ "fixed": false,
+ "fixed_correct": 0,
+ "n": 60,
+ "seconds": 118.109,
+ "wrong_fix": false,
+ "wrong_fix_correct": 1
+}
