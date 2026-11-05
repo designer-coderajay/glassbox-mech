@@ -203,3 +203,52 @@ def test_cli_writes_timing_log(tmp_path):
     assert t["total_s"] + 0.01 >= t["runs_s"] + t["analysis_s"]  # rounding
     assert t["unit"] == "seconds, wall clock" and t["started_utc"].endswith("Z")
     assert set(t["cases"]) == set(demo_rag.QUESTIONS)
+
+
+# --- direction (E1b PROTOCOL §3) ---------------------------------------------------
+
+
+@pytest.fixture(scope="module")
+def directed_investigation(tmp_path_factory):
+    import dataclasses
+
+    out = tmp_path_factory.mktemp("inv_dir")
+    inc = dataclasses.replace(
+        demo_rag.make_incident(demo_rag.toy_scorer), target="correct"
+    )
+    return investigate(inc, out / "work", FAST)
+
+
+def test_target_defaults_to_none_and_keeps_outputs(toy_investigation):
+    assert toy_investigation.incident.target is None
+    for c in toy_investigation.findings:
+        assert c.harmful is None and c.helpful is None
+    d = toy_investigation.to_dict()
+    assert all("harmful" not in f and "helpful" not in f for f in d["findings"])
+    assert "harm" not in render_report(toy_investigation).lower()
+
+
+def test_directed_findings_name_the_harmful_change(directed_investigation):
+    by_case = {c.case: c for c in directed_investigation.findings}
+    for q in ("q1", "q2", "q3", "q4"):
+        assert by_case[q].harmful == ["index"]
+        assert by_case[q].helpful == []
+    for q in ("q5", "q6", "q7", "q8"):
+        assert by_case[q].harmful == [] and by_case[q].helpful == []
+    d = directed_investigation.to_dict()
+    assert d["findings"][0]["harmful"] == ["index"]
+    assert d["incident"]["target"] == "correct"
+
+
+def test_directed_report_states_direction_without_caused(directed_investigation):
+    md = render_report(directed_investigation)
+    assert "Lowered correct" in md
+    assert "| q1 |" in md and "index" in md
+    assert "caused" not in md.lower()
+
+
+def test_directed_summary_counts(directed_investigation):
+    s = directed_investigation.factor_summary()
+    assert s["index"]["harmful_in"] == ["q1", "q2", "q3", "q4"]
+    assert s["index"]["helpful_in"] == []
+    assert s["template"]["harmful_in"] == []

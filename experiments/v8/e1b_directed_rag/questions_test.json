@@ -1,0 +1,326 @@
+[
+ {
+  "id": "u_late_payment_a",
+  "doc": "late_payment",
+  "question": "How much is the late payment fee?",
+  "accepted": [
+   "\u20ac12",
+   "12 euro",
+   "12 eur"
+  ],
+  "stale": [
+   "\u20ac8",
+   "8 euro",
+   "8 eur"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_late_payment_b",
+  "doc": "late_payment",
+  "question": "What fee is added to my next bill if I pay late?",
+  "accepted": [
+   "\u20ac12",
+   "12 euro",
+   "12 eur"
+  ],
+  "stale": [
+   "\u20ac8",
+   "8 euro",
+   "8 eur"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_referral_a",
+  "doc": "referral",
+  "question": "How much bill credit does a successful referral earn?",
+  "accepted": [
+   "\u20ac50",
+   "50 euro",
+   "50 eur"
+  ],
+  "stale": [
+   "\u20ac40",
+   "40 euro",
+   "40 eur"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_referral_b",
+  "doc": "referral",
+  "question": "What reward do I get for referring a friend?",
+  "accepted": [
+   "\u20ac50",
+   "50 euro",
+   "50 eur"
+  ],
+  "stale": [
+   "\u20ac40",
+   "40 euro",
+   "40 eur"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_solar_export_a",
+  "doc": "solar_export",
+  "question": "How much is exported solar electricity paid per kWh?",
+  "accepted": [
+   "7 cents",
+   "seven cents",
+   "\u20ac0.07"
+  ],
+  "stale": [
+   "4 cents",
+   "four cents",
+   "\u20ac0.04"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_solar_export_b",
+  "doc": "solar_export",
+  "question": "What rate do I get for selling unused solar power back to the grid?",
+  "accepted": [
+   "7 cents",
+   "seven cents",
+   "\u20ac0.07"
+  ],
+  "stale": [
+   "4 cents",
+   "four cents",
+   "\u20ac0.04"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_cooling_off_a",
+  "doc": "cooling_off",
+  "question": "How long is the cooling-off period after signing up?",
+  "accepted": [
+   "21 days",
+   "twenty one days",
+   "twenty-one days"
+  ],
+  "stale": [
+   "14 days",
+   "fourteen days"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_cooling_off_b",
+  "doc": "cooling_off",
+  "question": "How many days do I have to change my mind after joining?",
+  "accepted": [
+   "21 days",
+   "twenty one days",
+   "twenty-one days"
+  ],
+  "stale": [
+   "14 days",
+   "fourteen days"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_direct_debit_a",
+  "doc": "direct_debit",
+  "question": "What discount do customers get for paying by monthly direct debit?",
+  "accepted": [
+   "5%",
+   "5 percent",
+   "five percent"
+  ],
+  "stale": [
+   "3%",
+   "3 percent",
+   "three percent"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_direct_debit_b",
+  "doc": "direct_debit",
+  "question": "How much cheaper are bills if I pay by direct debit?",
+  "accepted": [
+   "5%",
+   "5 percent",
+   "five percent"
+  ],
+  "stale": [
+   "3%",
+   "3 percent",
+   "three percent"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_emergency_a",
+  "doc": "emergency",
+  "question": "How quickly does an engineer arrive after a boiler breakdown call?",
+  "accepted": [
+   "2 hours",
+   "two hours"
+  ],
+  "stale": [
+   "4 hours",
+   "four hours"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_emergency_b",
+  "doc": "emergency",
+  "question": "Within how many hours will a breakdown engineer reach me?",
+  "accepted": [
+   "2 hours",
+   "two hours"
+  ],
+  "stale": [
+   "4 hours",
+   "four hours"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "n_meter_reading",
+  "doc": "meter_reading",
+  "question": "By which day of the month must meter readings reach Velmora?",
+  "accepted": [
+   "25th",
+   "25"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_priority_register",
+  "doc": "priority_register",
+  "question": "From what age can customers join the priority register automatically?",
+  "accepted": [
+   "65"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_payment_plan",
+  "doc": "payment_plan",
+  "question": "How long can a payment plan last?",
+  "accepted": [
+   "18 months",
+   "eighteen months"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_credit_refund",
+  "doc": "credit_refund",
+  "question": "Above what amount are credit balances refunded automatically?",
+  "accepted": [
+   "\u20ac80",
+   "80 euro",
+   "80 eur"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_moving_home",
+  "doc": "moving_home",
+  "question": "How much notice should I give before moving home?",
+  "accepted": [
+   "48 hours",
+   "forty eight hours",
+   "forty-eight hours"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_ev_tariff",
+  "doc": "ev_tariff",
+  "question": "What does off-peak electricity cost on the EV tariff?",
+  "accepted": [
+   "9 cents",
+   "nine cents",
+   "\u20ac0.09"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_complaints",
+  "doc": "complaints",
+  "question": "After how long can I take a complaint to the energy ombudsman?",
+  "accepted": [
+   "8 weeks",
+   "eight weeks"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_boiler_cover",
+  "doc": "boiler_cover",
+  "question": "How much does boiler cover cost?",
+  "accepted": [
+   "\u20ac14",
+   "14 euro",
+   "14 eur"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_final_bill",
+  "doc": "final_bill",
+  "question": "How soon is the final bill sent after closing an account?",
+  "accepted": [
+   "6 weeks",
+   "six weeks"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_standing_charge",
+  "doc": "standing_charge",
+  "question": "How much is the electricity standing charge?",
+  "accepted": [
+   "52 cents",
+   "fifty two cents",
+   "\u20ac0.52"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_heat_pump",
+  "doc": "heat_pump",
+  "question": "How much is the heat pump grant worth?",
+  "accepted": [
+   "\u20ac700",
+   "700 euro",
+   "700 eur"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_paperless",
+  "doc": "paperless",
+  "question": "How much do customers save with paperless billing?",
+  "accepted": [
+   "\u20ac2",
+   "2 euro",
+   "2 eur"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ }
+]

@@ -1,0 +1,146 @@
+[
+ {
+  "id": "exit_fee",
+  "title": "Leaving a fixed tariff early",
+  "v1": "Velmora Home Energy fixed tariffs keep your unit price the same for the whole contract. You can switch to another supplier at any time, and we will send a final bill within two weeks. There is no fee in the last 49 days of a contract. Leaving a fixed tariff before then costs an exit fee of \u20ac60 per fuel.",
+  "v2": "Velmora Home Energy fixed tariffs keep your unit price the same for the whole contract. You can switch to another supplier at any time, and we will send a final bill within two weeks. There is no fee in the last 49 days of a contract. Leaving a fixed tariff before then costs an exit fee of \u20ac45 per fuel."
+ },
+ {
+  "id": "smart_meter",
+  "title": "Smart meter installation",
+  "v1": "A smart meter sends readings automatically, so you never need to read the meter yourself. Installation is free and takes about two hours, and the power is off for part of that time. An adult must be at home during the visit. After you book, an engineer visits within 10 working days.",
+  "v2": "A smart meter sends readings automatically, so you never need to read the meter yourself. Installation is free and takes about two hours, and the power is off for part of that time. An adult must be at home during the visit. After you book, an engineer visits within 6 working days."
+ },
+ {
+  "id": "late_payment",
+  "title": "Late payment",
+  "v1": "Bills are due 14 days after they are issued. If a payment is missed we send a reminder by email and by letter, and we are happy to agree a payment plan instead. Missed payments can affect your credit file. A late payment fee of \u20ac8 is added to the next bill.",
+  "v2": "Bills are due 14 days after they are issued. If a payment is missed we send a reminder by email and by letter, and we are happy to agree a payment plan instead. Missed payments can affect your credit file. A late payment fee of \u20ac12 is added to the next bill."
+ },
+ {
+  "id": "referral",
+  "title": "Refer a friend",
+  "v1": "Share your personal referral link with friends and family. The reward is paid once your friend has been supplied by Velmora for 60 days, and there is no limit on the number of referrals. Your friend gets the same reward. Each successful referral earns a bill credit of \u20ac40.",
+  "v2": "Share your personal referral link with friends and family. The reward is paid once your friend has been supplied by Velmora for 60 days, and there is no limit on the number of referrals. Your friend gets the same reward. Each successful referral earns a bill credit of \u20ac50."
+ },
+ {
+  "id": "solar_export",
+  "title": "Selling solar power back",
+  "v1": "If you have solar panels or a home battery, you can sell the electricity you do not use back to the grid. You need a smart meter that records exports, and payments are added to your account every quarter. Exported electricity is paid at 4 cents per kWh.",
+  "v2": "If you have solar panels or a home battery, you can sell the electricity you do not use back to the grid. You need a smart meter that records exports, and payments are added to your account every quarter. Exported electricity is paid at 7 cents per kWh."
+ },
+ {
+  "id": "cooling_off",
+  "title": "Changing your mind",
+  "v1": "When you join Velmora online or by phone, you can still change your mind. Tell us by email, chat or phone, and we will stop the switch before your supply moves to us. You will not pay any exit fee. The cooling-off period is 14 days from the day you sign up.",
+  "v2": "When you join Velmora online or by phone, you can still change your mind. Tell us by email, chat or phone, and we will stop the switch before your supply moves to us. You will not pay any exit fee. The cooling-off period is 21 days from the day you sign up."
+ },
+ {
+  "id": "direct_debit",
+  "title": "Paying by direct debit",
+  "v1": "A monthly direct debit spreads the cost of energy evenly across the year. We review the amount every six months and tell you before it changes. You can change the payment date in your online account. Customers who pay by monthly direct debit get a discount of 3% on their bills.",
+  "v2": "A monthly direct debit spreads the cost of energy evenly across the year. We review the amount every six months and tell you before it changes. You can change the payment date in your online account. Customers who pay by monthly direct debit get a discount of 5% on their bills."
+ },
+ {
+  "id": "emergency",
+  "title": "Gas emergencies and boiler breakdowns",
+  "v1": "If you smell gas, leave the property and call the national emergency line first. Boiler breakdowns are covered for customers with boiler cover, and repairs are free under the cover. Call us at any time of day. An engineer will arrive within 4 hours of a breakdown call.",
+  "v2": "If you smell gas, leave the property and call the national emergency line first. Boiler breakdowns are covered for customers with boiler cover, and repairs are free under the cover. Call us at any time of day. An engineer will arrive within 2 hours of a breakdown call."
+ },
+ {
+  "id": "outage",
+  "title": "Power cuts",
+  "v1": "Power cuts are handled by the local network operator, who will tell you when power is expected back. You can check live updates on the network operator's website. Customers on the priority register get a call during long cuts. If a cut lasts more than 12 hours, you get compensation of \u20ac30.",
+  "v2": "Power cuts are handled by the local network operator, who will tell you when power is expected back. You can check live updates on the network operator's website. Customers on the priority register get a call during long cuts. If a cut lasts more than 12 hours, you get compensation of \u20ac30."
+ },
+ {
+  "id": "warm_home",
+  "title": "Warm Home Rebate",
+  "v1": "The Warm Home Rebate helps households with low incomes during the winter months. You can apply online or by phone between October and January, and we will check your eligibility within a month. The rebate is paid directly into your energy account. Eligible households receive a rebate of \u20ac150.",
+  "v2": "The Warm Home Rebate helps households with low incomes during the winter months. You can apply online or by phone between October and January, and we will check your eligibility within a month. The rebate is paid directly into your energy account. Eligible households receive a rebate of \u20ac150."
+ },
+ {
+  "id": "letters",
+  "title": "Writing to us",
+  "v1": "You can write to Velmora at our head office address, which is printed on every bill. Please include your account number so we can find your details quickly. We scan all letters on the day they arrive. Letters are answered within 10 working days.",
+  "v2": "You can write to Velmora at our head office address, which is printed on every bill. Please include your account number so we can find your details quickly. We scan all letters on the day they arrive. Letters are answered within 10 working days."
+ },
+ {
+  "id": "appointments",
+  "title": "Engineer appointments",
+  "v1": "When you book an engineer visit, you choose a morning or afternoon on the day that suits you. We send a text message on the day with a narrower estimate of the arrival time. You can rebook online for free. Appointments are offered in 4 hour time slots.",
+  "v2": "When you book an engineer visit, you choose a morning or afternoon on the day that suits you. We send a text message on the day with a narrower estimate of the arrival time. You can rebook online for free. Appointments are offered in 4 hour time slots."
+ },
+ {
+  "id": "meter_reading",
+  "title": "Submitting meter readings",
+  "v1": "If you do not have a smart meter, please send us a reading every month so your bill is accurate. You can submit readings in the app, online or by phone. Without a reading, your bill is estimated from past use. Readings must reach us by the 25th of each month.",
+  "v2": "If you do not have a smart meter, please send us a reading every month so your bill is accurate. You can submit readings in the app, online or by phone. Without a reading, your bill is estimated from past use. Readings must reach us by the 25th of each month."
+ },
+ {
+  "id": "priority_register",
+  "title": "Priority services register",
+  "v1": "The priority services register gives extra help to customers who need it, such as advance notice of planned power cuts and bills in large print. It is free to join, and you can register for someone you care for. Customers aged 65 or over can join the register automatically.",
+  "v2": "The priority services register gives extra help to customers who need it, such as advance notice of planned power cuts and bills in large print. It is free to join, and you can register for someone you care for. Customers aged 65 or over can join the register automatically."
+ },
+ {
+  "id": "payment_plan",
+  "title": "Payment plans",
+  "v1": "If you are struggling to pay, contact us as early as you can. We can agree a plan that spreads what you owe across affordable monthly amounts, on top of your usual payments. No interest is charged on a payment plan. Plans can last up to 18 months.",
+  "v2": "If you are struggling to pay, contact us as early as you can. We can agree a plan that spreads what you owe across affordable monthly amounts, on top of your usual payments. No interest is charged on a payment plan. Plans can last up to 18 months."
+ },
+ {
+  "id": "credit_refund",
+  "title": "Credit on your account",
+  "v1": "If you pay more than you use, your account builds up a credit balance. We check balances every year when we review your direct debit. You can ask for a refund at any time in the app. Credit balances above \u20ac80 are refunded automatically.",
+  "v2": "If you pay more than you use, your account builds up a credit balance. We check balances every year when we review your direct debit. You can ask for a refund at any time in the app. Credit balances above \u20ac80 are refunded automatically."
+ },
+ {
+  "id": "moving_home",
+  "title": "Moving home",
+  "v1": "Tell us when you are moving so we can close your account at the old address and set one up at the new one. Take a meter reading on the day you move, and keep a photo of it. Your final bill is sent to the new address. Please give us at least 48 hours notice before you move.",
+  "v2": "Tell us when you are moving so we can close your account at the old address and set one up at the new one. Take a meter reading on the day you move, and keep a photo of it. Your final bill is sent to the new address. Please give us at least 48 hours notice before you move."
+ },
+ {
+  "id": "ev_tariff",
+  "title": "Electric vehicle tariff",
+  "v1": "The Velmora EV tariff is designed for customers who charge an electric car at home. The cheap rate applies to all electricity used in the off-peak window, not only the car charger. A smart meter is required. Off-peak electricity on the EV tariff costs 9 cents per kWh.",
+  "v2": "The Velmora EV tariff is designed for customers who charge an electric car at home. The cheap rate applies to all electricity used in the off-peak window, not only the car charger. A smart meter is required. Off-peak electricity on the EV tariff costs 9 cents per kWh."
+ },
+ {
+  "id": "complaints",
+  "title": "Making a complaint",
+  "v1": "We want to put things right when they go wrong. You can complain by phone, chat, email or letter, and we will confirm that we have received it within two working days. If you are not happy with our final answer, you can go to the energy ombudsman after 8 weeks.",
+  "v2": "We want to put things right when they go wrong. You can complain by phone, chat, email or letter, and we will confirm that we have received it within two working days. If you are not happy with our final answer, you can go to the energy ombudsman after 8 weeks."
+ },
+ {
+  "id": "boiler_cover",
+  "title": "Boiler cover",
+  "v1": "Boiler cover includes a yearly service, parts and labour for repairs, and an emergency helpline. There is no excess to pay when you make a claim. Boilers older than fifteen years need an inspection before cover starts. Boiler cover costs \u20ac14 per month.",
+  "v2": "Boiler cover includes a yearly service, parts and labour for repairs, and an emergency helpline. There is no excess to pay when you make a claim. Boilers older than fifteen years need an inspection before cover starts. Boiler cover costs \u20ac14 per month."
+ },
+ {
+  "id": "final_bill",
+  "title": "Closing your account",
+  "v1": "When your supply moves to another company or you leave a property, we close your account. We use the final meter reading to work out what you owe or what we owe you. Any credit is refunded to your bank account. The final bill is sent within 6 weeks.",
+  "v2": "When your supply moves to another company or you leave a property, we close your account. We use the final meter reading to work out what you owe or what we owe you. Any credit is refunded to your bank account. The final bill is sent within 6 weeks."
+ },
+ {
+  "id": "standing_charge",
+  "title": "Standing charge",
+  "v1": "The standing charge is a fixed daily amount that covers the cost of keeping your home connected to the network. You pay it even on days when you use no energy. It is shown separately on every bill. The electricity standing charge is 52 cents per day.",
+  "v2": "The standing charge is a fixed daily amount that covers the cost of keeping your home connected to the network. You pay it even on days when you use no energy. It is shown separately on every bill. The electricity standing charge is 52 cents per day."
+ },
+ {
+  "id": "heat_pump",
+  "title": "Heat pump grant",
+  "v1": "Velmora helps customers replace old gas boilers with heat pumps. A surveyor visits first to check that your home is suitable, and the grant is paid directly to the installer. Only approved installers can be used. The heat pump grant is worth up to \u20ac700.",
+  "v2": "Velmora helps customers replace old gas boilers with heat pumps. A surveyor visits first to check that your home is suitable, and the grant is paid directly to the installer. Only approved installers can be used. The heat pump grant is worth up to \u20ac700."
+ },
+ {
+  "id": "paperless",
+  "title": "Paperless billing",
+  "v1": "With paperless billing, your bills and statements arrive by email and in the app instead of by post. You can still ask for a paper copy of any bill. Paperless billing also cuts the paper we use. Customers who choose paperless billing save \u20ac2 per month.",
+  "v2": "With paperless billing, your bills and statements arrive by email and in the app instead of by post. You can still ask for a paper copy of any bill. Paperless billing also cuts the paper we use. Customers who choose paperless billing save \u20ac2 per month."
+ }
+]

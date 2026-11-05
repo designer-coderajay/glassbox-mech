@@ -113,6 +113,57 @@ class InterventionReport:
         """Factors whose sufficiency test is significant, in factor order."""
         return [t.factor for t in self.sufficiency if t.significant and t.factor]
 
+    def rate(self, cell: str, target: str) -> float:
+        """Share of runs in ``cell`` whose outcome is ``target`` (0.0 if empty)."""
+        counts = self.cells[cell].counts
+        total = sum(counts.values())
+        return counts.get(str(target), 0) / total if total else 0.0
+
+    def direction(self, target: str) -> Dict[str, Dict[str, Any]]:
+        """Per factor: signed target-rate changes and the harmful/helpful decision.
+
+        ``sufficiency_delta`` is ``rate(only_f) - rate(baseline)`` and
+        ``necessity_delta`` is ``rate(all_but_f) - rate(candidate)``. A factor is
+        *harmful* iff its sufficiency test is significant with a negative delta, or
+        its necessity test is significant with a positive delta (reverting it alone
+        helps). It is *helpful* iff its sufficiency test is significant with a
+        positive delta and it is not harmful. The tests are the existing ones (Holm
+        within each family); only the sign is added.
+
+        Raises:
+            ValueError: If ``target`` is empty.
+        """
+        if not target:
+            raise ValueError("target outcome must be a non-empty value")
+        suff = {t.factor: t for t in self.sufficiency}
+        nec = {t.factor: t for t in self.necessity}
+        out: Dict[str, Dict[str, Any]] = {}
+        for f in self.factors:
+            d_suff = self.rate(f"only_{f.name}", target) - self.rate("baseline", target)
+            d_nec = self.rate(f"all_but_{f.name}", target) - self.rate(
+                "candidate", target
+            )
+            harmful = (suff[f.name].significant and d_suff < 0) or (
+                nec[f.name].significant and d_nec > 0
+            )
+            out[f.name] = {
+                "sufficiency_delta": round(d_suff, 6),
+                "necessity_delta": round(d_nec, 6),
+                "harmful": bool(harmful),
+                "helpful": bool(
+                    not harmful and suff[f.name].significant and d_suff > 0
+                ),
+            }
+        return out
+
+    def harmful(self, target: str) -> List[str]:
+        """Factors that lower the ``target`` rate (see :meth:`direction`)."""
+        return [n for n, d in self.direction(target).items() if d["harmful"]]
+
+    def helpful(self, target: str) -> List[str]:
+        """Factors that raise the ``target`` rate and are not harmful."""
+        return [n for n, d in self.direction(target).items() if d["helpful"]]
+
     @property
     def evidence(self) -> List[str]:
         """Plain statements of what the interventions established (and did not)."""

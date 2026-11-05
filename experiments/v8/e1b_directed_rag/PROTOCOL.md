@@ -205,3 +205,64 @@ workflow (E4, blind).
 
 ---
 *(Addenda go below this line, with dates.)*
+
+## Addendum 1 (2026-11-05): sealed data, implementation details, toy dry run
+
+Written in the code commit, before any model run.
+
+**1. Sealed files** (sha256). These must match the run's checkout.
+
+| File | sha256 |
+|---|---|
+| `questions_test.json` (24) | `a55b085c5ed9e7a74e081583107549cbd0f5ccda0aaa3c54855097e402a670fe` |
+| `questions_dev.json` (8) | `2eeb486326b0a5061eb858e30447625a332a8dc886e02ccffb4320da4d2efd82` |
+| `corpus.json` (24 docs, 8 changed) | `5521d0e9920dfa4a47dd90db041c95d0eda3bb78562eaccca0cfadd362fc4670` |
+
+- `make_data.py` regenerates all three byte-identically, and a test checks this.
+- The data is for a fictional home-energy supplier (Velmora Home Energy). A test
+  checks that no document, document id or question text is shared with E1.
+- Documents are 43–60 words long. As in E1, at `chunk_words` 120 every document is
+  one chunk, and at 40 most become two.
+- Dev changed documents: `exit_fee`, `smart_meter`. Test changed documents:
+  `late_payment`, `referral`, `solar_export`, `cooling_off`, `direct_debit`,
+  `emergency`, with two questions each.
+
+**2. Library change (§3).**
+- `InterventionReport` gains `rate`, `direction`, `harmful` and `helpful`, with 12
+  tests in `tests/test_v7_intervene_direction.py`. Its existing outputs are unchanged,
+  and a test checks the `to_dict` keys.
+- `Incident` gains an optional `target`. With a target, each finding carries
+  `harmful`, `helpful` and `direction`, and the report adds a direction table.
+  Without one, `to_dict` and the report are unchanged (4 new tests in
+  `tests/test_v7_investigate.py`).
+
+**3. Implementation details.**
+- `system.py` is E1's file, plus `retrieval_truth` and `target="correct"` on the
+  incident. A test compares the pipeline constants and templates with E1's.
+- `methods.py` is E1's file, with GB's blame set changed to the harmful list. The
+  undirected `attributed` list, the helpful list and the direction are kept for the
+  descriptive results. B0–B2 are unchanged.
+- Recovery: identical configurations share runs. For example, if GB, B2 and the wrong
+  fix all revert only `template`, those runs are made once.
+- **G6 with no eligible question** (every regressed question has `template` labelled
+  harmful) counts as **not passed**. §7 names only G3 and G4 as possibly not
+  testable, so G6 is always counted. This is the conservative reading, written down
+  before the run.
+- Retrieval truth: whether any of the top-3 chunks contains an accepted answer string,
+  using the same token matching as the outcome.
+- `pip_freeze.txt` is written into `--out` at the start of the run. Per-question
+  timings are inside the checkpointed `main_*` units.
+
+**4. Toy dry run (disclosed; not evidence).**
+- The full pipeline ran once on the toy backend: a hashed bag-of-words embedder and a
+  sentence-picking "generator", **not a language model**. It covered all 24 test
+  questions at the protocol's sample sizes, on CPU, in about 52 s.
+- The toy failed the competence gate (0.55), so for this dry run only the gate was
+  set to 0, to exercise every stage.
+- It completed, and scoring produced all seven criteria. The toy numbers are not
+  reported as results, and **no threshold, setting or data file was changed after
+  it.**
+
+**5. Software.** As in E1 Addendum 1 item 5: the CI pins plus sentence-transformers,
+bitsandbytes and accelerate, recorded in `results.json` → `software` and in
+`pip_freeze.txt`.

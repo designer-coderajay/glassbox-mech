@@ -1,0 +1,117 @@
+[
+ {
+  "id": "u_exit_fee_a",
+  "doc": "exit_fee",
+  "question": "How much is the exit fee for leaving a fixed tariff early?",
+  "accepted": [
+   "\u20ac45",
+   "45 euro",
+   "45 eur"
+  ],
+  "stale": [
+   "\u20ac60",
+   "60 euro",
+   "60 eur"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_exit_fee_b",
+  "doc": "exit_fee",
+  "question": "What does it cost per fuel to end a fixed tariff early?",
+  "accepted": [
+   "\u20ac45",
+   "45 euro",
+   "45 eur"
+  ],
+  "stale": [
+   "\u20ac60",
+   "60 euro",
+   "60 eur"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_smart_meter_a",
+  "doc": "smart_meter",
+  "question": "How soon after booking does an engineer install a smart meter?",
+  "accepted": [
+   "6 working days",
+   "6 business days",
+   "six working days"
+  ],
+  "stale": [
+   "10 working days",
+   "10 business days",
+   "ten working days"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "u_smart_meter_b",
+  "doc": "smart_meter",
+  "question": "Within how many working days is a smart meter installed after I book?",
+  "accepted": [
+   "6 working days",
+   "6 business days",
+   "six working days",
+   "6 days"
+  ],
+  "stale": [
+   "10 working days",
+   "10 business days",
+   "ten working days",
+   "10 days"
+  ],
+  "kind": "updated"
+ },
+ {
+  "id": "n_outage",
+  "doc": "outage",
+  "question": "How much compensation do I get for a power cut longer than 12 hours?",
+  "accepted": [
+   "\u20ac30",
+   "30 euro",
+   "30 eur"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_warm_home",
+  "doc": "warm_home",
+  "question": "How much is the Warm Home Rebate?",
+  "accepted": [
+   "\u20ac150",
+   "150 euro",
+   "150 eur"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_letters",
+  "doc": "letters",
+  "question": "How long does Velmora take to answer a letter?",
+  "accepted": [
+   "10 working days",
+   "10 business days",
+   "ten working days"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ },
+ {
+  "id": "n_appointments",
+  "doc": "appointments",
+  "question": "How long are the time slots for engineer appointments?",
+  "accepted": [
+   "4 hour",
+   "4 hours",
+   "four hour",
+   "four hours"
+  ],
+  "stale": [],
+  "kind": "unchanged"
+ }
+]

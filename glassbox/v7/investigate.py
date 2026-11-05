@@ -72,6 +72,10 @@ class Incident:
     cases: Sequence[str]
     runner_for: Callable[[str], Runner]
     outcome: Outcome
+    target: Optional[str] = None
+    """The outcome value that means "working" (e.g. ``"correct"``). If set, each
+    finding also says which changes lowered (harmful) or raised (helpful) its rate;
+    see :meth:`glassbox.v7.intervene.InterventionReport.direction`."""
 
 
 @dataclass
@@ -85,6 +89,17 @@ class CaseFinding:
     reverting_matters: List[str]
     outcome_counts: Dict[str, Dict[str, int]]
     intervention: Dict[str, Any]
+    harmful: Optional[List[str]] = None
+    helpful: Optional[List[str]] = None
+    direction: Optional[Dict[str, Dict[str, Any]]] = None
+
+    def as_dict(self) -> Dict[str, Any]:
+        """JSON form; the direction fields are omitted when no target was set."""
+        d = dict(self.__dict__)
+        if self.harmful is None:
+            for k in ("harmful", "helpful", "direction"):
+                d.pop(k)
+        return d
 
 
 @dataclass
@@ -100,9 +115,14 @@ class Investigation:
     :meth:`to_dict` so reports and evidence stay identical across machines."""
 
     def factor_summary(self) -> Dict[str, Dict[str, List[str]]]:
-        """Per factor: cases where switching alone / reverting alone mattered."""
-        return {
-            f.name: {
+        """Per factor: cases where switching alone / reverting alone mattered.
+
+        With an incident ``target``, also the cases where the change was harmful or
+        helpful.
+        """
+        out: Dict[str, Dict[str, List[str]]] = {}
+        for f in self.incident.factors:
+            row = {
                 "switching_alone_changed": [
                     c.case for c in self.findings if f.name in c.attributed
                 ],
@@ -110,8 +130,15 @@ class Investigation:
                     c.case for c in self.findings if f.name in c.reverting_matters
                 ],
             }
-            for f in self.incident.factors
-        }
+            if self.incident.target is not None:
+                row["harmful_in"] = [
+                    c.case for c in self.findings if f.name in (c.harmful or [])
+                ]
+                row["helpful_in"] = [
+                    c.case for c in self.findings if f.name in (c.helpful or [])
+                ]
+            out[f.name] = row
+        return out
 
     def to_dict(self) -> Dict[str, Any]:
         """JSON-serialisable form (without callables)."""
@@ -121,10 +148,15 @@ class Investigation:
                 "description": self.incident.description,
                 "factors": [f.__dict__ for f in self.incident.factors],
                 "cases": list(self.incident.cases),
+                **(
+                    {"target": self.incident.target}
+                    if self.incident.target is not None
+                    else {}
+                ),
             },
             "settings": self.settings.__dict__,
             "factor_summary": self.factor_summary(),
-            "findings": [c.__dict__ for c in self.findings],
+            "findings": [c.as_dict() for c in self.findings],
             "limits": list(LIMITS),
         }
 
@@ -208,6 +240,10 @@ def _investigate_case(
         outcome_counts={k: v.counts for k, v in report.cells.items()},
         intervention=report.to_dict(),
     )
+    if incident.target is not None:
+        finding.harmful = report.harmful(incident.target)
+        finding.helpful = report.helpful(incident.target)
+        finding.direction = report.direction(incident.target)
     timing = {
         "runs_s": round(ran - start, 3),
         "analysis_s": round(time.perf_counter() - ran, 3),
@@ -294,6 +330,32 @@ def _case_table(inv: Investigation) -> List[str]:
     return lines
 
 
+def _direction_table(inv: Investigation) -> List[str]:
+    """Which changes lowered or raised the target rate (only with a target)."""
+    target = inv.incident.target
+    if target is None:
+        return []
+    lines = [
+        "",
+        f"## Direction (outcome `{target}`)",
+        "",
+        f"| Case | Lowered {target} | Raised {target} |",
+        "|---|---|---|",
+    ]
+    for c in inv.findings:
+        lines.append(
+            f"| {c.case} | {', '.join(c.harmful or []) or '—'} | "
+            f"{', '.join(c.helpful or []) or '—'} |"
+        )
+    lines += [
+        "",
+        f"'Lowered {target}': switching the change alone lowered the rate of "
+        f"`{target}`, or reverting it alone raised it. A fix built from this list "
+        "still needs a re-run to check it.",
+    ]
+    return lines
+
+
 def render_report(inv: Investigation) -> str:
     """Markdown report: answer, per-factor table, per-case detail, limits."""
     inc = inv.incident
@@ -322,6 +384,7 @@ def render_report(inv: Investigation) -> str:
             f"{', '.join(s['reverting_alone_changed']) or '—'} |"
         )
     lines += _case_table(inv)
+    lines += _direction_table(inv)
     lines += ["", "## What this does not show", ""]
     lines += [f"- {limit}" for limit in LIMITS]
     lines += [
