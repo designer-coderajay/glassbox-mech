@@ -1,0 +1,47 @@
+{
+ "arms": {
+  "b2_fix": {
+   "correct": 60,
+   "diff_vs_baseline_ci": [
+    0.0,
+    0.0
+   ],
+   "reverted": [
+    "chunk_words"
+   ],
+   "run": true,
+   "verified": true,
+   "verified_two_sided": true
+  },
+  "gb_fix": {
+   "correct": 60,
+   "diff_vs_baseline_ci": [
+    0.0,
+    0.0
+   ],
+   "reverted": [
+    "chunk_words"
+   ],
+   "run": true,
+   "verified": true,
+   "verified_two_sided": true
+  },
+  "wrong_fix": {
+   "correct": 0,
+   "diff_vs_baseline_ci": [
+    -1.0,
+    -1.0
+   ],
+   "reverted": [
+    "template"
+   ],
+   "run": true,
+   "verified": false,
+   "verified_two_sided": false
+  }
+ },
+ "baseline_correct": 60,
+ "candidate_correct": 0,
+ "n": 60,
+ "seconds": 100.341
+}

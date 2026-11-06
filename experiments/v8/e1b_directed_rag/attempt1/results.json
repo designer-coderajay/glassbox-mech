@@ -1,0 +1,4780 @@
+{
+ "criteria": {
+  "G1": {
+   "hits": 18,
+   "n": 18,
+   "pass": true,
+   "testable": true,
+   "value": 1.0
+  },
+  "G2": {
+   "n_questions": 24,
+   "pass": true,
+   "value": 0
+  },
+  "G3": {
+   "hits": 0,
+   "n": 24,
+   "pass": true,
+   "testable": true,
+   "value": 0.0
+  },
+  "G4": {
+   "hits": 0,
+   "n": 0,
+   "pass": null,
+   "testable": false,
+   "value": 0.0
+  },
+  "G5": {
+   "hits": 15,
+   "n": 15,
+   "pass": true,
+   "testable": true,
+   "value": 1.0,
+   "verified": 15
+  },
+  "G6": {
+   "hits": 15,
+   "n": 15,
+   "pass": true,
+   "rejected": 15,
+   "testable": true,
+   "value": 1.0
+  },
+  "G7": {
+   "counts": {
+    "B0": {
+     "f1": 0.3158,
+     "fn": 0,
+     "fp": 78,
+     "tp": 18
+    },
+    "B1": {
+     "f1": 0.5455,
+     "fn": 0,
+     "fp": 30,
+     "tp": 18
+    },
+    "B2": {
+     "f1": 0.875,
+     "fn": 4,
+     "fp": 0,
+     "tp": 14
+    },
+    "GB": {
+     "f1": 1.0,
+     "fn": 0,
+     "fp": 0,
+     "tp": 18
+    }
+   },
+   "f1": {
+    "B0": 0.3158,
+    "B1": 0.5455,
+    "B2": 0.875,
+    "GB": 1.0
+   },
+   "margin": 0.125,
+   "pass": true
+  },
+  "n_harmful_large": 18,
+  "n_regressed": 15,
+  "overall": "PASS"
+ },
+ "descriptive": {
+  "failed_fix_with_small_factor_left": [],
+  "fix_verified": {
+   "B2": {
+    "n": 15,
+    "verified": 13
+   },
+   "GB": {
+    "n": 15,
+    "verified": 15
+   }
+  },
+  "methods": {
+   "B0": {
+    "false_alarm_ci": [
+     0.9531,
+     1.0
+    ],
+    "false_alarms": 78,
+    "miss_ci": [
+     0.0,
+     0.1759
+    ],
+    "misses": 0,
+    "n_harmful": 18,
+    "n_null": 78
+   },
+   "B1": {
+    "false_alarm_ci": [
+     0.2845,
+     0.4956
+    ],
+    "false_alarms": 30,
+    "miss_ci": [
+     0.0,
+     0.1759
+    ],
+    "misses": 0,
+    "n_harmful": 18,
+    "n_null": 78
+   },
+   "B2": {
+    "false_alarm_ci": [
+     0.0,
+     0.0469
+    ],
+    "false_alarms": 0,
+    "miss_ci": [
+     0.09,
+     0.4522
+    ],
+    "misses": 4,
+    "n_harmful": 18,
+    "n_null": 78
+   },
+   "GB": {
+    "false_alarm_ci": [
+     0.0,
+     0.0469
+    ],
+    "false_alarms": 0,
+    "miss_ci": [
+     0.0,
+     0.1759
+    ],
+    "misses": 0,
+    "n_harmful": 18,
+    "n_null": 78
+   }
+  },
+  "n_helpful": 0,
+  "n_small": 0,
+  "two_sided_verified": {
+   "b2_fix": 13,
+   "gb_fix": 15,
+   "n": 15,
+   "wrong_fix": 0
+  },
+  "undirected_attributed": {
+   "f1": 1.0,
+   "fn": 0,
+   "fp": 0,
+   "tp": 18
+  }
+ },
+ "embedder": "sentence-transformers/all-MiniLM-L6-v2@1110a243fdf4",
+ "environment": {
+  "cuda_version": "12.8",
+  "device": "cuda",
+  "dtype": "float32",
+  "gpu_name": "Tesla T4",
+  "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+  "python_version": "3.11.18",
+  "torch_version": "2.10.0+cu128"
+ },
+ "gate": {
+  "rungs": [
+   {
+    "accuracy": 0.7,
+    "model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "n": 80,
+    "precision": "float32",
+    "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+   },
+   {
+    "accuracy": 1.0,
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "n": 80,
+    "precision": "4bit",
+    "revision": "a09a35458c702b33eeacc393d103063234e8bc28"
+   }
+  ],
+  "seconds": 505.799,
+  "selected": "Qwen/Qwen2.5-7B-Instruct"
+ },
+ "limit": null,
+ "per_question": {
+  "n_boiler_cover": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "chunk_words"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "chunk_words"
+    ],
+    "GB_attributed": [
+     "chunk_words"
+    ],
+    "GB_helpful": [],
+    "GB_reverting_matters": [
+     "chunk_words"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "wrong": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "wrong": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 1.0,
+      "sufficiency_delta": -1.0
+     },
+     "index": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 158.546,
+    "timing": {
+     "analysis_s": 0.049,
+     "runs_s": 158.495
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "chunk_words"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "gb_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "chunk_words"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "wrong_fix": {
+      "correct": 0,
+      "diff_vs_baseline_ci": [
+       -1.0,
+       -1.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "n": 60,
+    "seconds": 129.767
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 0,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "harmful",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": true,
+    "regressed_ci": [
+     1.0,
+     1.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": false,
+     "only_chunk_words": false,
+     "only_index": true,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 356.303
+   }
+  },
+  "n_complaints": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_attributed": [],
+    "GB_helpful": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 165.324,
+    "timing": {
+     "analysis_s": 0.055,
+     "runs_s": 165.266
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "gb_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "wrong_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 60,
+    "n": 60,
+    "seconds": 91.754
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 200,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": false,
+    "regressed_ci": [
+     0.0,
+     0.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": true,
+     "only_chunk_words": true,
+     "only_index": true,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 448.894
+   }
+  },
+  "n_credit_refund": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_attributed": [],
+    "GB_helpful": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 108.714,
+    "timing": {
+     "analysis_s": 0.049,
+     "runs_s": 108.662
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "gb_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "wrong_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 60,
+    "n": 60,
+    "seconds": 60.408
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 200,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": false,
+    "regressed_ci": [
+     0.0,
+     0.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": true,
+     "only_chunk_words": true,
+     "only_index": true,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 274.599
+   }
+  },
+  "n_ev_tariff": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "chunk_words"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "chunk_words"
+    ],
+    "GB_attributed": [
+     "chunk_words"
+    ],
+    "GB_helpful": [],
+    "GB_reverting_matters": [
+     "chunk_words"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "wrong": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "wrong": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 1.0,
+      "sufficiency_delta": -1.0
+     },
+     "index": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 125.649,
+    "timing": {
+     "analysis_s": 0.047,
+     "runs_s": 125.598
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "chunk_words"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "gb_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "chunk_words"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "wrong_fix": {
+      "correct": 0,
+      "diff_vs_baseline_ci": [
+       -1.0,
+       -1.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "n": 60,
+    "seconds": 100.341
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 0,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "harmful",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": true,
+    "regressed_ci": [
+     1.0,
+     1.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": true,
+     "only_chunk_words": true,
+     "only_index": true,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 328.868
+   }
+  },
+  "n_final_bill": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_attributed": [],
+    "GB_helpful": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 132.58,
+    "timing": {
+     "analysis_s": 0.048,
+     "runs_s": 132.529
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "gb_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "wrong_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 60,
+    "n": 60,
+    "seconds": 72.738
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 200,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": false,
+    "regressed_ci": [
+     0.0,
+     0.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": true,
+     "only_chunk_words": true,
+     "only_index": true,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 364.548
+   }
+  },
+  "n_heat_pump": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "chunk_words"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "chunk_words"
+    ],
+    "GB_attributed": [
+     "chunk_words"
+    ],
+    "GB_helpful": [],
+    "GB_reverting_matters": [
+     "chunk_words"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "wrong": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "wrong": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 1.0,
+      "sufficiency_delta": -1.0
+     },
+     "index": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 115.009,
+    "timing": {
+     "analysis_s": 0.027,
+     "runs_s": 114.979
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "chunk_words"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "gb_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "chunk_words"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "wrong_fix": {
+      "correct": 0,
+      "diff_vs_baseline_ci": [
+       -1.0,
+       -1.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "n": 60,
+    "seconds": 91.949
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 0,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "harmful",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": true,
+    "regressed_ci": [
+     1.0,
+     1.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": false,
+     "only_chunk_words": false,
+     "only_index": true,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 302.286
+   }
+  },
+  "n_meter_reading": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_attributed": [],
+    "GB_helpful": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 139.146,
+    "timing": {
+     "analysis_s": 0.052,
+     "runs_s": 139.091
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "gb_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "wrong_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 60,
+    "n": 60,
+    "seconds": 79.126
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 200,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": false,
+    "regressed_ci": [
+     0.0,
+     0.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": true,
+     "only_chunk_words": true,
+     "only_index": true,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 359.444
+   }
+  },
+  "n_moving_home": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_attributed": [],
+    "GB_helpful": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 132.714,
+    "timing": {
+     "analysis_s": 0.028,
+     "runs_s": 132.683
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "gb_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "wrong_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 60,
+    "n": 60,
+    "seconds": 66.441
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 200,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": false,
+    "regressed_ci": [
+     0.0,
+     0.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": true,
+     "only_chunk_words": true,
+     "only_index": true,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 327.175
+   }
+  },
+  "n_paperless": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_attributed": [],
+    "GB_helpful": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 107.465,
+    "timing": {
+     "analysis_s": 0.029,
+     "runs_s": 107.434
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "gb_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "wrong_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 60,
+    "n": 60,
+    "seconds": 65.223
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 200,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": false,
+    "regressed_ci": [
+     0.0,
+     0.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": true,
+     "only_chunk_words": true,
+     "only_index": true,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 273.65
+   }
+  },
+  "n_payment_plan": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_attributed": [],
+    "GB_helpful": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 111.567,
+    "timing": {
+     "analysis_s": 0.049,
+     "runs_s": 111.514
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "gb_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "wrong_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 60,
+    "n": 60,
+    "seconds": 62.091
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 200,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": false,
+    "regressed_ci": [
+     0.0,
+     0.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": true,
+     "only_chunk_words": true,
+     "only_index": true,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 299.14
+   }
+  },
+  "n_priority_register": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_attributed": [],
+    "GB_helpful": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 118.774,
+    "timing": {
+     "analysis_s": 0.05,
+     "runs_s": 118.721
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "gb_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "wrong_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 60,
+    "n": 60,
+    "seconds": 64.622
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 200,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": false,
+    "regressed_ci": [
+     0.0,
+     0.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": true,
+     "only_chunk_words": true,
+     "only_index": true,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 309.407
+   }
+  },
+  "n_standing_charge": {
+   "kind": "unchanged",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [],
+    "GB_attributed": [],
+    "GB_helpful": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "correct": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "correct": 30
+     },
+     "all_but_template": {
+      "correct": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "correct": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "correct": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 100.175,
+    "timing": {
+     "analysis_s": 0.027,
+     "runs_s": 100.145
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "gb_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "wrong_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 60,
+    "n": 60,
+    "seconds": 53.568
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 200,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": false,
+    "regressed_ci": [
+     0.0,
+     0.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": true,
+     "only_chunk_words": true,
+     "only_index": true,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 264.997
+   }
+  },
+  "u_cooling_off_a": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index"
+    ],
+    "GB_attributed": [
+     "index"
+    ],
+    "GB_helpful": [],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 1.0,
+      "sufficiency_delta": -1.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 115.203,
+    "timing": {
+     "analysis_s": 0.047,
+     "runs_s": 115.152
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "gb_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "wrong_fix": {
+      "correct": 0,
+      "diff_vs_baseline_ci": [
+       -1.0,
+       -1.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "n": 60,
+    "seconds": 70.697
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 0,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "harmful",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": true,
+    "regressed_ci": [
+     1.0,
+     1.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": false,
+     "only_chunk_words": true,
+     "only_index": false,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 316.103
+   }
+  },
+  "u_cooling_off_b": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index"
+    ],
+    "GB_attributed": [
+     "index"
+    ],
+    "GB_helpful": [],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 1.0,
+      "sufficiency_delta": -1.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 118.341,
+    "timing": {
+     "analysis_s": 0.052,
+     "runs_s": 118.286
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "gb_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "wrong_fix": {
+      "correct": 0,
+      "diff_vs_baseline_ci": [
+       -1.0,
+       -1.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "n": 60,
+    "seconds": 78.756
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 0,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "harmful",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": true,
+    "regressed_ci": [
+     1.0,
+     1.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": false,
+     "only_chunk_words": true,
+     "only_index": false,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 313.862
+   }
+  },
+  "u_direct_debit_a": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index"
+    ],
+    "GB_attributed": [
+     "index"
+    ],
+    "GB_helpful": [],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 1.0,
+      "sufficiency_delta": -1.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 131.414,
+    "timing": {
+     "analysis_s": 0.049,
+     "runs_s": 131.362
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "gb_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "wrong_fix": {
+      "correct": 0,
+      "diff_vs_baseline_ci": [
+       -1.0,
+       -1.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "n": 60,
+    "seconds": 98.6
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 0,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "harmful",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": true,
+    "regressed_ci": [
+     1.0,
+     1.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": false,
+     "only_chunk_words": true,
+     "only_index": false,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 330.326
+   }
+  },
+  "u_direct_debit_b": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index",
+     "chunk_words"
+    ],
+    "GB_attributed": [
+     "index",
+     "chunk_words"
+    ],
+    "GB_helpful": [],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 9,
+      "wrong": 21
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": -0.7
+     },
+     "index": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 1.0,
+      "sufficiency_delta": -1.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 145.862,
+    "timing": {
+     "analysis_s": 0.101,
+     "runs_s": 145.757
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "gb_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index",
+       "chunk_words"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "wrong_fix": {
+      "correct": 0,
+      "diff_vs_baseline_ci": [
+       -1.0,
+       -1.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "n": 60,
+    "seconds": 133.264
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 0,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.625,
+       0.75
+      ],
+      "label": "harmful",
+      "only_correct": 63,
+      "tvd": 0.685
+     },
+     "index": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "harmful",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": true,
+    "regressed_ci": [
+     1.0,
+     1.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": false,
+     "only_chunk_words": true,
+     "only_index": false,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 377.106
+   }
+  },
+  "u_emergency_a": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [],
+    "B2_flips": 0,
+    "GB": [
+     "index",
+     "chunk_words"
+    ],
+    "GB_attributed": [
+     "index",
+     "chunk_words"
+    ],
+    "GB_helpful": [],
+    "GB_reverting_matters": [],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "wrong": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 23,
+      "wrong": 7
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": -0.233333
+     },
+     "index": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": -1.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 130.189,
+    "timing": {
+     "analysis_s": 0.057,
+     "runs_s": 130.128
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "reverted": [],
+      "run": false
+     },
+     "gb_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index",
+       "chunk_words"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "wrong_fix": {
+      "correct": 0,
+      "diff_vs_baseline_ci": [
+       -1.0,
+       -1.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "n": 60,
+    "seconds": 107.729
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 0,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.335,
+       0.475
+      ],
+      "label": "harmful",
+      "only_correct": 119,
+      "tvd": 0.405
+     },
+     "index": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "harmful",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": true,
+    "regressed_ci": [
+     1.0,
+     1.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": false,
+     "only_chunk_words": true,
+     "only_index": false,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 328.121
+   }
+  },
+  "u_emergency_b": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index"
+    ],
+    "GB_attributed": [
+     "index"
+    ],
+    "GB_helpful": [],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 1.0,
+      "sufficiency_delta": -1.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 137.278,
+    "timing": {
+     "analysis_s": 0.055,
+     "runs_s": 137.22
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "gb_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "wrong_fix": {
+      "correct": 0,
+      "diff_vs_baseline_ci": [
+       -1.0,
+       -1.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "n": 60,
+    "seconds": 99.888
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 0,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "harmful",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": true,
+    "regressed_ci": [
+     1.0,
+     1.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": false,
+     "only_chunk_words": true,
+     "only_index": false,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 341.348
+   }
+  },
+  "u_late_payment_a": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index"
+    ],
+    "GB_attributed": [
+     "index"
+    ],
+    "GB_helpful": [],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 1.0,
+      "sufficiency_delta": -1.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 97.016,
+    "timing": {
+     "analysis_s": 0.049,
+     "runs_s": 96.962
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "gb_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "wrong_fix": {
+      "correct": 0,
+      "diff_vs_baseline_ci": [
+       -1.0,
+       -1.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "n": 60,
+    "seconds": 66.945
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 0,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "harmful",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": true,
+    "regressed_ci": [
+     1.0,
+     1.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": false,
+     "only_chunk_words": true,
+     "only_index": false,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 255.192
+   }
+  },
+  "u_late_payment_b": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index"
+    ],
+    "GB_attributed": [
+     "index"
+    ],
+    "GB_helpful": [],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 1.0,
+      "sufficiency_delta": -1.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 130.179,
+    "timing": {
+     "analysis_s": 0.092,
+     "runs_s": 130.083
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "gb_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "wrong_fix": {
+      "correct": 0,
+      "diff_vs_baseline_ci": [
+       -1.0,
+       -1.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "n": 60,
+    "seconds": 93.732
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 0,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "harmful",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": true,
+    "regressed_ci": [
+     1.0,
+     1.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": false,
+     "only_chunk_words": true,
+     "only_index": false,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 336.511
+   }
+  },
+  "u_referral_a": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index"
+    ],
+    "GB_attributed": [
+     "index"
+    ],
+    "GB_helpful": [],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 1.0,
+      "sufficiency_delta": -1.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 105.44,
+    "timing": {
+     "analysis_s": 0.061,
+     "runs_s": 105.376
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "gb_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "wrong_fix": {
+      "correct": 0,
+      "diff_vs_baseline_ci": [
+       -1.0,
+       -1.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "n": 60,
+    "seconds": 73.685
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 0,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "harmful",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": true,
+    "regressed_ci": [
+     1.0,
+     1.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": false,
+     "only_chunk_words": true,
+     "only_index": false,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 274.929
+   }
+  },
+  "u_referral_b": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index"
+    ],
+    "GB_attributed": [
+     "index"
+    ],
+    "GB_helpful": [],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 1.0,
+      "sufficiency_delta": -1.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 137.897,
+    "timing": {
+     "analysis_s": 0.092,
+     "runs_s": 137.8
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "gb_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "wrong_fix": {
+      "correct": 0,
+      "diff_vs_baseline_ci": [
+       -1.0,
+       -1.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "n": 60,
+    "seconds": 93.088
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 0,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "harmful",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": true,
+    "regressed_ci": [
+     1.0,
+     1.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": false,
+     "only_chunk_words": true,
+     "only_index": false,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 362.684
+   }
+  },
+  "u_solar_export_a": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index",
+     "chunk_words"
+    ],
+    "GB_attributed": [
+     "index",
+     "chunk_words"
+    ],
+    "GB_helpful": [],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 27,
+      "wrong": 3
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 18,
+      "wrong": 12
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": -0.4
+     },
+     "index": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 0.9,
+      "sufficiency_delta": -1.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 133.289,
+    "timing": {
+     "analysis_s": 0.067,
+     "runs_s": 133.219
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "correct": 51,
+      "diff_vs_baseline_ci": [
+       -0.25,
+       -0.0667
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     },
+     "gb_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index",
+       "chunk_words"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "wrong_fix": {
+      "correct": 0,
+      "diff_vs_baseline_ci": [
+       -1.0,
+       -1.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "n": 60,
+    "seconds": 134.357
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 0,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.355,
+       0.495
+      ],
+      "label": "harmful",
+      "only_correct": 115,
+      "tvd": 0.425
+     },
+     "index": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "harmful",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": true,
+    "regressed_ci": [
+     1.0,
+     1.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": false,
+     "only_chunk_words": true,
+     "only_index": false,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 345.595
+   }
+  },
+  "u_solar_export_b": {
+   "kind": "updated",
+   "methods": {
+    "B0": [
+     "index",
+     "chunk_words",
+     "template",
+     "log_level"
+    ],
+    "B1": [
+     "index",
+     "chunk_words"
+    ],
+    "B2": [
+     "index"
+    ],
+    "B2_flips": 0,
+    "GB": [
+     "index"
+    ],
+    "GB_attributed": [
+     "index"
+    ],
+    "GB_helpful": [],
+    "GB_reverting_matters": [
+     "index"
+    ],
+    "cells": {
+     "all_but_chunk_words": {
+      "wrong": 30
+     },
+     "all_but_index": {
+      "correct": 30
+     },
+     "all_but_log_level": {
+      "wrong": 30
+     },
+     "all_but_template": {
+      "wrong": 30
+     },
+     "baseline": {
+      "correct": 30
+     },
+     "candidate": {
+      "wrong": 30
+     },
+     "only_chunk_words": {
+      "correct": 30
+     },
+     "only_index": {
+      "wrong": 30
+     },
+     "only_log_level": {
+      "correct": 30
+     },
+     "only_template": {
+      "correct": 30
+     }
+    },
+    "direction": {
+     "chunk_words": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "index": {
+      "harmful": true,
+      "helpful": false,
+      "necessity_delta": 1.0,
+      "sufficiency_delta": -1.0
+     },
+     "log_level": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     },
+     "template": {
+      "harmful": false,
+      "helpful": false,
+      "necessity_delta": 0.0,
+      "sufficiency_delta": 0.0
+     }
+    },
+    "first_beyond_noise": [
+     "retrieval#0",
+     "glassbox.content.gen_ai.retrieval.documents.sha256"
+    ],
+    "seconds": 172.37,
+    "timing": {
+     "analysis_s": 0.109,
+     "runs_s": 172.256
+    }
+   },
+   "recovery": {
+    "arms": {
+     "b2_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "gb_fix": {
+      "correct": 60,
+      "diff_vs_baseline_ci": [
+       0.0,
+       0.0
+      ],
+      "reverted": [
+       "index"
+      ],
+      "run": true,
+      "verified": true,
+      "verified_two_sided": true
+     },
+     "wrong_fix": {
+      "correct": 0,
+      "diff_vs_baseline_ci": [
+       -1.0,
+       -1.0
+      ],
+      "reverted": [
+       "template"
+      ],
+      "run": true,
+      "verified": false,
+      "verified_two_sided": false
+     }
+    },
+    "baseline_correct": 60,
+    "candidate_correct": 0,
+    "n": 60,
+    "seconds": 118.704
+   },
+   "reference": {
+    "baseline_correct": 200,
+    "candidate_correct": 0,
+    "factors": {
+     "chunk_words": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "index": {
+      "ci": [
+       1.0,
+       1.0
+      ],
+      "label": "harmful",
+      "only_correct": 0,
+      "tvd": 1.0
+     },
+     "log_level": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     },
+     "template": {
+      "ci": [
+       0.0,
+       0.0
+      ],
+      "label": "null",
+      "only_correct": 200,
+      "tvd": 0.0
+     }
+    },
+    "n": 200,
+    "regressed": true,
+    "regressed_ci": [
+     1.0,
+     1.0
+    ],
+    "retrieval": {
+     "baseline": true,
+     "candidate": false,
+     "only_chunk_words": true,
+     "only_index": false,
+     "only_log_level": true,
+     "only_template": true
+    },
+    "seconds": 490.428
+   }
+  }
+ },
+ "protocol": "experiments/v8/e1b_directed_rag/PROTOCOL.md v1.0",
+ "software": {
+  "accelerate": "1.15.0",
+  "bitsandbytes": "0.50.2",
+  "git_commit": "517524012d0d5e750f22beb8405929f12f9643db",
+  "glassbox-mech-interp": "4.6.1",
+  "numpy": "1.26.4",
+  "sentence-transformers": "5.7.0",
+  "torch": "2.10.0",
+  "transformers": "4.57.6"
+ }
+}

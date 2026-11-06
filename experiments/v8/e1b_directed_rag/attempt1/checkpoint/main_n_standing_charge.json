@@ -1,0 +1,85 @@
+{
+ "B0": [
+  "index",
+  "chunk_words",
+  "template",
+  "log_level"
+ ],
+ "B1": [
+  "index",
+  "chunk_words"
+ ],
+ "B2": [],
+ "B2_flips": 0,
+ "GB": [],
+ "GB_attributed": [],
+ "GB_helpful": [],
+ "GB_reverting_matters": [],
+ "cells": {
+  "all_but_chunk_words": {
+   "correct": 30
+  },
+  "all_but_index": {
+   "correct": 30
+  },
+  "all_but_log_level": {
+   "correct": 30
+  },
+  "all_but_template": {
+   "correct": 30
+  },
+  "baseline": {
+   "correct": 30
+  },
+  "candidate": {
+   "correct": 30
+  },
+  "only_chunk_words": {
+   "correct": 30
+  },
+  "only_index": {
+   "correct": 30
+  },
+  "only_log_level": {
+   "correct": 30
+  },
+  "only_template": {
+   "correct": 30
+  }
+ },
+ "direction": {
+  "chunk_words": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  },
+  "index": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  },
+  "log_level": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  },
+  "template": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  }
+ },
+ "first_beyond_noise": [
+  "retrieval#0",
+  "glassbox.content.gen_ai.retrieval.documents.sha256"
+ ],
+ "seconds": 100.175,
+ "timing": {
+  "analysis_s": 0.027,
+  "runs_s": 100.145
+ }
+}

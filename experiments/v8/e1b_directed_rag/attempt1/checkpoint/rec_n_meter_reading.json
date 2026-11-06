@@ -1,0 +1,29 @@
+{
+ "arms": {
+  "b2_fix": {
+   "reverted": [],
+   "run": false
+  },
+  "gb_fix": {
+   "reverted": [],
+   "run": false
+  },
+  "wrong_fix": {
+   "correct": 60,
+   "diff_vs_baseline_ci": [
+    0.0,
+    0.0
+   ],
+   "reverted": [
+    "template"
+   ],
+   "run": true,
+   "verified": false,
+   "verified_two_sided": false
+  }
+ },
+ "baseline_correct": 60,
+ "candidate_correct": 60,
+ "n": 60,
+ "seconds": 79.126
+}

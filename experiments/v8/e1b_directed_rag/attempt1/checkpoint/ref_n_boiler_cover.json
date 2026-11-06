@@ -1,0 +1,57 @@
+{
+ "baseline_correct": 200,
+ "candidate_correct": 0,
+ "factors": {
+  "chunk_words": {
+   "ci": [
+    1.0,
+    1.0
+   ],
+   "label": "harmful",
+   "only_correct": 0,
+   "tvd": 1.0
+  },
+  "index": {
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "label": "null",
+   "only_correct": 200,
+   "tvd": 0.0
+  },
+  "log_level": {
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "label": "null",
+   "only_correct": 200,
+   "tvd": 0.0
+  },
+  "template": {
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "label": "null",
+   "only_correct": 200,
+   "tvd": 0.0
+  }
+ },
+ "n": 200,
+ "regressed": true,
+ "regressed_ci": [
+  1.0,
+  1.0
+ ],
+ "retrieval": {
+  "baseline": true,
+  "candidate": false,
+  "only_chunk_words": false,
+  "only_index": true,
+  "only_log_level": true,
+  "only_template": true
+ },
+ "seconds": 356.303
+}
