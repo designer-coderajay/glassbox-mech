@@ -885,7 +885,7 @@ vault = build_annex_iv_vault(
 )
 
 summary = vault.to_dict()["compliance_summary"]
-print(summary["overall_status"])    # "COMPLIANT", "MARGINAL" or "NON-COMPLIANT" (Glassbox checks only)
+print(summary["overall_status"])    # "CHECKS_PASSED", "CHECKS_PARTIAL" or "CHECKS_FAILED" (Glassbox checks only; renamed in 4.7.0)
 print(summary["pass_rate"])         # share of Glassbox checks passed, 0.0 to 1.0
 print(summary["sections_covered"])  # e.g. ["§1", "§2", "§3", "§5", "§7", "§8"]
 print(summary["articles_covered"])  # ["Article 9", "Article 10", "Article 11", ...]
@@ -908,7 +908,7 @@ explainer = NaturalLanguageExplainer(verbosity="detailed", include_article_refs=
 explanation = explainer.explain(result, model_name="gpt2", use_case="credit_scoring")
 
 print(explanation["headline"])
-# "Circuit Grade: C (F1 ~0.08) — gpt2 has no faithful credit circuit; audit NON-COMPLIANT"
+# "Circuit Grade: C (F1 ~0.08) — gpt2 has no faithful credit circuit; audit CHECKS FAILED"
 # (raw gpt2 is not a decision model — honest low score. A fine-tuned underwriting model is needed for a passing grade.)
 
 print(explanation["compliance_summary"])
@@ -1564,7 +1564,7 @@ Measured on the current build (`benchmarks/run_decision_functional.py --model gp
 
 **This is honest failure, by design.** Raw GPT-2 Small is not an underwriting
 model — it has no faithful credit circuit, so the tool returns low faithfulness,
-**Grade C, and a NON-COMPLIANT audit** instead of fabricating a clean
+**Grade C, and an audit whose checks fail** instead of fabricating a clean
 explanation. A meaningful passing audit needs a model fine-tuned for the
 decision. (Earlier editions reported GPT-2 Small credit as F1 0.61 / Grade B;
 that does not reproduce on the current exact-measurement build — see
@@ -1972,7 +1972,7 @@ Black-box audit is designed for endpoints with an OpenAI-compatible chat API. It
 | `summary()` | Analytics dict: total_audits, grade_distribution, compliance_rate, avg_f1, chain_valid. |
 | `export_json(path)` | Export all records as JSON array with metadata. |
 | `export_csv(path)` | Export all records as CSV for GRC/Excel import. |
-| `by_model(name)`, `by_grade(grade)`, `non_compliant()` | Query methods. |
+| `by_model(name)`, `by_grade(grade)`, `checks_failed()` | Query methods. `non_compliant()` is a deprecated alias (removed in 4.8.0). |
 
 ### `MultiCorruptionPipeline(model)` — v3.7.0+
 
@@ -2042,7 +2042,7 @@ Black-box audit is designed for endpoints with an OpenAI-compatible chat API. It
 ```typescript
 type DeploymentContext = 'financial_services' | 'healthcare' | 'hr_employment' | 'legal' | 'critical_infrastructure' | 'education' | 'other_high_risk'
 type ExplainabilityGrade = 'A' | 'B' | 'C' | 'D'
-type ComplianceStatus = 'conditionally_compliant' | 'incomplete' | 'non_compliant'
+type ComplianceStatus = 'checks_passed' | 'checks_passed_with_gaps' | 'incomplete' | 'checks_failed'  // Glassbox checks only; renamed in 4.7.0
 
 class GlassboxClient {
   // Audits

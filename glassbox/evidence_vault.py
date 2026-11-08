@@ -314,7 +314,7 @@ class AnnexIVEvidenceVault:
         summary = vault_dict["compliance_summary"]
         pct = summary.get("pass_rate", 0.0)
         overall_col = "#16a34a" if pct >= 0.80 else ("#d97706" if pct >= 0.50 else "#dc2626")
-        overall_txt = "COMPLIANT" if pct >= 0.80 else ("MARGINAL" if pct >= 0.50 else "NON-COMPLIANT")
+        overall_txt = "CHECKS_PASSED" if pct >= 0.80 else ("CHECKS_PARTIAL" if pct >= 0.50 else "CHECKS_FAILED")
 
         # Build entry rows
         entry_rows = ""
@@ -800,8 +800,8 @@ class AnnexIVEvidenceVault:
             "n_passed": n_passed,
             "n_failed": n_failed,
             "pass_rate": round(pass_rate, 4),
-            "overall_status": "COMPLIANT" if pass_rate >= 0.80 else (
-                "MARGINAL" if pass_rate >= 0.50 else "NON-COMPLIANT"
+            "overall_status": "CHECKS_PASSED" if pass_rate >= 0.80 else (
+                "CHECKS_PARTIAL" if pass_rate >= 0.50 else "CHECKS_FAILED"
             ),
             "failed_items": failed_titles,
         }

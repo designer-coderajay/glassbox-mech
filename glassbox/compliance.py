@@ -42,9 +42,10 @@ Regulation (EU) 2024/1689 — EU AI Act (as amended by Regulation (EU) 2026/1744
 Annex IV Section Structure (Article 11)
 ----------------------------------------
     Section 1  — General description of the AI system
-    Section 2  — Development and design information
+    Section 2  — Development and design information (incl. point 2(d): data
+                 requirements / datasheets)
     Section 3  — Monitoring, functioning, and control
-    Section 4  — Data governance
+    Section 4  — Appropriateness of the performance metrics
     Section 5  — Risk management
     Section 6  — Changes through the lifecycle
     Section 7  — Harmonised standards applied
@@ -169,13 +170,49 @@ class ExplainabilityGrade(str, Enum):
 
 class ComplianceStatus(str, Enum):
     """
-    Overall compliance assessment for the AI system documentation.
-    This is documentation completeness, NOT legal guarantee of compliance.
+    Status of Glassbox's own checks on the draft documentation.
+
+    It says whether Glassbox's checks passed. It is **not** a determination of
+    compliance with Regulation (EU) 2024/1689; only the provider's conformity
+    assessment can establish that.
+
+    Values changed in 4.7.0 (``compliant`` → ``checks_passed``,
+    ``conditionally_compliant`` → ``checks_passed_with_gaps``, ``non_compliant`` →
+    ``checks_failed``). The old member names are aliases and the old values are still
+    accepted by ``ComplianceStatus(value)`` until 4.8.0.
     """
-    COMPLIANT             = "compliant"              # All required fields populated
-    CONDITIONALLY_COMPLIANT = "conditionally_compliant"  # Minor gaps, supplementary docs needed
-    INCOMPLETE            = "incomplete"             # Missing required sections
-    NON_COMPLIANT         = "non_compliant"          # Critical failures identified
+    CHECKS_PASSED           = "checks_passed"            # Glassbox checks passed
+    CHECKS_PASSED_WITH_GAPS = "checks_passed_with_gaps"  # passed; provider fields still needed
+    INCOMPLETE              = "incomplete"               # not enough evidence to check
+    CHECKS_FAILED           = "checks_failed"            # a Glassbox check failed
+
+    # Deprecated aliases (before 4.7.0); removed in 4.8.0.
+    COMPLIANT               = "checks_passed"
+    CONDITIONALLY_COMPLIANT = "checks_passed_with_gaps"
+    NON_COMPLIANT           = "checks_failed"
+
+    @classmethod
+    def _missing_(cls, value: object) -> Optional["ComplianceStatus"]:
+        new = _OLD_STATUS_VALUES.get(str(value))
+        return cls(new) if new else None
+
+
+#: Pre-4.7.0 status values and their replacements.
+_OLD_STATUS_VALUES: Dict[str, str] = {
+    "compliant": "checks_passed",
+    "conditionally_compliant": "checks_passed_with_gaps",
+    "non_compliant": "checks_failed",
+}
+
+STATUS_NOTE = (
+    "Status of Glassbox's own checks only; not a determination of compliance with "
+    "Regulation (EU) 2024/1689."
+)
+
+
+def normalize_status(value: str) -> str:
+    """Map a pre-4.7.0 status value to its 4.7.0 name; other values unchanged."""
+    return _OLD_STATUS_VALUES.get(value, value)
 
 
 # ---------------------------------------------------------------------------
@@ -258,10 +295,14 @@ class Section3_MonitoringControl:
 
 
 @dataclass
-class Section4_DataGovernance:
+class Section2d_DataRequirements:
     """
-    Annex IV, Section 4 — Data governance and management practices.
-    Maps to Article 10 — data quality, bias assessment, data relevance.
+    Annex IV, point 2(d) — data requirements in terms of datasheets (training data
+    sets, provenance, scope, how the data was obtained and selected, labelling and
+    cleaning). Relates to Article 10.
+
+    Before 4.7.0 this was reported as "Section 4 — Data governance"; Annex IV point 4
+    is in fact the appropriateness of the performance metrics.
     NOTE: Provider must supply dataset details. Glassbox audits the model,
     not the training data directly.
     """
@@ -278,6 +319,26 @@ class Section4_DataGovernance:
     # Glassbox-derived data signal
     input_token_count_analyzed:      int = 0    # tokens in analyzed prompt
     token_attribution_available:     bool = False
+
+
+#: Deprecated name (before 4.7.0). Will be removed in 4.8.0.
+Section4_DataGovernance = Section2d_DataRequirements
+
+
+@dataclass
+class Section4_PerformanceMetrics:
+    """
+    Annex IV, point 4 — a description of the appropriateness of the performance
+    metrics for the specific AI system.
+
+    Glassbox reports the faithfulness metrics of its own explanation. Whether the
+    system's performance metrics are appropriate for its intended purpose is for the
+    provider to describe.
+    """
+    glassbox_metrics:              List[Dict[str, Any]] = field(default_factory=list)
+    what_glassbox_metrics_measure: str = ""
+    task_performance_metrics:      str = ""
+    appropriateness_of_metrics:    str = ""
 
 
 @dataclass
@@ -437,7 +498,8 @@ class AnnexIVReport:
         self._s1: Optional[Section1_GeneralDescription]  = None
         self._s2: Optional[Section2_DevelopmentDesign]   = None
         self._s3: Optional[Section3_MonitoringControl]   = None
-        self._s4: Optional[Section4_DataGovernance]      = None
+        self._s2d: Optional[Section2d_DataRequirements]  = None
+        self._s4: Optional[Section4_PerformanceMetrics]  = None
         self._s5: Optional[Section5_RiskManagement]      = None
         self._s6: Optional[Section6_LifecycleChanges]    = None
         self._s7: Optional[Section7_HarmonisedStandards] = None
@@ -588,7 +650,7 @@ class AnnexIVReport:
         self._ensure_sections()
         s3 = self._s3
         s5 = self._s5
-        s4 = self._s4
+        s2d = self._s2d
 
         suff = s3.sufficiency if s3 else 0.0
         comp = s3.comprehensiveness if s3 else 0.0
@@ -610,7 +672,8 @@ class AnnexIVReport:
         compliance_status = self._compute_compliance_status().value
         data_status = (
             "Provided by the provider"
-            if s4 and s4.training_dataset_description
+            if s2d and s2d.training_dataset_description
+            and not s2d.training_dataset_description.startswith("[PROVIDER TO COMPLETE")
             else "Provider to complete (Article 10)"
         )
 
@@ -659,7 +722,8 @@ Regulation. Fields only the provider can supply are marked for the provider.
 | Annex IV documentation | Draft: all 9 sections laid out; provider-only fields marked `[PROVIDER TO COMPLETE]` |
 | Explainability grade | **{grade_str}** (measured by Glassbox; Article 13) |
 | Risks found by the analysis | Listed below; the risk management system is for the Provider to describe (Article 9) |
-| Data governance | {data_status} |
+| Data requirements (Annex IV point 2(d)) | {data_status} |
+| Performance metrics (Annex IV point 4) | Provider to complete: Glassbox reports explanation faithfulness, not task performance |
 | Declaration of conformity | Provider to complete (Article 47) |
 | Post-market monitoring plan | Provider to complete (Article 72) |
 
@@ -691,7 +755,7 @@ performance. F1 is the harmonic mean of both.
 
 ## Training Data (Article 10)
 
-{data_status}. See the data governance fields in the Annex IV report JSON.
+{data_status}. See `data_requirements_2d` in the Annex IV report JSON.
 
 ## Audit Trail
 
@@ -932,9 +996,9 @@ performance. F1 is the harmonic mean of both.
             monitoring_indicators   = self._build_monitoring_indicators(avg_suff, avg_comp, avg_f1),
         )
 
-        # Section 4 — Data governance
+        # Annex IV point 2(d) — data requirements (datasheets)
         prompt_tokens = len(first.get("corr_prompt", "").split()) if first.get("corr_prompt") else 0
-        self._s4 = Section4_DataGovernance(
+        self._s2d = Section2d_DataRequirements(
             training_dataset_description   = "[PROVIDER TO COMPLETE — training dataset name, size, source, collection period]",
             validation_dataset_description = "[PROVIDER TO COMPLETE — validation dataset name, size, temporal split]",
             test_dataset_description       = "[PROVIDER TO COMPLETE — test dataset name, size, evaluation methodology]",
@@ -947,6 +1011,25 @@ performance. F1 is the harmonic mean of both.
             gdpr_compliance_measures       = "[PROVIDER TO COMPLETE — GDPR Article 22 measures, lawful basis, DPO consultation]",
             input_token_count_analyzed     = prompt_tokens,
             token_attribution_available    = True,
+        )
+
+        # Annex IV point 4 — appropriateness of the performance metrics
+        self._s4 = Section4_PerformanceMetrics(
+            glassbox_metrics = [
+                {"name": "sufficiency", "value": round(avg_suff, 4),
+                 "measures": "share of the model's decision recovered by the identified circuit alone"},
+                {"name": "comprehensiveness", "value": round(avg_comp, 4),
+                 "measures": "share of the decision lost when the identified circuit is ablated"},
+                {"name": "f1", "value": round(avg_f1, 4),
+                 "measures": "harmonic mean of sufficiency and comprehensiveness"},
+            ],
+            what_glassbox_metrics_measure = (
+                "These measure how faithfully the identified circuit explains the model's "
+                "output on the analysed prompts. They are not measures of the system's "
+                "accuracy or other task performance."
+            ),
+            task_performance_metrics   = "[PROVIDER TO COMPLETE — the metrics used to measure the system's accuracy, robustness and other performance for its intended purpose (see also Annex IV point 2(g))]",
+            appropriateness_of_metrics = "[PROVIDER TO COMPLETE — why these performance metrics are appropriate for this specific system and its intended purpose (Annex IV point 4)]",
         )
 
         # Section 5 — Risk management
@@ -1021,7 +1104,7 @@ performance. F1 is the harmonic mean of both.
                 "Drift detection: KL divergence on output distribution",
             ],
             review_frequency            = "Quarterly review, triggered re-audit on model update or incident",
-            incident_reporting_process  = "Serious incidents reported to national competent authority per Article 73 within 15 days",
+            incident_reporting_process  = "[PROVIDER TO COMPLETE — how serious incidents are reported to the market surveillance authorities under Article 73; check the current text of Regulation (EU) 2024/1689 for the deadlines]",
             stakeholder_feedback_loop   = "Affected persons can request human review of any AI-assisted decision (Article 13)",
             reaudit_triggers            = [
                 "Model architecture or weights update",
@@ -1056,6 +1139,7 @@ performance. F1 is the harmonic mean of both.
             "generated_at":         self._created_at.isoformat(),
             "risk_classification":  self.risk_classification.value,
             "compliance_status":    self._compute_compliance_status().value,
+            "status_note":          STATUS_NOTE,
             "n_analyses_included":  len(self._analyses),
             **(
                 {"evidence_tier": self._governing_tier()}
@@ -1063,14 +1147,15 @@ performance. F1 is the harmonic mean of both.
             ),
             "sections": {
                 "1_general_description":   self._section_to_dict(self._s1, "Annex IV, Section 1"),
-                "2_development_design":    self._section_to_dict(self._s2, "Annex IV, Section 2"),
+                "2_development_design":    self._section2_dict(),
                 "3_monitoring_control":    self._section_to_dict(self._s3, "Annex IV, Section 3"),
-                "4_data_governance":       self._section_to_dict(self._s4, "Annex IV, Section 4"),
+                "4_performance_metrics":   self._section_to_dict(self._s4, "Annex IV, point 4"),
                 "5_risk_management":       self._section_to_dict(self._s5, "Annex IV, Section 5"),
                 "6_lifecycle_changes":     self._section_to_dict(self._s6, "Annex IV, Section 6"),
                 "7_harmonised_standards":  self._section_to_dict(self._s7, "Annex IV, Section 7"),
                 "8_declaration":           self._section_to_dict(self._s8, "Annex IV, Section 8"),
                 "9_post_market_monitoring":self._section_to_dict(self._s9, "Annex IV, Section 9"),
+                "4_data_governance":       self._deprecated_data_governance(),
             },
             "raw_analyses": [
                 {
@@ -1084,6 +1169,20 @@ performance. F1 is the harmonic mean of both.
                 for uc, r in zip(self._use_cases, self._analyses)
             ],
         }
+
+    def _section2_dict(self) -> Dict[str, Any]:
+        d = self._section_to_dict(self._s2, "Annex IV, Section 2")
+        d["data_requirements_2d"] = self._section_to_dict(self._s2d, "Annex IV, point 2(d)")
+        return d
+
+    def _deprecated_data_governance(self) -> Dict[str, Any]:
+        d = self._section_to_dict(self._s2d, "Annex IV, point 2(d)")
+        d["_deprecated"] = (
+            "Moved to sections.2_development_design.data_requirements_2d (Annex IV "
+            "point 2(d)). Annex IV point 4 is the appropriateness of the performance "
+            "metrics: sections.4_performance_metrics. This key will be removed in 4.8.0."
+        )
+        return d
 
     def _section_to_dict(self, section: Any, ref: str) -> Dict[str, Any]:
         if section is None:
@@ -1202,10 +1301,10 @@ performance. F1 is the harmonic mean of both.
         # Compliance status badge
         status = self._compute_compliance_status()
         badge_color = {
-            ComplianceStatus.COMPLIANT:               "#27ae60",
-            ComplianceStatus.CONDITIONALLY_COMPLIANT: "#f39c12",
+            ComplianceStatus.CHECKS_PASSED:           "#27ae60",
+            ComplianceStatus.CHECKS_PASSED_WITH_GAPS: "#f39c12",
             ComplianceStatus.INCOMPLETE:              "#e67e22",
-            ComplianceStatus.NON_COMPLIANT:           "#c0392b",
+            ComplianceStatus.CHECKS_FAILED:           "#c0392b",
         }.get(status, "#7f8c8d")
 
         story.append(Paragraph(
@@ -1393,7 +1492,7 @@ performance. F1 is the harmonic mean of both.
 
     def _pdf_section2(self, styles, colors):
         s = self._s2
-        story = self._pdf_section("2", "Development and Design", "Annex IV, Section 2 | Article 10 | Article 11(1)(d)", styles)
+        story = self._pdf_section("2", "Development and Design", "Annex IV, Section 2 (incl. point 2(d)) | Article 10 | Article 11", styles)
         if not s:
             return story
         story += self._pdf_field("Design Approach",             s.design_approach, styles)
@@ -1417,6 +1516,7 @@ performance. F1 is the harmonic mean of both.
         story.append(Paragraph("<b>Scientific References:</b>", styles["body"]))
         for ref in s.reference_papers:
             story.append(Paragraph(f"  {ref}", styles["legal_ref"]))
+        story += self._pdf_data_requirements(styles)
         return story
 
     def _pdf_section3(self, styles, colors):
@@ -1452,9 +1552,24 @@ performance. F1 is the harmonic mean of both.
 
     def _pdf_section4(self, styles, colors):
         s = self._s4
-        story = self._pdf_section("4", "Data Governance", "Annex IV, Section 4 | Article 10 | GDPR Article 22", styles)
+        story = self._pdf_section("4", "Appropriateness of the Performance Metrics", "Annex IV, point 4", styles)
         if not s:
             return story
+        for m in s.glassbox_metrics:
+            story += self._pdf_field(
+                f"Glassbox metric: {m['name']}", f"{m['value']:.3f} ({m['measures']})", styles
+            )
+        story += self._pdf_field("What these measure",     s.what_glassbox_metrics_measure, styles)
+        story += self._pdf_field("Task Performance Metrics", s.task_performance_metrics, styles, is_warning=True)
+        story += self._pdf_field("Appropriateness",          s.appropriateness_of_metrics, styles, is_warning=True)
+        return story
+
+    def _pdf_data_requirements(self, styles):
+        s = self._s2d
+        if not s:
+            return []
+        from reportlab.platypus import Paragraph
+        story = [Paragraph("<b>Data requirements (Annex IV point 2(d) | Article 10):</b>", styles["body"])]
         story += self._pdf_field("Training Dataset",      s.training_dataset_description,   styles, is_warning=True)
         story += self._pdf_field("Validation Dataset",    s.validation_dataset_description, styles, is_warning=True)
         story += self._pdf_field("Test Dataset",          s.test_dataset_description,        styles, is_warning=True)
@@ -1709,9 +1824,9 @@ performance. F1 is the harmonic mean of both.
             return ComplianceStatus.INCOMPLETE
         f1 = self._s3.f1_score
         if f1 >= self._GRADE_B_THRESHOLD[2]:
-            return ComplianceStatus.CONDITIONALLY_COMPLIANT  # provider fields still needed
+            return ComplianceStatus.CHECKS_PASSED_WITH_GAPS  # provider fields still needed
         if f1 < self._FAITHFULNESS_RISK_F1_THRESHOLD:
-            return ComplianceStatus.NON_COMPLIANT
+            return ComplianceStatus.CHECKS_FAILED
         return ComplianceStatus.INCOMPLETE
 
     def _infer_affected_persons(self) -> str:

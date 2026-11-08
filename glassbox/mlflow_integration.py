@@ -167,7 +167,7 @@ def log_glassbox_run(
     mlflow.log_metrics(metrics, step=step)
 
     # ── Parameters ─────────────────────────────────────────────────────────
-    compliance_status = "COMPLIANT" if suff >= 0.75 else "NEEDS_REVIEW"
+    compliance_status = "CHECKS_PASSED" if suff >= 0.75 else "NEEDS_REVIEW"
     params: Dict[str, str] = {
         "glassbox.version": "4.2.6",
         "glassbox.behaviour_category":  cat,
@@ -238,7 +238,7 @@ def register_compliance_artifact(
 
     faith  = result.get("faithfulness", {})
     suff   = faith.get("sufficiency", 0.0)
-    status = "COMPLIANT" if suff >= 0.75 else "NEEDS_REVIEW"
+    status = "CHECKS_PASSED" if suff >= 0.75 else "NEEDS_REVIEW"
 
     # Log JSON artifact to the run
     payload = {

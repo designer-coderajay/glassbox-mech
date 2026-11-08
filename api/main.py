@@ -9,7 +9,7 @@ GET  /health              — Health check
 GET  /                    — API info
 
 This is the API that enterprise compliance buyers will call.
-Every response is a structured JSON compliant with EU AI Act Annex IV.
+Every response is structured JSON laid out along EU AI Act Annex IV (a draft, not a conformity assessment).
 
 Usage
 -----

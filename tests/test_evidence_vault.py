@@ -62,7 +62,7 @@ def test_build_from_gb_result_metrics():
 
 def test_compliance_summary_noncompliant():
     s = AnnexIVEvidenceVault().build_vault(gb_result=GB).to_dict()["compliance_summary"]
-    assert s["overall_status"] == "NON-COMPLIANT"  # only 1 of 3 thresholds pass
+    assert s["overall_status"] == "CHECKS_FAILED"  # only 1 of 3 thresholds pass
     assert 0.0 <= s["pass_rate"] <= 1.0
     assert s["n_failed"] >= 2
 
@@ -73,7 +73,7 @@ def test_compliance_summary_compliant():
         "n_heads": 4, "circuit": {(9, 6): 0.5},
     }
     s = AnnexIVEvidenceVault().build_vault(gb_result=good).to_dict()["compliance_summary"]
-    assert s["overall_status"] == "COMPLIANT"
+    assert s["overall_status"] == "CHECKS_PASSED"
     assert s["pass_rate"] == 1.0
 
 
@@ -104,7 +104,7 @@ def test_to_json_parses():
 def test_to_html_contains_status():
     html = AnnexIVEvidenceVault().build_vault(gb_result=GB).to_html()
     assert "<" in html
-    assert any(s in html for s in ("COMPLIANT", "MARGINAL", "NON-COMPLIANT"))
+    assert any(s in html for s in ("CHECKS_PASSED", "CHECKS_PARTIAL", "CHECKS_FAILED"))
 
 
 def test_articles_covered_collected():

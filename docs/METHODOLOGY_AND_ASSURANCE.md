@@ -65,7 +65,7 @@ These are the **ERASER faithfulness metrics** (DeYoung et al., 2020). They are
 *computed by ablation and re-running the model* — reproducible and falsifiable,
 not asserted. **When they are low, the tool says the explanation is incomplete**
 (see the worked example below, where gpt2 scores sufficiency 0.48 and is graded C
-/ NON-COMPLIANT). That self-honesty is the core trust mechanism.
+/ CHECKS FAILED). That self-honesty is the core trust mechanism.
 
 ### Layer 3 — causal-abstraction certificate (the strongest, narrowest claim)
 
@@ -105,7 +105,7 @@ default.
    patch-identity) before any number is believed.
 4. An **evidence-tier label (A–D)** forces honest scoping of every result.
 5. It is **open source** — the regulator can run it themselves.
-6. It is honest about failure: it returns NON-COMPLIANT when a model's decision
+6. It is honest about failure: it returns CHECKS FAILED when a model's decision
    cannot be faithfully explained, instead of fabricating a clean story.
 
 *Empirical basis for the whole approach:* confidence–faithfulness correlation
@@ -155,7 +155,7 @@ Glassbox produces **evidence and documentation** toward specific obligations:
 
 **The legal limit — do not overstate.** The EU AI Act does **not** mandate
 mechanistic interpretability and defines **no faithfulness threshold**. The
-`overall_status: NON-COMPLIANT` produced by the tool is **Glassbox's own internal
+`overall_status: CHECKS_FAILED` (before 4.7.0: `NON-COMPLIANT`) produced by the tool is **Glassbox's own internal
 gate, not a legal ruling** — never present it as a regulator's verdict. Conformity
 is determined by the provider's conformity assessment (self-assessment or a
 notified body) against harmonised standards that are still being written.
@@ -172,7 +172,7 @@ them; check the current legal text.
 
 `examples/loan_decision_audit.py` runs a loan-approval-style decision on gpt2 end
 to end. gpt2 cannot underwrite, so it finds no faithful decision circuit and the report is
-marked **NON-COMPLIANT** (Glassbox's own quality gate, not a legal finding) — the
+marked **CHECKS FAILED** (Glassbox's own quality gate, not a legal finding) — the
 correct outcome for a model with no real decision circuit. The plumbing (real model → real circuit →
 measured faithfulness → Annex IV file) is what is real; point it at a fine-tuned
 decision model for a meaningful audit.

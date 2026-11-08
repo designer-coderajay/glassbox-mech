@@ -77,7 +77,8 @@ class AuditRecord:
     provider_name    : Provider name from Annex IV metadata.
     deployment_context : Deployment context (financial_services, healthcare…).
     explainability_grade : A | B | C | D.
-    compliance_status : conditionally_compliant | incomplete | non_compliant.
+    compliance_status : checks_passed_with_gaps | incomplete | checks_failed
+        (pre-4.7.0 values conditionally_compliant | non_compliant are still read).
     faithfulness_f1  : Faithfulness F1 score (0.0–1.0).
     faithfulness_sufficiency : Sufficiency metric.
     faithfulness_comprehensiveness : Comprehensiveness metric.
@@ -209,7 +210,7 @@ class AuditLog:
         provider_name:         str          = "",
         deployment_context:    str          = "other_high_risk",
         explainability_grade:  str          = "D",
-        compliance_status:     str          = "non_compliant",
+        compliance_status:     str          = "checks_failed",
         faithfulness_f1:       float        = 0.0,
         faithfulness_sufficiency: float     = 0.0,
         faithfulness_comprehensiveness: float = 0.0,
@@ -329,8 +330,8 @@ class AuditLog:
         raw_status = result.get("compliance_status") or report.get("compliance_status") or ""
         if not raw_status:
             raw_status = (
-                "conditionally_compliant" if grade in ("A", "B")
-                else "non_compliant"
+                "checks_passed_with_gaps" if grade in ("A", "B")
+                else "checks_failed"
             )
 
         return self.append(
@@ -370,9 +371,16 @@ class AuditLog:
         """Return all records with a specific explainability grade (A/B/C/D)."""
         return [r for r in self._records if r.explainability_grade.upper() == grade.upper()]
 
+    def checks_failed(self) -> List[AuditRecord]:
+        """Records whose status is ``checks_failed`` (or the pre-4.7.0 ``non_compliant``)."""
+        return [
+            r for r in self._records
+            if r.compliance_status in ("checks_failed", "non_compliant")
+        ]
+
     def non_compliant(self) -> List[AuditRecord]:
-        """Return all records where compliance_status == 'non_compliant'."""
-        return [r for r in self._records if r.compliance_status == "non_compliant"]
+        """Deprecated alias of :meth:`checks_failed` (removed in 4.8.0)."""
+        return self.checks_failed()
 
     # ── analytics ─────────────────────────────────────────────────────────────
 

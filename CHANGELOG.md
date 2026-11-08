@@ -6,6 +6,61 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [4.7.0] — 2026-11-08
+
+### Changed — breaking (announced in 4.6.1)
+
+- **Annex IV point 4 relabelled.** Annex IV point 4 is "a description of the
+  appropriateness of the performance metrics for the specific AI system". Data
+  requirements and datasheets belong to point 2(d). Wording checked against
+  Regulation (EU) 2024/1689, Annex IV.
+  - New `sections.4_performance_metrics`. It lists Glassbox's faithfulness metrics
+    (sufficiency, comprehensiveness, F1), says that they describe the explanation and
+    not the system's task performance, and marks the task metrics and their
+    appropriateness `[PROVIDER TO COMPLETE]`.
+  - The data fields move to `sections.2_development_design.data_requirements_2d`.
+  - **Deprecated:** `sections.4_data_governance` is kept for this release as a copy of
+    the 2(d) fields with a `_deprecated` note. It will be removed in 4.8.0.
+  - Python: `Section2d_DataRequirements` and `Section4_PerformanceMetrics` are new;
+    `Section4_DataGovernance` is a deprecated alias of `Section2d_DataRequirements`. The
+    PDF and the model card follow the new structure.
+- **Status values say "Glassbox checks", not compliance.** Glassbox can say whether
+  its own checks passed. It cannot determine compliance with the Regulation.
+  - `ComplianceStatus` values: `compliant` → `checks_passed`,
+    `conditionally_compliant` → `checks_passed_with_gaps`, `non_compliant` →
+    `checks_failed` (`incomplete` is unchanged). The old member names are aliases, and
+    `ComplianceStatus("non_compliant")` still works, until 4.8.0. The new
+    `glassbox.compliance.normalize_status()` maps old values to new ones.
+  - The report JSON adds `status_note`.
+  - `AnnexIVEvidenceVault` `overall_status`: `COMPLIANT` / `MARGINAL` /
+    `NON-COMPLIANT` → `CHECKS_PASSED` / `CHECKS_PARTIAL` / `CHECKS_FAILED`.
+  - The MLflow and Hugging Face integrations tag `CHECKS_PASSED` instead of
+    `COMPLIANT`. `BiasReport.to_markdown()` no longer prints "COMPLIANT".
+  - `AuditLog`: new `checks_failed()`. It matches both `checks_failed` and the old
+    `non_compliant`, so existing logs keep working. `non_compliant()` is a
+    deprecated alias, and the default status for new records is `checks_failed`.
+    Stored records are never rewritten, so the hash chain is unchanged.
+
+### Fixed
+
+- **No legal deadline in generated documents.** §9 of the Annex IV draft said serious
+  incidents are reported "within 15 days". That field is now `[PROVIDER TO COMPLETE]`
+  and points to the current text of the Regulation.
+
+### Added — investigation layer (`glassbox.v7`, BSL 1.1)
+
+- **Direction-aware interventions:** `InterventionReport.rate`, `direction`,
+  `harmful` and `helpful` for a target outcome. A change is harmful if switching it
+  alone lowers the target rate, or reverting it alone raises it, using the existing
+  Holm-corrected tests. Existing outputs are unchanged.
+- `Incident.target`: when set, `investigate` reports harmful and helpful changes per
+  case, and the report adds a direction table. Without a target, output is unchanged.
+- Evidence: pre-registered E1b (ASSURANCE V3.13) passed on an all-or-nothing case.
+  The same row records its limits: the helpful-change check was not testable, and E1
+  (V3.10) remains a FAIL.
+
+---
+
 ## [4.6.1] — 2026-10-31
 
 ### Security and supply chain (V8 B2, 2026-10-31)

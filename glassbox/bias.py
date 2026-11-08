@@ -922,7 +922,7 @@ class BiasReport:
             )
         else:
             lines.append(
-                "\n**✓ COMPLIANT:** No tests flagged. Document results in Annex IV."
+                "\n**✓ No tests flagged.** Document the results in the Annex IV draft."
             )
 
         return "\n".join(lines)

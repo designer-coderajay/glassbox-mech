@@ -83,7 +83,7 @@ raw output committed at `benchmarks/results/decision_functional_2026-10-05.json`
 
 **This is the point, not a defect.** Raw GPT-2 Small (124M) is *not* a decision
 model — it has no faithful credit/underwriting circuit, so the tool correctly
-returns **low faithfulness, Grade C, and would mark the audit NON-COMPLIANT**
+returns **low faithfulness, Grade C, and marks the audit CHECKS FAILED** (shown as NON-COMPLIANT before 4.7.0)
 rather than fabricate a clean explanation. (Concentration > 1× confirms the
 discovered heads still beat a random set — the attribution is real; the model's
 *decision competence* is what's absent.) A meaningful credit audit requires a

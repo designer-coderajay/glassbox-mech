@@ -314,4 +314,4 @@ class TestBiasReport:
         r = BiasReport()
         r.add_result(self._cf(analyzer, {"a": {"x": 0.5}, "b": {"x": 0.5}}), "clean")
         md = r.to_markdown()
-        assert "COMPLIANT" in md
+        assert "No tests flagged" in md and "COMPLIANT" not in md

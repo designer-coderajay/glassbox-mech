@@ -77,13 +77,6 @@ def test_model_card_lists_identified_risks():
     assert "Insufficient circuit explainability" in card
 
 
-def test_model_card_data_governance_reflects_provider_input():
-    r = _report()
-    assert "Provider to complete" in r.to_model_card()
-    r._s4.training_dataset_description = "Loan book 2015-2024"
-    assert "Provided by the provider" in r.to_model_card()
-
-
 def test_model_card_writes_file(tmp_path):
     out = tmp_path / "MODEL_CARD.md"
     assert _report().to_model_card(str(out)) == out.read_text(encoding="utf-8")
@@ -177,3 +170,98 @@ def test_pdf_text_uses_draft_wording():
     assert "Documentation Status: {status.value" not in src
     assert "This Annex IV compliance report covers" not in src
     assert "EU AI Act Compliance Audit Platform" not in src
+
+
+# --- 4.7.0: Annex IV point 4 relabel (performance metrics) ---------------------------
+# Annex IV point 2(d) covers data requirements / datasheets; point 4 is "a description
+# of the appropriateness of the performance metrics for the specific AI system".
+
+
+def _sections(r):
+    return json.loads(r.to_json())["sections"]
+
+
+def test_point_4_is_performance_metrics():
+    sec = _sections(_report())
+    s4 = sec["4_performance_metrics"]
+    assert s4["_regulation_ref"] == "Annex IV, point 4"
+    names = [m["name"] for m in s4["glassbox_metrics"]]
+    assert names == ["sufficiency", "comprehensiveness", "f1"]
+    assert "not" in s4["what_glassbox_metrics_measure"].lower()
+    assert s4["task_performance_metrics"].startswith("[PROVIDER TO COMPLETE")
+    assert s4["appropriateness_of_metrics"].startswith("[PROVIDER TO COMPLETE")
+
+
+def test_data_requirements_live_under_point_2d():
+    sec = _sections(_report())
+    d = sec["2_development_design"]["data_requirements_2d"]
+    assert d["_regulation_ref"] == "Annex IV, point 2(d)"
+    assert d["training_dataset_description"].startswith("[PROVIDER TO COMPLETE")
+
+
+def test_old_data_governance_key_kept_one_release_with_deprecation():
+    sec = _sections(_report())
+    old = sec["4_data_governance"]
+    assert "4.8.0" in old["_deprecated"] and "2(d)" in old["_deprecated"]
+    new = sec["2_development_design"]["data_requirements_2d"]
+    strip = lambda d: {k: v for k, v in d.items() if not k.startswith("_")}
+    assert strip(old) == strip(new)
+
+
+def test_all_nine_annex_points_present_in_order():
+    keys = [k for k in _sections(_report()) if k != "4_data_governance"]
+    assert keys == [
+        "1_general_description",
+        "2_development_design",
+        "3_monitoring_control",
+        "4_performance_metrics",
+        "5_risk_management",
+        "6_lifecycle_changes",
+        "7_harmonised_standards",
+        "8_declaration",
+        "9_post_market_monitoring",
+    ]
+
+
+def test_old_class_name_still_importable():
+    from glassbox.compliance import Section2d_DataRequirements, Section4_DataGovernance
+
+    assert Section4_DataGovernance is Section2d_DataRequirements
+
+
+def test_model_card_names_point_2d_for_data():
+    r = _report()
+    card = r.to_model_card()
+    assert "| Data requirements (Annex IV point 2(d)) |" in card
+    r._s2d.training_dataset_description = "Loan book 2015-2024"
+    assert "Provided by the provider" in r.to_model_card()
+
+
+def test_no_legal_deadlines_in_generated_documents():
+    text = _report().to_json() + _report().to_model_card()
+    for phrase in ("within 15 days", "15 days", "days of becoming aware"):
+        assert phrase not in text
+
+
+def _pdf_text(r, method):
+    pytest.importorskip("reportlab")
+    from reportlab.lib import colors
+    from reportlab.lib.styles import getSampleStyleSheet
+
+    r._ensure_sections()
+    styles = r._build_pdf_styles(getSampleStyleSheet(), colors)
+    story = getattr(r, method)(styles, colors)
+    return " ".join(getattr(f, "text", "") for f in story)
+
+
+def test_pdf_section_4_is_performance_metrics():
+    text = _pdf_text(_report(), "_pdf_section4")
+    assert "Appropriateness of the Performance Metrics" in text
+    assert "Annex IV, point 4" in text
+    assert "Training Dataset" not in text
+    assert "sufficiency" in text
+
+
+def test_pdf_section_2_carries_point_2d_data():
+    text = _pdf_text(_report(), "_pdf_section2")
+    assert "point 2(d)" in text and "Training Dataset" in text

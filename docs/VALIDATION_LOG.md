@@ -416,3 +416,26 @@ python scripts/validate_models_matrix.py --models EleutherAI/pythia-1b --device 
   - the licence audit;
   - the Python-version packaging test.
 
+
+## Run 18 — full test suite with coverage (release 4.7.0)
+
+- **Date:** 2026-11-08
+- **Hardware:** the owner's Mac. This was a **local run, not CI**. The Python
+  version was not part of the output pasted.
+- **Code:** the uncommitted 4.7.0 working tree on top of `0289270`, committed
+  immediately afterwards as the 4.7.0 release commit.
+- **Command:** `pytest --cov=glassbox --cov-report=term -q`
+- **Result:** **1574 passed, 11 skipped**, 1 warning, 187.03 s.
+- **Coverage:** total **80.29%** (9146 statements, 1803 missed). The gate is 58%, and
+  the repository's own standard is 80%. `glassbox/v7/intervene.py` and
+  `glassbox/v7/trace.py` are at 100%.
+- **reportlab:** not shown in the pasted output. The skip count (11) equals Run 17's,
+  which ran with reportlab installed.
+- **Supersedes:** Run 17 (1478 passed / 80.09%).
+- **Where the 96 new passing tests came from** (E1, E1b and 4.7.0):
+  - the E1 and E1b experiment suites (`tests/test_v8_e1.py`, `tests/test_v8_e1b.py`);
+  - the direction view (`tests/test_v7_intervene_direction.py`, plus 4 in
+    `tests/test_v7_investigate.py`);
+  - the Annex IV point 4 relabel and the legal-deadline check
+    (`tests/test_compliance_accuracy.py`);
+  - the status rename (`tests/test_status_names.py`).

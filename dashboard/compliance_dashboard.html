@@ -584,7 +584,7 @@
       font-size: 13px; font-weight: 600;
       border: 1px solid transparent;
     }
-    .status-CONDITIONALLY_COMPLIANT {
+    .status-CHECKS_PASSED_WITH_GAPS, .status-CHECKS_PASSED, .status-CONDITIONALLY_COMPLIANT {
       background: var(--blue-dim);
       border-color: rgba(96,165,250,0.22); color: var(--blue);
     }
@@ -592,7 +592,7 @@
       background: var(--yellow-dim);
       border-color: rgba(245,158,11,0.22); color: var(--yellow);
     }
-    .status-NON_COMPLIANT {
+    .status-CHECKS_FAILED, .status-NON_COMPLIANT {
       background: var(--red-dim);
       border-color: rgba(239,68,68,0.22); color: var(--red);
     }
@@ -1154,7 +1154,7 @@
         <!-- Status -->
         <div class="status-row" id="status-row">
           <span id="status-icon">✓</span>
-          <span id="status-text">Conditionally Compliant</span>
+          <span id="status-text">Glassbox checks passed — complete the provider fields</span>
         </div>
 
         <!-- Circuit heads -->
@@ -1378,9 +1378,13 @@
     const statusRow = document.getElementById('status-row');
     statusRow.className = 'status-row status-' + status.toUpperCase();
     const statusMap = {
-      'conditionally_compliant': ['✓', 'Conditionally Compliant — complete provider fields before submission'],
+      'checks_passed':           ['✓', 'Glassbox checks passed'],
+      'checks_passed_with_gaps': ['✓', 'Glassbox checks passed — complete the provider fields'],
       'incomplete':              ['⚠', 'Incomplete — provider fields required'],
-      'non_compliant':           ['✗', 'Non-Compliant — low explainability, review required'],
+      'checks_failed':           ['✗', 'Glassbox checks failed — low explainability, review required'],
+      // values before 4.7.0
+      'conditionally_compliant': ['✓', 'Glassbox checks passed — complete the provider fields'],
+      'non_compliant':           ['✗', 'Glassbox checks failed — low explainability, review required'],
     };
     const [icon, text] = statusMap[status] || ['?', status];
     document.getElementById('status-icon').textContent = icon;
@@ -1705,7 +1709,7 @@
   const DEMO_RESULT = {
     report_id: "2F906F6A",
     status: "completed",
-    compliance_status: "conditionally_compliant",
+    compliance_status: "checks_passed_with_gaps",
     explainability_grade: "A — Fully Explainable",
     faithfulness: { sufficiency: 0.921, comprehensiveness: 0.634, f1: 0.751, category: "faithful" },
     n_circuit_components: 4,
@@ -1715,7 +1719,7 @@
     pdf_report_url: null,
     full_report: {
       report_id: "2F906F6A",
-      compliance_status: "conditionally_compliant",
+      compliance_status: "checks_passed_with_gaps",
       sections: {
         "2_development_design": {
           circuit_heads: ["L9H6","L9H9","L10H0","L3H0"],
@@ -1757,11 +1761,11 @@
   function initAuditHistory() {
     // Initialize with 5 synthetic demo records showing progression from D to B
     auditHistoryData = [
-      { date: new Date(Date.now() - 4*24*60*60*1000).toISOString().split('T')[0], model: 'gpt2', grade: 'D', f1: 0.35, status: 'Non-Compliant' },
+      { date: new Date(Date.now() - 4*24*60*60*1000).toISOString().split('T')[0], model: 'gpt2', grade: 'D', f1: 0.35, status: 'Checks failed' },
       { date: new Date(Date.now() - 3*24*60*60*1000).toISOString().split('T')[0], model: 'gpt2-medium', grade: 'C', f1: 0.48, status: 'Incomplete' },
       { date: new Date(Date.now() - 2*24*60*60*1000).toISOString().split('T')[0], model: 'gpt2-large', grade: 'C', f1: 0.54, status: 'Incomplete' },
-      { date: new Date(Date.now() - 1*24*60*60*1000).toISOString().split('T')[0], model: 'EleutherAI/gpt-neo-125m', grade: 'B', f1: 0.72, status: 'Conditionally Compliant' },
-      { date: new Date().toISOString().split('T')[0], model: 'EleutherAI/gpt-neo-350m', grade: 'B', f1: 0.78, status: 'Conditionally Compliant' },
+      { date: new Date(Date.now() - 1*24*60*60*1000).toISOString().split('T')[0], model: 'EleutherAI/gpt-neo-125m', grade: 'B', f1: 0.72, status: 'Checks passed (provider fields to complete)' },
+      { date: new Date().toISOString().split('T')[0], model: 'EleutherAI/gpt-neo-350m', grade: 'B', f1: 0.78, status: 'Checks passed (provider fields to complete)' },
     ];
     populateAuditHistory();
   }

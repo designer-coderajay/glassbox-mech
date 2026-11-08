@@ -211,10 +211,11 @@ def test_json_output_structure(report_fintech):
     assert len(data["report_id"]) == 8
 
     sections = data["sections"]
-    assert len(sections) == 9
+    # 9 Annex IV points plus the deprecated 4_data_governance key (removed in 4.8.0)
+    assert len(sections) == 10
     expected = [
         "1_general_description", "2_development_design", "3_monitoring_control",
-        "4_data_governance", "5_risk_management", "6_lifecycle_changes",
+        "4_performance_metrics", "5_risk_management", "6_lifecycle_changes",
         "7_harmonised_standards", "8_declaration", "9_post_market_monitoring",
     ]
     for key in expected:

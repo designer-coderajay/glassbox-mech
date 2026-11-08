@@ -372,7 +372,7 @@ class HuggingFaceModelCard:
             "faithfulness_f1":      round(f1, 4),
             "faithfulness_category": cat,
             "circuit_n_heads":      n_heads,
-            "compliance_status":    "COMPLIANT" if suff >= 0.75 else "NEEDS_REVIEW",
+            "compliance_status":    "CHECKS_PASSED" if suff >= 0.75 else "NEEDS_REVIEW",
             "regulation":           "Regulation (EU) 2024/1689 — AI Act Annex IV",
             "annex_iv_report_url":  annex_iv_url or "",
         }

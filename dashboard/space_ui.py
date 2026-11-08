@@ -13,7 +13,7 @@ from __future__ import annotations
 import html
 from typing import Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
-VERSION = "4.6.1"
+VERSION = "4.7.0"
 MODEL_NAME = "GPT-2 small"
 MAX_PROMPT_CHARS = 600
 MAX_ATTENTION_TOKENS = 48
@@ -403,9 +403,9 @@ INTRO_ANNEX = (
 
 ANNEX_TITLES: Dict[str, str] = {
     "1_general_description": "General description of the system",
-    "2_development_design": "Development and design (incl. circuit evidence)",
+    "2_development_design": "Development and design (incl. circuit evidence and 2(d) data)",
     "3_monitoring_control": "Monitoring, functioning and control",
-    "4_data_governance": "Data and data governance",
+    "4_performance_metrics": "Appropriateness of the performance metrics",
     "5_risk_management": "Risk management",
     "6_lifecycle_changes": "Changes over the lifecycle",
     "7_harmonised_standards": "Standards and specifications applied",
