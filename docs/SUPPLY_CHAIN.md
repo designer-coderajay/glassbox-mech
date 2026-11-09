@@ -43,7 +43,24 @@ and follows runtime requirements (extras excluded) from the base dependencies:
 - **DENY:** GPL, AGPL or SSPL. The project rules exclude these. They can never be
   accepted.
 
-CI runs the audit on the pinned stack on every full-lane run.
+CI runs the audit on the pinned stack on every full-lane run, after the tests.
+
+**Correction (2026-11-09).** From 4.6.1 to 4.7.0, the audit step **failed in CI** on
+every full-lane run, and because it ran before the tests, the CI test step was
+skipped. The test counts for those releases come from full local runs
+(`docs/VALIDATION_LOG.md`), not from CI.
+- Likely cause: on Linux, the default `torch==2.10.0` wheel from PyPI also installs
+  NVIDIA CUDA runtime packages (`nvidia-*-cu12`, plus `cuda-bindings` and `triton`).
+  For `nvidia-cublas-cu12` 12.8.4.1, the PyPI metadata gives the licence as "NVIDIA
+  Proprietary Software", which the audit treats as REVIEW. The local audit ran on
+  macOS, where these packages are not installed. The CI log itself was not read; this
+  is inferred from the step that failed and the packages that differ.
+- Fix: CI now installs the CPU-only wheel (`torch==2.10.0+cpu` from
+  `download.pytorch.org/whl/cpu`; the runner has no GPU), and runs the audit after the
+  tests, so an audit failure no longer hides the test result.
+- **Not covered:** a GPU install of torch on Linux brings those NVIDIA packages. They
+  come from torch, not from Glassbox, and their licence terms were not reviewed here.
+  Read them before redistributing an environment that contains them.
 
 **Result** (local Python 3.11 environment with torch 2.10.0, transformer-lens 2.17.0
 and transformers 4.57.6; some transitive versions differ from the CI pins):

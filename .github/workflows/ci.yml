@@ -90,6 +90,13 @@ jobs:
         # numpy/torch and defeat the pyproject ceilings.
         run: |
           python -m pip install --upgrade pip
+          # CPU-only torch wheel (2026-11-09). This runner has no GPU. The default
+          # Linux wheel on PyPI also installs NVIDIA CUDA runtime packages; their
+          # metadata says "NVIDIA Proprietary Software" (checked on PyPI for
+          # nvidia-cublas-cu12), which the licence audit treats as REVIEW. The
+          # audit step failed on the full-lane runs from 4.6.1 to 4.7.0, so the
+          # test step after it was skipped (docs/SUPPLY_CHAIN.md).
+          pip install "torch==2.10.0" --index-url https://download.pytorch.org/whl/cpu
           # pyarrow/datasets/pandas pinned 2026-10-11: transformer_lens imports
           # datasets -> pyarrow, and an unpinned newer pyarrow requires NumPy >= 2.0,
           # which broke this job before any test ran (VALIDATION_LOG Run 14).
@@ -111,14 +118,6 @@ jobs:
           python -c "import transformer_lens; print('transformer_lens import: OK')"
           python -c "import importlib.metadata as m; print('transformer_lens', m.version('transformer-lens'))" || echo "version lookup skipped (non-fatal)"
 
-      - name: Dependency licence audit
-        # Fails on GPL/AGPL/SSPL or on a package with no licence information that has
-        # not been reviewed by hand (docs/SUPPLY_CHAIN.md lists the reviewed ones).
-        run: |
-          python scripts/license_audit.py \
-            --site "$(python -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')" \
-            --accept certifi tqdm python-dateutil sentencepiece
-
       - name: Run full suite with coverage (gate at measured floor)
         # Measured real coverage: 71% locally, 932 passed + 2 xfail (2026-06-14)
         # (acdc 95%, das 83%, cross_model 66%, steering 70%, core 98%;
@@ -132,6 +131,16 @@ jobs:
             --cov-report=xml \
             --cov-fail-under=58 \
             -v
+
+      - name: Dependency licence audit
+        # Fails on GPL/AGPL/SSPL or on a package with no licence information that has
+        # not been reviewed by hand (docs/SUPPLY_CHAIN.md lists the reviewed ones).
+        # Runs after the tests, so an audit failure no longer hides the test result.
+        if: success() || failure()
+        run: |
+          python scripts/license_audit.py \
+            --site "$(python -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')" \
+            --accept certifi tqdm python-dateutil sentencepiece
 
       - name: Upload coverage report
         if: always()

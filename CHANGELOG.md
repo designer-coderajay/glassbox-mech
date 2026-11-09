@@ -6,6 +6,16 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [Unreleased]
+
+### Fixed
+- **CI:** the "Test + coverage" job had failed at the licence audit since 4.6.1, so its
+  test step was skipped. Released test counts came from full local runs. CI now
+  installs the CPU-only torch wheel and runs the audit after the tests. See
+  `docs/SUPPLY_CHAIN.md` §2.
+- **CI MCP check:** the MCP servers' test-suite string had lost the "v" before the
+  version, which failed the check from 4.6.1; restored, with a test.
+
 ## [4.7.0] — 2026-11-08
 
 ### Changed — breaking (announced in 4.6.1)
