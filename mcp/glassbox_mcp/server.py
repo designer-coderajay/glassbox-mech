@@ -455,7 +455,7 @@ async def glassbox_compliance_report(params: ComplianceReportInput) -> str:
                 "sufficiency": params.sufficiency,
                 "comprehensiveness": params.comprehensiveness,
                 "confidence_faithfulness_correlation": 0.009,
-                "test_suite": "1,478 automated tests passing, 80% coverage (full local run 2026-10-31, glassbox-mech-interp 4.6.1)",
+                "test_suite": "1,574 automated tests passing, 80% coverage (full local run 2026-11-08, glassbox-mech-interp v4.7.0)",
                 "benchmark": "ACDC (Conmy et al., NeurIPS 2023) — Glassbox is 15-37x faster (GPT-2 family)",
             },
             "section_5_risk_assessment": {

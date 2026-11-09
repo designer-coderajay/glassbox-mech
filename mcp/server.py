@@ -462,12 +462,12 @@ async def glassbox_compliance_report(params: ComplianceReportInput) -> str:
             },
             "section_4_performance_metrics_appropriateness": {
                 "metrics_used": "Faithfulness — sufficiency, comprehensiveness, F1 (their harmonic mean)",
-                "why_appropriate": "Faithfulness measures whether the explanation is causally true, which a confidence score cannot (r=0.009). It is the appropriate metric for an explainability audit under Articles 13 and 15.",
+                "why_appropriate": "These faithfulness metrics measure how well the identified circuit explains the model's output (a confidence score does not: r=0.009). They describe the explanation, not the system's task performance. Whether the system's performance metrics are appropriate is for the provider to describe (Annex IV point 4).",
                 "faithfulness_f1": params.f1_score,
                 "sufficiency": params.sufficiency,
                 "comprehensiveness": params.comprehensiveness,
                 "benchmark": "ACDC (Conmy et al., NeurIPS 2023) — Glassbox is 15-37x faster (GPT-2 family)",
-                "test_suite": "1,478 automated tests passing, 80% coverage (full local run 2026-10-31, glassbox-mech-interp 4.6.1)",
+                "test_suite": "1,574 automated tests passing, 80% coverage (full local run 2026-11-08, glassbox-mech-interp v4.7.0)",
             },
             "section_5_risk_management": {
                 "article_reference": "Article 9 — risk management system",

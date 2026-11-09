@@ -75,3 +75,19 @@ def test_python_versions_match_what_is_tested():
         if c.startswith("Programming Language :: Python :: 3.")
     }
     assert declared == {"3.10", "3.11"}
+
+
+def test_mcp_servers_carry_the_current_version_string():
+    """CI's MCP job greps for "glassbox-mech-interp v<version>" in mcp/server.py, and
+    scripts/sync_versions.py bumps that exact pattern. Writing the version without
+    the "v" broke both silently from 4.6.1 until 4.7.0."""
+    import re
+
+    root = Path(__file__).resolve().parent.parent
+    version = re.search(
+        r'^version\s*=\s*"([^"]+)"', (root / "pyproject.toml").read_text(), re.M
+    ).group(1)
+    for rel in ("mcp/server.py", "mcp/glassbox_mcp/server.py"):
+        text = (root / rel).read_text()
+        assert f"glassbox-mech-interp v{version}" in text, rel
+        assert not re.search(r"glassbox-mech-interp \d", text), rel
