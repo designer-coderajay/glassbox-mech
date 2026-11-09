@@ -1,0 +1,301 @@
+{
+ "catalog": {
+  "Bothy camp lantern": 27.5,
+  "Cairn mess tin": 15.4,
+  "Heron fishing stool": 41.0,
+  "Ridgeline trekking pole": 34.0,
+  "Scarp bivvy bag": 88.0,
+  "Spey waterproof map case": 12.8
+ },
+ "company": "Quarrystone Outfitters",
+ "orders": {
+  "QS-4417": {
+   "defective": false,
+   "eligible": true,
+   "item": "Assorted camping gear",
+   "price": 50.0,
+   "reason": "within window",
+   "shipping": 6.9,
+   "status": "awaiting courier pickup",
+   "total_paid": 56.9
+  },
+  "QS-4452": {
+   "defective": false,
+   "eligible": true,
+   "item": "Assorted camping gear",
+   "price": 50.0,
+   "reason": "within window",
+   "shipping": 6.9,
+   "status": "held at the regional depot",
+   "total_paid": 56.9
+  },
+  "QS-4508": {
+   "defective": false,
+   "eligible": true,
+   "item": "Assorted camping gear",
+   "price": 50.0,
+   "reason": "within window",
+   "shipping": 6.9,
+   "status": "in customs inspection",
+   "total_paid": 56.9
+  },
+  "QS-4531": {
+   "defective": false,
+   "eligible": true,
+   "item": "Assorted camping gear",
+   "price": 50.0,
+   "reason": "within window",
+   "shipping": 6.9,
+   "status": "returned to sender",
+   "total_paid": 56.9
+  },
+  "QS-4576": {
+   "defective": false,
+   "eligible": true,
+   "item": "Assorted camping gear",
+   "price": 50.0,
+   "reason": "within window",
+   "shipping": 6.9,
+   "status": "out for redelivery",
+   "total_paid": 56.9
+  },
+  "QS-4603": {
+   "defective": false,
+   "eligible": true,
+   "item": "Assorted camping gear",
+   "price": 50.0,
+   "reason": "within window",
+   "shipping": 6.9,
+   "status": "awaiting stock from the supplier",
+   "total_paid": 56.9
+  },
+  "QS-5120": {
+   "defective": false,
+   "eligible": true,
+   "item": "Basalt 2-person tent",
+   "price": 123.6,
+   "reason": "within window",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 130.5
+  },
+  "QS-5147": {
+   "defective": false,
+   "eligible": true,
+   "item": "Cinder down vest",
+   "price": 72.35,
+   "reason": "within window",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 79.25
+  },
+  "QS-5183": {
+   "defective": false,
+   "eligible": true,
+   "item": "Larchwood camp chair x2",
+   "price": 198.95,
+   "reason": "within window",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 205.85
+  },
+  "QS-5209": {
+   "defective": false,
+   "eligible": true,
+   "item": "Tarn water filter",
+   "price": 35.5,
+   "reason": "within window",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 42.4
+  },
+  "QS-5236": {
+   "defective": false,
+   "eligible": true,
+   "item": "Fellside rain shell",
+   "price": 144.8,
+   "reason": "within window",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 151.7
+  },
+  "QS-5268": {
+   "defective": false,
+   "eligible": true,
+   "item": "Scree gaiters",
+   "price": 84.05,
+   "reason": "within window",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 90.95
+  },
+  "QS-6011": {
+   "defective": false,
+   "eligible": false,
+   "item": "Marram sleeping mat",
+   "price": 58.0,
+   "reason": "outside the 17-day return window",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 64.9
+  },
+  "QS-6034": {
+   "defective": false,
+   "eligible": false,
+   "item": "Kestrel headtorch",
+   "price": 36.5,
+   "reason": "final-sale item",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 43.4
+  },
+  "QS-6058": {
+   "defective": false,
+   "eligible": false,
+   "item": "Brackwater dry bag",
+   "price": 24.75,
+   "reason": "outside the 17-day return window",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 31.65
+  },
+  "QS-6072": {
+   "defective": false,
+   "eligible": false,
+   "item": "Holloway trail shoes",
+   "price": 112.0,
+   "reason": "worn outdoors",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 118.9
+  },
+  "QS-6095": {
+   "defective": false,
+   "eligible": false,
+   "item": "Ashgill wool socks",
+   "price": 18.4,
+   "reason": "final-sale item",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 25.3
+  },
+  "QS-6117": {
+   "defective": false,
+   "eligible": false,
+   "item": "Torrent kayak paddle",
+   "price": 89.9,
+   "reason": "outside the 17-day return window",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 96.8
+  },
+  "QS-7023": {
+   "defective": true,
+   "eligible": true,
+   "item": "Corrie camp stove",
+   "price": 64.5,
+   "reason": "defective: burner does not ignite",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 71.4
+  },
+  "QS-7046": {
+   "defective": true,
+   "eligible": true,
+   "item": "Skerry trekking poles",
+   "price": 47.2,
+   "reason": "defective: locking clip snapped",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 54.1
+  },
+  "QS-7069": {
+   "defective": true,
+   "eligible": true,
+   "item": "Moraine backpack 40L",
+   "price": 98.0,
+   "reason": "defective: shoulder strap seam split",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 104.9
+  },
+  "QS-7081": {
+   "defective": true,
+   "eligible": true,
+   "item": "Pike insulated bottle",
+   "price": 29.75,
+   "reason": "defective: lid leaks",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 36.65
+  },
+  "QS-7104": {
+   "defective": true,
+   "eligible": true,
+   "item": "Gorse fleece jacket",
+   "price": 71.3,
+   "reason": "defective: zip broken on arrival",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 78.2
+  },
+  "QS-7138": {
+   "defective": true,
+   "eligible": true,
+   "item": "Lochan inflatable pillow",
+   "price": 21.6,
+   "reason": "defective: valve does not seal",
+   "shipping": 6.9,
+   "status": "delivered",
+   "total_paid": 28.5
+  }
+ },
+ "policies": [
+  {
+   "id": "returns",
+   "text": "Quarrystone Outfitters returns: unused items can be returned within 17 days of delivery. Items worn outdoors cannot be returned."
+  },
+  {
+   "id": "restocking",
+   "text": "Restocking fee: opened tents and shelters returned for a refund carry a restocking fee of 12 percent of the item price."
+  },
+  {
+   "id": "free_shipping",
+   "text": "Shipping: standard shipping costs 6.90 EUR. Orders of 85 EUR or more ship free within the EU."
+  },
+  {
+   "id": "price_match",
+   "text": "Price match: if you find the same item cheaper within 9 days of purchase, we refund the difference."
+  },
+  {
+   "id": "stove_warranty",
+   "text": "Warranty: camping stoves carry a 3-year manufacturer warranty from the date of delivery."
+  },
+  {
+   "id": "gift_cards",
+   "text": "Gift cards: Quarrystone gift cards are valid for 4 years from the date of purchase."
+  },
+  {
+   "id": "loyalty",
+   "text": "Loyalty points: members earn 2 points per euro spent; 100 points can be redeemed for a 5 EUR voucher."
+  },
+  {
+   "id": "repairs",
+   "text": "Repairs: the Ambleside workshop repairs zips and seams on jackets for a flat fee of 22 EUR."
+  }
+ ],
+ "vouchers": {
+  "BOTHY20": {
+   "free_shipping": true,
+   "percent_off": 20
+  },
+  "FELL10": {
+   "free_shipping": false,
+   "percent_off": 10
+  },
+  "TRAIL15": {
+   "free_shipping": true,
+   "percent_off": 15
+  }
+ }
+}

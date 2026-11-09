@@ -49,6 +49,7 @@ from glassbox.v7.intervene import (
     Runner,
     run_interventions,
 )
+from glassbox.v7.taxonomy import count_faults, dominant
 
 LIMITS = (
     "A difference beyond noise says where runs differ, not why.",
@@ -76,6 +77,14 @@ class Incident:
     """The outcome value that means "working" (e.g. ``"correct"``). If set, each
     finding also says which changes lowered (harmful) or raised (helpful) its rate;
     see :meth:`glassbox.v7.intervene.InterventionReport.direction`."""
+    required_tools: Optional[Dict[str, Sequence[str]]] = None
+    """Per case, the tools an agent must call, in order. If set (needs ``target``),
+    each finding also counts the fault type of every failing run per cell; see
+    :mod:`glassbox.v7.taxonomy`."""
+
+    def __post_init__(self) -> None:
+        if self.required_tools is not None and self.target is None:
+            raise ValueError("required_tools needs a target outcome")
 
 
 @dataclass
@@ -92,13 +101,16 @@ class CaseFinding:
     harmful: Optional[List[str]] = None
     helpful: Optional[List[str]] = None
     direction: Optional[Dict[str, Dict[str, Any]]] = None
+    fault_counts: Optional[Dict[str, Dict[str, int]]] = None
 
     def as_dict(self) -> Dict[str, Any]:
-        """JSON form; the direction fields are omitted when no target was set."""
+        """JSON form; the direction and fault fields are omitted when not computed."""
         d = dict(self.__dict__)
         if self.harmful is None:
             for k in ("harmful", "helpful", "direction"):
                 d.pop(k)
+        if self.fault_counts is None:
+            d.pop("fault_counts")
         return d
 
 
@@ -151,6 +163,15 @@ class Investigation:
                 **(
                     {"target": self.incident.target}
                     if self.incident.target is not None
+                    else {}
+                ),
+                **(
+                    {
+                        "required_tools": {
+                            k: list(v) for k, v in self.incident.required_tools.items()
+                        }
+                    }
+                    if self.incident.required_tools is not None
                     else {}
                 ),
             },
@@ -244,6 +265,12 @@ def _investigate_case(
         finding.harmful = report.harmful(incident.target)
         finding.helpful = report.helpful(incident.target)
         finding.direction = report.direction(incident.target)
+    if incident.required_tools is not None:
+        required = incident.required_tools[case]
+        finding.fault_counts = {
+            cell: count_faults(ps, required, incident.outcome, incident.target)
+            for cell, ps in report.paths.items()
+        }
     timing = {
         "runs_s": round(ran - start, 3),
         "analysis_s": round(time.perf_counter() - ran, 3),
@@ -356,6 +383,36 @@ def _direction_table(inv: Investigation) -> List[str]:
     return lines
 
 
+def _fault_table(inv: Investigation) -> List[str]:
+    """Most common failure type per case and cell (only with required tools)."""
+    if inv.incident.required_tools is None:
+        return []
+    cells = list(inv.findings[0].fault_counts or {}) if inv.findings else []
+    lines = [
+        "",
+        "## Failure types",
+        "",
+        "Most common type among the failing runs of each configuration (— when "
+        "fewer than 5 runs failed).",
+        "",
+        "| Case | " + " | ".join(cells) + " |",
+        "|---|" + "---|" * len(cells),
+    ]
+    for c in inv.findings:
+        fc = c.fault_counts or {}
+        lines.append(
+            f"| {c.case} | "
+            + " | ".join(dominant(fc.get(cell, {})) or "—" for cell in cells)
+            + " |"
+        )
+    lines += [
+        "",
+        "Types describe what the run did (e.g. `wrong_tool`, `skipped_tool`), compared "
+        "with the required tools given for each case; they do not say why.",
+    ]
+    return lines
+
+
 def render_report(inv: Investigation) -> str:
     """Markdown report: answer, per-factor table, per-case detail, limits."""
     inc = inv.incident
@@ -385,6 +442,7 @@ def render_report(inv: Investigation) -> str:
         )
     lines += _case_table(inv)
     lines += _direction_table(inv)
+    lines += _fault_table(inv)
     lines += ["", "## What this does not show", ""]
     lines += [f"- {limit}" for limit in LIMITS]
     lines += [

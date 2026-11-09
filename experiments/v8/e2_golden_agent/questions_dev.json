@@ -1,0 +1,154 @@
+[
+ {
+  "accepted": [
+   "courier pickup"
+  ],
+  "id": "a_4417",
+  "kind": "A",
+  "question": "What is the current status of order QS-4417?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "regional depot"
+  ],
+  "id": "a_4452",
+  "kind": "A",
+  "question": "What is the current status of order QS-4452?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "130.50"
+  ],
+  "id": "b_5120",
+  "kind": "B",
+  "question": "How much did the customer pay in total for order QS-5120, including shipping?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "79.25"
+  ],
+  "id": "b_5147",
+  "kind": "B",
+  "question": "How much did the customer pay in total for order QS-5147, including shipping?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "not eligible",
+   "ineligible",
+   "isn t eligible",
+   "is not eligible",
+   "no refund",
+   "not entitled",
+   "not refundable",
+   "non refundable",
+   "cannot be refunded",
+   "can t be refunded",
+   "can not be refunded"
+  ],
+  "id": "ci_6011",
+  "kind": "C-inel",
+  "question": "The customer wants a refund for order QS-6011. Is the order eligible, and how much would be refunded?",
+  "rejected": [
+   "58.00",
+   "64.90"
+  ]
+ },
+ {
+  "accepted": [
+   "not eligible",
+   "ineligible",
+   "isn t eligible",
+   "is not eligible",
+   "no refund",
+   "not entitled",
+   "not refundable",
+   "non refundable",
+   "cannot be refunded",
+   "can t be refunded",
+   "can not be refunded"
+  ],
+  "id": "ci_6034",
+  "kind": "C-inel",
+  "question": "The customer wants a refund for order QS-6034. Is the order eligible, and how much would be refunded?",
+  "rejected": [
+   "36.50",
+   "43.40"
+  ]
+ },
+ {
+  "accepted": [
+   "71.40"
+  ],
+  "id": "cd_7023",
+  "kind": "C-def",
+  "question": "Order QS-7023 arrived with a defective item. How much should the customer be refunded?",
+  "rejected": [
+   "64.50"
+  ]
+ },
+ {
+  "accepted": [
+   "54.10"
+  ],
+  "id": "cd_7046",
+  "kind": "C-def",
+  "question": "Order QS-7046 arrived with a defective item. How much should the customer be refunded?",
+  "rejected": [
+   "47.20"
+  ]
+ },
+ {
+  "accepted": [
+   "86.70"
+  ],
+  "id": "d_ridgeline",
+  "kind": "D",
+  "question": "Please quote 3 x Ridgeline trekking pole with voucher TRAIL15. What is the final total?",
+  "rejected": [
+   "108.90",
+   "102.00"
+  ]
+ },
+ {
+  "accepted": [
+   "56.40"
+  ],
+  "id": "d_bothy",
+  "kind": "D",
+  "question": "Please quote 2 x Bothy camp lantern with voucher FELL10. What is the final total?",
+  "rejected": [
+   "61.90",
+   "55.00"
+  ]
+ },
+ {
+  "accepted": [
+   "17"
+  ],
+  "id": "e_1",
+  "kind": "E",
+  "question": "How many days does a customer have to return an unused item?",
+  "rejected": [
+   "30",
+   "14",
+   "28"
+  ]
+ },
+ {
+  "accepted": [
+   "12"
+  ],
+  "id": "e_2",
+  "kind": "E",
+  "question": "What restocking fee applies to an opened tent returned for a refund?",
+  "rejected": [
+   "15",
+   "10",
+   "20"
+  ]
+ }
+]

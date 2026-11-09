@@ -331,3 +331,119 @@ The baseline is the old release, and the candidate changes all nine factors.
 
 ---
 *(Addenda go below this line, with dates.)*
+
+## Addendum 1 (2026-11-09): sealed data, implementation details, toy dry run
+
+Written in the code commit, before any model run.
+
+**1. Sealed files** (sha256). These must match the run's checkout.
+
+| File | sha256 |
+|---|---|
+| `questions_test.json` (24) | `da640ddc3d080520d14e4f177f52040d4a592ba4b09fcf15603fe03168b6f897` |
+| `questions_dev.json` (12) | `153d4b91d21337b6eb65b373cf2c276081f1aff213b52411d14820b02be4f8f2` |
+| `db.json` | `17b92559694ed8dfd5fd69d3c9bda2f5a62ee0f976799767454faeb7786f3bb9` |
+
+- `make_data.py` regenerates all three byte-identically; a test checks this.
+- The retailer is the fictional "Quarrystone Outfitters". A test checks that no
+  question, policy text or company name is shared with E1 or E1b.
+- A test runs the required tools for every question (baseline, `refund_fix`
+  applied, retries forced) and checks that the result contains an accepted answer
+  and no rejected one.
+
+**2. Clarification found while writing tests: required tools for C-inel.**
+- The §2 table lists C-inel's required tools as "`check_eligibility` (then stop)".
+- Under the §5.1 rules taken literally, an episode that skips the check and calls
+  only `calc_refund` would be labelled `wrong_tool` (rule 3: a tool outside the
+  required set). That contradicts §3, which designs `refund_tool_desc` as the
+  skipped-tool fault.
+- So the required sequence for **both** refund types is the refund workflow,
+  `check_eligibility` → `calc_refund`. Correct episodes are never labelled, so a
+  correct agent may still stop after the check.
+- Known side effect, disclosed: a failing C-inel episode that checks and then
+  answers wrongly without calling `calc_refund` is labelled `skipped_tool`, not
+  `other`.
+
+**3. Sampling** (replaces "each episode has its own seed" in §2).
+- Episodes of one (configuration, question) are generated in blocks, advanced step
+  by step in one batch. Each (block, step) has one sampling seed derived from (stage
+  seed, canonical configuration, question, block, step). Per-sequence seeds are not
+  possible in one batched `generate` call.
+- Block sizes per stage: gate 10, pilot 30, reference 50, main 30, recovery 60, so
+  that no episodes are generated and thrown away.
+- Tool randomness (the transient error of `lookup_order`) uses a per-episode seed
+  from (stage seed, "tools", configuration, question, episode index). It does not
+  depend on batching.
+
+**4. Outcome matching.**
+- §2 says matching is by tokens "as in E1". E1's tokenizer treats only ASCII
+  punctuation as separators, so "€59.95" would not match "59.95".
+- E2 lowercases and treats every character other than a–z and 0–9 as a separator.
+  A test covers the euro sign, rejected answers and contractions ("isn't eligible").
+
+**5. Implementation details.**
+- **Permutations.** With 9 factors, Holm's first threshold is 0.05 / 9 ≈ 0.0056.
+  999 permutations give a smallest p-value of 0.001, so the protocol's 999 is
+  enough. Fewer (for example 99) could never reach significance. This is noted
+  because a test with 99 permutations found nothing significant.
+- **B1.**
+  - A first divergence that is a step present in only one run (`added` or
+    `removed`) → `max_steps`.
+  - A divergence in a `chat` step → the five prompt-visible factors.
+  - A divergence in an `execute_tool` step → `refund_fix`, `retries`.
+  - The chat spans hash the system prompt and the tool definitions. So whenever a
+    prompt-visible factor differs, B1's first divergence is the first chat step,
+    and it blames all five prompt-visible factors.
+- **GB's fault label** for a pair is the most common label among the failing runs of
+  the main-run `only_<f>` cell. Below 5 failing runs it is `None`. Ties go to the
+  label listed first in §5.1.
+- **G8 eligibility.** A question is eligible if it has a helpful-large pair and
+  `gb_fix` and `undirected_fix` both ran with different reverted sets.
+  - If either arm was not run, the question is not eligible.
+  - For eligible questions, the (gb − undirected) CI uses the two arms' 60
+    recovery episodes.
+- **G10** is testable with at least one null pair. **G9** needs at least 6
+  labelled pairs, as §8 says.
+- **Gate parse rate** = valid tool calls / (valid + failed `<tool_call>` blocks) over
+  the gate episodes. With no tool calls at all it is 0, and the rung fails.
+- **Recovery** reuses runs between arms with the same configuration, as in E1b.
+- **Memory.** Cached episode blocks are cleared after each question and stage.
+
+**6. Library changes (tests first).**
+- `glassbox/v7/taxonomy.py` implements §5.1, with 19 tests in
+  `tests/test_v7_taxonomy.py`.
+- `Incident.required_tools` is optional and needs a target. With it, each
+  `CaseFinding` has `fault_counts` per cell, and the report gains a "Failure types"
+  table. Without it, output is unchanged (4 new tests in
+  `tests/test_v7_investigate.py`).
+
+**7. Model licences** (Hugging Face API, 2026-11-09).
+- At both pinned revisions, `LICENSE` is git blob
+  `6634c8cc3133b3848ec74b9f275acaaa1ea618ab`, 11,343 bytes. Its text is the Apache
+  License 2.0 with "Copyright 2024 Alibaba Cloud".
+- Neither repository is gated.
+- §9 asked for the LICENSE sha256 here. The fetch tool used returns decoded text,
+  not bytes, so I could not hash the exact bytes. Instead, `run.py` downloads
+  `LICENSE` at the pinned revision on the GPU host and records its sha256 per rung
+  in `results.json` → `gate.rungs[].licence_sha256`. The git blob id above
+  identifies the same bytes.
+
+**8. Toy dry run** (disclosed; not evidence).
+- The full pipeline ran once with `ToyAgentModel`, a scripted policy that is **not a
+  language model**:
+  - pilot on all 12 dev questions;
+  - test stage on all 24 test questions at the protocol's sample sizes;
+  - on CPU, in about 2 minutes.
+- The toy passed the gate unchanged (accuracy 0.858, parse rate 1.0).
+- Every stage completed, and scoring produced G1–G10. On the toy, G8 had only 1
+  eligible question (not testable).
+- The toy numbers are not results, and **no data file, threshold, sample size or
+  factor wording was changed after the dry run.**
+  - One toy-only bug was fixed before the full dry run: the toy re-drew its quote
+    order at every step.
+  - The tests and the dry run read the test split, as in E1b.
+
+**9. Software.**
+- The CI pins plus `accelerate` and `huggingface_hub`, on the CUDA build of
+  `torch==2.10.0` on the GPU host. They are recorded in `results.json` → `software`
+  and in `pip_freeze.txt`. The GPU name is recorded in `results.json` → `gpu`.

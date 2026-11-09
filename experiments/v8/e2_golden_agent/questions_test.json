@@ -1,0 +1,318 @@
+[
+ {
+  "accepted": [
+   "customs inspection"
+  ],
+  "id": "a_4508",
+  "kind": "A",
+  "question": "What is the current status of order QS-4508?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "returned to sender"
+  ],
+  "id": "a_4531",
+  "kind": "A",
+  "question": "What is the current status of order QS-4531?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "redelivery"
+  ],
+  "id": "a_4576",
+  "kind": "A",
+  "question": "What is the current status of order QS-4576?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "awaiting stock"
+  ],
+  "id": "a_4603",
+  "kind": "A",
+  "question": "What is the current status of order QS-4603?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "205.85"
+  ],
+  "id": "b_5183",
+  "kind": "B",
+  "question": "How much did the customer pay in total for order QS-5183, including shipping?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "42.40"
+  ],
+  "id": "b_5209",
+  "kind": "B",
+  "question": "How much did the customer pay in total for order QS-5209, including shipping?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "151.70"
+  ],
+  "id": "b_5236",
+  "kind": "B",
+  "question": "How much did the customer pay in total for order QS-5236, including shipping?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "90.95"
+  ],
+  "id": "b_5268",
+  "kind": "B",
+  "question": "How much did the customer pay in total for order QS-5268, including shipping?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "not eligible",
+   "ineligible",
+   "isn t eligible",
+   "is not eligible",
+   "no refund",
+   "not entitled",
+   "not refundable",
+   "non refundable",
+   "cannot be refunded",
+   "can t be refunded",
+   "can not be refunded"
+  ],
+  "id": "ci_6058",
+  "kind": "C-inel",
+  "question": "The customer wants a refund for order QS-6058. Is the order eligible, and how much would be refunded?",
+  "rejected": [
+   "24.75",
+   "31.65"
+  ]
+ },
+ {
+  "accepted": [
+   "not eligible",
+   "ineligible",
+   "isn t eligible",
+   "is not eligible",
+   "no refund",
+   "not entitled",
+   "not refundable",
+   "non refundable",
+   "cannot be refunded",
+   "can t be refunded",
+   "can not be refunded"
+  ],
+  "id": "ci_6072",
+  "kind": "C-inel",
+  "question": "The customer wants a refund for order QS-6072. Is the order eligible, and how much would be refunded?",
+  "rejected": [
+   "112.00",
+   "118.90"
+  ]
+ },
+ {
+  "accepted": [
+   "not eligible",
+   "ineligible",
+   "isn t eligible",
+   "is not eligible",
+   "no refund",
+   "not entitled",
+   "not refundable",
+   "non refundable",
+   "cannot be refunded",
+   "can t be refunded",
+   "can not be refunded"
+  ],
+  "id": "ci_6095",
+  "kind": "C-inel",
+  "question": "The customer wants a refund for order QS-6095. Is the order eligible, and how much would be refunded?",
+  "rejected": [
+   "18.40",
+   "25.30"
+  ]
+ },
+ {
+  "accepted": [
+   "not eligible",
+   "ineligible",
+   "isn t eligible",
+   "is not eligible",
+   "no refund",
+   "not entitled",
+   "not refundable",
+   "non refundable",
+   "cannot be refunded",
+   "can t be refunded",
+   "can not be refunded"
+  ],
+  "id": "ci_6117",
+  "kind": "C-inel",
+  "question": "The customer wants a refund for order QS-6117. Is the order eligible, and how much would be refunded?",
+  "rejected": [
+   "89.90",
+   "96.80"
+  ]
+ },
+ {
+  "accepted": [
+   "104.90"
+  ],
+  "id": "cd_7069",
+  "kind": "C-def",
+  "question": "Order QS-7069 arrived with a defective item. How much should the customer be refunded?",
+  "rejected": [
+   "98.00"
+  ]
+ },
+ {
+  "accepted": [
+   "36.65"
+  ],
+  "id": "cd_7081",
+  "kind": "C-def",
+  "question": "Order QS-7081 arrived with a defective item. How much should the customer be refunded?",
+  "rejected": [
+   "29.75"
+  ]
+ },
+ {
+  "accepted": [
+   "78.20"
+  ],
+  "id": "cd_7104",
+  "kind": "C-def",
+  "question": "Order QS-7104 arrived with a defective item. How much should the customer be refunded?",
+  "rejected": [
+   "71.30"
+  ]
+ },
+ {
+  "accepted": [
+   "28.50"
+  ],
+  "id": "cd_7138",
+  "kind": "C-def",
+  "question": "Order QS-7138 arrived with a defective item. How much should the customer be refunded?",
+  "rejected": [
+   "21.60"
+  ]
+ },
+ {
+  "accepted": [
+   "70.40"
+  ],
+  "id": "d_scarp",
+  "kind": "D",
+  "question": "Please quote 1 x Scarp bivvy bag with voucher BOTHY20. What is the final total?",
+  "rejected": [
+   "94.90",
+   "88.00"
+  ]
+ },
+ {
+  "accepted": [
+   "62.34"
+  ],
+  "id": "d_cairn",
+  "kind": "D",
+  "question": "Please quote 4 x Cairn mess tin with voucher FELL10. What is the final total?",
+  "rejected": [
+   "68.50",
+   "61.60"
+  ]
+ },
+ {
+  "accepted": [
+   "69.70"
+  ],
+  "id": "d_heron",
+  "kind": "D",
+  "question": "Please quote 2 x Heron fishing stool with voucher TRAIL15. What is the final total?",
+  "rejected": [
+   "88.90",
+   "82.00"
+  ]
+ },
+ {
+  "accepted": [
+   "51.20"
+  ],
+  "id": "d_spey",
+  "kind": "D",
+  "question": "Please quote 5 x Spey waterproof map case with voucher BOTHY20. What is the final total?",
+  "rejected": [
+   "70.90",
+   "64.00"
+  ]
+ },
+ {
+  "accepted": [
+   "85"
+  ],
+  "id": "e_3",
+  "kind": "E",
+  "question": "From what order value is standard shipping free within the EU?",
+  "rejected": [
+   "50",
+   "75",
+   "100"
+  ]
+ },
+ {
+  "accepted": [
+   "9"
+  ],
+  "id": "e_4",
+  "kind": "E",
+  "question": "Within how many days of purchase can a customer ask for a price match?",
+  "rejected": [
+   "14",
+   "30",
+   "7"
+  ]
+ },
+ {
+  "accepted": [
+   "3 year",
+   "3 years",
+   "three year",
+   "three years"
+  ],
+  "id": "e_5",
+  "kind": "E",
+  "question": "How long is the warranty on a camping stove?",
+  "rejected": [
+   "1 year",
+   "2 year",
+   "2 years",
+   "one year",
+   "two year",
+   "two years"
+  ]
+ },
+ {
+  "accepted": [
+   "4 year",
+   "4 years",
+   "four year",
+   "four years"
+  ],
+  "id": "e_6",
+  "kind": "E",
+  "question": "For how long is a gift card valid?",
+  "rejected": [
+   "1 year",
+   "3 years",
+   "5 years",
+   "one year",
+   "three years",
+   "five years"
+  ]
+ }
+]

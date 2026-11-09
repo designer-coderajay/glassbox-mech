@@ -252,3 +252,58 @@ def test_directed_summary_counts(directed_investigation):
     assert s["index"]["harmful_in"] == ["q1", "q2", "q3", "q4"]
     assert s["index"]["helpful_in"] == []
     assert s["template"]["harmful_in"] == []
+
+
+# --- fault view (E2 PROTOCOL §5.3) -------------------------------------------------
+
+
+@pytest.fixture(scope="module")
+def fault_investigation(tmp_path_factory):
+    import dataclasses
+
+    out = tmp_path_factory.mktemp("inv_fault")
+    base = demo_rag.make_incident(demo_rag.toy_scorer)
+    inc = dataclasses.replace(
+        base,
+        target="correct",
+        required_tools={c: ("search_kb",) for c in base.cases},
+    )
+    return investigate(inc, out / "work", FAST)
+
+
+def test_no_required_tools_keeps_outputs(toy_investigation, directed_investigation):
+    for inv in (toy_investigation, directed_investigation):
+        assert inv.incident.required_tools is None
+        assert all(c.fault_counts is None for c in inv.findings)
+        assert all("fault_counts" not in f for f in inv.to_dict()["findings"])
+        assert "Failure types" not in render_report(inv)
+
+
+def test_fault_counts_per_cell(fault_investigation):
+    from glassbox.v7.taxonomy import FAULTS
+
+    for c in fault_investigation.findings:
+        assert set(c.fault_counts) == set(c.outcome_counts)
+        for cell, counts in c.fault_counts.items():
+            assert set(counts) == set(FAULTS)
+            # the demo agent calls no tools, so every failing run is no_action
+            wrong = c.outcome_counts[cell].get("wrong", 0)
+            assert counts["no_action"] == wrong
+            assert sum(counts.values()) == wrong
+    d = fault_investigation.to_dict()
+    assert "fault_counts" in d["findings"][0]
+    assert d["incident"]["required_tools"]["q1"] == ["search_kb"]
+
+
+def test_fault_report_section(fault_investigation):
+    md = render_report(fault_investigation)
+    assert "## Failure types" in md
+    assert "no_action" in md
+
+
+def test_required_tools_need_a_target():
+    import dataclasses
+
+    base = demo_rag.make_incident(demo_rag.toy_scorer)
+    with pytest.raises(ValueError):
+        dataclasses.replace(base, required_tools={c: ("x",) for c in base.cases})
