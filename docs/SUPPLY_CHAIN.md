@@ -58,6 +58,11 @@ skipped. The test counts for those releases come from full local runs
 - Fix: CI now installs the CPU-only wheel (`torch==2.10.0+cpu` from
   `download.pytorch.org/whl/cpu`; the runner has no GPU), and runs the audit after the
   tests, so an audit failure no longer hides the test result.
+- First CI run with the fix (run #270, 2026-11-09): the full test step **passed**. The
+  audit found 74 packages with 1 REVIEW, `setuptools` (no licence in its metadata). It
+  was read by hand and added to `--accept` (table below). In that run,
+  `python-dateutil` and `sentencepiece` already showed permissive metadata; they stay
+  on the list in case older metadata appears.
 - **Not covered:** a GPU install of torch on Linux brings those NVIDIA packages. They
   come from torch, not from Glassbox, and their licence terms were not reviewed here.
   Read them before redistributing an environment that contains them.
@@ -66,7 +71,7 @@ skipped. The test counts for those releases come from full local runs
 and transformers 4.57.6; some transitive versions differ from the CI pins):
 - 68 packages: 64 ALLOW, 4 REVIEW, **0 DENY**.
 
-The 4 REVIEW packages were read by hand and are passed to the audit with `--accept`:
+The REVIEW packages were read by hand and are passed to the audit with `--accept`:
 
 | Package | Metadata says | Finding |
 |---|---|---|
@@ -74,6 +79,7 @@ The 4 REVIEW packages were read by hand and are passed to the audit with `--acce
 | tqdm | MPL-2.0 AND MIT | Same as certifi. |
 | python-dateutil | "Dual License" | Its classifiers list BSD and Apache Software License. |
 | sentencepiece | (no licence in metadata) | Upstream `google/sentencepiece` LICENSE is Apache-2.0 (fetched 2026-10-31). |
+| setuptools | (no licence in metadata; 79.0.1 in CI, pulled in by torch) | Upstream `pypa/setuptools` LICENSE at tag v79.0.1 is the MIT licence text (fetched 2026-11-09). |
 
 Any new REVIEW or DENY package fails CI until it has been looked at.
 

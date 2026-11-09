@@ -140,7 +140,7 @@ jobs:
         run: |
           python scripts/license_audit.py \
             --site "$(python -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')" \
-            --accept certifi tqdm python-dateutil sentencepiece
+            --accept certifi tqdm python-dateutil sentencepiece setuptools
 
       - name: Upload coverage report
         if: always()
