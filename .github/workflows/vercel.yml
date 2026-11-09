@@ -11,7 +11,6 @@ name: Vercel Deployment Status
 #   "Vercel"        — our primary status context
 #   "Vercel – repo" — GitHub App posts here; we overwrite it to suppress
 #                     spurious "Canceled" failures from rapid successive pushes
-#   "Vercel – project-gu05p" — legacy project; overwritten to suppress noise
 #
 # Required secrets (Settings → Secrets and variables → Actions):
 #   VERCEL_TOKEN      — Vercel personal access token
@@ -48,7 +47,7 @@ jobs:
               target_url:  'https://repo-ashen-psi.vercel.app',
               description: 'Deploying to Vercel...',
             };
-            const contexts = ['Vercel', 'Vercel \u2013 repo', 'Vercel \u2013 project-gu05p'];
+            const contexts = ['Vercel', 'Vercel \u2013 repo'];
             for (const ctx of contexts) {
               await github.rest.repos.createCommitStatus({ ...base, context: ctx });
             }
@@ -134,7 +133,7 @@ jobs:
               target_url:  url,
               description: 'Deployed to Vercel',
             };
-            const contexts = ['Vercel', 'Vercel \u2013 repo', 'Vercel \u2013 project-gu05p'];
+            const contexts = ['Vercel', 'Vercel \u2013 repo'];
             for (const ctx of contexts) {
               await github.rest.repos.createCommitStatus({ ...base, context: ctx });
             }
@@ -153,7 +152,7 @@ jobs:
               target_url:  'https://vercel.com/designer-coderajays-projects/repo',
               description: 'Vercel deploy failed',
             };
-            const contexts = ['Vercel', 'Vercel \u2013 repo', 'Vercel \u2013 project-gu05p'];
+            const contexts = ['Vercel', 'Vercel \u2013 repo'];
             for (const ctx of contexts) {
               await github.rest.repos.createCommitStatus({ ...base, context: ctx });
             }

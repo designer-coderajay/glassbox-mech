@@ -285,7 +285,6 @@ def create_app() -> "FastAPI":
         CORSMiddleware,
         allow_origins=[
             "https://repo-ashen-psi.vercel.app",
-            "https://project-gu05p.vercel.app",
             "http://localhost:3000",
             *_extra_origins,
         ],
