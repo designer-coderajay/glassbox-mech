@@ -1,0 +1,49 @@
+===== e_1 only persona
+wrong | calls: [] | limit: False | parse_fail: 0
+    Thank you for your question. According to our company policy, customers have 30 days from the delivery date to return an unused item. If you need more details or specific information about your order, please let me know!
+wrong | calls: [] | limit: False | parse_fail: 0
+    Thank you for your question. According to our company policy, customers have 30 days from the date of delivery to return an unused item. Is there anything else you need help with regarding this?
+wrong | calls: [] | limit: False | parse_fail: 0
+    Thank you for your question. According to our company policy, customers have 30 days from the date of delivery to return an unused item. Is there anything else you need help with regarding this?
+===== e_2 only persona
+correct | calls: ['search_policy'] | limit: False | parse_fail: 0
+    According to our company policy, an opened tent returned for a refund carries a restocking fee of 12 percent of the item price. Let me know if you need further assistance!
+correct | calls: ['search_policy'] | limit: False | parse_fail: 0
+    According to our policy, an opened tent returned for a refund carries a restocking fee of 12 percent of the item price. Would you like to proceed with a refund request?
+correct | calls: ['search_policy'] | limit: False | parse_fail: 0
+    The restocking fee for an opened tent returned for a refund is 12 percent of the item price. Is there anything else you need help with regarding this?
+===== e_1 only answer_policy
+correct | calls: ['search_policy'] | limit: False | parse_fail: 0
+    A customer has 17 days from the delivery date to return an unused item.
+correct | calls: ['search_policy'] | limit: False | parse_fail: 0
+    A customer has 17 days from delivery to return an unused item.
+correct | calls: ['search_policy'] | limit: False | parse_fail: 0
+    A customer has 17 days from the delivery date to return an unused item.
+===== b_5120 only invoice_tool_desc
+correct | calls: ['lookup_invoice'] | limit: False | parse_fail: 0
+    The customer paid a total of 130.50 EUR for order QS-5120, including shipping.
+correct | calls: ['lookup_invoice'] | limit: False | parse_fail: 0
+    The customer paid a total of 130.50 EUR for order QS-5120, including shipping.
+correct | calls: ['lookup_invoice'] | limit: False | parse_fail: 0
+    The customer paid a total of 130.50 EUR for order QS-5120, including shipping.
+===== ci_6011 only refund_tool_desc
+correct | calls: ['check_eligibility'] | limit: False | parse_fail: 0
+    The order QS-6011 is not eligible for a refund as it is outside the 17-day return window.
+correct | calls: ['check_eligibility'] | limit: False | parse_fail: 0
+    The order QS-6011 is not eligible for a refund as it is outside the 17-day return window.
+correct | calls: ['check_eligibility'] | limit: False | parse_fail: 0
+    The order QS-6011 is not eligible for a refund as it is outside the 17-day return window.
+===== d_ridgeline only runbook_order
+correct | calls: ['start_quote', 'apply_voucher', 'compute_total'] | limit: False | parse_fail: 0
+    The quote for 3 Ridgeline trekking poles totals €86.70 after applying the voucher TRAIL15.
+correct | calls: ['start_quote', 'apply_voucher', 'compute_total'] | limit: False | parse_fail: 0
+    The quote for 3 x Ridgeline trekking poles with voucher TRAIL15 applied results in a total of 86.70 EUR.
+correct | calls: ['start_quote', 'apply_voucher', 'compute_total'] | limit: False | parse_fail: 0
+    The quote for 3 Ridgeline trekking poles with voucher TRAIL15 applied totals €86.70.
+===== d_ridgeline only baseline
+correct | calls: ['start_quote', 'apply_voucher', 'compute_total'] | limit: False | parse_fail: 0
+    The total for 3 x Ridgeline trekking poles with voucher TRAIL15 applied is €86.70.
+correct | calls: ['start_quote', 'apply_voucher', 'compute_total'] | limit: False | parse_fail: 0
+    The total for 3 Ridgeline trekking poles, after applying the voucher TRAIL15, is €86.70.
+correct | calls: ['start_quote', 'apply_voucher', 'compute_total'] | limit: False | parse_fail: 0
+    The quote for 3 Ridgeline trekking poles with voucher TRAIL15 applied results in a total of 86.70 EUR.

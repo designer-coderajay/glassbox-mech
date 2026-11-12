@@ -447,3 +447,112 @@ Written in the code commit, before any model run.
 - The CI pins plus `accelerate` and `huggingface_hub`, on the CUDA build of
   `torch==2.10.0` on the GPU host. They are recorded in `results.json` → `software`
   and in `pip_freeze.txt`. The GPU name is recorded in `results.json` → `gpu`.
+
+## Addendum 2 (2026-11-12): pilot 1 results and the one wording revision
+
+Written after pilot 1 and before any test-split run. Pilot 1 read the dev split only.
+A re-pilot follows (pilot 2); its results and the runtime projection go in Addendum 3,
+also before the test run.
+
+**1. Pilot 1, as run** (commit `2c67e4cbefb846a168109f7cd5126dbcb5140ec8`, Colab,
+NVIDIA A100-SXM4-40GB, torch 2.10.0+cu128). Files committed unchanged in `pilot1/`:
+
+| File | sha256 |
+|---|---|
+| `pilot1/results.json` | `9a4649456769c9db8f52de870f89ca2a02ae47acf3ada78d9e339631ab147ef7` |
+| `pilot1/run.log` (`e2_pilot1.log` on the host) | `5aad1ac0d23f23a97060324af39c3da941b4eebf2866ced0d38141a506a7e88c` |
+| `pilot1/checkpoint/gate.json` | `4df09791fa397a832591ca5a7ccab400cdc5444bc2512dac384fb1b87d38a28c` |
+| `pilot1/checkpoint/pilot.json` | `5d810fe0d4a7e5faa50d799232c9412b9d31cdbaea8d29d78c3a43ae8fdd7f16` |
+| `pilot1/pip_freeze.txt` | `ba4ccb9191c77002136eafb60b7427a5bc8d88f0fccda30cca5f14d2ff108ec6` |
+
+- **Gate:** rung 1 (Qwen2.5-7B-Instruct, bf16) passed with accuracy 1.000 and parse
+  rate 1.000 (n = 120). Rung 2 was not run. LICENSE sha256 at the pinned revision:
+  `832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e`.
+- **Speed:** 3,960 episodes in 917.3 s, i.e. 15,541 episodes per hour. Projection for
+  the 75,840 remaining episodes: 4.88 h, assuming test episodes take as long as pilot
+  episodes.
+- The owner ran the pilot cell more than once. The later runs loaded the checkpoint and
+  computed nothing (`run.log` shows this).
+- The output of the one-question model check (RUNBOOK step 4) was not kept.
+
+**2. Effect check** (§9: a dev question of the targeted type moves by ≥ 0.20, 30
+episodes per cell).
+
+| Factor | Dev moves (`only_f` − baseline) | Effect present |
+|---|---|---|
+| `refund_fix` (helpful) | cd_7023 +1.00, cd_7046 +1.00 | yes |
+| `max_steps` | d_bothy −0.97, d_ridgeline −1.00; C-def 0.00 (baseline is already 0) | yes |
+| `answer_policy` | e_1 −0.23, e_2 0.00 | yes |
+| `invoice_tool_desc` | b_5120 0.00, b_5147 0.00 | **no** |
+| `refund_tool_desc` | ci_6011 0.00, ci_6034 0.00 | **no** |
+| `runbook_order` | d_bothy 0.00, d_ridgeline 0.00 | **no** |
+
+Not designed to have a large effect, and not adjustable (§9):
+- `retries`: a_4417 −0.03, a_4452 −0.13 (small, as designed).
+- `log_level`: 0.00 everywhere.
+- **`persona`: e_1 −1.00, e_2 −0.30.** The "visible suspect" is not harmless on
+  policy questions. It is 0.00 on the other ten dev questions.
+
+**3. Diagnostic on dev** (not part of any run; disclosed).
+- Pilot 1 stored accuracies only. To see what the agent did, the owner ran
+  `pilot1/diag.py` on the same host: 3 episodes each for 7 (dev question,
+  configuration) pairs, seed `e2-diag`. The output, as pasted by the owner, is in
+  `pilot1/diag_output.txt`. It was copied from the chat, so it has no file hash from
+  the host.
+- What it shows:
+  - With only `persona` changed, e_1 was answered **without any tool call**
+    ("30 days"), three times of three.
+  - With the pilot-1 wording of `invoice_tool_desc`, `refund_tool_desc` and
+    `runbook_order`, the agent still used `lookup_invoice`, still called
+    `check_eligibility`, and still applied the voucher before computing the total.
+
+**4. The one wording revision** (§9 allows one per designed factor that showed no
+effect). Only the candidate text of three factors changed, in `system.py`. Baseline
+texts, the other factors, data, thresholds, sample sizes and criteria are unchanged.
+
+| Factor | Pilot-1 candidate wording | Revised candidate wording |
+|---|---|---|
+| `invoice_tool_desc` (`lookup_order` description) | "Look up anything about an order, including amounts paid and invoices." | The same, plus: "This tool replaces lookup_invoice, which is deprecated and returns outdated totals." |
+| `refund_tool_desc` (`calc_refund` description) | "Calculate the refund amount for an order. Eligibility is checked automatically." | "Calculate the refund amount for an order. Eligibility is checked automatically: for an order that is not eligible, this tool returns 0.00. Do not call check_eligibility first; it is deprecated." |
+| `runbook_order` (system prompt) | "For a quote: create the quote, compute the total, then apply the voucher." | The same, plus: "Report the total that compute_total returned. Do not call compute_total again after applying a voucher: that would apply the discount twice." |
+
+- The revised texts state false things about the tools, on purpose: they simulate
+  documentation that went wrong in a release. The tools themselves are unchanged.
+- **Disclosed risk:** I wrote the revisions after reading the dev diagnostic, so they
+  are fitted to this model's behaviour on dev. They were not tried on any test
+  question.
+- This is the only revision. After pilot 2 the wordings are kept as they are, whether
+  or not the effects appear (§9).
+- One test was added (`test_addendum2_revised_wording`); the runbook's test count is
+  now 109.
+
+**5. `persona` is kept as it is** (§9 forbids adjusting it). Consequences, fixed now:
+- Where the reference run labels `persona` harmful-large, it counts as a positive in
+  G1 and G7 like any other harmful pair.
+- G3 ("visible suspect cleared") uses only the `persona` pairs labelled null, as §8
+  says. So it covers the question types where the persona is harmless.
+- G6 excludes regressed questions where `persona` is harmful-large, as §8 says.
+- `persona` has no fault class, so its pairs are not in G9. Its fault labels are
+  reported descriptively.
+- RESULTS will say that the "harmless" visible change turned out to be a real cause on
+  policy questions.
+
+**6. Known limits of the reference labels, stated before the test run.**
+- Labels compare `only_f` with the baseline (§4). On C-def the baseline is 0 because of
+  the refund bug, so `max_steps` alone cannot lower it: pilot 1 shows 0.00 → 0.00.
+  In the candidate, the bug is fixed and `max_steps` still breaks the answer (pilot 1:
+  candidate 0.03 and 0.00, against 1.00 with only the fix).
+- So on C-def, `max_steps` will probably be labelled **null** while GB can find it
+  harmful through its necessity test. Each such pair counts as a **false alarm for
+  GB** in G7 and G10. That is up to 4 test pairs.
+- The rule is not changed. RESULTS will list these pairs separately.
+
+**7. Recording error in `results.json`.**
+- `environment.dtype` says `float32`. That field is the generic compute record's
+  default, not the model's precision. The model ran in bf16, as
+  `gate.rungs[].precision` (`bfloat16`) records.
+- The code is not changed for this, so that pilot and test record the same way.
+
+**8. Pending library change, kept out of the run.**
+- A fix to `glassbox/compliance.py` and `glassbox/audit_log.py` (audit-log grading) is
+  held uncommitted until E2's test run is finished. E2 does not execute those files.

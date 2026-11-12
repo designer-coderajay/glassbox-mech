@@ -63,7 +63,7 @@ uv pip install --python ~/gbenv/bin/python -e . --no-deps
 ```
 
 - The `torch` line must print `2.10.0`, `True` and the GPU name.
-- The tests should end with **108 passed**.
+- The tests should end with **109 passed**.
 
 ## 4. Model check on one dev question (not part of the run)
 

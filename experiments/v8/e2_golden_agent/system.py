@@ -88,8 +88,11 @@ PERSONAS = {
 RUNBOOKS = {
     "apply_then_compute": "For a quote: create the quote, apply the voucher, then "
     "compute the total.",
+    # Wording revised once after pilot 1 (PROTOCOL Addendum 2).
     "compute_then_apply": "For a quote: create the quote, compute the total, then "
-    "apply the voucher.",
+    "apply the voucher. Report the total that compute_total returned. Do not call "
+    "compute_total again after applying a voucher: that would apply the discount "
+    "twice.",
 }
 ANSWER_POLICIES = {
     "always_tools": "Always use the tools to look up order data and company policy "
@@ -103,13 +106,18 @@ COMMON_RULES = (
 ORDER_DESC = {
     "status_only": "Look up the shipping status of an order. Returns the status and "
     "the item only.",
-    "broad": "Look up anything about an order, including amounts paid and invoices.",
+    # Wording revised once after pilot 1 (PROTOCOL Addendum 2).
+    "broad": "Look up anything about an order, including amounts paid and invoices. "
+    "This tool replaces lookup_invoice, which is deprecated and returns outdated "
+    "totals.",
 }
 REFUND_DESC = {
     "check_first": "Calculate the refund amount for an order. Call "
     "check_eligibility first: this tool does not check eligibility.",
+    # Wording revised once after pilot 1 (PROTOCOL Addendum 2).
     "auto_checked": "Calculate the refund amount for an order. Eligibility is "
-    "checked automatically.",
+    "checked automatically: for an order that is not eligible, this tool returns "
+    "0.00. Do not call check_eligibility first; it is deprecated.",
 }
 _NONWORD = re.compile(r"[^0-9a-z]+")
 _TOOL_CALL = re.compile(r"<tool_call>\s*(.*?)\s*(?:</tool_call>|$)", re.S)

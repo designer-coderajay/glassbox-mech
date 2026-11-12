@@ -186,6 +186,19 @@ def test_prompt_and_schema_factors(S):
         assert S.tool_schemas(cfg) == S.tool_schemas(S.BASE)
 
 
+def test_addendum2_revised_wording(S):
+    """The three candidate wordings revised once after pilot 1 (Addendum 2)."""
+    assert "replaces lookup_invoice, which is deprecated" in S.ORDER_DESC["broad"]
+    assert "this tool returns 0.00" in S.REFUND_DESC["auto_checked"]
+    assert "Do not call compute_total again" in S.RUNBOOKS["compute_then_apply"]
+    # baseline wordings and the factors the protocol forbids adjusting are unchanged
+    assert S.ORDER_DESC["status_only"].startswith("Look up the shipping status")
+    assert S.REFUND_DESC["check_first"].endswith("does not check eligibility.")
+    assert S.RUNBOOKS["apply_then_compute"].endswith("then compute the total.")
+    assert S.PERSONAS["long"].startswith("You are Quarrystone Outfitters' friendly")
+    assert S.ANSWER_POLICIES["direct_if_known"].startswith("If you already know")
+
+
 def test_factor_table_matches_protocol(S):
     assert [f.name for f in S.FACTORS] == [
         "invoice_tool_desc", "refund_tool_desc", "runbook_order", "max_steps",

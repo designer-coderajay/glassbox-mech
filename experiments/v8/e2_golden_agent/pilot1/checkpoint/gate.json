@@ -1,0 +1,16 @@
+{
+ "rungs": [
+  {
+   "accuracy": 1.0,
+   "licence_sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "n": 120,
+   "parse_rate": 1.0,
+   "passed": true,
+   "precision": "bfloat16",
+   "revision": "a09a35458c702b33eeacc393d103063234e8bc28"
+  }
+ ],
+ "seconds": 59.423,
+ "selected": "Qwen/Qwen2.5-7B-Instruct"
+}

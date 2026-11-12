@@ -1,0 +1,212 @@
+{
+ "accuracy": {
+  "a_4417": {
+   "baseline": 1.0,
+   "candidate": 0.9,
+   "only_answer_policy": 0.9666666666666667,
+   "only_invoice_tool_desc": 1.0,
+   "only_log_level": 1.0,
+   "only_max_steps": 1.0,
+   "only_persona": 1.0,
+   "only_refund_fix": 1.0,
+   "only_refund_tool_desc": 1.0,
+   "only_retries": 0.9666666666666667,
+   "only_runbook_order": 1.0
+  },
+  "a_4452": {
+   "baseline": 1.0,
+   "candidate": 0.9333333333333333,
+   "only_answer_policy": 0.9666666666666667,
+   "only_invoice_tool_desc": 1.0,
+   "only_log_level": 1.0,
+   "only_max_steps": 0.9666666666666667,
+   "only_persona": 1.0,
+   "only_refund_fix": 0.9666666666666667,
+   "only_refund_tool_desc": 0.9666666666666667,
+   "only_retries": 0.8666666666666667,
+   "only_runbook_order": 1.0
+  },
+  "b_5120": {
+   "baseline": 1.0,
+   "candidate": 1.0,
+   "only_answer_policy": 1.0,
+   "only_invoice_tool_desc": 1.0,
+   "only_log_level": 1.0,
+   "only_max_steps": 1.0,
+   "only_persona": 1.0,
+   "only_refund_fix": 1.0,
+   "only_refund_tool_desc": 1.0,
+   "only_retries": 1.0,
+   "only_runbook_order": 1.0
+  },
+  "b_5147": {
+   "baseline": 1.0,
+   "candidate": 1.0,
+   "only_answer_policy": 1.0,
+   "only_invoice_tool_desc": 1.0,
+   "only_log_level": 1.0,
+   "only_max_steps": 1.0,
+   "only_persona": 1.0,
+   "only_refund_fix": 1.0,
+   "only_refund_tool_desc": 1.0,
+   "only_retries": 1.0,
+   "only_runbook_order": 1.0
+  },
+  "cd_7023": {
+   "baseline": 0.0,
+   "candidate": 0.03333333333333333,
+   "only_answer_policy": 0.0,
+   "only_invoice_tool_desc": 0.0,
+   "only_log_level": 0.0,
+   "only_max_steps": 0.0,
+   "only_persona": 0.0,
+   "only_refund_fix": 1.0,
+   "only_refund_tool_desc": 0.0,
+   "only_retries": 0.0,
+   "only_runbook_order": 0.0
+  },
+  "cd_7046": {
+   "baseline": 0.0,
+   "candidate": 0.0,
+   "only_answer_policy": 0.0,
+   "only_invoice_tool_desc": 0.0,
+   "only_log_level": 0.0,
+   "only_max_steps": 0.0,
+   "only_persona": 0.0,
+   "only_refund_fix": 1.0,
+   "only_refund_tool_desc": 0.0,
+   "only_retries": 0.0,
+   "only_runbook_order": 0.0
+  },
+  "ci_6011": {
+   "baseline": 1.0,
+   "candidate": 1.0,
+   "only_answer_policy": 1.0,
+   "only_invoice_tool_desc": 1.0,
+   "only_log_level": 1.0,
+   "only_max_steps": 1.0,
+   "only_persona": 1.0,
+   "only_refund_fix": 1.0,
+   "only_refund_tool_desc": 1.0,
+   "only_retries": 1.0,
+   "only_runbook_order": 1.0
+  },
+  "ci_6034": {
+   "baseline": 1.0,
+   "candidate": 0.9666666666666667,
+   "only_answer_policy": 1.0,
+   "only_invoice_tool_desc": 1.0,
+   "only_log_level": 1.0,
+   "only_max_steps": 1.0,
+   "only_persona": 1.0,
+   "only_refund_fix": 1.0,
+   "only_refund_tool_desc": 1.0,
+   "only_retries": 1.0,
+   "only_runbook_order": 1.0
+  },
+  "d_bothy": {
+   "baseline": 0.9666666666666667,
+   "candidate": 0.0,
+   "only_answer_policy": 1.0,
+   "only_invoice_tool_desc": 1.0,
+   "only_log_level": 1.0,
+   "only_max_steps": 0.0,
+   "only_persona": 1.0,
+   "only_refund_fix": 1.0,
+   "only_refund_tool_desc": 1.0,
+   "only_retries": 1.0,
+   "only_runbook_order": 0.9666666666666667
+  },
+  "d_ridgeline": {
+   "baseline": 1.0,
+   "candidate": 0.0,
+   "only_answer_policy": 1.0,
+   "only_invoice_tool_desc": 1.0,
+   "only_log_level": 1.0,
+   "only_max_steps": 0.0,
+   "only_persona": 1.0,
+   "only_refund_fix": 1.0,
+   "only_refund_tool_desc": 1.0,
+   "only_retries": 1.0,
+   "only_runbook_order": 1.0
+  },
+  "e_1": {
+   "baseline": 1.0,
+   "candidate": 0.0,
+   "only_answer_policy": 0.7666666666666667,
+   "only_invoice_tool_desc": 1.0,
+   "only_log_level": 1.0,
+   "only_max_steps": 1.0,
+   "only_persona": 0.0,
+   "only_refund_fix": 1.0,
+   "only_refund_tool_desc": 1.0,
+   "only_retries": 1.0,
+   "only_runbook_order": 1.0
+  },
+  "e_2": {
+   "baseline": 1.0,
+   "candidate": 0.8,
+   "only_answer_policy": 1.0,
+   "only_invoice_tool_desc": 1.0,
+   "only_log_level": 1.0,
+   "only_max_steps": 1.0,
+   "only_persona": 0.7,
+   "only_refund_fix": 1.0,
+   "only_refund_tool_desc": 1.0,
+   "only_retries": 1.0,
+   "only_runbook_order": 1.0
+  }
+ },
+ "check": {
+  "answer_policy": {
+   "effect_present": true,
+   "moves": {
+    "e_1": -0.2333,
+    "e_2": 0.0
+   }
+  },
+  "invoice_tool_desc": {
+   "effect_present": false,
+   "moves": {
+    "b_5120": 0.0,
+    "b_5147": 0.0
+   }
+  },
+  "max_steps": {
+   "effect_present": true,
+   "moves": {
+    "cd_7023": 0.0,
+    "cd_7046": 0.0,
+    "d_bothy": -0.9667,
+    "d_ridgeline": -1.0
+   }
+  },
+  "refund_fix": {
+   "effect_present": true,
+   "moves": {
+    "cd_7023": 1.0,
+    "cd_7046": 1.0
+   }
+  },
+  "refund_tool_desc": {
+   "effect_present": false,
+   "moves": {
+    "ci_6011": 0.0,
+    "ci_6034": 0.0
+   }
+  },
+  "runbook_order": {
+   "effect_present": false,
+   "moves": {
+    "d_bothy": 0.0,
+    "d_ridgeline": 0.0
+   }
+  }
+ },
+ "episodes": 3960,
+ "episodes_per_hour": 15541.1,
+ "note": "projection assumes test episodes take as long as pilot episodes",
+ "projected_hours_remaining": 4.88,
+ "remaining_episodes": 75840,
+ "seconds": 917.3
+}
