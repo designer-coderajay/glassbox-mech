@@ -1,0 +1,254 @@
+{
+ "criteria": {
+  "overall": "PILOT (not scored)"
+ },
+ "environment": {
+  "cuda_version": "12.8",
+  "device": "cuda",
+  "dtype": "float32",
+  "gpu_name": "NVIDIA L4",
+  "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+  "python_version": "3.11.18",
+  "torch_version": "2.10.0+cu128"
+ },
+ "gate": {
+  "rungs": [
+   {
+    "accuracy": 1.0,
+    "licence_sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "n": 120,
+    "parse_rate": 1.0,
+    "passed": true,
+    "precision": "bfloat16",
+    "revision": "a09a35458c702b33eeacc393d103063234e8bc28"
+   }
+  ],
+  "seconds": 146.147,
+  "selected": "Qwen/Qwen2.5-7B-Instruct"
+ },
+ "gpu": "NVIDIA L4",
+ "limit": null,
+ "pilot": {
+  "accuracy": {
+   "a_4417": {
+    "baseline": 1.0,
+    "candidate": 0.9,
+    "only_answer_policy": 0.9666666666666667,
+    "only_invoice_tool_desc": 1.0,
+    "only_log_level": 1.0,
+    "only_max_steps": 1.0,
+    "only_persona": 1.0,
+    "only_refund_fix": 1.0,
+    "only_refund_tool_desc": 1.0,
+    "only_retries": 0.9666666666666667,
+    "only_runbook_order": 1.0
+   },
+   "a_4452": {
+    "baseline": 1.0,
+    "candidate": 1.0,
+    "only_answer_policy": 0.9666666666666667,
+    "only_invoice_tool_desc": 1.0,
+    "only_log_level": 1.0,
+    "only_max_steps": 0.9666666666666667,
+    "only_persona": 1.0,
+    "only_refund_fix": 0.9666666666666667,
+    "only_refund_tool_desc": 0.9666666666666667,
+    "only_retries": 0.8666666666666667,
+    "only_runbook_order": 1.0
+   },
+   "b_5120": {
+    "baseline": 1.0,
+    "candidate": 0.0,
+    "only_answer_policy": 1.0,
+    "only_invoice_tool_desc": 0.13333333333333333,
+    "only_log_level": 1.0,
+    "only_max_steps": 1.0,
+    "only_persona": 1.0,
+    "only_refund_fix": 1.0,
+    "only_refund_tool_desc": 1.0,
+    "only_retries": 1.0,
+    "only_runbook_order": 1.0
+   },
+   "b_5147": {
+    "baseline": 1.0,
+    "candidate": 0.0,
+    "only_answer_policy": 1.0,
+    "only_invoice_tool_desc": 0.0,
+    "only_log_level": 1.0,
+    "only_max_steps": 1.0,
+    "only_persona": 1.0,
+    "only_refund_fix": 1.0,
+    "only_refund_tool_desc": 1.0,
+    "only_retries": 1.0,
+    "only_runbook_order": 1.0
+   },
+   "cd_7023": {
+    "baseline": 0.0,
+    "candidate": 0.0,
+    "only_answer_policy": 0.0,
+    "only_invoice_tool_desc": 0.0,
+    "only_log_level": 0.0,
+    "only_max_steps": 0.0,
+    "only_persona": 0.0,
+    "only_refund_fix": 1.0,
+    "only_refund_tool_desc": 0.0,
+    "only_retries": 0.0,
+    "only_runbook_order": 0.0
+   },
+   "cd_7046": {
+    "baseline": 0.0,
+    "candidate": 0.03333333333333333,
+    "only_answer_policy": 0.0,
+    "only_invoice_tool_desc": 0.0,
+    "only_log_level": 0.0,
+    "only_max_steps": 0.0,
+    "only_persona": 0.0,
+    "only_refund_fix": 1.0,
+    "only_refund_tool_desc": 0.0,
+    "only_retries": 0.0,
+    "only_runbook_order": 0.0
+   },
+   "ci_6011": {
+    "baseline": 1.0,
+    "candidate": 1.0,
+    "only_answer_policy": 1.0,
+    "only_invoice_tool_desc": 1.0,
+    "only_log_level": 1.0,
+    "only_max_steps": 1.0,
+    "only_persona": 1.0,
+    "only_refund_fix": 1.0,
+    "only_refund_tool_desc": 1.0,
+    "only_retries": 1.0,
+    "only_runbook_order": 1.0
+   },
+   "ci_6034": {
+    "baseline": 1.0,
+    "candidate": 1.0,
+    "only_answer_policy": 1.0,
+    "only_invoice_tool_desc": 1.0,
+    "only_log_level": 0.9666666666666667,
+    "only_max_steps": 1.0,
+    "only_persona": 1.0,
+    "only_refund_fix": 1.0,
+    "only_refund_tool_desc": 1.0,
+    "only_retries": 1.0,
+    "only_runbook_order": 1.0
+   },
+   "d_bothy": {
+    "baseline": 1.0,
+    "candidate": 0.0,
+    "only_answer_policy": 1.0,
+    "only_invoice_tool_desc": 1.0,
+    "only_log_level": 1.0,
+    "only_max_steps": 0.0,
+    "only_persona": 1.0,
+    "only_refund_fix": 1.0,
+    "only_refund_tool_desc": 1.0,
+    "only_retries": 1.0,
+    "only_runbook_order": 1.0
+   },
+   "d_ridgeline": {
+    "baseline": 1.0,
+    "candidate": 0.0,
+    "only_answer_policy": 1.0,
+    "only_invoice_tool_desc": 1.0,
+    "only_log_level": 1.0,
+    "only_max_steps": 0.0,
+    "only_persona": 1.0,
+    "only_refund_fix": 1.0,
+    "only_refund_tool_desc": 1.0,
+    "only_retries": 1.0,
+    "only_runbook_order": 1.0
+   },
+   "e_1": {
+    "baseline": 1.0,
+    "candidate": 0.0,
+    "only_answer_policy": 0.8666666666666667,
+    "only_invoice_tool_desc": 1.0,
+    "only_log_level": 1.0,
+    "only_max_steps": 1.0,
+    "only_persona": 0.0,
+    "only_refund_fix": 1.0,
+    "only_refund_tool_desc": 1.0,
+    "only_retries": 1.0,
+    "only_runbook_order": 1.0
+   },
+   "e_2": {
+    "baseline": 1.0,
+    "candidate": 0.7333333333333333,
+    "only_answer_policy": 1.0,
+    "only_invoice_tool_desc": 1.0,
+    "only_log_level": 1.0,
+    "only_max_steps": 1.0,
+    "only_persona": 0.7666666666666667,
+    "only_refund_fix": 1.0,
+    "only_refund_tool_desc": 1.0,
+    "only_retries": 1.0,
+    "only_runbook_order": 1.0
+   }
+  },
+  "check": {
+   "answer_policy": {
+    "effect_present": false,
+    "moves": {
+     "e_1": -0.1333,
+     "e_2": 0.0
+    }
+   },
+   "invoice_tool_desc": {
+    "effect_present": true,
+    "moves": {
+     "b_5120": -0.8667,
+     "b_5147": -1.0
+    }
+   },
+   "max_steps": {
+    "effect_present": true,
+    "moves": {
+     "cd_7023": 0.0,
+     "cd_7046": 0.0,
+     "d_bothy": -1.0,
+     "d_ridgeline": -1.0
+    }
+   },
+   "refund_fix": {
+    "effect_present": true,
+    "moves": {
+     "cd_7023": 1.0,
+     "cd_7046": 1.0
+    }
+   },
+   "refund_tool_desc": {
+    "effect_present": false,
+    "moves": {
+     "ci_6011": 0.0,
+     "ci_6034": 0.0
+    }
+   },
+   "runbook_order": {
+    "effect_present": false,
+    "moves": {
+     "d_bothy": 0.0,
+     "d_ridgeline": 0.0
+    }
+   }
+  },
+  "episodes": 3960,
+  "episodes_per_hour": 4229.1,
+  "note": "projection assumes test episodes take as long as pilot episodes",
+  "projected_hours_remaining": 17.93,
+  "remaining_episodes": 75840,
+  "seconds": 3370.9
+ },
+ "protocol": "experiments/v8/e2_golden_agent/PROTOCOL.md v1.0",
+ "software": {
+  "accelerate": "1.15.0",
+  "git_commit": "8d7a1a703088a81f89f1331721bc3a0faf6fb12d",
+  "glassbox-mech-interp": "4.7.0",
+  "numpy": "1.26.4",
+  "torch": "2.10.0",
+  "transformers": "4.57.6"
+ },
+ "stage": "pilot"
+}

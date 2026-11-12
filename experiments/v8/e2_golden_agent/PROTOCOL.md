@@ -556,3 +556,73 @@ texts, the other factors, data, thresholds, sample sizes and criteria are unchan
 **8. Pending library change, kept out of the run.**
 - A fix to `glassbox/compliance.py` and `glassbox/audit_log.py` (audit-log grading) is
   held uncommitted until E2's test run is finished. E2 does not execute those files.
+
+## Addendum 3 (2026-11-12): pilot 2 results; the configuration for the test run
+
+Written after pilot 2 and before any test-split run. Pilot 2 read the dev split only.
+
+**1. Pilot 2, as run** (commit `8d7a1a703088a81f89f1331721bc3a0faf6fb12d`, Colab,
+**NVIDIA L4**, torch 2.10.0+cu128). Files committed unchanged in `pilot2/`:
+
+| File | sha256 |
+|---|---|
+| `pilot2/results.json` | `f86b5ef759980bc83c0dc27aa6a5b0f369a3b7a0295cb6c5cc0e7fc7f694ce73` |
+| `pilot2/run.log` (`e2_pilot2.log` on the host) | `a56a5b95dc476f60b48fad353c2177383eef198f67106b62f4d9d740eaea8c21` |
+| `pilot2/checkpoint/gate.json` | `7fe5a3543e2e0951ef3cdacaf47de3c3acce89b7085e3746f62f37815dd71c16` |
+| `pilot2/checkpoint/pilot.json` | `77b3920b52addb1df3ea7e28b5d538c7cd994adc66e85703211e4c081fe6accd` |
+| `pilot2/pip_freeze.txt` | `ba4ccb9191c77002136eafb60b7427a5bc8d88f0fccda30cca5f14d2ff108ec6` (same as pilot 1) |
+
+- **Different GPU from pilot 1.** Colab assigned an L4 (24 GB); pilot 1 ran on an A100
+  (40 GB). The seeds are the same, but sampled outputs can differ between cards, so
+  unchanged factors need not repeat pilot 1 exactly.
+- **Gate:** rung 1 passed again: accuracy 1.000, parse rate 1.000 (n = 120). Same
+  LICENSE sha256 as in Addendum 2.
+- **Model check** (RUNBOOK step 4, read from the owner's screenshot): `correct
+  ['lookup_order'] The current status of order QS-4417 is awaiting courier pickup, and
+  the item ordered was assorted camping gear.`
+
+**2. Effect check** (30 episodes per cell; `only_f` − baseline on dev).
+
+| Factor | Pilot 1 | Pilot 2 | Effect present in pilot 2 |
+|---|---|---|---|
+| `invoice_tool_desc` (revised) | 0.00, 0.00 | b_5120 −0.87, b_5147 −1.00 | **yes** |
+| `refund_tool_desc` (revised) | 0.00, 0.00 | ci_6011 0.00, ci_6034 0.00 | **no** |
+| `runbook_order` (revised) | 0.00, 0.00 | d_bothy 0.00, d_ridgeline 0.00 | **no** |
+| `max_steps` | D −0.97, −1.00 | D −1.00, −1.00 | yes |
+| `refund_fix` (helpful) | +1.00, +1.00 | +1.00, +1.00 | yes |
+| `answer_policy` | e_1 −0.23, e_2 0.00 | e_1 −0.13, e_2 0.00 | no (below the 0.20 line this time) |
+
+Not adjustable: `persona` e_1 −1.00, e_2 −0.23; `retries` a_4417 −0.03, a_4452 −0.13;
+`log_level` at most −0.03.
+
+**3. No further changes.** The one revision round is used (§9).
+- `refund_tool_desc` and `runbook_order` are kept as revised, although they showed no
+  effect.
+- `answer_policy` is kept as written. It passed the check in pilot 1 and missed it in
+  pilot 2. I read §9 as allowing one revision round, not a new round for a factor that
+  changes side between pilots.
+- The test run uses the code of this commit: the pilot-2 code plus this addendum and
+  the `pilot2/` files.
+
+**4. What to expect from the test run, stated in advance.**
+- **Fault classes likely produced:** `wrong_tool` (`invoice_tool_desc` on B) and
+  `premature_finish` (`max_steps` on D). `no_action` depends on how large the
+  `answer_policy` effect is on the test E questions; `persona` also causes
+  answering without a tool there, but it has no fault class in G9.
+- **Fault classes likely not produced:** `skipped_tool` and `wrong_order`. If the
+  reference run confirms that, E2 makes no claim about them, and PLAN's coverage item
+  stays open for them (§8 Coverage).
+- The limits in Addendum 2 items 5 and 6 still apply.
+
+**5. Runtime projection for the remaining 75,840 episodes.**
+
+| Card | Measured speed | Projection |
+|---|---|---|
+| A100 40 GB (pilot 1) | 15,541 episodes per hour | 4.88 h |
+| L4 24 GB (pilot 2) | 4,229 episodes per hour | 17.93 h |
+
+- Both assume test episodes take as long as pilot episodes.
+- The test stages use larger blocks than the pilot (reference 50, recovery 60, pilot
+  30). Whether those fit in the L4's 24 GB was not tested. The A100 is recommended for
+  the test run. The card used is recorded in `results.json` → `gpu`.
+- Sample sizes are unchanged.

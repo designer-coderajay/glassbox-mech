@@ -1,0 +1,40 @@
+{
+ "backend": "hf",
+ "blocks": {
+  "gate": 10,
+  "main": 30,
+  "pilot": 30,
+  "recovery": 60,
+  "reference": 50
+ },
+ "gate_min": 0.8,
+ "ladder": [
+  [
+   "Qwen/Qwen2.5-7B-Instruct",
+   "a09a35458c702b33eeacc393d103063234e8bc28",
+   "bfloat16"
+  ],
+  [
+   "Qwen/Qwen2.5-14B-Instruct",
+   "cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8",
+   "bfloat16"
+  ]
+ ],
+ "limit": null,
+ "n": [
+  30,
+  200,
+  60,
+  10,
+  30
+ ],
+ "protocol": "experiments/v8/e2_golden_agent/PROTOCOL.md v1.0",
+ "seeds": {
+  "gate": "e2-gate",
+  "main": "e2-main",
+  "pilot": "e2-pilot",
+  "recovery": "e2-recovery",
+  "reference": "e2-reference"
+ },
+ "stage": "pilot"
+}
