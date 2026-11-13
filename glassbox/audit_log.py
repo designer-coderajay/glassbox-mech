@@ -406,7 +406,7 @@ class AuditLog:
         ]
 
     def non_compliant(self) -> List[AuditRecord]:
-        """Deprecated alias of :meth:`checks_failed` (removed in 4.8.0)."""
+        """Deprecated alias of :meth:`checks_failed` (removed in 5.0.0)."""
         return self.checks_failed()
 
     # ── analytics ─────────────────────────────────────────────────────────────

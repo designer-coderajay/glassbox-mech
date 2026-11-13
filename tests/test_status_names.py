@@ -1,8 +1,8 @@
 """4.7.0: status values say "Glassbox checks", not compliance.
 
 Glassbox can say whether its own checks passed. It cannot determine compliance with
-Regulation (EU) 2024/1689. Old values are still read for one release (removed in
-4.8.0) so existing JSON files and audit logs keep working.
+Regulation (EU) 2024/1689. Old values are still read (until 5.0.0) so existing JSON
+files and audit logs keep working.
 """
 
 from __future__ import annotations

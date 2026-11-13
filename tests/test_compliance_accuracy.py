@@ -202,7 +202,7 @@ def test_data_requirements_live_under_point_2d():
 def test_old_data_governance_key_kept_one_release_with_deprecation():
     sec = _sections(_report())
     old = sec["4_data_governance"]
-    assert "4.8.0" in old["_deprecated"] and "2(d)" in old["_deprecated"]
+    assert "5.0.0" in old["_deprecated"] and "2(d)" in old["_deprecated"]
     new = sec["2_development_design"]["data_requirements_2d"]
     strip = lambda d: {k: v for k, v in d.items() if not k.startswith("_")}
     assert strip(old) == strip(new)

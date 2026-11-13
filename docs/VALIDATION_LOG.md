@@ -440,22 +440,22 @@ python scripts/validate_models_matrix.py --models EleutherAI/pythia-1b --device 
     (`tests/test_compliance_accuracy.py`);
   - the status rename (`tests/test_status_names.py`).
 
-## Run 19 — full test suite with coverage (main after E2 and the grading changes)
+## Run 19 — full test suite with coverage (release 4.8.0)
 
 - **Date:** 2026-11-13
 - **Hardware:** the owner's Mac, Python 3.11.9. This was a **local run, not CI**.
 - **Code:** the uncommitted working tree on top of `8a97253` (the E2 results commit),
-  committed immediately afterwards. The package version is still 4.7.0; these changes
-  are unreleased.
+  committed immediately afterwards as `af100a6`. Release 4.8.0 is that code plus the
+  version bump and documentation edits; the suite was re-run on the bumped tree
+  before tagging, with the same result: 1716 passed, 11 skipped, 81.31%, 242.75 s.
 - **Command:** `python -m pytest --cov=glassbox -q`
 - **Result:** **1716 passed, 11 skipped**, 19 warnings, 222.85 s.
 - **Coverage:** total **81.31%** (9261 statements, 1731 missed). The gate is 58%, and
   the repository's own standard is 80%.
 - **FastAPI:** installed (0.129.0), so `tests/test_api_jobs.py` ran its live endpoint
   test: 19 passed, 0 skipped.
-- **Does not supersede Run 18 for the published numbers.** README, the site and the
-  MCP servers state 1,574 tests / 80% "on 4.7.0", which is what the released package
-  has. They change with the next release.
+- **Supersedes:** Run 18 (1574 passed / 80.29%) as the published number, from
+  release 4.8.0.
 - **Where the 142 new passing tests came from:**
   - E2 (`tests/test_v8_e2.py`) and the fault labeller (`tests/test_v7_taxonomy.py`,
     plus 4 in `tests/test_v7_investigate.py`);

@@ -1972,7 +1972,7 @@ Black-box audit is designed for endpoints with an OpenAI-compatible chat API. It
 | `summary()` | Analytics dict: total_audits, grade_distribution, compliance_rate, avg_f1, chain_valid. |
 | `export_json(path)` | Export all records as JSON array with metadata. |
 | `export_csv(path)` | Export all records as CSV for GRC/Excel import. |
-| `by_model(name)`, `by_grade(grade)`, `checks_failed()` | Query methods. `non_compliant()` is a deprecated alias (removed in 4.8.0). |
+| `by_model(name)`, `by_grade(grade)`, `checks_failed()` | Query methods. `non_compliant()` is a deprecated alias (removed in 5.0.0). |
 
 ### `MultiCorruptionPipeline(model)` — v3.7.0+
 

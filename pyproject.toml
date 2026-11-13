@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name        = "glassbox-mech-interp"
-version     = "4.7.0"
+version     = "4.8.0"
 description = "Mechanistic interpretability for transformers: causal circuit discovery, measured faithfulness (sufficiency, comprehensiveness, F1) and draft EU AI Act Annex IV documentation. Includes an AI-system investigation layer. Dual-licensed (MIT core + BSL 1.1 compliance engine and investigation layer)."
 readme      = "README.md"
 license     = { text = "MIT AND LicenseRef-BUSL-1.1" }

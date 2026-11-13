@@ -6,9 +6,25 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## [Unreleased]
+## [4.8.0] — 2026-11-13
+
+One grade and one status on every surface, an agent fault labeller, and fixes found by
+an audit of the library's implicit state machines. Full local run: 1716 passed, 11
+skipped, 81.31% coverage (`docs/VALIDATION_LOG.md` Run 19).
+
+**Removals announced for 4.8.0 are postponed to 5.0.0.** The old status names
+(`compliant`, `conditionally_compliant`, `non_compliant`, the `COMPLIANT` aliases,
+`AuditLog.non_compliant()`) and the deprecated `4_data_governance` report key keep
+working in 4.8.0.
 
 ### Added
+- **Agent fault labeller (`glassbox.v7.taxonomy`, BSL 1.1).** Each failing agent run
+  gets one label: `no_action`, `premature_finish`, `wrong_tool`, `skipped_tool`,
+  `wrong_order` or `other`. With `Incident.required_tools`, `investigate` counts the
+  labels per configuration and adds a "Failure types" table; without it, output is
+  unchanged. Evidence: ASSURANCE V3.14 (implemented), and the E2 experiment, which
+  **failed overall** (V3.15) with the labels right on the two fault classes it
+  produced (V3.16, preliminary).
 - **`glassbox.grading` (MIT): one grade rule and one status vocabulary.**
   `grade_letter(suff, comp, f1)`, `check_status(f1)` and `normalize_status(value)`.
   The Annex IV draft, the audit log, telemetry, MLflow, the Hugging Face model card

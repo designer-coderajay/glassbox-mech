@@ -183,7 +183,7 @@ class ComplianceStatus(str, Enum):
     Values changed in 4.7.0 (``compliant`` → ``checks_passed``,
     ``conditionally_compliant`` → ``checks_passed_with_gaps``, ``non_compliant`` →
     ``checks_failed``). The old member names are aliases and the old values are still
-    accepted by ``ComplianceStatus(value)`` until 4.8.0.
+    accepted by ``ComplianceStatus(value)`` until 5.0.0.
     """
     # Not produced from an analysis: provider-only fields are always still needed
     # (see glassbox.grading). Kept for documentation whose provider fields are complete.
@@ -192,7 +192,7 @@ class ComplianceStatus(str, Enum):
     INCOMPLETE              = "incomplete"               # not enough evidence to check
     CHECKS_FAILED           = "checks_failed"            # a Glassbox check failed
 
-    # Deprecated aliases (before 4.7.0); removed in 4.8.0.
+    # Deprecated aliases (before 4.7.0); removed in 5.0.0.
     COMPLIANT               = "checks_passed"
     CONDITIONALLY_COMPLIANT = "checks_passed_with_gaps"
     NON_COMPLIANT           = "checks_failed"
@@ -332,7 +332,7 @@ class Section2d_DataRequirements:
     token_attribution_available:     bool = False
 
 
-#: Deprecated name (before 4.7.0). Will be removed in 4.8.0.
+#: Deprecated name (before 4.7.0). Will be removed in 5.0.0.
 Section4_DataGovernance = Section2d_DataRequirements
 
 
@@ -1192,7 +1192,7 @@ performance. F1 is the harmonic mean of both.
         d["_deprecated"] = (
             "Moved to sections.2_development_design.data_requirements_2d (Annex IV "
             "point 2(d)). Annex IV point 4 is the appropriateness of the performance "
-            "metrics: sections.4_performance_metrics. This key will be removed in 4.8.0."
+            "metrics: sections.4_performance_metrics. This key will be removed in 5.0.0."
         )
         return d
 

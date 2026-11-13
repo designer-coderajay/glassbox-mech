@@ -1,4 +1,4 @@
-# Deployment and Licensing Guide — Glassbox AI v4.7.0
+# Deployment and Licensing Guide — Glassbox AI v4.8.0
 
 This guide is for engineering and compliance teams who want to run Glassbox on their own
 infrastructure. It covers installation, a first documentation draft, CI use, container use

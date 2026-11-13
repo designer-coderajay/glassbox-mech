@@ -30,7 +30,7 @@ Most explainability tools describe a model **from the outside** and can't tell y
 
 | Part | What it does | Status |
 |---|---|---|
-| **Circuit + faithfulness + Annex IV** | Explains one model decision and drafts documentation | Released on PyPI (`glassbox-mech-interp` 4.7.0) |
+| **Circuit + faithfulness + Annex IV** | Explains one model decision and drafts documentation | Released on PyPI (`glassbox-mech-interp` 4.8.0) |
 | **Investigation layer** (`glassbox/v7/`) | Explains why an AI system's behaviour changed between two versions | Included in the PyPI release from 4.6.0; research stage (see [below](#investigating-why-an-ai-system-changed)) |
 
 Every claim in this README is tracked, with its evidence and status, in [`ASSURANCE.md`](ASSURANCE.md).
@@ -103,7 +103,7 @@ When a model can't do a task, Glassbox says so instead of inventing a clean stor
 | **IOI benchmark** (GPT-2 Small, default circuit) | suff 1.00 · comp 0.543 · **F1 0.704 · Grade B** (1-head circuit). Full 26-head Wang et al. circuit: suff 1.00 · comp 0.47 · F1 0.64 |
 | **Key finding** | Confidence–faithfulness correlation **r = 0.009** |
 | **Validated scale** | **82M → 12B** across **9 architecture families** (10 model series) |
-| **Quality** | **1,574 tests** passing, 80% coverage (full local run 2026-11-08 on 4.7.0; see `docs/VALIDATION_LOG.md` Run 18) |
+| **Quality** | **1,716 tests** passing, 81% coverage (full local run 2026-11-13 on the 4.8.0 code; see `docs/VALIDATION_LOG.md` Run 19) |
 
 Full methodology and raw data: [`BENCHMARKS.md`](BENCHMARKS.md). Reproduce with `scripts/benchmark.py`.
 
