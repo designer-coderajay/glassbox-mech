@@ -1,0 +1,66 @@
+{
+ "arms": {
+  "b2_fix": {
+   "correct": 29,
+   "diff_vs_baseline_ci": [
+    0.2333,
+    0.5167
+   ],
+   "reverted": [
+    "refund_fix",
+    "retries",
+    "persona"
+   ],
+   "run": true,
+   "verified": true,
+   "verified_two_sided": false
+  },
+  "gb_fix": {
+   "correct": 31,
+   "diff_vs_baseline_ci": [
+    0.2667,
+    0.5667
+   ],
+   "reverted": [
+    "persona"
+   ],
+   "run": true,
+   "verified": true,
+   "verified_two_sided": false
+  },
+  "undirected_fix": {
+   "correct": 3,
+   "diff_vs_baseline_ci": [
+    -0.15,
+    0.0333
+   ],
+   "reverted": [
+    "max_steps"
+   ],
+   "run": true,
+   "verified": false,
+   "verified_two_sided": false
+  },
+  "wrong_fix": {
+   "correct": 31,
+   "diff_vs_baseline_ci": [
+    0.2667,
+    0.5667
+   ],
+   "reverted": [
+    "persona"
+   ],
+   "run": true,
+   "verified": true,
+   "verified_two_sided": false
+  }
+ },
+ "baseline_correct": 6,
+ "candidate_correct": 3,
+ "gb_minus_undirected_ci": [
+  0.3333,
+  0.6
+ ],
+ "n": 60,
+ "seconds": 58.024
+}

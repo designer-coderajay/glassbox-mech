@@ -1,0 +1,228 @@
+{
+ "baseline_correct": 200,
+ "candidate_correct": 0,
+ "factors": {
+  "answer_policy": {
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "label": "null",
+   "only_correct": 200,
+   "tvd": 0.0
+  },
+  "invoice_tool_desc": {
+   "ci": [
+    0.94,
+    0.985
+   ],
+   "label": "harmful",
+   "only_correct": 7,
+   "tvd": 0.965
+  },
+  "log_level": {
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "label": "null",
+   "only_correct": 200,
+   "tvd": 0.0
+  },
+  "max_steps": {
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "label": "null",
+   "only_correct": 200,
+   "tvd": 0.0
+  },
+  "persona": {
+   "ci": [
+    0.0,
+    0.015
+   ],
+   "label": "null",
+   "only_correct": 199,
+   "tvd": 0.005
+  },
+  "refund_fix": {
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "label": "null",
+   "only_correct": 200,
+   "tvd": 0.0
+  },
+  "refund_tool_desc": {
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "label": "null",
+   "only_correct": 200,
+   "tvd": 0.0
+  },
+  "retries": {
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "label": "null",
+   "only_correct": 200,
+   "tvd": 0.0
+  },
+  "runbook_order": {
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "label": "null",
+   "only_correct": 200,
+   "tvd": 0.0
+  }
+ },
+ "n": 200,
+ "regressed": true,
+ "regressed_ci": [
+  1.0,
+  1.0
+ ],
+ "seconds": 342.437,
+ "trajectories": {
+  "baseline": {
+   "faults": {
+    "no_action": 0,
+    "other": 0,
+    "premature_finish": 0,
+    "skipped_tool": 0,
+    "wrong_order": 0,
+    "wrong_tool": 0
+   },
+   "forced_final": 0,
+   "parse_failures": 0
+  },
+  "candidate": {
+   "faults": {
+    "no_action": 0,
+    "other": 0,
+    "premature_finish": 200,
+    "skipped_tool": 0,
+    "wrong_order": 0,
+    "wrong_tool": 0
+   },
+   "forced_final": 200,
+   "parse_failures": 0
+  },
+  "only_answer_policy": {
+   "faults": {
+    "no_action": 0,
+    "other": 0,
+    "premature_finish": 0,
+    "skipped_tool": 0,
+    "wrong_order": 0,
+    "wrong_tool": 0
+   },
+   "forced_final": 0,
+   "parse_failures": 0
+  },
+  "only_invoice_tool_desc": {
+   "faults": {
+    "no_action": 0,
+    "other": 0,
+    "premature_finish": 0,
+    "skipped_tool": 0,
+    "wrong_order": 0,
+    "wrong_tool": 193
+   },
+   "forced_final": 0,
+   "parse_failures": 0
+  },
+  "only_log_level": {
+   "faults": {
+    "no_action": 0,
+    "other": 0,
+    "premature_finish": 0,
+    "skipped_tool": 0,
+    "wrong_order": 0,
+    "wrong_tool": 0
+   },
+   "forced_final": 0,
+   "parse_failures": 0
+  },
+  "only_max_steps": {
+   "faults": {
+    "no_action": 0,
+    "other": 0,
+    "premature_finish": 0,
+    "skipped_tool": 0,
+    "wrong_order": 0,
+    "wrong_tool": 0
+   },
+   "forced_final": 200,
+   "parse_failures": 0
+  },
+  "only_persona": {
+   "faults": {
+    "no_action": 1,
+    "other": 0,
+    "premature_finish": 0,
+    "skipped_tool": 0,
+    "wrong_order": 0,
+    "wrong_tool": 0
+   },
+   "forced_final": 0,
+   "parse_failures": 1
+  },
+  "only_refund_fix": {
+   "faults": {
+    "no_action": 0,
+    "other": 0,
+    "premature_finish": 0,
+    "skipped_tool": 0,
+    "wrong_order": 0,
+    "wrong_tool": 0
+   },
+   "forced_final": 0,
+   "parse_failures": 0
+  },
+  "only_refund_tool_desc": {
+   "faults": {
+    "no_action": 0,
+    "other": 0,
+    "premature_finish": 0,
+    "skipped_tool": 0,
+    "wrong_order": 0,
+    "wrong_tool": 0
+   },
+   "forced_final": 0,
+   "parse_failures": 0
+  },
+  "only_retries": {
+   "faults": {
+    "no_action": 0,
+    "other": 0,
+    "premature_finish": 0,
+    "skipped_tool": 0,
+    "wrong_order": 0,
+    "wrong_tool": 0
+   },
+   "forced_final": 0,
+   "parse_failures": 0
+  },
+  "only_runbook_order": {
+   "faults": {
+    "no_action": 0,
+    "other": 0,
+    "premature_finish": 0,
+    "skipped_tool": 0,
+    "wrong_order": 0,
+    "wrong_tool": 0
+   },
+   "forced_final": 0,
+   "parse_failures": 0
+  }
+ }
+}

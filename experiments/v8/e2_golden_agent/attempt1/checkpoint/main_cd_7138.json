@@ -1,0 +1,342 @@
+{
+ "B0": [
+  "invoice_tool_desc",
+  "refund_tool_desc",
+  "runbook_order",
+  "max_steps",
+  "answer_policy",
+  "refund_fix",
+  "retries",
+  "persona",
+  "log_level"
+ ],
+ "B1": [
+  "invoice_tool_desc",
+  "refund_tool_desc",
+  "runbook_order",
+  "answer_policy",
+  "persona"
+ ],
+ "B2": [
+  "runbook_order",
+  "persona"
+ ],
+ "B2_flips": 1,
+ "GB": [
+  "runbook_order",
+  "persona"
+ ],
+ "GB_attributed": [
+  "refund_fix"
+ ],
+ "GB_fault": {
+  "answer_policy": "other",
+  "invoice_tool_desc": "other",
+  "log_level": "other",
+  "max_steps": "premature_finish",
+  "persona": "other",
+  "refund_fix": null,
+  "refund_tool_desc": "skipped_tool",
+  "retries": "other",
+  "runbook_order": "other"
+ },
+ "GB_helpful": [
+  "refund_fix"
+ ],
+ "GB_reverting_matters": [
+  "runbook_order",
+  "persona"
+ ],
+ "cells": {
+  "all_but_answer_policy": {
+   "wrong": 30
+  },
+  "all_but_invoice_tool_desc": {
+   "wrong": 30
+  },
+  "all_but_log_level": {
+   "wrong": 30
+  },
+  "all_but_max_steps": {
+   "correct": 3,
+   "wrong": 27
+  },
+  "all_but_persona": {
+   "correct": 28,
+   "wrong": 2
+  },
+  "all_but_refund_fix": {
+   "wrong": 30
+  },
+  "all_but_refund_tool_desc": {
+   "wrong": 30
+  },
+  "all_but_retries": {
+   "wrong": 30
+  },
+  "all_but_runbook_order": {
+   "correct": 18,
+   "wrong": 12
+  },
+  "baseline": {
+   "wrong": 30
+  },
+  "candidate": {
+   "wrong": 30
+  },
+  "only_answer_policy": {
+   "wrong": 30
+  },
+  "only_invoice_tool_desc": {
+   "wrong": 30
+  },
+  "only_log_level": {
+   "wrong": 30
+  },
+  "only_max_steps": {
+   "wrong": 30
+  },
+  "only_persona": {
+   "wrong": 30
+  },
+  "only_refund_fix": {
+   "correct": 30
+  },
+  "only_refund_tool_desc": {
+   "wrong": 30
+  },
+  "only_retries": {
+   "wrong": 30
+  },
+  "only_runbook_order": {
+   "wrong": 30
+  }
+ },
+ "direction": {
+  "answer_policy": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  },
+  "invoice_tool_desc": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  },
+  "log_level": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  },
+  "max_steps": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.1,
+   "sufficiency_delta": 0.0
+  },
+  "persona": {
+   "harmful": true,
+   "helpful": false,
+   "necessity_delta": 0.933333,
+   "sufficiency_delta": 0.0
+  },
+  "refund_fix": {
+   "harmful": false,
+   "helpful": true,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 1.0
+  },
+  "refund_tool_desc": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  },
+  "retries": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  },
+  "runbook_order": {
+   "harmful": true,
+   "helpful": false,
+   "necessity_delta": 0.6,
+   "sufficiency_delta": 0.0
+  }
+ },
+ "fault_counts": {
+  "all_but_answer_policy": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 30,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_invoice_tool_desc": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 30,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_log_level": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 30,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_max_steps": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 27,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_persona": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 2,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_refund_fix": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 30,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_refund_tool_desc": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 30,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_retries": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 30,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_runbook_order": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 12,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "baseline": {
+   "no_action": 0,
+   "other": 29,
+   "premature_finish": 0,
+   "skipped_tool": 1,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "candidate": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 30,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_answer_policy": {
+   "no_action": 0,
+   "other": 30,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_invoice_tool_desc": {
+   "no_action": 0,
+   "other": 30,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_log_level": {
+   "no_action": 0,
+   "other": 29,
+   "premature_finish": 0,
+   "skipped_tool": 1,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_max_steps": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 30,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_persona": {
+   "no_action": 0,
+   "other": 20,
+   "premature_finish": 0,
+   "skipped_tool": 9,
+   "wrong_order": 0,
+   "wrong_tool": 1
+  },
+  "only_refund_fix": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_refund_tool_desc": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 30,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_retries": {
+   "no_action": 0,
+   "other": 30,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_runbook_order": {
+   "no_action": 0,
+   "other": 30,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  }
+ },
+ "first_beyond_noise": [
+  "chat#0",
+  "glassbox.content.gen_ai.system_instructions.length"
+ ],
+ "seconds": 162.767,
+ "timing": {
+  "analysis_s": 0.186,
+  "runs_s": 162.574
+ }
+}

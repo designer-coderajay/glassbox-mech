@@ -1,0 +1,63 @@
+{
+ "arms": {
+  "b2_fix": {
+   "correct": 38,
+   "diff_vs_baseline_ci": [
+    -0.4833,
+    -0.25
+   ],
+   "reverted": [
+    "persona"
+   ],
+   "run": true,
+   "verified": false,
+   "verified_two_sided": false
+  },
+  "gb_fix": {
+   "correct": 60,
+   "diff_vs_baseline_ci": [
+    0.0,
+    0.0
+   ],
+   "reverted": [
+    "answer_policy",
+    "persona"
+   ],
+   "run": true,
+   "verified": true,
+   "verified_two_sided": true
+  },
+  "undirected_fix": {
+   "correct": 60,
+   "diff_vs_baseline_ci": [
+    0.0,
+    0.0
+   ],
+   "reverted": [
+    "answer_policy",
+    "persona"
+   ],
+   "run": true,
+   "verified": true,
+   "verified_two_sided": true
+  },
+  "wrong_fix": {
+   "correct": 38,
+   "diff_vs_baseline_ci": [
+    -0.4833,
+    -0.25
+   ],
+   "reverted": [
+    "persona"
+   ],
+   "run": true,
+   "verified": false,
+   "verified_two_sided": false
+  }
+ },
+ "baseline_correct": 60,
+ "candidate_correct": 0,
+ "gb_minus_undirected_ci": null,
+ "n": 60,
+ "seconds": 33.505
+}

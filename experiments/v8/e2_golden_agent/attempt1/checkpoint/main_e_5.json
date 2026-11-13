@@ -1,0 +1,343 @@
+{
+ "B0": [
+  "invoice_tool_desc",
+  "refund_tool_desc",
+  "runbook_order",
+  "max_steps",
+  "answer_policy",
+  "refund_fix",
+  "retries",
+  "persona",
+  "log_level"
+ ],
+ "B1": [
+  "max_steps"
+ ],
+ "B2": [],
+ "B2_flips": 3,
+ "GB": [
+  "persona"
+ ],
+ "GB_attributed": [
+  "persona"
+ ],
+ "GB_fault": {
+  "answer_policy": "no_action",
+  "invoice_tool_desc": null,
+  "log_level": null,
+  "max_steps": null,
+  "persona": "no_action",
+  "refund_fix": null,
+  "refund_tool_desc": null,
+  "retries": null,
+  "runbook_order": null
+ },
+ "GB_helpful": [],
+ "GB_reverting_matters": [
+  "persona"
+ ],
+ "cells": {
+  "all_but_answer_policy": {
+   "correct": 4,
+   "wrong": 26
+  },
+  "all_but_invoice_tool_desc": {
+   "correct": 9,
+   "wrong": 21
+  },
+  "all_but_log_level": {
+   "correct": 13,
+   "wrong": 17
+  },
+  "all_but_max_steps": {
+   "correct": 17,
+   "wrong": 13
+  },
+  "all_but_persona": {
+   "correct": 26,
+   "wrong": 4
+  },
+  "all_but_refund_fix": {
+   "correct": 10,
+   "wrong": 20
+  },
+  "all_but_refund_tool_desc": {
+   "correct": 5,
+   "wrong": 25
+  },
+  "all_but_retries": {
+   "correct": 9,
+   "wrong": 21
+  },
+  "all_but_runbook_order": {
+   "correct": 3,
+   "wrong": 27
+  },
+  "baseline": {
+   "correct": 29,
+   "wrong": 1
+  },
+  "candidate": {
+   "correct": 11,
+   "wrong": 19
+  },
+  "only_answer_policy": {
+   "correct": 22,
+   "wrong": 8
+  },
+  "only_invoice_tool_desc": {
+   "correct": 30
+  },
+  "only_log_level": {
+   "correct": 30
+  },
+  "only_max_steps": {
+   "correct": 29,
+   "wrong": 1
+  },
+  "only_persona": {
+   "wrong": 30
+  },
+  "only_refund_fix": {
+   "correct": 30
+  },
+  "only_refund_tool_desc": {
+   "correct": 29,
+   "wrong": 1
+  },
+  "only_retries": {
+   "correct": 30
+  },
+  "only_runbook_order": {
+   "correct": 28,
+   "wrong": 2
+  }
+ },
+ "direction": {
+  "answer_policy": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": -0.233333,
+   "sufficiency_delta": -0.233333
+  },
+  "invoice_tool_desc": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": -0.066667,
+   "sufficiency_delta": 0.033333
+  },
+  "log_level": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.066667,
+   "sufficiency_delta": 0.033333
+  },
+  "max_steps": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.2,
+   "sufficiency_delta": 0.0
+  },
+  "persona": {
+   "harmful": true,
+   "helpful": false,
+   "necessity_delta": 0.5,
+   "sufficiency_delta": -0.966667
+  },
+  "refund_fix": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": -0.033333,
+   "sufficiency_delta": 0.033333
+  },
+  "refund_tool_desc": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": -0.2,
+   "sufficiency_delta": 0.0
+  },
+  "retries": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": -0.066667,
+   "sufficiency_delta": 0.033333
+  },
+  "runbook_order": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": -0.266667,
+   "sufficiency_delta": -0.033333
+  }
+ },
+ "fault_counts": {
+  "all_but_answer_policy": {
+   "no_action": 26,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_invoice_tool_desc": {
+   "no_action": 21,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_log_level": {
+   "no_action": 17,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_max_steps": {
+   "no_action": 13,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_persona": {
+   "no_action": 4,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_refund_fix": {
+   "no_action": 20,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_refund_tool_desc": {
+   "no_action": 25,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_retries": {
+   "no_action": 21,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_runbook_order": {
+   "no_action": 27,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "baseline": {
+   "no_action": 1,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "candidate": {
+   "no_action": 19,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_answer_policy": {
+   "no_action": 8,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_invoice_tool_desc": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_log_level": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_max_steps": {
+   "no_action": 1,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_persona": {
+   "no_action": 30,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_refund_fix": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_refund_tool_desc": {
+   "no_action": 1,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_retries": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_runbook_order": {
+   "no_action": 2,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  }
+ },
+ "first_beyond_noise": [
+  "chat#0",
+  "glassbox.agent.tool_call"
+ ],
+ "seconds": 117.812,
+ "timing": {
+  "analysis_s": 0.211,
+  "runs_s": 117.595
+ }
+}

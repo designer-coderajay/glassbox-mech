@@ -1,0 +1,61 @@
+{
+ "arms": {
+  "b2_fix": {
+   "correct": 60,
+   "diff_vs_baseline_ci": [
+    0.0,
+    0.0
+   ],
+   "reverted": [
+    "invoice_tool_desc"
+   ],
+   "run": true,
+   "verified": true,
+   "verified_two_sided": true
+  },
+  "gb_fix": {
+   "correct": 60,
+   "diff_vs_baseline_ci": [
+    0.0,
+    0.0
+   ],
+   "reverted": [
+    "invoice_tool_desc"
+   ],
+   "run": true,
+   "verified": true,
+   "verified_two_sided": true
+  },
+  "undirected_fix": {
+   "correct": 60,
+   "diff_vs_baseline_ci": [
+    0.0,
+    0.0
+   ],
+   "reverted": [
+    "invoice_tool_desc"
+   ],
+   "run": true,
+   "verified": true,
+   "verified_two_sided": true
+  },
+  "wrong_fix": {
+   "correct": 7,
+   "diff_vs_baseline_ci": [
+    -0.95,
+    -0.8
+   ],
+   "reverted": [
+    "persona"
+   ],
+   "run": true,
+   "verified": false,
+   "verified_two_sided": false
+  }
+ },
+ "baseline_correct": 60,
+ "candidate_correct": 0,
+ "gb_minus_undirected_ci": null,
+ "n": 60,
+ "seconds": 40.512
+}

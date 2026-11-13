@@ -1,0 +1,327 @@
+{
+ "B0": [
+  "invoice_tool_desc",
+  "refund_tool_desc",
+  "runbook_order",
+  "max_steps",
+  "answer_policy",
+  "refund_fix",
+  "retries",
+  "persona",
+  "log_level"
+ ],
+ "B1": [
+  "invoice_tool_desc",
+  "refund_tool_desc",
+  "runbook_order",
+  "answer_policy",
+  "persona"
+ ],
+ "B2": [],
+ "B2_flips": 0,
+ "GB": [],
+ "GB_attributed": [],
+ "GB_fault": {
+  "answer_policy": null,
+  "invoice_tool_desc": null,
+  "log_level": null,
+  "max_steps": null,
+  "persona": null,
+  "refund_fix": null,
+  "refund_tool_desc": null,
+  "retries": null,
+  "runbook_order": null
+ },
+ "GB_helpful": [],
+ "GB_reverting_matters": [],
+ "cells": {
+  "all_but_answer_policy": {
+   "correct": 30
+  },
+  "all_but_invoice_tool_desc": {
+   "correct": 30
+  },
+  "all_but_log_level": {
+   "correct": 30
+  },
+  "all_but_max_steps": {
+   "correct": 30
+  },
+  "all_but_persona": {
+   "correct": 29,
+   "wrong": 1
+  },
+  "all_but_refund_fix": {
+   "correct": 30
+  },
+  "all_but_refund_tool_desc": {
+   "correct": 30
+  },
+  "all_but_retries": {
+   "correct": 30
+  },
+  "all_but_runbook_order": {
+   "correct": 30
+  },
+  "baseline": {
+   "correct": 30
+  },
+  "candidate": {
+   "correct": 30
+  },
+  "only_answer_policy": {
+   "correct": 30
+  },
+  "only_invoice_tool_desc": {
+   "correct": 30
+  },
+  "only_log_level": {
+   "correct": 30
+  },
+  "only_max_steps": {
+   "correct": 30
+  },
+  "only_persona": {
+   "correct": 30
+  },
+  "only_refund_fix": {
+   "correct": 30
+  },
+  "only_refund_tool_desc": {
+   "correct": 30
+  },
+  "only_retries": {
+   "correct": 30
+  },
+  "only_runbook_order": {
+   "correct": 30
+  }
+ },
+ "direction": {
+  "answer_policy": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  },
+  "invoice_tool_desc": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  },
+  "log_level": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  },
+  "max_steps": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  },
+  "persona": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": -0.033333,
+   "sufficiency_delta": 0.0
+  },
+  "refund_fix": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  },
+  "refund_tool_desc": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  },
+  "retries": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  },
+  "runbook_order": {
+   "harmful": false,
+   "helpful": false,
+   "necessity_delta": 0.0,
+   "sufficiency_delta": 0.0
+  }
+ },
+ "fault_counts": {
+  "all_but_answer_policy": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_invoice_tool_desc": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_log_level": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_max_steps": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_persona": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 1,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_refund_fix": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_refund_tool_desc": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_retries": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "all_but_runbook_order": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "baseline": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "candidate": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_answer_policy": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_invoice_tool_desc": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_log_level": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_max_steps": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_persona": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_refund_fix": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_refund_tool_desc": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_retries": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  },
+  "only_runbook_order": {
+   "no_action": 0,
+   "other": 0,
+   "premature_finish": 0,
+   "skipped_tool": 0,
+   "wrong_order": 0,
+   "wrong_tool": 0
+  }
+ },
+ "first_beyond_noise": [
+  "chat#0",
+  "glassbox.content.gen_ai.system_instructions.length"
+ ],
+ "seconds": 113.019,
+ "timing": {
+  "analysis_s": 0.135,
+  "runs_s": 112.877
+ }
+}
