@@ -1,0 +1,269 @@
+[
+ {
+  "accepted": [
+   "rerouted"
+  ],
+  "id": "a_2169",
+  "kind": "A",
+  "question": "What is the current status of order HC-2169?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "impounded"
+  ],
+  "id": "a_2192",
+  "kind": "A",
+  "question": "What is the current status of order HC-2192?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "palletised"
+  ],
+  "id": "a_2215",
+  "kind": "A",
+  "question": "What is the current status of order HC-2215?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "consolidating"
+  ],
+  "id": "a_2248",
+  "kind": "A",
+  "question": "What is the current status of order HC-2248?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "51.85"
+  ],
+  "id": "b_3351",
+  "kind": "B",
+  "question": "How much did the customer pay in total for order HC-3351, including shipping?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "38.95"
+  ],
+  "id": "b_3374",
+  "kind": "B",
+  "question": "How much did the customer pay in total for order HC-3374, including shipping?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "143.60"
+  ],
+  "id": "b_3398",
+  "kind": "B",
+  "question": "How much did the customer pay in total for order HC-3398, including shipping?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "46.70"
+  ],
+  "id": "b_3417",
+  "kind": "B",
+  "question": "How much did the customer pay in total for order HC-3417, including shipping?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "NR-508"
+  ],
+  "id": "ci_4549",
+  "kind": "C-inel",
+  "question": "The customer wants a refund for order HC-4549. Give the refund decision code, and the refund amount if one is due.",
+  "rejected": [
+   "14.25",
+   "22.65"
+  ]
+ },
+ {
+  "accepted": [
+   "NR-342"
+  ],
+  "id": "ci_4571",
+  "kind": "C-inel",
+  "question": "The customer wants a refund for order HC-4571. Give the refund decision code, and the refund amount if one is due.",
+  "rejected": [
+   "118.00",
+   "126.40"
+  ]
+ },
+ {
+  "accepted": [
+   "NR-695"
+  ],
+  "id": "ci_4593",
+  "kind": "C-inel",
+  "question": "The customer wants a refund for order HC-4593. Give the refund decision code, and the refund amount if one is due.",
+  "rejected": [
+   "11.80",
+   "20.20"
+  ]
+ },
+ {
+  "accepted": [
+   "NR-781"
+  ],
+  "id": "ci_4618",
+  "kind": "C-inel",
+  "question": "The customer wants a refund for order HC-4618. Give the refund decision code, and the refund amount if one is due.",
+  "rejected": [
+   "57.40",
+   "65.80"
+  ]
+ },
+ {
+  "accepted": [
+   "47.50"
+  ],
+  "id": "cd_5748",
+  "kind": "C-def",
+  "question": "Order HC-5748 arrived with a defective item. How much should the customer be refunded?",
+  "rejected": [
+   "39.10"
+  ]
+ },
+ {
+  "accepted": [
+   "37.00"
+  ],
+  "id": "cd_5762",
+  "kind": "C-def",
+  "question": "Order HC-5762 arrived with a defective item. How much should the customer be refunded?",
+  "rejected": [
+   "28.60"
+  ]
+ },
+ {
+  "accepted": [
+   "83.30"
+  ],
+  "id": "cd_5785",
+  "kind": "C-def",
+  "question": "Order HC-5785 arrived with a defective item. How much should the customer be refunded?",
+  "rejected": [
+   "74.90"
+  ]
+ },
+ {
+  "accepted": [
+   "24.70"
+  ],
+  "id": "cd_5809",
+  "kind": "C-def",
+  "question": "Order HC-5809 arrived with a defective item. How much should the customer be refunded?",
+  "rejected": [
+   "16.30"
+  ]
+ },
+ {
+  "accepted": [
+   "37.80"
+  ],
+  "id": "d_ashlar",
+  "kind": "D",
+  "question": "Please quote 4 x Ashlar brake pads with voucher CHAIN25. What is the final total?",
+  "rejected": [
+   "58.80",
+   "50.40"
+  ]
+ },
+ {
+  "accepted": [
+   "53.94"
+  ],
+  "id": "d_quoin",
+  "kind": "D",
+  "question": "Please quote 5 x Quoin bottle with voucher GEAR08. What is the final total?",
+  "rejected": [
+   "57.90",
+   "49.50"
+  ]
+ },
+ {
+  "accepted": [
+   "48.84"
+  ],
+  "id": "d_lintel",
+  "kind": "D",
+  "question": "Please quote 3 x Lintel kickstand with voucher SPOKE12. What is the final total?",
+  "rejected": [
+   "63.90",
+   "55.50"
+  ]
+ },
+ {
+  "accepted": [
+   "40.50"
+  ],
+  "id": "d_mullion",
+  "kind": "D",
+  "question": "Please quote 8 x Mullion bell with voucher CHAIN25. What is the final total?",
+  "rejected": [
+   "62.40",
+   "54.00"
+  ]
+ },
+ {
+  "accepted": [
+   "110"
+  ],
+  "id": "e_3",
+  "kind": "E",
+  "question": "From what order value, in EUR, is standard shipping free within the EU?",
+  "rejected": [
+   "50",
+   "75",
+   "100"
+  ]
+ },
+ {
+  "accepted": [
+   "42"
+  ],
+  "id": "e_4",
+  "kind": "E",
+  "question": "How many months is the warranty on a frame?",
+  "rejected": [
+   "12",
+   "24",
+   "36",
+   "60"
+  ]
+ },
+ {
+  "accepted": [
+   "11"
+  ],
+  "id": "e_5",
+  "kind": "E",
+  "question": "Within how many weeks of purchase must the free first service be booked?",
+  "rejected": [
+   "4",
+   "6",
+   "8",
+   "12"
+  ]
+ },
+ {
+  "accepted": [
+   "23"
+  ],
+  "id": "e_6",
+  "kind": "E",
+  "question": "At what percent of its original price is a traded-in bike credited?",
+  "rejected": [
+   "10",
+   "20",
+   "25",
+   "30"
+  ]
+ }
+]

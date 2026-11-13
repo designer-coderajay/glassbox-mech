@@ -1,0 +1,325 @@
+{
+ "catalog": {
+  "Ashlar brake pads": 12.6,
+  "Fellgate chain": 23.8,
+  "Lintel kickstand": 18.5,
+  "Marlstone inner tube": 7.25,
+  "Mullion bell": 6.75,
+  "Quoin bottle": 9.9
+ },
+ "company": "Harrowgate Cycles",
+ "orders": {
+  "HC-2104": {
+   "decision_code": "OK-120",
+   "defective": false,
+   "eligible": true,
+   "item": "Assorted cycle parts",
+   "price": 40.0,
+   "reason": "within window",
+   "shipping": 8.4,
+   "status": "backordered",
+   "total_paid": 48.4
+  },
+  "HC-2137": {
+   "decision_code": "OK-121",
+   "defective": false,
+   "eligible": true,
+   "item": "Assorted cycle parts",
+   "price": 40.0,
+   "reason": "within window",
+   "shipping": 8.4,
+   "status": "quarantined",
+   "total_paid": 48.4
+  },
+  "HC-2169": {
+   "decision_code": "OK-122",
+   "defective": false,
+   "eligible": true,
+   "item": "Assorted cycle parts",
+   "price": 40.0,
+   "reason": "within window",
+   "shipping": 8.4,
+   "status": "rerouted",
+   "total_paid": 48.4
+  },
+  "HC-2192": {
+   "decision_code": "OK-123",
+   "defective": false,
+   "eligible": true,
+   "item": "Assorted cycle parts",
+   "price": 40.0,
+   "reason": "within window",
+   "shipping": 8.4,
+   "status": "impounded",
+   "total_paid": 48.4
+  },
+  "HC-2215": {
+   "decision_code": "OK-124",
+   "defective": false,
+   "eligible": true,
+   "item": "Assorted cycle parts",
+   "price": 40.0,
+   "reason": "within window",
+   "shipping": 8.4,
+   "status": "palletised",
+   "total_paid": 48.4
+  },
+  "HC-2248": {
+   "decision_code": "OK-125",
+   "defective": false,
+   "eligible": true,
+   "item": "Assorted cycle parts",
+   "price": 40.0,
+   "reason": "within window",
+   "shipping": 8.4,
+   "status": "consolidating",
+   "total_paid": 48.4
+  },
+  "HC-3306": {
+   "decision_code": "OK-220",
+   "defective": false,
+   "eligible": true,
+   "item": "Wend gravel tyre x2",
+   "price": 88.9,
+   "reason": "within window",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 97.3
+  },
+  "HC-3329": {
+   "decision_code": "OK-221",
+   "defective": false,
+   "eligible": true,
+   "item": "Carrick pannier rack",
+   "price": 55.75,
+   "reason": "within window",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 64.15
+  },
+  "HC-3351": {
+   "decision_code": "OK-222",
+   "defective": false,
+   "eligible": true,
+   "item": "Tollgate floor pump",
+   "price": 43.45,
+   "reason": "within window",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 51.85
+  },
+  "HC-3374": {
+   "decision_code": "OK-223",
+   "defective": false,
+   "eligible": true,
+   "item": "Drover saddle bag",
+   "price": 30.55,
+   "reason": "within window",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 38.95
+  },
+  "HC-3398": {
+   "decision_code": "OK-224",
+   "defective": false,
+   "eligible": true,
+   "item": "Inglenook dynamo light set",
+   "price": 135.2,
+   "reason": "within window",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 143.6
+  },
+  "HC-3417": {
+   "decision_code": "OK-225",
+   "defective": false,
+   "eligible": true,
+   "item": "Sett cobble mudguards",
+   "price": 38.3,
+   "reason": "within window",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 46.7
+  },
+  "HC-4502": {
+   "decision_code": "NR-417",
+   "defective": false,
+   "eligible": false,
+   "item": "Byre chain lock",
+   "price": 33.5,
+   "reason": "outside the 19-day return window",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 41.9
+  },
+  "HC-4526": {
+   "decision_code": "NR-263",
+   "defective": false,
+   "eligible": false,
+   "item": "Fold commuter helmet",
+   "price": 72.0,
+   "reason": "safety item, opened",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 80.4
+  },
+  "HC-4549": {
+   "decision_code": "NR-508",
+   "defective": false,
+   "eligible": false,
+   "item": "Lych bar tape",
+   "price": 14.25,
+   "reason": "outside the 19-day return window",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 22.65
+  },
+  "HC-4571": {
+   "decision_code": "NR-342",
+   "defective": false,
+   "eligible": false,
+   "item": "Garth cycling shoes",
+   "price": 118.0,
+   "reason": "worn outdoors",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 126.4
+  },
+  "HC-4593": {
+   "decision_code": "NR-695",
+   "defective": false,
+   "eligible": false,
+   "item": "Thwaite bottle cage",
+   "price": 11.8,
+   "reason": "clearance item",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 20.2
+  },
+  "HC-4618": {
+   "decision_code": "NR-781",
+   "defective": false,
+   "eligible": false,
+   "item": "Reeve track pump",
+   "price": 57.4,
+   "reason": "outside the 19-day return window",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 65.8
+  },
+  "HC-5703": {
+   "decision_code": "OK-520",
+   "defective": true,
+   "eligible": true,
+   "item": "Hythe rear derailleur",
+   "price": 86.2,
+   "reason": "defective: cage bent on arrival",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 94.6
+  },
+  "HC-5727": {
+   "decision_code": "OK-521",
+   "defective": true,
+   "eligible": true,
+   "item": "Stile pedal set",
+   "price": 43.75,
+   "reason": "defective: bearing seized",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 52.15
+  },
+  "HC-5748": {
+   "decision_code": "OK-522",
+   "defective": true,
+   "eligible": true,
+   "item": "Coppice front light",
+   "price": 39.1,
+   "reason": "defective: does not charge",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 47.5
+  },
+  "HC-5762": {
+   "decision_code": "OK-523",
+   "defective": true,
+   "eligible": true,
+   "item": "Wold brake lever",
+   "price": 28.6,
+   "reason": "defective: cracked clamp",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 37.0
+  },
+  "HC-5785": {
+   "decision_code": "OK-524",
+   "defective": true,
+   "eligible": true,
+   "item": "Ginnel bike computer",
+   "price": 74.9,
+   "reason": "defective: screen dead on arrival",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 83.3
+  },
+  "HC-5809": {
+   "decision_code": "OK-525",
+   "defective": true,
+   "eligible": true,
+   "item": "Beck wheel skewer",
+   "price": 16.3,
+   "reason": "defective: thread stripped",
+   "shipping": 8.4,
+   "status": "delivered",
+   "total_paid": 24.7
+  }
+ },
+ "policies": [
+  {
+   "id": "returns",
+   "text": "Harrowgate Cycles returns: unused items can be returned within 19 days of delivery. Items worn outdoors cannot be returned."
+  },
+  {
+   "id": "assembly",
+   "text": "Assembly: a bike bought online is assembled in the workshop for a flat fee of 37 EUR."
+  },
+  {
+   "id": "free_shipping",
+   "text": "Shipping: standard shipping costs 8.40 EUR. Orders of 110 EUR or more ship free within the EU."
+  },
+  {
+   "id": "frame_warranty",
+   "text": "Warranty: frames carry a warranty of 42 months from the date of delivery."
+  },
+  {
+   "id": "service",
+   "text": "Service: the first service is free if it is booked within 11 weeks of purchase."
+  },
+  {
+   "id": "trade_in",
+   "text": "Trade-in: a used bike traded in towards a new one is credited at 23 percent of its original price."
+  },
+  {
+   "id": "gift_cards",
+   "text": "Gift cards: Harrowgate gift cards are valid for 27 months from the date of purchase."
+  },
+  {
+   "id": "storage",
+   "text": "Storage: a repaired bike not collected within 16 days is charged a storage fee per day."
+  }
+ ],
+ "vouchers": {
+  "CHAIN25": {
+   "free_shipping": true,
+   "percent_off": 25
+  },
+  "GEAR08": {
+   "free_shipping": false,
+   "percent_off": 8
+  },
+  "SPOKE12": {
+   "free_shipping": true,
+   "percent_off": 12
+  }
+ }
+}

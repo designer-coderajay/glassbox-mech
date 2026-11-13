@@ -1,0 +1,134 @@
+[
+ {
+  "accepted": [
+   "backordered"
+  ],
+  "id": "a_2104",
+  "kind": "A",
+  "question": "What is the current status of order HC-2104?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "quarantined"
+  ],
+  "id": "a_2137",
+  "kind": "A",
+  "question": "What is the current status of order HC-2137?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "97.30"
+  ],
+  "id": "b_3306",
+  "kind": "B",
+  "question": "How much did the customer pay in total for order HC-3306, including shipping?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "64.15"
+  ],
+  "id": "b_3329",
+  "kind": "B",
+  "question": "How much did the customer pay in total for order HC-3329, including shipping?",
+  "rejected": []
+ },
+ {
+  "accepted": [
+   "NR-417"
+  ],
+  "id": "ci_4502",
+  "kind": "C-inel",
+  "question": "The customer wants a refund for order HC-4502. Give the refund decision code, and the refund amount if one is due.",
+  "rejected": [
+   "33.50",
+   "41.90"
+  ]
+ },
+ {
+  "accepted": [
+   "NR-263"
+  ],
+  "id": "ci_4526",
+  "kind": "C-inel",
+  "question": "The customer wants a refund for order HC-4526. Give the refund decision code, and the refund amount if one is due.",
+  "rejected": [
+   "72.00",
+   "80.40"
+  ]
+ },
+ {
+  "accepted": [
+   "94.60"
+  ],
+  "id": "cd_5703",
+  "kind": "C-def",
+  "question": "Order HC-5703 arrived with a defective item. How much should the customer be refunded?",
+  "rejected": [
+   "86.20"
+  ]
+ },
+ {
+  "accepted": [
+   "52.15"
+  ],
+  "id": "cd_5727",
+  "kind": "C-def",
+  "question": "Order HC-5727 arrived with a defective item. How much should the customer be refunded?",
+  "rejected": [
+   "43.75"
+  ]
+ },
+ {
+  "accepted": [
+   "38.28"
+  ],
+  "id": "d_marlstone",
+  "kind": "D",
+  "question": "Please quote 6 x Marlstone inner tube with voucher SPOKE12. What is the final total?",
+  "rejected": [
+   "51.90",
+   "43.50"
+  ]
+ },
+ {
+  "accepted": [
+   "52.19"
+  ],
+  "id": "d_fellgate",
+  "kind": "D",
+  "question": "Please quote 2 x Fellgate chain with voucher GEAR08. What is the final total?",
+  "rejected": [
+   "56.00",
+   "47.60"
+  ]
+ },
+ {
+  "accepted": [
+   "19"
+  ],
+  "id": "e_1",
+  "kind": "E",
+  "question": "How many days after delivery can an unused item be returned?",
+  "rejected": [
+   "14",
+   "28",
+   "30"
+  ]
+ },
+ {
+  "accepted": [
+   "37"
+  ],
+  "id": "e_2",
+  "kind": "E",
+  "question": "What is the flat fee, in EUR, for workshop assembly of a bike bought online?",
+  "rejected": [
+   "25",
+   "50",
+   "49"
+  ]
+ }
+]

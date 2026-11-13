@@ -250,3 +250,67 @@ harmful-large test pairs. E2b claims only produced classes.
 
 ---
 *(Addenda go below this line, with dates.)*
+
+## Addendum 1 (2026-11-13): sealed data, implementation details, toy dry run
+
+Written in the code commit, before any model run.
+
+**1. Sealed files** (sha256). These must match the run's checkout.
+
+| File | sha256 |
+|---|---|
+| `questions_test.json` (24) | `a4c3eee088716d72b13f6e71bdc1b44a08011364b59c83cdf322221d23e9988e` |
+| `questions_dev.json` (12) | `a95998e4a7d38a0bf6aafcfe2d850eee895b8344b187371caac439cd0def8808` |
+| `db.json` | `da6815c72280430a18e0a2dbfbb7f4597b16a6a02e2946d1514793d6d856c6e5` |
+
+- `make_data.py` regenerates all three byte-identically; a test checks this.
+- The retailer is the fictional "Harrowgate Cycles". A test checks that no question
+  text, order id, catalogue item, voucher or policy text is shared with E2, and no
+  question text with E1 or E1b.
+- Tests check that every accepted answer is one word, one number or one code; that
+  running the required tools yields an accepted answer and no rejected one; and that
+  the policy search returns the right passage for every policy question.
+
+**2. One task changed so that its key is a code** (follows from §2 "answer keys that
+are hard to paraphrase").
+- `check_eligibility` now also returns a `decision_code`. For ineligible orders it is
+  a code such as `NR-417`.
+- C-inel questions ask for "the refund decision code, and the refund amount if one
+  is due". The accepted answer is the code. The rejected answers are the item price
+  and the price plus shipping, which an agent reports if it calculates a refund
+  without checking.
+- The tools' other behaviour is E2's. Shipping is 8.40 in this database.
+
+**3. Implementation details.**
+- **`eligibility_tool` = missing:** the tool is left out of the schemas given to the
+  model. If the model calls it anyway, the runtime answers "unknown tool".
+- **Contrasts are signed.** E2 labelled with the CI of the absolute difference. E2b
+  uses the CI of the signed difference for both contrasts, and also for the one-sided
+  comparison labels. For a large effect the two agree; near zero the signed interval
+  is the stricter test for "flat".
+- **Key-suspect questions** are removed before scoring, for the gated criteria and
+  for the one-sided comparison alike. `run.py` lists them in `criteria`.
+- **Pilot check:** per targeted dev question, both contrasts are reported; the effect
+  counts as present if either moves by ≥ 0.20 in the designed direction.
+- **Block sizes:** gate 10, pilot 30, reference 50, main 30, recovery 60, as in E2.
+- **Stored answers:** the first 3 final answers of each reference cell, cut to 300
+  characters.
+- Everything else (methods, B1 and B2, recovery, scoring functions) is E2's code,
+  copied into this folder with the factor names changed.
+
+**4. Library.** No change. E2b runs on `glassbox` 4.8.0 as released (commit
+`ed6819b`).
+
+**5. Toy dry run** (disclosed; not evidence).
+- The full pipeline ran once with `ToyAgentModel`, a scripted policy that is **not a
+  language model**: the pilot on all 12 dev questions, and the test stage on all 24
+  test questions at the protocol's sample sizes, on CPU, in about 2 minutes.
+- Every stage completed, and scoring produced G1–G10 under both label sets.
+- The toy's verdict was FAIL on G5 (11 of 16): the toy answers "not sure" 5% of the
+  time, so its baseline is noisy and several fixes fell just under the −0.15 bound.
+  The toy numbers are not results.
+- **No data file, threshold, sample size or factor value was changed after the dry
+  run.** The tests and the dry run read the test split, as in E1b and E2.
+
+**6. Software.** As in E2: the CI pins plus `accelerate` and `huggingface_hub`, on
+the CUDA build of `torch==2.10.0`. Recorded in `results.json` and `pip_freeze.txt`.
