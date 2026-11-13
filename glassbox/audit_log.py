@@ -51,6 +51,8 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
+from glassbox.grading import check_status, grade_letter
+
 logger = logging.getLogger(__name__)
 
 __all__ = ["AuditRecord", "AuditLog"]
@@ -267,6 +269,14 @@ class AuditLog:
           - ``GlassboxV2.analyze()``
           - ``POST /v1/audit/analyze`` API response
           - ``POST /v1/audit/black-box`` API response
+          - an Annex IV report JSON (``AnnexIVReport.to_json()``), passed directly
+
+        The grade is taken from the input if it has one. Otherwise it is computed
+        with the same rule as the Annex IV draft
+        (:func:`glassbox.grading.grade_letter`) when sufficiency and
+        comprehensiveness are present, and from F1 alone when only F1 is known.
+        If the input has neither a grade nor faithfulness numbers, the record is
+        still written (grade D) and a warning is logged.
 
         Parameters
         ----------
@@ -277,6 +287,8 @@ class AuditLog:
         faith  = result.get("faithfulness") or {}
         meta   = result.get("metadata") or {}           # GlassboxV2.analyze() output
         report = result.get("full_report") or {}
+        if not report and isinstance(result.get("sections"), dict):
+            report = result  # an Annex IV report JSON passed directly
         s1 = (report.get("sections") or {}).get("1_general_description") or {}
         s2 = (report.get("sections") or {}).get("2_development_design") or {}
         s3 = (report.get("sections") or {}).get("3_monitoring_control") or {}
@@ -290,10 +302,20 @@ class AuditLog:
             grade = grade_raw[0].upper()
         else:
             f1 = float(faith.get("f1") or s3.get("f1_score") or 0.0)
-            if   f1 >= 0.80: grade = "A"
+            suff, comp = faith.get("sufficiency"), faith.get("comprehensiveness")
+            if suff is not None and comp is not None:
+                grade = grade_letter(float(suff), float(comp), f1)
+            elif f1 >= 0.80: grade = "A"
             elif f1 >= 0.65: grade = "B"
             elif f1 >= 0.50: grade = "C"
             else:            grade = "D"
+            if not faith and not s3:
+                logger.warning(
+                    "append_from_result: input has no grade or faithfulness numbers "
+                    "(keys: %s); recording grade D. Pass an analyze() result, an API "
+                    "response or an Annex IV report JSON.",
+                    sorted(result)[:8],
+                )
 
         # ── model_name ────────────────────────────────────────────────────────
         # GlassboxV2.analyze() returns metadata.model_name; REST API returns
@@ -303,6 +325,7 @@ class AuditLog:
             or result.get("target_model")
             or meta.get("model_name")
             or s1.get("model_name")
+            or s1.get("system_name")  # the key the Annex IV draft uses
             or "unknown"
         )
 
@@ -329,10 +352,14 @@ class AuditLog:
         # Derive from grade when not explicitly provided.
         raw_status = result.get("compliance_status") or report.get("compliance_status") or ""
         if not raw_status:
-            raw_status = (
-                "checks_passed_with_gaps" if grade in ("A", "B")
-                else "checks_failed"
-            )
+            f1_known = faith.get("f1") or s3.get("f1_score")
+            if f1_known:
+                raw_status = check_status(float(f1_known))  # the report's rule
+            else:
+                raw_status = (
+                    "checks_passed_with_gaps" if grade in ("A", "B")
+                    else "checks_failed"
+                )
 
         return self.append(
             model_name=model_name,

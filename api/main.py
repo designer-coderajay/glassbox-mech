@@ -158,6 +158,18 @@ class AuditResponse(BaseModel):
     elapsed_seconds:    float
 
 
+try:  # one definition of the async-job lifecycle (api/jobs.py)
+    from api.jobs import TERMINAL, JobStatus, advance, job_view, new_job, set_progress
+except ImportError:  # started from inside api/ (e.g. `uvicorn main:app`)
+    from jobs import (  # type: ignore[no-redef]
+        TERMINAL,
+        JobStatus,
+        advance,
+        job_view,
+        new_job,
+        set_progress,
+    )
+
 # ---------------------------------------------------------------------------
 # In-memory report store (replace with Redis/DB in production)
 # ---------------------------------------------------------------------------
@@ -411,7 +423,7 @@ def create_app() -> "FastAPI":
                     "percent": job.get("percent", 0),
                     "message": job.get("message", "Processing..."),
                 })
-                if job["status"] in ("completed", "failed"):
+                if JobStatus(job["status"]) in TERMINAL:
                     await websocket.send_json({
                         "type": job["status"],
                         "report_id": job.get("report_id"),
@@ -688,20 +700,16 @@ def create_app() -> "FastAPI":
         Returns: {"job_id": "...", "status_url": "/v1/jobs/{job_id}"}
         """
         job_id = uuid.uuid4().hex[:10].upper()
-        _JOB_STORE[job_id] = {
-            "status":     "queued",
-            "report_id":  None,
-            "error":      None,
-            "created_at": time.time(),
-        }
+        _JOB_STORE[job_id] = new_job(time.time())
 
         def _run_job():
-            _JOB_STORE[job_id].update({"status": "running", "percent": 0, "message": "Initializing audit..."})
+            job = _JOB_STORE[job_id]
+            advance(job, JobStatus.RUNNING, percent=0, message="Initializing audit...")
             try:
                 from glassbox.audit import BlackBoxAuditor, ModelProvider
                 from glassbox.compliance import AnnexIVReport
 
-                _JOB_STORE[job_id].update({"percent": 15, "message": f"Loading {req.target_model}..."})
+                set_progress(job, 15, f"Loading {req.target_model}...")
                 provider = ModelProvider(req.target_provider)
                 auditor  = BlackBoxAuditor(
                     model_provider=provider,
@@ -709,7 +717,7 @@ def create_app() -> "FastAPI":
                     api_key=x_provider_api_key,
                 )
                 logger.info("[JOB:%s] black-box audit: %s/%s", job_id, req.target_provider, req.target_model)
-                _JOB_STORE[job_id].update({"percent": 35, "message": "Running sensitivity analysis..."})
+                set_progress(job, 35, "Running sensitivity analysis...")
                 result = auditor.audit(
                     decision_prompt    =req.decision_prompt,
                     expected_positive  =req.expected_positive,
@@ -718,7 +726,7 @@ def create_app() -> "FastAPI":
                     n_rephrases        =req.n_rephrases,
                     n_sensitivity_steps=req.n_sensitivity_steps,
                 )
-                _JOB_STORE[job_id].update({"percent": 65, "message": "Generating Annex IV report..."})
+                set_progress(job, 65, "Generating Annex IV report...")
                 ctx   = _parse_context(req.deployment_context)
                 annex = AnnexIVReport(
                     model_name         =req.target_model,
@@ -730,7 +738,7 @@ def create_app() -> "FastAPI":
                 annex.add_analysis(result, use_case=req.use_case)
                 json_report = annex.to_json()
                 report_id   = uuid.uuid4().hex[:8].upper()
-                _JOB_STORE[job_id].update({"percent": 85, "message": "Finalizing report..."})
+                set_progress(job, 85, "Finalizing report...")
                 _REPORT_STORE[report_id] = {
                     "json":       json_report,
                     "mode":       "black_box_async",
@@ -742,12 +750,14 @@ def create_app() -> "FastAPI":
                         pdf_path = Path(tmp.name)
                     annex.to_pdf(str(pdf_path))
                     _PDF_STORE[report_id] = pdf_path
-                _JOB_STORE[job_id].update({"status": "completed", "report_id": report_id, "percent": 100, "message": "Complete!"})
-                _fire_webhooks("job.completed", {"job_id": job_id, "report_id": report_id, "status": "completed"})
+                advance(job, JobStatus.COMPLETED, report_id=report_id, message="Complete!")
             except Exception as exc:
                 logger.error("[JOB:%s] failed: %s", job_id, exc)
-                _JOB_STORE[job_id].update({"status": "failed", "error": str(exc)[:300], "percent": 0})
+                advance(job, JobStatus.FAILED, error=str(exc)[:300], percent=0, message="Failed")
                 _fire_webhooks("job.failed", {"job_id": job_id, "error": str(exc)[:300], "status": "failed"})
+                return
+            # Outside the try: a webhook error must not turn a completed job into a failed one.
+            _fire_webhooks("job.completed", {"job_id": job_id, "report_id": report_id, "status": "completed"})
 
         background_tasks.add_task(_run_job)
         return {
@@ -764,23 +774,15 @@ def create_app() -> "FastAPI":
 
         Returns one of: queued | running | completed | failed
         When completed, includes report_id for use with GET /v1/audit/report/{id}
+
+        Also returns ``percent`` and ``message`` (progress), ``terminal`` (true once
+        the job is completed or failed, so a client can stop polling) and ``next``
+        (``poll``, ``fetch_report`` or ``none``).
         """
         if job_id not in _JOB_STORE:
             raise HTTPException(status_code=404, detail=f"Job {job_id} not found")
         job = _JOB_STORE[job_id]
-        resp = {
-            "job_id":     job_id,
-            "status":     job["status"],
-            "created_at": job["created_at"],
-            "elapsed":    round(time.time() - job["created_at"], 1),
-        }
-        if job["status"] == "completed":
-            resp["report_id"]    = job["report_id"]
-            resp["report_url"]   = f"/v1/audit/report/{job['report_id']}"
-            resp["pdf_url"]      = f"/v1/audit/pdf/{job['report_id']}" if job["report_id"] in _PDF_STORE else None
-        if job["status"] == "failed":
-            resp["error"] = job["error"]
-        return resp
+        return job_view(job_id, job, time.time(), has_pdf=job.get("report_id") in _PDF_STORE)
 
     @app.get("/v1/jobs")
     def list_jobs():

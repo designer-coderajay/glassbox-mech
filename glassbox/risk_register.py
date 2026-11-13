@@ -47,6 +47,7 @@ __all__ = ["RiskEntry", "RiskRegister"]
 
 RiskStatus   = Literal["open", "mitigated", "accepted", "escalated"]
 RiskSeverity = Literal["critical", "high", "medium", "low", "info"]
+RISK_STATUSES = ("open", "mitigated", "accepted", "escalated")
 
 _SEVERITY_ORDER = {"critical": 0, "high": 1, "medium": 2, "low": 3, "info": 4}
 
@@ -67,6 +68,10 @@ class RiskEntry:
     last_seen       : ISO timestamp of most recent detection
     occurrences     : how many audits have surfaced this risk
     notes           : optional free-text notes (mitigation steps, decisions)
+    history         : status changes, oldest first; each is
+                      ``{"at", "from", "to", "notes"}``. Any status may follow any
+                      other (a mitigated risk can be reopened); the history records
+                      what happened, it does not restrict it.
     """
 
     def __init__(
@@ -81,6 +86,7 @@ class RiskEntry:
         last_seen:    Optional[str]          = None,
         occurrences:  int                    = 1,
         notes:        Optional[str]          = None,
+        history:      Optional[List[Dict[str, str]]] = None,
     ) -> None:
         now = datetime.now(timezone.utc).isoformat()
         self.risk_id     = risk_id    or str(uuid.uuid4())[:12]
@@ -93,6 +99,7 @@ class RiskEntry:
         self.last_seen   = last_seen  or now
         self.occurrences = occurrences
         self.notes       = notes or ""
+        self.history: List[Dict[str, str]] = list(history or [])
 
     # ── Serialisation ──────────────────────────────────────────────────────────
 
@@ -108,6 +115,7 @@ class RiskEntry:
             "last_seen":   self.last_seen,
             "occurrences": self.occurrences,
             "notes":       self.notes,
+            "history":     [dict(h) for h in self.history],
         }
 
     @classmethod
@@ -123,6 +131,7 @@ class RiskEntry:
             last_seen   = d.get("last_seen"),
             occurrences = d.get("occurrences", 1),
             notes       = d.get("notes", ""),
+            history     = d.get("history"),
         )
 
     def __repr__(self) -> str:
@@ -327,11 +336,28 @@ class RiskRegister:
         status  : new status (open | mitigated | accepted | escalated)
         notes   : optional note to append (e.g. 'Retrained with more data')
 
+        Every change of status is appended to ``entry.history``. Setting the status
+        it already has is not a change (the note is still appended).
+
+        A status outside ``RISK_STATUSES`` is still accepted, as before, but a
+        warning is logged.
+
         Raises ValueError if risk_id not found.
         """
         entry = self._risks.get(risk_id)
         if entry is None:
             raise ValueError(f"RiskRegister: risk_id {risk_id!r} not found")
+        if status not in RISK_STATUSES:
+            logger.warning(
+                "RiskRegister: %r is not a known status %s", status, RISK_STATUSES
+            )
+        if status != entry.status:
+            entry.history.append({
+                "at":    datetime.now(timezone.utc).isoformat(),
+                "from":  entry.status,
+                "to":    status,
+                "notes": notes,
+            })
         entry.status = status
         if notes:
             ts    = datetime.now(timezone.utc).strftime("%Y-%m-%d")

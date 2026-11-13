@@ -8,11 +8,57 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+- **`glassbox.grading` (MIT): one grade rule and one status vocabulary.**
+  `grade_letter(suff, comp, f1)`, `check_status(f1)` and `normalize_status(value)`.
+  The Annex IV draft, the audit log, telemetry, MLflow, the Hugging Face model card
+  and the MCP servers now all use it, so one analysis gets one grade and one status
+  everywhere. `normalize_status()` also reads the evidence vault's upper-case values
+  and the old MLflow / Hugging Face values.
+  - **Licence note (owner's decision, 2026-11-13):** the grade thresholds moved from
+    `glassbox/compliance.py` (BSL 1.1) into this MIT module.
+- **MLflow and Hugging Face:** a new `explainability_grade` (A–D) next to the existing
+  sufficiency band. Slack and Teams audit messages show it too.
+- **Risk register:** every status change is kept in `RiskEntry.history` (`at`, `from`,
+  `to`, `notes`). Any status may still follow any other. Old files load unchanged.
+- **API jobs:** `GET /v1/jobs/{id}` also returns `percent`, `message`, `terminal` and
+  `next` (`poll`, `fetch_report` or `none`). The earlier fields are unchanged. The job
+  lifecycle is defined once in `api/jobs.py`.
+
+### Changed
+- **MLflow tags and the Hugging Face model card use the report's status rule.** They
+  wrote `CHECKS_PASSED` whenever sufficiency was at least 0.75, even when the Annex IV
+  draft for the same analysis said checks failed (for example sufficiency 0.80,
+  comprehensiveness 0.10). They now write `checks_passed_with_gaps`, `incomplete` or
+  `checks_failed`. `NEEDS_REVIEW` is no longer written; `normalize_status()` reads it
+  as `incomplete`.
+- **Hugging Face model card wording:** the row "Compliance Grade" is replaced by
+  "Explainability grade (Glassbox)" and "Check status (Glassbox)", and the text says
+  the numbers are not a determination of compliance.
+- **Audit log:** when the input has F1 but no status, the status follows the report's
+  rule. A grade-C analysis is now `incomplete`, not `checks_failed`.
+- **Annex IV section 7:** "Glassbox Mechanistic Interpretability Standard v4.2.6" is
+  now "Glassbox methodology, version X (not a harmonised standard)".
+
 ### Fixed
+- **Outputs carried a hardcoded "4.2.6".** The model card, MLflow tags, Slack and
+  Teams messages, report footers and the OpenTelemetry tracer now use the installed
+  version. A test guards against hardcoded versions.
+- **API:** a webhook error after a job completed could mark the job failed. A job can
+  no longer leave `completed` or `failed`.
 - **CI:** the "Test + coverage" job had failed at the licence audit since 4.6.1, so its
   test step was skipped. Released test counts came from full local runs. CI now
   installs the CPU-only torch wheel and runs the audit after the tests. See
   `docs/SUPPLY_CHAIN.md` §2.
+- **Audit log grade now matches the Annex IV draft.** `AuditLog.append_from_result()`
+  graded a raw `analyze()` result from F1 alone, so it could record grade A where the
+  report for the same analysis says B (for example sufficiency 0.75,
+  comprehensiveness 1.00). It now uses the report's rule
+  (`glassbox.grading.grade_letter()`). Results that carry only F1 keep the
+  F1-only fallback, and an explicit grade in the input still wins.
+- **Audit log accepts an Annex IV report JSON passed directly.** It was not recognised
+  and was logged as grade D, model "unknown". Input with neither a grade nor
+  faithfulness numbers is still recorded, with a warning.
 - **CI MCP check:** the MCP servers' test-suite string had lost the "v" before the
   version, which failed the check from 4.6.1; restored, with a test.
 

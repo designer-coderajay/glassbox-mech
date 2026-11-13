@@ -100,6 +100,9 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 from xml.sax.saxutils import escape as _xml_escape  # Paragraph markup is untrusted input
 
+from glassbox import grading as _grading
+from glassbox._meta import package_version
+
 logger = logging.getLogger(__name__)
 
 
@@ -123,6 +126,7 @@ __all__ = [
     "RiskClassification",
     "ExplainabilityGrade",
     "ComplianceStatus",
+    "explainability_grade",
 ]
 
 # ---------------------------------------------------------------------------
@@ -181,6 +185,8 @@ class ComplianceStatus(str, Enum):
     ``checks_failed``). The old member names are aliases and the old values are still
     accepted by ``ComplianceStatus(value)`` until 4.8.0.
     """
+    # Not produced from an analysis: provider-only fields are always still needed
+    # (see glassbox.grading). Kept for documentation whose provider fields are complete.
     CHECKS_PASSED           = "checks_passed"            # Glassbox checks passed
     CHECKS_PASSED_WITH_GAPS = "checks_passed_with_gaps"  # passed; provider fields still needed
     INCOMPLETE              = "incomplete"               # not enough evidence to check
@@ -193,7 +199,7 @@ class ComplianceStatus(str, Enum):
 
     @classmethod
     def _missing_(cls, value: object) -> Optional["ComplianceStatus"]:
-        new = _OLD_STATUS_VALUES.get(str(value))
+        new = _grading.STATUS_ALIASES.get(str(value))
         return cls(new) if new else None
 
 
@@ -211,8 +217,13 @@ STATUS_NOTE = (
 
 
 def normalize_status(value: str) -> str:
-    """Map a pre-4.7.0 status value to its 4.7.0 name; other values unchanged."""
-    return _OLD_STATUS_VALUES.get(value, value)
+    """Map any status spelling Glassbox has written to its canonical value.
+
+    Covers pre-4.7.0 values, the evidence vault's upper-case values and the values the
+    MLflow and Hugging Face integrations wrote up to 4.7.0. Other values are returned
+    unchanged. Same as :func:`glassbox.grading.normalize_status`.
+    """
+    return _grading.normalize_status(value)
 
 
 # ---------------------------------------------------------------------------
@@ -460,12 +471,13 @@ class AnnexIVReport:
     """
 
     # Article 13 transparency thresholds — derived from faithfulness metrics
-    _GRADE_A_THRESHOLD = (0.80, 0.60, 0.80)   # (min_suff, min_comp, min_f1)
-    _GRADE_B_THRESHOLD = (0.65, 0.40, 0.65)
-    _GRADE_C_THRESHOLD = (0.40, 0.20, 0.50)
+    # The rule lives in glassbox.grading (MIT); these names are kept for callers.
+    _GRADE_A_THRESHOLD = _grading.GRADE_A_MIN   # (min_suff, min_comp, min_f1)
+    _GRADE_B_THRESHOLD = _grading.GRADE_B_MIN
+    _GRADE_C_THRESHOLD = (0.40, 0.20, _grading.GRADE_C_MIN_F1)
 
     # Risk flag thresholds
-    _FAITHFULNESS_RISK_F1_THRESHOLD = 0.50
+    _FAITHFULNESS_RISK_F1_THRESHOLD = _grading.CHECK_FAIL_BELOW_F1
     _CIRCUIT_CONCENTRATION_MIN_HEADS = 3
 
     def __init__(
@@ -1076,7 +1088,7 @@ performance. F1 is the harmonic mean of both.
             common_specifications_used = ["[PROVIDER TO COMPLETE — EU common specifications if applicable under Article 41]"],
             other_technical_specs      = [
                 "EU AI Act (EU 2024/1689) — Annex IV",
-                "Glassbox Mechanistic Interpretability Standard v4.2.6",
+                f"Glassbox methodology, version {package_version()} (not a harmonised standard)",
             ],
         )
 
@@ -1762,16 +1774,7 @@ performance. F1 is the harmonic mean of both.
     # ------------------------------------------------------------------
 
     def _compute_grade(self, suff: float, comp: float, f1: float) -> ExplainabilityGrade:
-        ms, mc, mf = self._GRADE_A_THRESHOLD
-        if suff >= ms and comp >= mc and f1 >= mf:
-            return ExplainabilityGrade.GRADE_A
-        ms, mc, mf = self._GRADE_B_THRESHOLD
-        if suff >= ms and comp >= mc and f1 >= mf:
-            return ExplainabilityGrade.GRADE_B
-        ms, mc, mf = self._GRADE_C_THRESHOLD
-        if f1 >= mf:
-            return ExplainabilityGrade.GRADE_C
-        return ExplainabilityGrade.GRADE_D
+        return explainability_grade(suff, comp, f1)
 
     def _grade_rationale(
         self,
@@ -1822,12 +1825,8 @@ performance. F1 is the harmonic mean of both.
     def _compute_compliance_status(self) -> ComplianceStatus:
         if not self._s3:
             return ComplianceStatus.INCOMPLETE
-        f1 = self._s3.f1_score
-        if f1 >= self._GRADE_B_THRESHOLD[2]:
-            return ComplianceStatus.CHECKS_PASSED_WITH_GAPS  # provider fields still needed
-        if f1 < self._FAITHFULNESS_RISK_F1_THRESHOLD:
-            return ComplianceStatus.CHECKS_FAILED
-        return ComplianceStatus.INCOMPLETE
+        # Never CHECKS_PASSED: provider-only fields are always still needed.
+        return ComplianceStatus(_grading.check_status(self._s3.f1_score))
 
     def _infer_affected_persons(self) -> str:
         mapping = {
@@ -1932,3 +1931,26 @@ performance. F1 is the harmonic mean of both.
         recs.append("Register system in EU AI Act database (Article 71) if applicable to deployment context")
         recs.append("Set Glassbox re-audit schedule: every 6 months or on any model weight/architecture update")
         return recs
+
+
+
+def explainability_grade(suff: float, comp: float, f1: float) -> ExplainabilityGrade:
+    """Explainability grade as the report's enum; the rule is ``glassbox.grading``.
+
+    Args:
+        suff: Sufficiency of the circuit.
+        comp: Comprehensiveness of the circuit.
+        f1: Faithfulness F1.
+
+    Returns:
+        ``GRADE_A`` to ``GRADE_D`` (never ``NOT_ASSESSED``).
+    """
+    return _GRADE_BY_LETTER[_grading.grade_letter(suff, comp, f1)]
+
+
+_GRADE_BY_LETTER: Dict[str, ExplainabilityGrade] = {
+    "A": ExplainabilityGrade.GRADE_A,
+    "B": ExplainabilityGrade.GRADE_B,
+    "C": ExplainabilityGrade.GRADE_C,
+    "D": ExplainabilityGrade.GRADE_D,
+}

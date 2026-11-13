@@ -83,7 +83,8 @@ def test_integrations_do_not_tag_compliant(module):
 
     src = inspect.getsource(importlib.import_module(module))
     assert '"COMPLIANT"' not in src
-    assert '"CHECKS_PASSED"' in src
+    # From 4.8.0 the status comes from the report's rule (glassbox.grading).
+    assert "check_status(" in src
 
 
 def test_bias_markdown_does_not_say_compliant():

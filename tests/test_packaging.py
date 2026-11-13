@@ -91,3 +91,33 @@ def test_mcp_servers_carry_the_current_version_string():
         text = (root / rel).read_text()
         assert f"glassbox-mech-interp v{version}" in text, rel
         assert not re.search(r"glassbox-mech-interp \d", text), rel
+
+
+def test_outputs_never_hardcode_a_glassbox_version():
+    """Outputs name the version through ``glassbox._meta.package_version()``.
+
+    Up to 4.7.0 several outputs (model card, MLflow tags, Slack and Teams messages,
+    report footers, the OTel tracer) carried a hardcoded "4.2.6".
+    """
+    import re
+
+    pattern = re.compile(
+        r"Glassbox(?: AI| CircuitDiff)? v\d+\.\d+|"
+        r"\"glassbox[_.]version\":\s*\"\d|"
+        r"get_tracer\(\"glassbox\", \"\d|"
+        r"Standard v\d"
+    )
+    root = Path(__file__).resolve().parent.parent / "glassbox"
+    for name in (
+        "explain", "multiagent", "notify", "telemetry", "hf_integration",
+        "mlflow_integration", "compliance", "evidence_vault", "audit_log", "bias",
+    ):
+        src = (root / f"{name}.py").read_text(encoding="utf-8")
+        assert not pattern.search(src), name
+
+
+def test_package_version_helper_matches_dunder_version():
+    import glassbox
+    from glassbox._meta import package_version
+
+    assert package_version() == glassbox.__version__

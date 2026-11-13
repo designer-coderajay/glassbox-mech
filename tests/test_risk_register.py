@@ -491,3 +491,63 @@ class TestIngestAnnexReport:
         annex = self._MockAnnex(f1=0.28)
         result = rr.ingest_annex_report(annex)
         assert isinstance(result, list)
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Status history (additive, from 4.8.0)
+# ──────────────────────────────────────────────────────────────────────────────
+
+class TestStatusHistory:
+
+    def _entry(self, rr):
+        return rr.add("Low F1", model_name="m", severity="high")
+
+    def test_new_entry_has_empty_history(self, tmp_path):
+        rr = RiskRegister(str(tmp_path / "r.json"))
+        e = self._entry(rr)
+        assert e.history == []
+        assert e.to_dict()["history"] == []
+
+    def test_every_status_change_is_recorded_in_order(self, tmp_path):
+        rr = RiskRegister(str(tmp_path / "r.json"))
+        e = self._entry(rr)
+        rr.set_status(e.risk_id, "mitigated", notes="retrained")
+        rr.set_status(e.risk_id, "open")  # reopening stays allowed
+        rr.set_status(e.risk_id, "escalated")
+        steps = [(h["from"], h["to"]) for h in e.history]
+        assert steps == [
+            ("open", "mitigated"), ("mitigated", "open"), ("open", "escalated")
+        ]
+        assert e.history[0]["notes"] == "retrained"
+        assert all(h["at"].endswith("+00:00") for h in e.history)
+        assert e.status == "escalated"
+
+    def test_setting_the_same_status_is_not_a_transition(self, tmp_path):
+        rr = RiskRegister(str(tmp_path / "r.json"))
+        e = self._entry(rr)
+        rr.set_status(e.risk_id, "open", notes="still open")
+        assert e.history == []
+        assert "still open" in e.notes  # the note is still kept
+
+    def test_history_survives_save_and_load(self, tmp_path):
+        path = str(tmp_path / "r.json")
+        rr = RiskRegister(path)
+        e = self._entry(rr)
+        rr.set_status(e.risk_id, "accepted", notes="CISO")
+        again = RiskRegister(path).get(e.risk_id)
+        assert [(h["from"], h["to"]) for h in again.history] == [("open", "accepted")]
+
+    def test_old_files_without_history_still_load(self):
+        e = RiskEntry.from_dict({"description": "old", "status": "mitigated"})
+        assert e.history == [] and e.status == "mitigated"
+
+    def test_unknown_status_is_kept_but_warned(self, tmp_path, caplog):
+        import logging
+
+        rr = RiskRegister(str(tmp_path / "r.json"))
+        e = self._entry(rr)
+        with caplog.at_level(logging.WARNING, logger="glassbox.risk_register"):
+            rr.set_status(e.risk_id, "closed")  # accepted before 4.8.0; still is
+        assert e.status == "closed"
+        assert "not a known status" in caplog.text
+        assert [(h["from"], h["to"]) for h in e.history] == [("open", "closed")]

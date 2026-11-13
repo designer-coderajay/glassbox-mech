@@ -66,6 +66,9 @@ import textwrap
 import time
 from typing import Any, Dict, List, Optional
 
+from glassbox._meta import package_version
+from glassbox.grading import GRADE_LABELS, check_status, grade_letter
+
 # ---------------------------------------------------------------------------
 # Lazy imports — huggingface_hub is optional (not a hard dependency)
 # ---------------------------------------------------------------------------
@@ -361,9 +364,11 @@ class HuggingFaceModelCard:
         elif suff >= 0.75: badge = "✅ Good"
         elif suff >= 0.50: badge = "⚠️ Marginal"
         else: badge = "❌ Poor"
+        letter = grade_letter(suff, comp, f1)
+        status = check_status(f1)
 
         metadata: Dict[str, Any] = {
-            "glassbox_version":     "4.2.6",
+            "glassbox_version":     package_version(),
             "audit_timestamp_utc":  time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             "auditor":              auditor or "automated",
             "model_repo_id":        self.repo_id,
@@ -372,7 +377,9 @@ class HuggingFaceModelCard:
             "faithfulness_f1":      round(f1, 4),
             "faithfulness_category": cat,
             "circuit_n_heads":      n_heads,
-            "compliance_status":    "CHECKS_PASSED" if suff >= 0.75 else "NEEDS_REVIEW",
+            # Same rule as the Annex IV draft (glassbox.grading); not a verdict.
+            "compliance_status":    status,
+            "explainability_grade": letter,
             "regulation":           "Regulation (EU) 2024/1689 — AI Act Annex IV",
             "annex_iv_report_url":  annex_iv_url or "",
         }
@@ -383,8 +390,9 @@ class HuggingFaceModelCard:
         section = textwrap.dedent(f"""
             {_COMPLIANCE_SECTION_HEADER}
 
-            This model has been audited using [Glassbox AI](https://github.com/designer-coderajay/glassbox-mech) v4.2.6
-            for mechanistic interpretability and EU AI Act Annex IV compliance.
+            This model has been audited using [Glassbox AI](https://github.com/designer-coderajay/glassbox-mech) v{package_version()}
+            for mechanistic interpretability. The numbers below are Glassbox's own
+            measurements; they are not a determination of compliance with the EU AI Act.
 
             | Metric | Value |
             |---|---|
@@ -393,7 +401,9 @@ class HuggingFaceModelCard:
             | Faithfulness F1 | {f1:.1%} |
             | Circuit Size | {n_heads} heads |
             | Behaviour Category | {cat.replace('_', ' ').title()} |
-            | **Compliance Grade** | **{badge}** |
+            | Sufficiency band | {badge} |
+            | **Explainability grade (Glassbox)** | **{letter} — {GRADE_LABELS[letter]}** |
+            | **Check status (Glassbox)** | **{status.replace('_', ' ')}** |
 
             **Regulation**: Regulation (EU) 2024/1689 — AI Act, Annex IV
             **Articles covered**: Art. 9 (Risk), Art. 11 (Documentation), Art. 13 (Transparency), Art. 15 (Accuracy), Art. 72 (Monitoring){url_line}{auditor_line}

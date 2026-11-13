@@ -15,7 +15,7 @@ Package: glassbox-mech-interp on PyPI
 import asyncio
 import json
 import logging
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from mcp.server.fastmcp import FastMCP
 from pydantic import BaseModel, ConfigDict, Field, field_validator
@@ -253,7 +253,11 @@ def _blocking_circuit_discovery(params: CircuitAnalysisInput) -> str:
                 "comprehensiveness": round(results["faithfulness"]["comprehensiveness"], 4),
                 "f1_score": round(results["faithfulness"]["f1"], 4),
             },
-            "compliance_grade": _compute_grade(results["faithfulness"]["f1"]),
+            "compliance_grade": _compute_grade(
+                results["faithfulness"]["f1"],
+                results["faithfulness"]["sufficiency"],
+                results["faithfulness"]["comprehensiveness"],
+            ),
         }
         return json.dumps(output, indent=2)
 
@@ -342,7 +346,7 @@ async def glassbox_faithfulness_metrics(params: FaithfulnessInput) -> str:
     else:
         f1 = 2 * suff * comp / (suff + comp)
 
-    grade = _compute_grade(f1)
+    grade = _compute_grade(f1, suff, comp)
 
     interpretation = _interpret_faithfulness(suff, comp, f1)
 
@@ -684,8 +688,23 @@ async def glassbox_logit_lens(params: LogitLensInput) -> str:
 # Helpers
 # ---------------------------------------------------------------------------
 
-def _compute_grade(f1_score: float) -> str:
-    """Compute compliance grade from faithfulness F1 (NOT from confidence)."""
+def _compute_grade(
+    f1_score: float, suff: Optional[float] = None, comp: Optional[float] = None
+) -> str:
+    """Explainability grade from the faithfulness metrics (NOT from confidence).
+
+    With sufficiency and comprehensiveness, this is the library's one grading rule
+    (``glassbox.grading``), so the grade matches the Annex IV draft and the audit
+    log. With F1 alone (or an older glassbox without ``grading``), it falls back to
+    the F1-only bands.
+    """
+    if suff is not None and comp is not None:
+        try:
+            from glassbox.grading import grade_letter
+
+            return grade_letter(suff, comp, f1_score)
+        except ImportError:  # glassbox < 4.8.0
+            pass
     if f1_score >= 0.80:
         return "A"
     elif f1_score >= 0.65:

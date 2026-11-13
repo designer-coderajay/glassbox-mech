@@ -49,6 +49,9 @@ import tempfile
 import time
 from typing import Any, Dict, List, Optional
 
+from glassbox._meta import package_version
+from glassbox.grading import check_status, grade_letter
+
 # ---------------------------------------------------------------------------
 # Lazy import helper
 # ---------------------------------------------------------------------------
@@ -167,9 +170,10 @@ def log_glassbox_run(
     mlflow.log_metrics(metrics, step=step)
 
     # ── Parameters ─────────────────────────────────────────────────────────
-    compliance_status = "CHECKS_PASSED" if suff >= 0.75 else "NEEDS_REVIEW"
+    # Same rule as the Annex IV draft (glassbox.grading); not a compliance verdict.
+    compliance_status = check_status(f1)
     params: Dict[str, str] = {
-        "glassbox.version": "4.2.6",
+        "glassbox.version": package_version(),
         "glassbox.behaviour_category":  cat,
         "glassbox.compliance_status":   compliance_status,
         "glassbox.regulation":          "EU-AI-Act-AnnexIV",
@@ -192,7 +196,8 @@ def log_glassbox_run(
     # ── Tags ───────────────────────────────────────────────────────────────
     run_tags: Dict[str, str] = {
         "glassbox.compliance_status": compliance_status,
-        "glassbox.faithfulness_grade": _grade(suff),
+        "glassbox.faithfulness_grade": _grade(suff),  # sufficiency band only
+        "glassbox.explainability_grade": grade_letter(suff, comp, f1),
     }
     if tags:
         run_tags.update(tags)
@@ -238,16 +243,20 @@ def register_compliance_artifact(
 
     faith  = result.get("faithfulness", {})
     suff   = faith.get("sufficiency", 0.0)
-    status = "CHECKS_PASSED" if suff >= 0.75 else "NEEDS_REVIEW"
+    comp   = faith.get("comprehensiveness", 0.0)
+    f1     = faith.get("f1", 0.0)
+    # Same rule as the Annex IV draft (glassbox.grading); not a compliance verdict.
+    status = check_status(f1)
 
     # Log JSON artifact to the run
     payload = {
-        "glassbox_version": "4.2.6",
+        "glassbox_version": package_version(),
         "audit_timestamp":  time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "model_name":       model_name or "",
         "faithfulness":     result.get("faithfulness", {}),
         "circuit_n_heads":  result.get("n_heads", 0),
         "compliance_status": status,
+        "explainability_grade": grade_letter(suff, comp, f1),
         "regulation":       "Regulation (EU) 2024/1689 — AI Act Annex IV",
     }
     with tempfile.TemporaryDirectory() as tmpdir:

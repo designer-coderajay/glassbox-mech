@@ -74,6 +74,8 @@ import os
 import time
 from typing import Any, Callable, Dict, Optional
 
+from glassbox._meta import package_version
+
 logger = logging.getLogger(__name__)
 
 __all__ = [
@@ -247,7 +249,7 @@ def setup_telemetry(
             )
         )
         trace.set_tracer_provider(provider)
-        _tracer = trace.get_tracer("glassbox", "4.2.6")
+        _tracer = trace.get_tracer("glassbox", package_version())
         _config = TelemetryConfig(
             service_name       = resolved_service,
             endpoint           = resolved_endpoint,
@@ -415,8 +417,13 @@ def instrument_glassbox(gb) -> None:
             span.set_attribute("glassbox.circuit_heads", result.get("n_heads", 0))
             span.set_attribute("glassbox.duration_ms",  round(elapsed * 1000, 1))
 
-            f1 = faith.get("f1", 0.0)
-            grade = "A" if f1 >= 0.80 else "B" if f1 >= 0.65 else "C" if f1 >= 0.50 else "D"
+            from glassbox.grading import grade_letter
+
+            grade = grade_letter(
+                faith.get("sufficiency", 0.0),
+                faith.get("comprehensiveness", 0.0),
+                faith.get("f1", 0.0),
+            )
             span.set_attribute("glassbox.grade", grade)
 
         return result

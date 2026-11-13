@@ -47,7 +47,9 @@ EXAMPLE_LABELS: List[str] = [
     "Greater-than (years)",
 ]
 
-# Thresholds mirror glassbox.compliance._GRADE_*_THRESHOLD: (min_suff, min_comp, min_f1).
+# Thresholds mirror glassbox.grading (min_suff, min_comp, min_f1). They are copied, not
+# imported, to keep this module free of heavy imports; tests/test_grading.py checks
+# that both give the same grade and label.
 _GRADE_RULES: Sequence[Tuple[str, str, Tuple[float, float, float]]] = (
     ("A", "Fully explainable", (0.80, 0.60, 0.80)),
     ("B", "Substantially explainable", (0.65, 0.40, 0.65)),
