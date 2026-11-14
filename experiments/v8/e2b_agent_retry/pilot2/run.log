@@ -1,0 +1,4 @@
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 87.98it/s]
+2026-11-14 08:53:29,642 gate Qwen/Qwen2.5-7B-Instruct: {'accuracy': 0.8333, 'parse_rate': 0.9948}
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 88.26it/s]
+overall: PILOT (not scored)

@@ -400,3 +400,75 @@ candidate text of two factors changed, in `system.py`.
   thresholds, sample sizes and criteria are unchanged.
 - One test was added (`test_addendum2_revised_wording`); the COLAB.md test count is
   now 115.
+
+## Addendum 3 (2026-11-14): pilot 2 results; the configuration for the test run
+
+Written after pilot 2 and before any test-split run. Pilot 2 read the dev split only.
+
+**1. Pilot 2, as run** (commit `4a252eb0dd7f31b2f0d855000fa47f4f97fe6bab`, Colab,
+**NVIDIA L4**). Files committed unchanged in `pilot2/`:
+
+| File | sha256 |
+|---|---|
+| `pilot2/results.json` | `07d26f130d278eb51432fb63272629283c5a8f6d0e8e8fe620b513ce0fceb3c7` |
+| `pilot2/run.log` (`e2b_pilot2.log` on the host) | `2b2dc8f11ff845d6340be39610f937662fbbdab34164fc502c3ae1e41e5d47c8` |
+| `pilot2/checkpoint/gate.json` | `22c503456254d223af93ed0b85e40a7ec77ed09bf4d3a64efa9a840e8358e3a5` |
+| `pilot2/checkpoint/pilot.json` | `a0782a9efb814f830b7414ee765e81d4ab1131f6f0da7bfb8ed895336443579b` |
+| `pilot2/pip_freeze.txt` | `0f2bc48481a4cff2d631032555f57367e755742a7c172ce9c94e9425a748c853` |
+
+- **Different GPU from pilot 1** (A100 80 GB there, L4 here). Same seeds; sampled
+  outputs can differ between cards.
+- **One package differs from pilot 1:** `cuda-pathfinder` 1.9.0 instead of 1.8.6 (a
+  dependency of `cuda-bindings`, resolved at install time). Everything else in
+  `pip_freeze.txt` is identical.
+- **Gate:** passed again: accuracy 0.833, parse rate 0.995 (n = 120).
+- **Speed:** 7,200 episodes in 6,038 s, i.e. 4,293 per hour on the L4.
+
+**2. Effect check** (both contrasts; 30 episodes per cell).
+
+| Factor | Alone | In the release | Present |
+|---|---|---|---|
+| `invoice_tool_desc` | −1.00, −0.87 | −0.90, −1.00 | yes |
+| `eligibility_tool` | −0.17, −0.03 | −0.97, −0.97 | yes |
+| `max_steps` | −1.00, −1.00 | −1.00, −1.00 | yes |
+| `refund_fix` (helpful) | +1.00, +0.97 | +1.00, +1.00 | yes |
+| `answer_policy` (revised) | e_1 −0.77, e_2 −0.93 | −0.87, −0.97 | **yes** (it was not in pilot 1) |
+| `quote_example` (revised) | 0.00, 0.00 | 0.00, 0.00 | **no** |
+
+Not adjustable:
+- `persona`: C-inel +0.80 and +0.73 alone (it helps there, as in pilot 1); E +0.10
+  and −0.13.
+- `retries`: A −0.07 and −0.13.
+- `log_level`: at most ±0.17 alone (C-inel ci_4502 +0.17, e_1 +0.10 on 30 episodes).
+
+**3. No further changes.** The one revision round is used (§9).
+- `quote_example` stays as revised, although it showed no effect. If the reference
+  run confirms that, `wrong_order` is not produced and E2b makes no claim for it.
+- C-inel baselines were 0.17 and 0.03 again. Addendum 2 item 3 stands: those
+  questions will probably be key-suspect on the test split and excluded, so
+  `skipped_tool` is probably not produced, although `eligibility_tool` clearly
+  breaks the release (in-release contrast −0.97 on both dev questions).
+- The test run uses the code of this commit.
+
+**4. What to expect from the test run, stated in advance.**
+- **Likely produced:** `wrong_tool` (B), `premature_finish` (D), `no_action` (E).
+- **Likely not produced:** `wrong_order` (`quote_example` had no effect) and
+  `skipped_tool` (C-inel questions probably excluded).
+- **Likely key-suspect:** the four C-inel test questions. Four is within the limit, so
+  E2b stays scoreable; more than four would make it INCONCLUSIVE.
+- **`persona` will probably be labelled helpful on C-inel** (where its questions are
+  excluded anyway) and is unclear elsewhere. G3 is not testable below 4 null `persona`
+  pairs.
+- The interactions in E are large: with the revised policy in the candidate, every
+  `all_but_f` cell except `all_but_answer_policy` scored 0.00 on both dev questions.
+  So in the release, only `answer_policy` is necessary for the drop, which is what the
+  two-sided labels are built to see.
+
+**5. Runtime for the remaining 118,440 episodes.**
+
+| Card | Measured speed | Projection |
+|---|---|---|
+| A100 80 GB (pilot 1) | 15,099 episodes per hour | 7.84 h |
+| L4 (pilot 2) | 4,293 episodes per hour | 27.6 h |
+
+The test run is on an A100 (§10). Sample sizes are unchanged.
