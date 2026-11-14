@@ -51,7 +51,7 @@ The last line must start with
 ```
 
 - The torch line must show `2.10.0+cu128 True NVIDIA A100…`.
-- The tests should end with **114 passed**.
+- The tests should end with **115 passed**.
 
 ## 5. Model check on one dev question (not part of the run)
 

@@ -314,3 +314,89 @@ are hard to paraphrase").
 
 **6. Software.** As in E2: the CI pins plus `accelerate` and `huggingface_hub`, on
 the CUDA build of `torch==2.10.0`. Recorded in `results.json` and `pip_freeze.txt`.
+
+## Addendum 2 (2026-11-14): pilot 1 results and the one wording revision
+
+Written after pilot 1 and before any test-split run. Pilot 1 read the dev split only.
+A re-pilot follows (pilot 2); its results go in Addendum 3, also before the test run.
+
+**1. Pilot 1, as run** (commit `fba2b4356434f61170486870a938a3d0561d1411`, Colab,
+NVIDIA A100-SXM4-80GB). Files committed unchanged in `pilot1/`:
+
+| File | sha256 |
+|---|---|
+| `pilot1/results.json` | `7512441c5c86e41e01ed340006d22d8c0d6755df42f43ed3082b2288f3a5c5d3` |
+| `pilot1/run.log` (`e2b_pilot1.log` on the host) | `57f5ee3dc3833e88b5c344c80eb13e22e7e7f55c3cd24ae36924a6fda5be0900` |
+| `pilot1/checkpoint/gate.json` | `d41e3e411a46bf47867ad1b9a05bcb11f0e9c8d944378ba0c0a144c72139121f` |
+| `pilot1/checkpoint/pilot.json` | `c60d64adbb8807d25b3a7c12f9f041513e4057e64d75e78028968ac1c0a31491` |
+| `pilot1/pip_freeze.txt` | `ba4ccb9191c77002136eafb60b7427a5bc8d88f0fccda30cca5f14d2ff108ec6` (same as E2) |
+
+- **Gate:** rung 1 (Qwen2.5-7B-Instruct, bf16) passed: accuracy **0.825** (bar 0.80),
+  parse rate 1.000, n = 120. The margin is small; the C-inel dev questions pulled it
+  down (item 3).
+- **Speed:** 7,200 episodes in 1,716.6 s, i.e. 15,099 episodes per hour. Projection
+  for the 118,440 remaining episodes: 7.88 h on this card, assuming test episodes take
+  as long as pilot episodes.
+- Later, the owner ran the whole notebook again by mistake on a new runtime (an L4).
+  The pilot cell then loaded the saved gate and pilot units and computed nothing; the
+  log and zip on Drive were rewritten. The files above were copied before that
+  happened. The re-zipped upload was not used.
+
+**2. Effect check** (both contrasts, 30 episodes per cell, dev questions of the
+targeted type).
+
+| Factor | Alone (`only_f` − baseline) | In the release (candidate − `all_but_f`) | Present |
+|---|---|---|---|
+| `invoice_tool_desc` | b_3306 −1.00, b_3329 −0.87 | −0.93, −0.93 | yes |
+| `eligibility_tool` | ci_4502 −0.13, ci_4526 −0.17 | −1.00, −0.93 | yes |
+| `max_steps` | d_fellgate −1.00, d_marlstone −1.00 | −1.00, −1.00 | yes |
+| `refund_fix` (helpful) | cd_5703 +1.00, cd_5727 +1.00 | +1.00, +1.00 | yes |
+| `quote_example` | 0.00, 0.00 | 0.00, 0.00 | **no** |
+| `answer_policy` | e_1 −0.03, e_2 +0.07 | +0.07, −0.07 | **no** |
+
+**3. What the dev diagnostic showed** (`pilot1/diag.py`, seed `e2b-diag`, run by the
+owner on an L4; output pasted in the chat and kept in `pilot1/diag_output.txt`, so it
+has no file hash from the host).
+
+- **C-inel questions are mostly answered wrongly by the baseline itself (13% and 17%
+  in pilot 1).** In 2 of 3 baseline episodes the agent called `check_eligibility`,
+  then also `calc_refund`, said the order was not eligible, left out the decision
+  code, and added the refund amount the order "would" get (33.50 EUR). Both omissions
+  make the answer wrong under the keys written in Addendum 1.
+- **This is the agent, not a broken key.** The question asks for the decision code;
+  the answers did not give it, and they volunteered a refund amount that is not due.
+  So the keys are left as they are.
+- **Consequence, stated now:** on the test split the C-inel questions will probably
+  meet the pre-registered key-suspect rule (baseline < 0.50, failures labelled
+  `other` because the required tools were called in order), and be excluded from
+  every criterion. If all four are excluded, E2b stays scoreable (the limit is 4),
+  but `skipped_tool` cannot be produced, so E2b will make no claim for it. Changing
+  the questions or the baseline prompt now would change sealed data or the baseline
+  system, which §9 does not allow, so that is not done.
+- **`persona` is not harmless.** With only the polite line added, C-inel went from
+  13–17% to 83–97% (the agent stopped calling `calc_refund` and gave the code). The
+  two-sided labels will say what it does on the test split.
+- **`quote_example`:** the agent still applied the voucher before computing the
+  total, three times of three.
+- **`answer_policy`:** the agent still called `search_policy`, three times of three.
+  But in the full candidate with only the eligibility tool restored (e_2), it
+  answered without any tool call, three of three ("30" or "35" EUR). The policy text
+  can work in combination with other changes; alone it was ignored.
+
+**4. The one wording revision** (§9: text factors with no effect, once). Only the
+candidate text of two factors changed, in `system.py`.
+
+| Factor | Pilot-1 candidate wording | Revised candidate wording |
+|---|---|---|
+| `quote_example` | "Worked example of a quote: call start_quote, then compute_total, then apply_voucher, and report the total that compute_total returned." | The same, plus: "apply_voucher finalises the quote: after it, make no more tool calls and give the answer." |
+| `answer_policy` | "Answer policy questions from your knowledge of standard retail practice. Use tools only for order data." | "Answer policy questions from your knowledge of standard retail practice. Do not call search_policy: it is reserved for staff and is being removed. Use tools only for order data." |
+
+- Both state false things on purpose (a release whose prompt went wrong). The tools
+  are unchanged.
+- **Disclosed risk:** written after reading the dev diagnostic, so fitted to this
+  model's dev behaviour. Not tried on any test question.
+- This is the only revision. After pilot 2 the wordings stay, effect or not.
+- Baseline texts, `invoice_tool_desc`, `persona`, all non-text factors, data, keys,
+  thresholds, sample sizes and criteria are unchanged.
+- One test was added (`test_addendum2_revised_wording`); the COLAB.md test count is
+  now 115.

@@ -1,0 +1,42 @@
+===== ci_4502 baseline | accepted ['NR-417'] | rejected ['33.50', '41.90']
+correct | calls: ['check_eligibility'] | limit: False
+    The order HC-4502 is not eligible for a refund as it is outside the 19-day return window (decision code NR-417). No refund will be processed.
+wrong | calls: ['check_eligibility', 'calc_refund'] | limit: False
+    The order is not eligible for a refund according to the reason "outside the 19-day return window". However, if the order were eligible, the refund amount would be 33.50 EUR.
+wrong | calls: ['check_eligibility', 'calc_refund'] | limit: False
+    The order HC-4502 is not eligible for a refund according to the reason provided: "outside the 19-day return window". However, if a refund was still processed, it would amount to 33.50 EUR.
+===== ci_4502 only persona | accepted ['NR-417'] | rejected ['33.50', '41.90']
+correct | calls: ['check_eligibility'] | limit: False
+    The order HC-4502 is not eligible for a refund as it is outside the 19-day return window (decision code NR-417). No refund amount is due.
+correct | calls: ['check_eligibility'] | limit: False
+    The order HC-4502 is not eligible for a refund as it is outside the 19-day return window (decision code NR-417). No refund amount is due.
+correct | calls: ['check_eligibility'] | limit: False
+    The order HC-4502 is not eligible for a refund as it is outside the 19-day return window (decision code NR-417). No refund amount is due.
+===== cd_5703 only refund_fix | accepted ['94.60'] | rejected ['86.20']
+correct | calls: ['check_eligibility', 'calc_refund'] | limit: False
+    The customer should be refunded €94.60.
+correct | calls: ['check_eligibility', 'calc_refund'] | limit: False
+    The customer should be refunded €94.60.
+correct | calls: ['check_eligibility', 'calc_refund'] | limit: False
+    The customer is entitled to a refund of 94.60 EUR.
+===== d_fellgate only quote_example | accepted ['52.19'] | rejected ['56.00', '47.60']
+correct | calls: ['start_quote', 'apply_voucher', 'compute_total'] | limit: False
+    The final total for 2 x Fellgate chain with voucher GEAR08 applied is 52.19 EUR.
+correct | calls: ['start_quote', 'apply_voucher', 'compute_total'] | limit: False
+    The final total for the quote, after applying the voucher GEAR08, is 52.19 EUR.
+correct | calls: ['start_quote', 'apply_voucher', 'compute_total'] | limit: False
+    The final total for your quote, after applying the voucher GEAR08, is 52.19 EUR.
+===== e_1 only answer_policy | accepted ['19'] | rejected ['14', '28', '30']
+correct | calls: ['search_policy'] | limit: False
+    According to our policy, an unused item can be returned within 19 days of delivery.
+correct | calls: ['search_policy'] | limit: False
+    According to our policy, an unused item can be returned within 19 days of delivery.
+correct | calls: ['search_policy'] | limit: False
+    According to our policy, an unused item can be returned within 19 days of delivery.
+===== e_2 all_but eligibility_tool | accepted ['37'] | rejected ['25', '50', '49']
+wrong | calls: [] | limit: False
+    The flat fee for workshop assembly of a bike bought online at Harrowgate Cycles is €30.
+wrong | calls: [] | limit: False
+    The flat fee for workshop assembly of a bike bought online is 35 EUR.
+wrong | calls: [] | limit: False
+    The flat fee for workshop assembly of a bike bought online at Harrowgate Cycles is 35 EUR.

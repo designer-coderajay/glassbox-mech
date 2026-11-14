@@ -151,6 +151,17 @@ def test_factor_table_matches_protocol(S):
     assert set(S.TEXT_FACTORS) < set(S.FAULT_CLASS)
 
 
+def test_addendum2_revised_wording(S):
+    """Only the two text factors without an effect in pilot 1 were revised, once."""
+    assert "apply_voucher finalises the quote" in S.QUOTE_EXAMPLES["compute_then_apply"]
+    assert "Do not call search_policy" in S.ANSWER_POLICIES["own_knowledge"]
+    assert S.QUOTE_EXAMPLES["apply_then_compute"].endswith("compute_total returned.")
+    assert S.ANSWER_POLICIES["always_tools"] == (
+        "Always use the tools for company policy and order data.")
+    assert S.ORDER_DESC["broad"].endswith("returns outdated totals.")
+    assert S.PERSONAS["polite"].endswith("Keep a polite, professional tone.")
+
+
 def test_eligibility_tool_missing_from_schemas_and_runtime(S):
     names = lambda cfg: [t["function"]["name"] for t in S.tool_schemas(cfg)]  # noqa: E731
     assert "check_eligibility" in names(S.BASE) and len(names(S.BASE)) == 8

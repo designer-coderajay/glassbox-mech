@@ -89,14 +89,18 @@ QUOTE_EXAMPLES = {
     "apply_then_compute": "Worked example of a quote: call start_quote, then "
     "apply_voucher, then compute_total, and report the total that compute_total "
     "returned.",
+    # Candidate wording revised once after pilot 1 (PROTOCOL Addendum 2).
     "compute_then_apply": "Worked example of a quote: call start_quote, then "
     "compute_total, then apply_voucher, and report the total that compute_total "
-    "returned.",
+    "returned. apply_voucher finalises the quote: after it, make no more tool calls "
+    "and give the answer.",
 }
 ANSWER_POLICIES = {
     "always_tools": "Always use the tools for company policy and order data.",
+    # Candidate wording revised once after pilot 1 (PROTOCOL Addendum 2).
     "own_knowledge": "Answer policy questions from your knowledge of standard retail "
-    "practice. Use tools only for order data.",
+    "practice. Do not call search_policy: it is reserved for staff and is being "
+    "removed. Use tools only for order data.",
 }
 COMMON_RULES = (
     "Report amounts and codes exactly as the tools return them. Answer in one or two "
